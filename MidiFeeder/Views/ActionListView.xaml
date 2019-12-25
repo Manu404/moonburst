@@ -1,0 +1,177 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MoonBurst.Views"
+                    xmlns:moonBurst="clr-namespace:MoonBurst"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <DataTemplate x:Key="ActionEditorHeaderItemTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <ToggleButton IsChecked="{Binding IsEnabled}" ToolTip="(De)Activate">
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource RedAccent200}"></SolidColorBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+                <moonBurst:ToggleButtonAssist.SwitchTrackOnBackground>
+                    <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
+                </moonBurst:ToggleButtonAssist.SwitchTrackOnBackground>
+                <moonBurst:ToggleButtonAssist.SwitchTrackOffBackground>
+                    <SolidColorBrush Color="{DynamicResource RedAccent200}"></SolidColorBrush>
+                </moonBurst:ToggleButtonAssist.SwitchTrackOffBackground>
+            </ToggleButton>
+            <Label Grid.Column="1" VerticalAlignment="Center" FontSize="11" ToolTip="{Binding ActionName}">
+                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ActionName}" />
+            </Label>
+        </Grid>
+    </DataTemplate>
+
+    <Style TargetType="Label" x:Key="ActionEditorFieldLabel" BasedOn="{StaticResource MaterialDesignLabel}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Width" Value="75"></Setter>
+    </Style>
+    <Style TargetType="mah:NumericUpDown">
+        <Setter Property="Minimum" Value="0" />
+        <Setter Property="Maximum" Value="0" />
+        <Setter Property="TextAlignment" Value="0" />
+    </Style>
+
+    <!-- Action Editor Body -->
+    <DataTemplate x:Key="ActionEditorBodyItemTemplate">
+        <Border Margin="10,0,10,0">
+            <StackPanel>
+                <StackPanel Margin="0, 10, 0, 0" Width="225">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{DynamicResource ActionEditorFieldLabel}" 
+                                   Content="Trigger" />
+                        <ComboBox materialDesign:HintAssist.Hint="Command"
+                                      ToolTip="Command" Width="150"
+                                      ItemsSource="{Binding Source={StaticResource FootTriggerValues}}"
+                                      SelectedItem="{Binding Trigger}">
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{DynamicResource ActionEditorFieldLabel}" 
+                                   Content="Channel" />
+                        <mah:NumericUpDown  Width="150"
+                                                Minimum="0" 
+                                                Maximum="128"
+                                                TextAlignment="Left"
+                                                HorizontalContentAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="Midi Channel"
+                                                ToolTip="Midi Channel"
+                                                Value="{Binding MidiChannel}"
+                                                Interval="1" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
+                                   Content="Data 1"/>
+                        <mah:NumericUpDown  Width="150"
+                                                Minimum="0"
+                                                Maximum="128"
+                                                TextAlignment="Left"
+                                                HorizontalContentAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="Data 1"
+                                                ToolTip="Data 1"
+                                                Value="{Binding Data1}"
+                                                Interval="1" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
+                                   Content="Data 2"/>
+                        <mah:NumericUpDown  Width="150"
+                                                Minimum="0"
+                                                Maximum="128"
+                                                TextAlignment="Left"
+                                                HorizontalContentAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="Data 2"
+                                                ToolTip="Data 2"
+                                                Value="{Binding Data2}"
+                                                Interval="1" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
+                                   Content="Delay(ms)"/>
+                        <mah:NumericUpDown  Width="150"
+                                                Minimum="0"
+                                                Maximum="128"
+                                                TextAlignment="Left"
+                                                HorizontalContentAlignment="Stretch"
+                                                materialDesign:HintAssist.Hint="Data 2"
+                                                ToolTip="Data 2"
+                                                Value="{Binding Delay}"
+                                                Interval="1" />
+                    </StackPanel>
+
+                    <ComboBox Margin="0,10,0,0"
+                                  materialDesign:HintAssist.Hint="Command"
+                                  ToolTip="Command"
+                                  ItemsSource="{Binding Source={StaticResource MidiChannelCommandValues}}"
+                                  SelectedItem="{Binding Command}">
+                    </ComboBox>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Style="{StaticResource MaterialDesignToolButton}"
+                                    Padding="2 0 2 0"
+                                    HorizontalAlignment="Right" 
+                                    materialDesign:RippleAssist.IsCentered="True" 
+                                    Command="{Binding OnDeleteActionCommand}">
+                            <materialDesign:PackIcon Kind="Delete" />
+                        </Button>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ActionListItemTemplate">
+        <materialDesign:Card  HorizontalAlignment="Stretch" 
+                                  materialDesign:ShadowAssist.ShadowDepth="Depth1" 
+                                  Padding="1"  Margin="5">
+            <Expander IsExpanded="{Binding IsExpanded}" 
+                          Content="{Binding}" Header="{Binding}" 
+                          HorizontalAlignment="Stretch" Name="exp"
+                          materialDesign:ExpanderAssist.DownHeaderPadding="5 5 25 5"
+                          Style="{StaticResource ActionEditorExpander}"
+                          ContentTemplate="{StaticResource ActionEditorBodyItemTemplate}"
+                          HeaderTemplate="{StaticResource ActionEditorHeaderItemTemplate}">
+            </Expander>
+        </materialDesign:Card>
+    </DataTemplate>
+
+    <ControlTemplate x:Key="ActionListTemplate" TargetType="{x:Type ItemsControl}">
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" CanContentScroll="False">
+            <ItemsPresenter/>
+        </ScrollViewer>
+    </ControlTemplate>
+
+    <Style TargetType="ItemsControl" x:Key="ActionListItemsControl">
+        <Setter Property="Template" Value="{StaticResource ActionListTemplate}" />
+        <Setter Property="ItemTemplate" Value="{StaticResource ActionListItemTemplate}" />
+    </Style>
+</ResourceDictionary>
