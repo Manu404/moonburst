@@ -37,17 +37,13 @@ namespace MoonBurst.ViewModel
         public ObservableCollection<SideMenuAction> QuickActions { get; set; }
 
         private DebugWindow debugWindow;
-        private TeVirtualMIDI port;
-        private OutputDevice _outDevice;
         private string _log;
         private string _appVersion;
         private string _title;
         private LayoutViewModel _currentLayout;
         private ClientConfiguration _currentClientConfiguration;
         private HardwareConfigurationViewModel _currentHardwareConfig;
-
-        private SerialPort CurrentSerialPort { get; set; }
-
+        
         public ICommand OnOpenConsoleCommand { get; set; }
         public ICommand OnCloseCommand { get; set; }
 
@@ -200,13 +196,6 @@ namespace MoonBurst.ViewModel
             RaisePropertyChanged();
         }
 
-        void CreateMockData()
-        {
-            _title += " (DEBUG)";
-            this.CurrentLayout.CreateMockData();
-            RaisePropertyChanged("Title");
-        }
-
         void OpenConsole()
         {
             if (debugWindow == null)
@@ -216,26 +205,6 @@ namespace MoonBurst.ViewModel
             }
 
             debugWindow.Show();
-        }
-
-        void OnSendMidiTest()
-        {
-            //ChannelMessageBuilder builder = new ChannelMessageBuilder();
-
-            //builder.Command = (Sanford.Multimedia.Midi.ChannelCommand)ChannelCommand.NoteOn;
-            //builder.MidiChannel = 0;
-            //builder.Data1 = 64;
-            //builder.Data2 = 127;
-            //builder.Build();
-
-            //this.outDevice.Send(builder.Result);
-            
-            //WriteLine(builder.Result.ToString());
-        }
-
-        void OnSerialData(object sender, SerialDataReceivedEventArgs e)
-        {
-            WriteLine(CurrentSerialPort.ReadExisting());
         }
 
         #region utils

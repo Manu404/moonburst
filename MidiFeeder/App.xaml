@@ -11,6 +11,9 @@
              xmlns:model="clr-namespace:MoonBurst.Model">
     <Application.Resources>
         <ResourceDictionary>
+
+
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
@@ -35,7 +38,31 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.red.named.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.lightblue.named.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.grey.named.xaml" />
+
+                <ResourceDictionary>
+                    <core:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+
+                    <ObjectDataProvider x:Key="MidiChannelCommandValues" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="model:ChannelCommand"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+
+                    <ObjectDataProvider x:Key="FootTriggerValues" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="model:FootTrigger"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                </ResourceDictionary>
+
+                <ResourceDictionary Source="Views/ActionListView.xaml"  />
+                <ResourceDictionary Source="Views/ChannelListView.xaml"  />
+                <ResourceDictionary Source="Views/SideMenu.xaml"  />
+
             </ResourceDictionary.MergedDictionaries>
+
+
+
 
             <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource 'Deep PurplePrimary200'}"/>
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource  'Deep PurplePrimary200Foreground'}"/>
@@ -70,20 +97,6 @@
             <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
             <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchMouseOverBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary400'}" />
             <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.ThumbIndicatorCheckedBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
-
-            <core:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-
-            <ObjectDataProvider x:Key="MidiChannelCommandValues" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="model:ChannelCommand"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-
-            <ObjectDataProvider x:Key="FootTriggerValues" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="model:FootTrigger"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
 
             <Style x:Key="MaterialDesignSwitchToggleButton" TargetType="{x:Type ToggleButton}">
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
@@ -247,457 +260,6 @@
                 </Setter>
             </Style>
 
-            <Style  x:Key="ChannelMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <Border Padding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(materialDesign:ExpanderAssist.RightHeaderPadding)}" BorderThickness="3,0,0,0">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsEnabled}" Value="True">
-                                                <Setter Property="BorderBrush">
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsEnabled}" Value="False">
-                                                <Setter Property="BorderBrush">
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <ToggleButton Grid.Row="0"
-                                                          HorizontalAlignment="Center"
-                                                          Foreground="{TemplateBinding Foreground}"
-                                                          IsChecked="{Binding Path=IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                          Style="{StaticResource MaterialDesignExpanderToggleButton}"
-                                                          RenderTransformOrigin="0.5,0.5">
-                                        <ToggleButton.RenderTransform>
-                                            <RotateTransform Angle="-90"/>
-                                        </ToggleButton.RenderTransform>
-                                    </ToggleButton>
-                                    <ContentPresenter Grid.Row="1"
-                                                              HorizontalAlignment="Center"
-                                                              Margin="0,16,0,0"
-                                                              Content="{TemplateBinding Content}"
-                                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                              VerticalAlignment="Stretch" />
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="ActionMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <Border Background="{TemplateBinding Background}" BorderThickness="3,0,0,0" 
-                                    Padding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(materialDesign:ExpanderAssist.DownHeaderPadding)}">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsEnabled}" Value="False">
-                                                <Setter Property="BorderBrush">
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsEnabled}" Value="True">
-                                                <Setter Property="BorderBrush">
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentPresenter Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                              VerticalAlignment="Stretch"
-                                              Margin="0,0,16,0" />
-                                    <ToggleButton Grid.Column="1"
-                                          VerticalAlignment="Center"
-                                          Foreground="{TemplateBinding Foreground}"
-                                          IsChecked="{Binding Path=IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                          Style="{StaticResource MaterialDesignExpanderToggleButton}"/>
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="MenuMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="HorizontalAlignment" Value="Right" />
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <Border Background="{TemplateBinding Background}" Padding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(materialDesign:ExpanderAssist.LeftHeaderPadding)}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <ToggleButton Grid.Row="0"
-                                                  HorizontalAlignment="Center"
-                                                  Foreground="{TemplateBinding Foreground}"
-                                                  IsChecked="{Binding Path=IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Style="{StaticResource MaterialDesignExpanderToggleButton}"
-                                                  RenderTransformOrigin="0.5,0.5">
-                                        <ToggleButton.RenderTransform>
-                                            <RotateTransform Angle="90"/>
-                                        </ToggleButton.RenderTransform>
-                                    </ToggleButton>
-                                    <ContentPresenter Grid.Row="1"
-                                                      HorizontalAlignment="Center"
-                                                      Margin="0,16,0,0"
-                                                      Content="{TemplateBinding Content}"
-                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                      VerticalAlignment="Stretch" />
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="ActionEditorExpander" TargetType="{x:Type Expander}" BasedOn="{StaticResource MaterialDesignExpander}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Expander}">
-                            <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="ExpansionStates">
-                                        <VisualStateGroup.Transitions>
-                                            <VisualTransition GeneratedDuration="0" To="Expanded">
-                                                <VisualTransition.GeneratedEasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </VisualTransition.GeneratedEasingFunction>
-                                                <Storyboard>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                                    </ObjectAnimationUsingKeyFrames>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0:0:0.3"/>
-                                                </Storyboard>
-                                            </VisualTransition>
-                                            <VisualTransition GeneratedDuration="0" To="Collapsed">
-                                                <VisualTransition.GeneratedEasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </VisualTransition.GeneratedEasingFunction>
-                                                <Storyboard>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Hidden}" />
-                                                    </ObjectAnimationUsingKeyFrames>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0:0:0.3"/>
-                                                </Storyboard>
-                                            </VisualTransition>
-                                        </VisualStateGroup.Transitions>
-                                        <VisualState x:Name="Expanded">
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0"/>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Collapsed">
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0"/>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                                <DockPanel Background="{TemplateBinding Background}">
-                                    <ToggleButton Name="HeaderSite"
-                                          Focusable="False"
-                                          IsTabStop="False"
-                                          DockPanel.Dock="Top"
-                                          BorderThickness="0" Cursor="Hand"
-                                          IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                          Style="{StaticResource MaterialDesignExpanderDownHeaderStyle}"
-                                          TextElement.FontSize="15"
-                                          Opacity=".87"
-                                          Foreground="{TemplateBinding Foreground}"
-                                          Content="{TemplateBinding Header}"
-                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                          ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
-                                    <Border Name="ContentSite" BorderThickness="3,0,0,0">
-                                        <Border.Style>
-                                            <Style TargetType="Border">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsEnabled}" Value="False">
-                                                        <Setter Property="BorderBrush">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsEnabled}" Value="True">
-                                                        <Setter Property="BorderBrush">
-                                                            <Setter.Value>
-                                                                <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                        <Grid Name="ContentPanel"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                            <ContentPresenter Name="PART_Content" Focusable="False" Opacity="0"
-                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"/>
-                                        </Grid>
-                                    </Border>
-                                </DockPanel>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="ExpandDirection" Value="Down">
-                                    <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Top"/>
-                                    <Setter Property="LayoutTransform" TargetName="ContentPanel">
-                                        <Setter.Value>
-                                            <ScaleTransform CenterX="0.5" CenterY="0" 
-                                                    ScaleY="{Binding Opacity, ElementName=PART_Content}" />
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Width" TargetName="ContentPanel" Value="Auto"/>
-                                    <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ActionMaterialExpanderHeaderStyle}"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="ChannelExpander" TargetType="{x:Type Expander}" BasedOn="{StaticResource MaterialDesignExpander}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Expander}">
-                            <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="ExpansionStates">
-                                        <VisualStateGroup.Transitions>
-                                            <VisualTransition GeneratedDuration="0" To="Expanded">
-                                                <VisualTransition.GeneratedEasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </VisualTransition.GeneratedEasingFunction>
-                                                <Storyboard>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                                    </ObjectAnimationUsingKeyFrames>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0:0:0.3"/>
-                                                </Storyboard>
-                                            </VisualTransition>
-                                            <VisualTransition GeneratedDuration="0" To="Collapsed">
-                                                <VisualTransition.GeneratedEasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </VisualTransition.GeneratedEasingFunction>
-                                                <Storyboard>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Hidden}" />
-                                                    </ObjectAnimationUsingKeyFrames>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0:0:0.3"/>
-                                                </Storyboard>
-                                            </VisualTransition>
-                                        </VisualStateGroup.Transitions>
-                                        <VisualState x:Name="Expanded">
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0"/>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Collapsed">
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0"/>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                                <DockPanel Background="{TemplateBinding Background}">
-                                    <ToggleButton Name="HeaderSite"
-                                          Focusable="False"
-                                          IsTabStop="False"
-                                          DockPanel.Dock="Top"
-                                          BorderThickness="0" Cursor="Hand"
-                                          IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                          Style="{StaticResource MaterialDesignExpanderDownHeaderStyle}"
-                                          TextElement.FontSize="15"
-                                          Opacity=".87"
-                                          Foreground="{TemplateBinding Foreground}"
-                                          Content="{TemplateBinding Header}"
-                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                          ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
-                                    <Border Name="ContentSite">
-                                        <Grid Name="ContentPanel"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                            <ContentPresenter Name="PART_Content" Focusable="False" Opacity="0"
-                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"/>
-                                        </Grid>
-                                    </Border>
-                                </DockPanel>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="ExpandDirection" Value="Right">
-                                    <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
-                                    <Setter Property="LayoutTransform" TargetName="ContentPanel">
-                                        <Setter.Value>
-                                            <ScaleTransform CenterX="1" CenterY="0.5" ScaleX="{Binding Opacity, ElementName=PART_Content}" />
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Height" TargetName="ContentPanel" Value="Auto"/>
-                                    <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ChannelMaterialExpanderHeaderStyle}"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="MenuMaterialDesignExpander" TargetType="{x:Type Expander}" BasedOn="{StaticResource MaterialDesignExpander}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Expander}">
-                            <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="ExpansionStates">
-                                        <VisualStateGroup.Transitions>
-                                            <VisualTransition GeneratedDuration="0" To="Expanded">
-                                                <VisualTransition.GeneratedEasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </VisualTransition.GeneratedEasingFunction>
-                                                <Storyboard>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                                    </ObjectAnimationUsingKeyFrames>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0:0:0.3"/>
-                                                </Storyboard>
-                                            </VisualTransition>
-                                            <VisualTransition GeneratedDuration="0" To="Collapsed">
-                                                <VisualTransition.GeneratedEasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </VisualTransition.GeneratedEasingFunction>
-                                                <Storyboard>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Hidden}" />
-                                                    </ObjectAnimationUsingKeyFrames>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0:0:0.3"/>
-                                                </Storyboard>
-                                            </VisualTransition>
-                                        </VisualStateGroup.Transitions>
-                                        <VisualState x:Name="Expanded">
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0"/>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Collapsed">
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0"/>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                                <DockPanel Background="{TemplateBinding Background}">
-                                    <ToggleButton Name="HeaderSite"
-                                          Focusable="False"
-                                          IsTabStop="False"
-                                          DockPanel.Dock="Top"
-                                          BorderThickness="0" Cursor="Hand"
-                                          IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                          Style="{StaticResource MaterialDesignExpanderDownHeaderStyle}"
-                                          TextElement.FontSize="15"
-                                          Opacity=".87"
-                                          Foreground="{TemplateBinding Foreground}"
-                                          Content="{TemplateBinding Header}"
-                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                          ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
-                                    <Border Name="ContentSite">
-                                        <Grid Name="ContentPanel"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                            <ContentPresenter Name="PART_Content" Focusable="False" Opacity="0"
-                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"/>
-                                        </Grid>
-                                    </Border>
-                                </DockPanel>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="ExpandDirection" Value="Left">
-                                    <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
-                                    <Setter Property="LayoutTransform" TargetName="ContentPanel">
-                                        <Setter.Value>
-                                            <ScaleTransform CenterX="0" CenterY="0.5" 
-                                                            ScaleX="{Binding Opacity, ElementName=PART_Content}" />
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Height" TargetName="ContentPanel" Value="Auto"/>
-                                    <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource MenuMaterialExpanderHeaderStyle}"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

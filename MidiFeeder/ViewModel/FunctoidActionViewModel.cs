@@ -2,10 +2,16 @@ using System.Data;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel
 {
+    public class TriggeredActionMessage : MessageBase
+    {
+        public FunctoidActionViewModel.FunctoidActionData Data { get; set; }
+    }
+
     public class FunctoidActionViewModel : ViewModelBase
     {
         private bool _isEnabled;
@@ -109,10 +115,17 @@ namespace MoonBurst.ViewModel
         }
 
         public ICommand OnDeleteActionCommand { get; set; }
+        public ICommand OnTestActionCommand { get; set; }
 
         public FunctoidActionViewModel()
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
+            OnTestActionCommand = new RelayCommand(OnTestAction);
+        }
+
+        private void OnTestAction()
+        {
+            Messenger.Default.Send(new TriggeredActionMessage() { Data = this.GetData() });
         }
 
         private void OnDelete()

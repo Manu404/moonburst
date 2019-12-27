@@ -31,9 +31,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <local:ChannelView DataContext="{Binding CurrentLayout}" Margin="20, 20, 20, 20"></local:ChannelView>
+            <ListView Style="{StaticResource ChannelListView}" DataContext="{Binding CurrentLayout}"  ItemsSource="{Binding FunctoidChannels}" Margin="20, 20, 20, 20"/>
 
-            <local:SideMenuView Grid.Column="1"></local:SideMenuView>
+            <Expander Style="{StaticResource SideMenuExpander}" Grid.Column="1" Content="{Binding}"  />
         </Grid>
         <StatusBar Grid.Row="2">
             <TextBlock>Ready</TextBlock>

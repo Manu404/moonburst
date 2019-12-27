@@ -1,52 +1,48 @@
-using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO.Ports;
-using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
+using MoonBurst.Core;
 using MoonBurst.Model;
-using Sanford.Multimedia.Midi;
 
 namespace MoonBurst.ViewModel
 {
     public class HardwareConfigurationViewModel : ViewModelBase, IFileSerializableType<HardwareConfigurationViewModel.HardwareConfigurationData>
     {
+        private IMidiGateway _midiGateway;
+        private ISerialGateway _serialGateway;
         private bool _isMidiConnected;
         private bool _isComConnected;
 
-        private InputCOMPort _comPort;
-        private OutputMidiDevice _midiOut;
-        private int MessageLength;
-        private int _speed;
-        
         public int SelectedSpeed
         {
-            get => _speed;
+            get => _serialGateway.CurrentSpeed;
             set
             {
-                _speed = value;
+                _serialGateway.CurrentSpeed = value;
                 RaisePropertyChanged();
             }
         }
 
         public InputCOMPort SelectedComPort
         {
-            get => _comPort;
+            get => _serialGateway.CurrentPort;
             set
             {
-                _comPort = value;
+                _serialGateway.CurrentPort = value;
                 RaisePropertyChanged();
             }
         }
 
         public OutputMidiDevice SelectedOutputMidiDevice
         {
-            get => _midiOut;
+            get => _midiGateway.SelectedOutput;
             set
             {
-                _midiOut = value;
+                _midiGateway.SelectedOutput = value;
                 RaisePropertyChanged();
             }
         }
@@ -54,7 +50,7 @@ namespace MoonBurst.ViewModel
         public ObservableCollection<OutputMidiDevice> OutputMidiDevices { get; set; }
         public ObservableCollection<InputCOMPort> InputComPorts { get; set; }
         public ObservableCollection<int> SupportedBaudRates { get; set; }
-        
+
         public bool IsMidiConnected
         {
             get => _isMidiConnected;
@@ -75,7 +71,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ICommand SendMidiTestCommand { get; set; }
+        public ICommand OnSendMidiTestCommand { get; set; }
         public ICommand OnRefreshMidiCommand { get; set; }
         public ICommand OnRefreshComCommand { get; set; }
         public ICommand OnConnectMidiCommand { get; set; }
@@ -87,31 +83,18 @@ namespace MoonBurst.ViewModel
 
         public HardwareConfigurationViewModel()
         {
-            
+            _midiGateway = new MidiGateway(MessengerInstance);
+            _serialGateway = new SerialGateway(MessengerInstance);
+
             OutputMidiDevices = new ObservableCollection<OutputMidiDevice>();
             InputComPorts = new ObservableCollection<InputCOMPort>();
-            SupportedBaudRates = new ObservableCollection<int>
-            {
-                300,
-                600,
-                1200,
-                2400,
-                4800,
-                9600,
-                19200,
-                38400,
-                57600,
-                115200,
-                230400,
-                460800,
-                921600
-            };
+            SupportedBaudRates = new ObservableCollection<int>();
 
-            OnConnectComCommand = new RelayCommand(OnConnectCom, () => this.SelectedComPort?.Id >= 0);
-            OnConnectMidiCommand = new RelayCommand(OnConnectMidi, () => this.SelectedOutputMidiDevice?.Id >= 0);
+            OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(), () => this.SelectedComPort?.Id >= 0);
+            OnConnectMidiCommand = new RelayCommand(() => _midiGateway.Connect(), () => this.SelectedOutputMidiDevice?.Id >= 0);
             OnRefreshComCommand = new RelayCommand(OnRefreshCOMDevices, () => !this.IsComConnected);
             OnRefreshMidiCommand = new RelayCommand(OnRefreshMidiDevices, () => !this.IsMidiConnected);
-            //SendMidiTestCommand = new RelayCommand(OnSendMidiTest, () => IsMidiConnected);
+            OnSendMidiTestCommand = new RelayCommand(() => _midiGateway.SendTest(), () => IsMidiConnected);
             
             LoadConfigCommand = new RelayCommand(OnLoadConfig);
             SaveConfigCommand = new RelayCommand(OnSaveConfig);
@@ -119,13 +102,15 @@ namespace MoonBurst.ViewModel
 
             OnRefreshMidiDevices();
             OnRefreshCOMDevices();
-        }
 
+            MessengerInstance.Register<MidiConnectionStateChangedMessage>(this, (o) => this.IsMidiConnected = o.NewState == MidiConnectionStatus.Connected);
+            MessengerInstance.Register<SerialConnectionStateChangedMessage>(this, (o) => this.IsComConnected = o.NewState);
+        }
+        
         public HardwareConfigurationViewModel(HardwareConfigurationData config, string path) : this()
         {
             this.SelectedComPort = config.ComPort;
             this.SelectedOutputMidiDevice = config.MidiOut;
-            this.MessageLength = config.MessageLength;
             this.SelectedSpeed = config.Speed;
             this.Path = path;
         }
@@ -160,113 +145,19 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        void OnConnectMidi()
-        {
-            //if (!this.IsMidiConnected && this.SelectedOutputMidiDevice?.Id >= 0)
-            //{
-            //    _outDevice = new OutputDevice(this.SelectedOutputMidiDevice.Id);
-            //    this.IsMidiConnected = true;
-            //}
-            //else
-            //{
-            //    _outDevice?.Close();
-            //    this.IsMidiConnected = false;
-            //}
-        }
-
-        void OnConnectCom()
-        {
-            //if (!this.IsComConnected)
-            //{
-            //    try
-            //    {
-            //        if (!Int32.TryParse(this.SelectedSpeed, out var speed))
-            //        {
-            //            speed = 9600;
-            //            this.SelectedSpeed = "9600";
-            //        }
-            //        CurrentSerialPort = new SerialPort(this.SelectedComPort.Name, speed, Parity.None, 8, StopBits.One);
-            //        CurrentSerialPort.DataReceived += OnSerialData;
-            //        CurrentSerialPort.Open();
-            //        WriteLine($"Port {this.SelectedComPort.Name} opened ({speed}bauds)");
-            //        this.IsComConnected = true;
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        WriteLine(e.Message);
-            //        this.IsComConnected = false;
-            //    }
-            //}
-            //else
-            //{
-            //    try
-            //    {
-            //        if (CurrentSerialPort != null && CurrentSerialPort.IsOpen)
-            //        {
-            //            CurrentSerialPort.DataReceived -= OnSerialData;
-            //            CurrentSerialPort.Close();
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        WriteLine(e.Message);
-            //    }
-            //    this.IsComConnected = false;
-            //}
-        }
-
         void OnRefreshMidiDevices()
         {
-            this.RefreshMidiDevices();
+            OutputMidiDevices.Clear();
+            _midiGateway.GetDevices().ForEach(OutputMidiDevices.Add);
+            RaisePropertyChanged("SelectedOutput");
         }
 
         void OnRefreshCOMDevices()
         {
-            this.RefreshCOMDevices();
-        }
-
-
-        public void RefreshMidiDevices()
-        {
-            OutputMidiDevices.Clear();
-            if (OutputDevice.DeviceCount > 0)
-            {
-                //WriteLine($"{OutputDevice.DeviceCount} devices found:");
-                for (int i = 0; i < OutputDevice.DeviceCount; i++)
-                {
-                    string deviceName = OutputDevice.GetDeviceCapabilities(i).name;
-                    //WriteLine(deviceName);
-                    OutputMidiDevices.Add(new OutputMidiDevice() { Name = deviceName, Id = i });
-                }
-            }
-            else
-            {
-                //WriteLine("No devices found... :(");
-                OutputMidiDevices.Add(new OutputMidiDevice() { Name = "No device output devices available...", Id = -1 });
-            }
-            RaisePropertyChanged("SelectedOutputMidiDevice");
-        }
-
-        public void RefreshCOMDevices()
-        {
             InputComPorts.Clear();
-            string[] ports = SerialPort.GetPortNames();
-            if (ports.Any())
-            {
-                int i = 0;
-                //WriteLine($"{ports.Count()} COM ports found:");
-                foreach (var port in ports)
-                {
-                    //WriteLine(port);
-                    InputComPorts.Add(new InputCOMPort() { Name = port, Id = i });
-                    i++;
-                }
-            }
-            else
-            {
-                //WriteLine("No devices found... :(");
-                InputComPorts.Add(new InputCOMPort() { Name = "No COM ports available...", Id = -1 });
-            }
+            SupportedBaudRates.Clear();
+            _serialGateway.GetPorts().ForEach(InputComPorts.Add);
+            _serialGateway.GetRates().ForEach(SupportedBaudRates.Add);
             RaisePropertyChanged("SelectedComPort");
         }
 
@@ -274,7 +165,6 @@ namespace MoonBurst.ViewModel
         {
             this.SelectedComPort = config.SelectedComPort;
             this.SelectedOutputMidiDevice = config.SelectedOutputMidiDevice;
-            this.MessageLength = config.MessageLength;
             this.SelectedSpeed = config.SelectedSpeed;
             this.Path = config.Path;
         }
@@ -286,10 +176,9 @@ namespace MoonBurst.ViewModel
         {
             return new HardwareConfigurationData()
             {
-                ComPort = this._comPort,
-                MidiOut = this._midiOut,
-                MessageLength = this.MessageLength,
-                Speed = this._speed
+                ComPort = this.SelectedComPort,
+                MidiOut = this.SelectedOutputMidiDevice,
+                Speed = this.SelectedSpeed
             };
         }
 
@@ -302,7 +191,6 @@ namespace MoonBurst.ViewModel
         {
             public InputCOMPort ComPort { get; set; }
             public OutputMidiDevice MidiOut { get; set; }
-            public int MessageLength { get; set; }
             public int Speed { get; set; }
         }
     }

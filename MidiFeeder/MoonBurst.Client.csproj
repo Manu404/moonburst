@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2019.4.0.824</AssemblyVersion>
+    <AssemblyVersion>2019.4.0.870</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -116,29 +116,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\ActionView.xaml.cs">
-      <DependentUpon>ActionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ChannelView.xaml.cs">
-      <DependentUpon>ChannelView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Model\Messages\SerialConnectionStateChangedMessage.cs" />
+    <Compile Include="Model\Messages\MidiConnectionStateChangedMessage.cs" />
+    <Compile Include="Model\Enums\MidiConnectionStatus.cs" />
+    <Compile Include="Core\MidiGateway.cs" />
+    <Compile Include="Core\SerialGateway.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Enums\FootTrigger.cs" />
-    <Compile Include="Model\Serializable\IFileSerializableType.cs" />
+    <Compile Include="Core\IFileSerializableType.cs" />
     <Compile Include="Model\Serializable\InputCOMPort.cs" />
     <Compile Include="Model\Serializable\OutputMidiDevice.cs" />
     <Compile Include="Model\ClientConfiguration.cs" />
-    <Compile Include="Model\Helper\FileAssociations.cs" />
+    <Compile Include="Core\Helper\FileAssociations.cs" />
     <Compile Include="ViewModel\FunctoidActionViewModel.cs" />
     <Compile Include="ViewModel\FunctoidChannelViewModel.cs" />
     <Compile Include="ViewModel\HardwareConfigurationViewModel.cs" />
     <Compile Include="ViewModel\LayoutViewModel.cs" />
-    <Compile Include="Model\Helper\XmlFileSerializer.cs" />
-    <Compile Include="Views\SideMenuView.xaml.cs">
-      <DependentUpon>SideMenuView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Core\Helper\XmlFileSerializer.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
@@ -155,11 +151,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ActionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ChannelView.xaml">
+    <Page Include="Views\ChannelListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,7 +159,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SideMenuView.xaml">
+    <Page Include="Views\SideMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

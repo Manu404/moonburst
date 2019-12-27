@@ -1,0 +1,360 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MoonBurst.Views"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+
+    <Style  x:Key="ChannelMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Padding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(materialDesign:ExpanderAssist.RightHeaderPadding)}" BorderThickness="3,0,0,0">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsEnabled}" Value="True">
+                                        <Setter Property="BorderBrush">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsEnabled}" Value="False">
+                                        <Setter Property="BorderBrush">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <ToggleButton Grid.Row="0"
+                                                          HorizontalAlignment="Center"
+                                                          Foreground="{TemplateBinding Foreground}"
+                                                          IsChecked="{Binding Path=IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                          Style="{StaticResource MaterialDesignExpanderToggleButton}"
+                                                          RenderTransformOrigin="0.5,0.5">
+                                <ToggleButton.RenderTransform>
+                                    <RotateTransform Angle="-90"/>
+                                </ToggleButton.RenderTransform>
+                            </ToggleButton>
+                            <ContentPresenter Grid.Row="1"
+                                                              HorizontalAlignment="Center"
+                                                              Margin="0,16,0,0"
+                                                              Content="{TemplateBinding Content}"
+                                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                              VerticalAlignment="Stretch" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ChannelExpander" TargetType="{x:Type Expander}" BasedOn="{StaticResource MaterialDesignExpander}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ExpansionStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" To="Expanded">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <CubicEase EasingMode="EaseOut"/>
+                                        </VisualTransition.GeneratedEasingFunction>
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition GeneratedDuration="0" To="Collapsed">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <CubicEase EasingMode="EaseOut"/>
+                                        </VisualTransition.GeneratedEasingFunction>
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Hidden}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Expanded">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Collapsed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="0" Duration="0"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <DockPanel Background="{TemplateBinding Background}">
+                            <ToggleButton Name="HeaderSite"
+                                          Focusable="False"
+                                          IsTabStop="False"
+                                          DockPanel.Dock="Top"
+                                          BorderThickness="0" Cursor="Hand"
+                                          IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Style="{StaticResource MaterialDesignExpanderDownHeaderStyle}"
+                                          TextElement.FontSize="15"
+                                          Opacity=".87"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                          ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
+                            <Border Name="ContentSite">
+                                <Grid Name="ContentPanel"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    <ContentPresenter Name="PART_Content" Focusable="False" Opacity="0"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"/>
+                                </Grid>
+                            </Border>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ExpandDirection" Value="Right">
+                            <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                            <Setter Property="LayoutTransform" TargetName="ContentPanel">
+                                <Setter.Value>
+                                    <ScaleTransform CenterX="1" CenterY="0.5" ScaleX="{Binding Opacity, ElementName=PART_Content}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Height" TargetName="ContentPanel" Value="Auto"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ChannelMaterialExpanderHeaderStyle}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="ChannelHeaderActionStatusTemplate">
+        <ToggleButton ToolTip="{Binding ActionName}" IsChecked="{Binding IsEnabled}">
+            <ToggleButton.Content>
+                <materialDesign:PackIcon Kind="Play" />
+            </ToggleButton.Content>
+            <ToggleButton.Style>
+                <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
+                    <Style.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Transparent"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Transparent"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ToggleButton.Style>
+        </ToggleButton>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ChannelExpanderHeaderTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Separator />
+
+                <ToggleButton ToolTip="(De)Activate Functoid" IsChecked="{Binding IsEnabled}">
+                    <ToggleButton.Content>
+                        <materialDesign:PackIcon Kind="Function" />
+                    </ToggleButton.Content>
+
+                    <ToggleButton.Style>
+                        <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Transparent"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <Separator />
+
+                <TextBlock MinWidth="100"
+                               Text="{Binding Name}" 
+                               Margin="10 10 10 10"
+                               RenderTransformOrigin=".5,.5">
+                    <TextBlock.LayoutTransform>
+                        <RotateTransform Angle="90" />
+                    </TextBlock.LayoutTransform>
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                <Separator />
+                <TextBlock Text="Actions"
+                               Margin="10 10 10 10"
+                               RenderTransformOrigin=".5,.5">
+                    <TextBlock.LayoutTransform>
+                        <RotateTransform Angle="90" />
+                    </TextBlock.LayoutTransform>
+                </TextBlock>
+                <Separator />
+                <ItemsControl ItemsSource="{Binding Actions}" ItemTemplate="{StaticResource ChannelHeaderActionStatusTemplate}" />
+            </StackPanel>
+
+            <TextBlock Grid.Row="2"></TextBlock>
+
+            <StackPanel Grid.Row="3">
+                <Separator />
+                <TextBlock Text="{Binding Path=Index}"
+                               Margin="10 10 10 10" 
+                               HorizontalAlignment="Center"
+                               materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ChannelExpanderBodyTemplate">
+        <Border BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" BorderThickness="2,0,0,0">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBox Width="250" MaxWidth="250"
+                                materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                                materialDesign:HintAssist.FloatingScale="0.50"
+                                Text="{Binding Name}"
+                                FontWeight="Light"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                FontSize="60" />
+                    <mah:NumericUpDown Minimum="0"
+                                           Maximum="128"
+                                           Margin="0,10,0,0"
+                                           TextAlignment="Left"
+                                           HorizontalContentAlignment="Left"
+                                           materialDesign:HintAssist.Hint="Arduino Bit"
+                                           Value="{Binding ArduinoBitMask}"
+                                           Interval="1" />
+                </StackPanel>
+
+                <ItemsControl Style="{StaticResource ActionListItemControl}" Grid.Row="1" Margin="0,5,0,0" ItemsSource="{Binding Actions}" />
+
+                <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal">
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" 
+                            Command="{Binding OnTestChannelCommand}">
+                        <materialDesign:PackIcon Kind="AlphabetTCircle" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" 
+                            Command="{Binding OnAddActionCommand}">
+                        <materialDesign:PackIcon Kind="Add" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30"
+                                Command="{Binding OnDeleteCommand}">
+                        <materialDesign:PackIcon Kind="Delete" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ChannelListViewItemTemplate">
+        <materialDesign:Card  HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <Expander ExpandDirection="Right" 
+                          IsExpanded="{Binding IsExpanded}" 
+                          VerticalContentAlignment="Stretch"
+                          Style="{StaticResource ChannelExpander}" 
+                          Header="{Binding}" Content="{Binding}"
+                          ContentTemplate="{StaticResource ChannelExpanderBodyTemplate}"
+                          HeaderTemplate="{StaticResource ChannelExpanderHeaderTemplate}"
+                          materialDesign:ExpanderAssist.RightHeaderPadding="5 20 5 20">
+            </Expander>
+        </materialDesign:Card>
+    </DataTemplate>
+
+    <ControlTemplate x:Key="ChannelListViewTemplate">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" CanContentScroll="False">
+            <ItemsPresenter/>
+        </ScrollViewer>
+    </ControlTemplate>
+
+    <ItemsPanelTemplate x:Key="ChannelListViewPanelTemplate">
+        <StackPanel Orientation="Horizontal" />
+    </ItemsPanelTemplate>
+
+    <Style TargetType="ListView" x:Key="ChannelListView">
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template" Value="{StaticResource ChannelListViewTemplate}" />
+        <Setter Property="ItemTemplate" Value="{StaticResource ChannelListViewItemTemplate}" />
+        <Setter Property="ItemsPanel" Value="{StaticResource ChannelListViewPanelTemplate}" />
+    </Style>
+</ResourceDictionary>

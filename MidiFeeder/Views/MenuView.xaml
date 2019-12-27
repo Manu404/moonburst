@@ -24,7 +24,9 @@
 
             <!-- Midi Toolbar -->
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding CurrentHardwareConfig}">
-                <ComboBox ItemsSource="{Binding OutputMidiDevices}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedOutputMidiDevice, Mode=TwoWay}" materialDesign:HintAssist.Hint="Midi Output" ></ComboBox>
+                <ComboBox ItemsSource="{Binding OutputMidiDevices}" DisplayMemberPath="Name" 
+                          IsEnabled="{Binding IsMidiConnected, Converter={StaticResource InverseBooleanConverter}}"
+                          SelectedItem="{Binding SelectedOutputMidiDevice, Mode=TwoWay}" materialDesign:HintAssist.Hint="Midi Output" ></ComboBox>
                 <Button Command="{Binding OnRefreshMidiCommand}" ToolTip="Refresh">
                     <materialDesign:PackIcon Kind="Refresh" />
                 </Button>
@@ -66,8 +68,8 @@
 
             <!-- Config Toolbar -->
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding CurrentHardwareConfig}">
-                <ComboBox ItemsSource="{Binding InputComPorts}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedComPort, Mode=TwoWay}" materialDesign:HintAssist.Hint="COM Port" ></ComboBox>
-                <ComboBox ItemsSource="{Binding SupportedBaudRates}" SelectedValue="{Binding SelectedSpeed, Mode=TwoWay}" materialDesign:HintAssist.Hint="Speed" ></ComboBox>
+                <ComboBox ItemsSource="{Binding InputComPorts}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedComPort, Mode=TwoWay}" materialDesign:HintAssist.Hint="COM Port" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
+                <ComboBox ItemsSource="{Binding SupportedBaudRates}" SelectedValue="{Binding SelectedSpeed, Mode=TwoWay}" materialDesign:HintAssist.Hint="Speed" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
                 <Button Command="{Binding OnRefreshComCommand}" ToolTip="Refresh">
                     <materialDesign:PackIcon Kind="Refresh" />
                 </Button>
@@ -115,7 +117,7 @@
                         <SolidColorBrush Color="{DynamicResource GreyPrimary500}"></SolidColorBrush>
                     </Button.Foreground>
                 </Button>
-                <Button Command="{Binding SendMidiTestCommand}" ToolTip="Send test message">
+                <Button Command="{Binding OnSendMidiTestCommand}" ToolTip="Send test message">
                     <materialDesign:PackIcon Kind="BugCheck"/>
                     <Button.Foreground>
                         <SolidColorBrush Color="{DynamicResource GreyPrimary500}"></SolidColorBrush>
