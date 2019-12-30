@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
@@ -9,60 +10,118 @@ namespace MoonBurst.ViewModel
 {
     public enum FootswitchState
     {
-        On, Off
+        [Description("Pressing")]
+        Pressing = 0,
+        [Description("Pressed")]
+        Pressed = 1,
+        [Description("Releasing")]
+        Releasing = 2,
+        [Description("Released")]
+        Released = 3,
+        [Description("Unknown")]
+        Unknown = 4
     }
-    public class Footswitch
-    {
-        public FootswitchState State { get; set; }
-        public int  Index { get; set; }
 
-        public Footswitch(int index)
+    public interface IControllerInputState
+    {
+        int Index { get; }
+    }
+
+    public interface IFootswitchState  : IControllerInputState
+    {
+        FootswitchState State { get; }
+    }
+
+    public class MomentaryFootswitchState : IFootswitchState
+    {
+        public FootswitchState State { get; }
+        public int  Index { get; }
+
+        public MomentaryFootswitchState(FootswitchState state, int index)
         {
-            State = FootswitchState.Off;
+            State = state;
             Index = index;
         }
     }
 
-    public interface IParser
+    public interface IControllerInputParser
     {
-        List<Footswitch> ParseState(string message);
+        IControllerInputState ParseState(string state, int index);
     }
 
-    public class FS3XParser  : IParser
+    public interface IFootswitchParser : IControllerInputParser
     {
-        public List<Footswitch> ParseState(string message)
+        new IFootswitchState ParseState(string state, int index);
+    }
+
+    public interface IControllerParser
+    {
+        IDeviceDefinition Device { get; }
+        List<MomentaryFootswitchState> ParseState(string state, int index);
+        bool ValidateState(string state);
+    }
+
+    public class MomentaryFootswitchParser : IFootswitchParser
+    {
+        private int previous;
+
+        public IFootswitchState ParseState(string state, int index)
         {
-            message = message.Trim();
-            if(String.Equals("10", message))
-                return new List<Footswitch>
-                {
-                    new Footswitch(0) { State = FootswitchState.On},
-                    new Footswitch(1),
-                    new Footswitch(2),
-                };
-
-            if (String.Equals("01", message))
-                return new List<Footswitch>
-                {
-                    new Footswitch(0),
-                    new Footswitch(1) { State = FootswitchState.On},
-                    new Footswitch(2),
-                };
-
-            if (String.Equals("11", message))
-                return new List<Footswitch>
-                {
-                    new Footswitch(0),
-                    new Footswitch(1),
-                    new Footswitch(2) { State = FootswitchState.On},
-                };
-            return new List<Footswitch>
+            int isPressed, wasPressed = previous;
+            if(Int32.TryParse(state, out isPressed))
             {
-                new Footswitch(0),
-                new Footswitch(1),
-                new Footswitch(2),
-            };
+                previous = isPressed;
+                if (isPressed == 1)
+                {
+                    if(wasPressed == 1) return new MomentaryFootswitchState(FootswitchState.Pressed, index);
+                    return new MomentaryFootswitchState(FootswitchState.Pressing, index);
+                }
+                else
+                {
+                    if (wasPressed == 0) return new MomentaryFootswitchState(FootswitchState.Released, index);
+                    return new MomentaryFootswitchState(FootswitchState.Releasing, index);
+                }
+            }
+            return new MomentaryFootswitchState(FootswitchState.Unknown, index);
         }
+
+        IControllerInputState IControllerInputParser.ParseState(string state, int index)
+        {
+            return ParseState(state, index);
+        }
+    }
+
+    public class Fs3XParser : IControllerParser
+    {
+        readonly MomentaryFootswitchParser[] _parser = new MomentaryFootswitchParser[3];
+
+        public Fs3XParser()
+        {
+            for(int i = 0; i < 3; i++)
+                _parser[i] = new MomentaryFootswitchParser();
+        }
+
+        public IDeviceDefinition Device => new Fs3xDeviceDefinition();
+
+        public List<MomentaryFootswitchState> ParseState(string state, int index)
+        {
+            var result = new List<MomentaryFootswitchState>();
+            if (state.Length != 4) return result;
+            for(int i = 0; i < 3; i++)
+                result.Add((MomentaryFootswitchState) _parser[i].ParseState(state[i].ToString(), i));
+            return result;
+        }
+
+        public bool ValidateState(string state)
+        {
+            return true;
+        }
+    }
+
+    public class ControllerStateMessage : MessageBase
+    {
+        public List<MomentaryFootswitchState> States { get; set; }
+        public int Port { get; set; }
     }
 
     public interface ISerialGateway
@@ -77,7 +136,7 @@ namespace MoonBurst.ViewModel
 
     public class SerialGateway : ISerialGateway
     {
-        private IParser _parser;
+        private IControllerParser _footswitchParser;
         private IMessenger _messenger;
         private SerialPort _serialPort;
         private bool _isConnected;
@@ -101,7 +160,7 @@ namespace MoonBurst.ViewModel
         public SerialGateway(IMessenger messenger)
         {
             _messenger = messenger;
-            _parser = new FS3XParser();
+            _footswitchParser = new Fs3XParser();
         }
 
         public void Connect()
@@ -141,7 +200,8 @@ namespace MoonBurst.ViewModel
         {
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
-            _parser.ParseState(indata);
+            foreach(var line in indata.Split('\n'))
+                _messenger.Send(new ControllerStateMessage { States = _footswitchParser.ParseState(line, 0), Port = 0 });
         }
 
         public List<InputCOMPort> GetPorts()

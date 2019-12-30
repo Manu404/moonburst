@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2019.4.0.870</AssemblyVersion>
+    <AssemblyVersion>2019.4.0.1251</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -60,6 +60,12 @@
     <ApplicationIcon>img\moon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.5.0.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -94,7 +100,10 @@
       <HintPath>..\packages\SpicyTaco.AutoGrid.1.2.29\lib\net40\SpicyTaco.AutoGrid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -116,11 +125,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\ArduinoGateway.cs" />
+    <Compile Include="Core\Helper\ConfirmationHelper.cs" />
+    <Compile Include="Core\Helper\EnumeratorToStringConverter.cs" />
     <Compile Include="Model\Messages\SerialConnectionStateChangedMessage.cs" />
     <Compile Include="Model\Messages\MidiConnectionStateChangedMessage.cs" />
     <Compile Include="Model\Enums\MidiConnectionStatus.cs" />
     <Compile Include="Core\MidiGateway.cs" />
     <Compile Include="Core\SerialGateway.cs" />
+    <Compile Include="Model\Messages\TriggeredActionMessage.cs" />
+    <Compile Include="Model\Serializable\ArduinoPortConfig.cs" />
+    <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
@@ -143,9 +158,9 @@
     <Compile Include="Model\Enums\ChannelCommand.cs" />
     <Compile Include="Model\Messages\DeleteFunctoidChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Themes\Imports.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ActionListView.xaml">
       <SubType>Designer</SubType>
@@ -156,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Shared.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
@@ -40,39 +41,39 @@ namespace MoonBurst.ViewModel
         private string _log;
         private string _appVersion;
         private string _title;
-        private LayoutViewModel _currentLayout;
-        private ClientConfiguration _currentClientConfiguration;
-        private HardwareConfigurationViewModel _currentHardwareConfig;
+        private LayoutViewModel _layout;
+        private ClientConfiguration _clientConfiguration;
+        private HardwareConfigurationViewModel _hardwareConfig;
         
         public ICommand OnOpenConsoleCommand { get; set; }
         public ICommand OnCloseCommand { get; set; }
-
-        public HardwareConfigurationViewModel CurrentHardwareConfig
+        
+        public HardwareConfigurationViewModel HardwareConfig
         {
-            get => _currentHardwareConfig;
+            get => _hardwareConfig;
             set
             {
-                _currentHardwareConfig = value;
+                _hardwareConfig = value;
                 RaisePropertyChanged();
             }
         }
 
-        public ClientConfiguration CurrentClientConfiguration
+        public ClientConfiguration ClientConfiguration
         {
-            get => _currentClientConfiguration;
+            get => _clientConfiguration;
             set
             {
-                _currentClientConfiguration = value;
+                _clientConfiguration = value;
                 RaisePropertyChanged();
             }
         }
 
-        public LayoutViewModel CurrentLayout
+        public LayoutViewModel Layout
         {
-            get => _currentLayout;
+            get => _layout;
             set
             {
-                _currentLayout = value;
+                _layout = value;
                 RaisePropertyChanged();
             }
         }
@@ -89,7 +90,7 @@ namespace MoonBurst.ViewModel
 
         public string Title
         {
-            get => _title.ToUpper() + " - "  + AppVersion + " - " + CurrentLayout?.Path;
+            get => _title.ToUpper() + " - "  + AppVersion + " - " + Layout?.Path;
             set
             {
                 _title = value;
@@ -107,11 +108,20 @@ namespace MoonBurst.ViewModel
             }
         }
 
+        private IArduinoGateway _arduinoGateway;
+        private IMessenger _messenger;
+
         public MainViewModel()
         {
             AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Title = "Moon Burst";
+            
+            _arduinoGateway = new ArduinoGateway();
+            _messenger = MessengerInstance;
 
+            ClientConfiguration = new ClientConfiguration();
+            HardwareConfig = new HardwareConfigurationViewModel(new MidiGateway(_messenger), new SerialGateway(_messenger), _arduinoGateway, _messenger);
+            Layout = new LayoutViewModel(_arduinoGateway, _messenger);
             QuickActions = new ObservableCollection<SideMenuAction>();
             
             InitializeConfigs();
@@ -124,76 +134,33 @@ namespace MoonBurst.ViewModel
             WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMIDI.versionString);
             WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMIDI.driverVersionString);
 
-            MessengerInstance.Register<DeleteFunctoidChannelMessage>(this, (d) => this.CurrentLayout.DeleteChannel(d.Item));
+            _messenger.Register<DeleteFunctoidChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
         }
 
         private void BuildQuickActions()
         {
-            // TODO SOFTLINK TO LAYOUT
-            QuickActions.Clear();
-            QuickActions.Add(new SideMenuAction()
-            {
-                Execute = this.CurrentLayout.OnLoadLayoutCommand,
-                Name = "Load Layout",
-                TootTip = "Load Layout",
-                Kind = PackIconKind.FolderOpen
-            });
-            QuickActions.Add(new SideMenuAction()
-            {
-                Execute = this.CurrentLayout.OnSaveLayoutCommand,
-                Name = "Save Layout",
-                TootTip = "Save Layout",
-                Kind = PackIconKind.ContentSave
-            });
-            QuickActions.Add(new SideMenuAction()
-            {
-                Execute = this.CurrentLayout.OnSaveAsLayoutCommand,
-                Name = "Save Layout As",
-                TootTip = "Save Layout As",
-                Kind = PackIconKind.ContentSaveAll
-            });
-            QuickActions.Add(new SideMenuAction()
-            {
-                Execute = this.CurrentLayout.OnSaveLayoutCommand,
-                Name = "Add Functoid",
-                TootTip = "Add Functoid",
-                Kind = PackIconKind.Plus
-            });
-            QuickActions.Add(new SideMenuAction()
-            {
-                Execute = this.CurrentLayout.OnCollaspeAllCommand,
-                Name = "Collapse All",
-                TootTip = "Collapse All",
-                Kind = PackIconKind.ArrowCollapseHorizontal
-            });
-            QuickActions.Add(new SideMenuAction()
-            {
-                Execute = this.CurrentLayout.OnExpandAllCommand,
-                Name = "Expand All",
-                TootTip = "Expand All",
-                Kind = PackIconKind.ArrowExpandHorizontal
-            });
-        }
-        private void InitializeConfigs()
-        {
-            CurrentClientConfiguration = DataSerializer<ClientConfiguration, ClientConfiguration.ClientConfigurationData>.LoadDefault();
-            CurrentLayout = DataSerializer<LayoutViewModel, LayoutViewModel.LayoutData>.LoadFromFile(CurrentClientConfiguration.LastLayoutPath);
-            CurrentHardwareConfig = DataSerializer<HardwareConfigurationViewModel, HardwareConfigurationViewModel.HardwareConfigurationData>.LoadFromFile(CurrentClientConfiguration.LastHardwareConfigurationPath);
         }
 
-        private void OnClose()
+        private void InitializeConfigs()
         {
-            CurrentLayout.OnSaveLayoutCommand.Execute(null);
-            CurrentHardwareConfig.SaveConfigCommand.Execute(null);
-            UpdateAndSaveClientConfig();
+            ClientConfiguration.LoadDefault();
+            HardwareConfig.LoadData(DataSerializer<HardwareConfigurationViewModel.HardwareConfigurationData>.LoadFromFile(ClientConfiguration.LastHardwareConfigurationPath));
+            Layout.LoadData(DataSerializer<LayoutViewModel.LayoutData>.LoadFromFile(ClientConfiguration.LastLayoutPath));
         }
 
         private void UpdateAndSaveClientConfig()
         {
-            this.CurrentClientConfiguration.LastLayoutPath = this.CurrentLayout.Path;
-            this.CurrentClientConfiguration.LastHardwareConfigurationPath = this.CurrentHardwareConfig.Path;
-            DataSerializer<ClientConfiguration, ClientConfiguration.ClientConfigurationData>.SaveDefault(this.CurrentClientConfiguration);
+            this.ClientConfiguration.LastLayoutPath = this.Layout.Path;
+            this.ClientConfiguration.LastHardwareConfigurationPath = this.HardwareConfig.Path;
+            DataSerializer<ClientConfiguration.ClientConfigurationData>.SaveDefault(this.ClientConfiguration.GetData());
             RaisePropertyChanged();
+        }
+
+        private void OnClose()
+        {
+            Layout.OnSaveLayoutCommand.Execute(null);
+            HardwareConfig.SaveConfigCommand.Execute(null);
+            UpdateAndSaveClientConfig();
         }
 
         void OpenConsole()

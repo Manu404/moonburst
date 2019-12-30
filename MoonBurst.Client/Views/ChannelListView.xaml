@@ -157,41 +157,38 @@
     </Style>
 
     <DataTemplate x:Key="ChannelHeaderActionStatusTemplate">
-        <ToggleButton ToolTip="{Binding ActionName}" IsChecked="{Binding IsEnabled}">
-            <ToggleButton.Content>
-                <materialDesign:PackIcon Kind="Play" />
-            </ToggleButton.Content>
-            <ToggleButton.Style>
-                <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
-                    <Style.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="Transparent"></SolidColorBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Foreground">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="False">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="Transparent"></SolidColorBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Foreground">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ToggleButton.Style>
-        </ToggleButton>
+        <Grid>
+            <Ellipse Style="{StaticResource TriggerStatusEllipseControl}" VerticalAlignment="Center" HorizontalAlignment="Center">
+            </Ellipse>
+            <Button ToolTip="{Binding ActionName}" Width="30" Height="30">
+                <materialDesign:PackIcon Kind="PlayOutline" Margin="5" />
+                <Button.InputBindings>
+                    <MouseBinding Gesture="RightClick" Command="{Binding OnToggleActionCommand}" />
+                    <MouseBinding Gesture="LeftClick" Command="{Binding OnTriggerActionCommand}" />
+                </Button.InputBindings>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignIconForegroundButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEnabled}" Value="True" >
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsEnabled}" Value="False">
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+
     </DataTemplate>
 
     <DataTemplate x:Key="ChannelExpanderHeaderTemplate">
@@ -205,46 +202,42 @@
             <StackPanel>
                 <Separator />
 
-                <ToggleButton ToolTip="(De)Activate Functoid" IsChecked="{Binding IsEnabled}">
-                    <ToggleButton.Content>
-                        <materialDesign:PackIcon Kind="Function" />
-                    </ToggleButton.Content>
+                <Grid>
 
-                    <ToggleButton.Style>
-                        <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
-                            <Style.Triggers>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <SolidColorBrush Color="Transparent"></SolidColorBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Foreground">
-                                        <Setter.Value>
-                                            <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                                <Trigger Property="IsChecked" Value="False">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Foreground">
-                                        <Setter.Value>
-                                            <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ToggleButton.Style>
-                </ToggleButton>
+                    <Ellipse Style="{StaticResource TriggerStatusEllipseControl}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    </Ellipse>
+
+                    <ToggleButton ToolTip="(De)Activate Functoid" IsChecked="{Binding IsEnabled}" Background="Transparent">
+                        <ToggleButton.Content>
+                            <materialDesign:PackIcon Kind="Function" />
+                        </ToggleButton.Content>
+                        <ToggleButton.Style>
+                            <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="Foreground">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsChecked" Value="False">
+                                        <Setter Property="Foreground">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
+
+                </Grid>
 
                 <Separator />
 
-                <TextBlock MinWidth="100"
+                <TextBlock MinWidth="100" FontSize="13"
                                Text="{Binding Name}" 
                                Margin="10 10 10 10"
                                RenderTransformOrigin=".5,.5">
@@ -256,7 +249,7 @@
 
             <StackPanel Grid.Row="1">
                 <Separator />
-                <TextBlock Text="Actions"
+                <TextBlock Text="Actions" FontSize="13"
                                Margin="10 10 10 10"
                                RenderTransformOrigin=".5,.5">
                     <TextBlock.LayoutTransform>
@@ -264,7 +257,7 @@
                     </TextBlock.LayoutTransform>
                 </TextBlock>
                 <Separator />
-                <ItemsControl ItemsSource="{Binding Actions}" ItemTemplate="{StaticResource ChannelHeaderActionStatusTemplate}" />
+                <ItemsControl Margin="0,10,0,0" ItemsSource="{Binding Actions}" ItemTemplate="{StaticResource ChannelHeaderActionStatusTemplate}" />
             </StackPanel>
 
             <TextBlock Grid.Row="2"></TextBlock>
@@ -285,6 +278,7 @@
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -297,32 +291,66 @@
                                 FontWeight="Light"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 FontSize="60" />
-                    <mah:NumericUpDown Minimum="0"
-                                           Maximum="128"
-                                           Margin="0,10,0,0"
-                                           TextAlignment="Left"
-                                           HorizontalContentAlignment="Left"
-                                           materialDesign:HintAssist.Hint="Arduino Bit"
-                                           Value="{Binding ArduinoBitMask}"
-                                           Interval="1" />
                 </StackPanel>
 
-                <ItemsControl Style="{StaticResource ActionListItemControl}" Grid.Row="1" Margin="0,5,0,0" ItemsSource="{Binding Actions}" />
 
-                <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal">
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" 
-                            Command="{Binding OnTestChannelCommand}">
-                        <materialDesign:PackIcon Kind="AlphabetTCircle" />
-                    </Button>
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" 
-                            Command="{Binding OnAddActionCommand}">
-                        <materialDesign:PackIcon Kind="Add" />
-                    </Button>
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30"
+                <ComboBox materialDesign:HintAssist.Hint="Available Inputs..."
+                          ToolTip="Selected Input" Grid.Row="1"
+                          ItemsSource="{Binding AvailableInputs}"
+                          SelectedItem="{Binding SelectedInput}"
+                          ItemTemplate="{StaticResource InputDescriptionComboboxTemplate}">
+                </ComboBox>
+
+                <ItemsControl Style="{StaticResource ActionListItemControl}" Grid.Row="2" Margin="0,5,0,0" ItemsSource="{Binding Actions}" />
+
+                <Grid Grid.Row="3" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Style="{StaticResource MaterialDesignIconButton}" 
+                                Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True" 
+                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                ToolTip="Add trigger"
+                                Command="{Binding OnAddActionCommand}">
+                            <materialDesign:PackIcon Kind="Add" Width="15" Height="15" />
+                        </Button>
+
+                        <Button Style="{StaticResource MaterialDesignIconButton}" 
+                                Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True"
+                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                ToolTip="Trigger functoid"
+                                Command="{Binding OnTriggerCommand}">
+                            <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
+                        </Button>
+
+                        <Button Style="{StaticResource MaterialDesignIconButton}" 
+                                Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True"
+                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                ToolTip="Expand all trigger"
+                                Command="{Binding OnExpandActionsCommand}">
+                            <materialDesign:PackIcon Kind="ArrowExpandHorizontal" Width="15" Height="15" />
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignIconButton}" 
+                                Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True" 
+                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                ToolTip="Collapse all trigger"
+                                Command="{Binding OnCollapseActionsCommand}">
+                            <materialDesign:PackIcon Kind="ArrowCollapseHorizontal" Width="15" Height="15" />
+                        </Button>
+
+                        <Button Style="{StaticResource MaterialDesignIconButton}" 
+                                Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True"
+                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                ToolTip="Delete functoid"
                                 Command="{Binding OnDeleteCommand}">
-                        <materialDesign:PackIcon Kind="Delete" />
-                    </Button>
-                </StackPanel>
+                            <materialDesign:PackIcon Kind="Delete" Width="15" Height="15" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
             </Grid>
         </Border>
     </DataTemplate>

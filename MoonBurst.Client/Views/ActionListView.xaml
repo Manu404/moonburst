@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿ <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MoonBurst.Views"
                     xmlns:moonBurst="clr-namespace:MoonBurst"
@@ -44,7 +44,7 @@
                                               ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                               ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                                               VerticalAlignment="Stretch"
-                                              Margin="0,0,16,0" />
+                                              Margin="0,0,0,0" />
                             <ToggleButton Grid.Column="1"
                                           VerticalAlignment="Center"
                                           Foreground="{TemplateBinding Foreground}"
@@ -176,8 +176,9 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+
             <ToggleButton IsChecked="{Binding IsEnabled}" ToolTip="(De)Activate">
                 <ToggleButton.Style>
                     <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
@@ -206,19 +207,14 @@
                     <SolidColorBrush Color="{DynamicResource RedAccent200}"></SolidColorBrush>
                 </moonBurst:ToggleButtonAssist.SwitchTrackOffBackground>
             </ToggleButton>
+
             <Label Grid.Column="1" VerticalAlignment="Center" FontSize="11" ToolTip="{Binding ActionName}">
                 <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ActionName}" />
             </Label>
         </Grid>
     </DataTemplate>
 
-    <Style TargetType="Label" x:Key="ActionEditorFieldLabel" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="Width" Value="75"></Setter>
-    </Style>
-    <Style TargetType="mah:NumericUpDown">
+     <Style TargetType="mah:NumericUpDown">
         <Setter Property="Minimum" Value="0" />
         <Setter Property="Maximum" Value="0" />
         <Setter Property="TextAlignment" Value="0" />
@@ -302,24 +298,29 @@
                                   SelectedItem="{Binding Command}">
                     </ComboBox>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource MaterialDesignToolButton}"
-                                Padding="2 0 2 0"
-                                HorizontalAlignment="Right" 
-                                materialDesign:RippleAssist.IsCentered="True" 
-                                ToolTip="Manual Trigger"
-                                Command="{Binding OnTestActionCommand}">
-                            <materialDesign:PackIcon Kind="AlphabetTCircle" />
-                        </Button>
-                        <Button Style="{StaticResource MaterialDesignToolButton}"
-                                ToolTip="Delete"
-                                    Padding="2 0 2 0"
-                                    HorizontalAlignment="Right" 
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 8 0 8" Grid.Column="1">
+                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                    Width="20" Height="20"
+                                    materialDesign:RippleAssist.IsCentered="True" 
+                                    ToolTip="Manual Trigger"
+                                    Command="{Binding OnTriggerActionCommand}">
+                                <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
+                            </Button>
+                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                    ToolTip="Delete"
+                                    Width="20" Height="20"
                                     materialDesign:RippleAssist.IsCentered="True" 
                                     Command="{Binding OnDeleteActionCommand}">
-                            <materialDesign:PackIcon Kind="Delete" />
-                        </Button>
-                    </StackPanel>
+                                <materialDesign:PackIcon Kind="Delete" Width="15" Height="15" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
 
                 </StackPanel>
             </StackPanel>
@@ -333,7 +334,7 @@
             <Expander IsExpanded="{Binding IsExpanded}" 
                           Content="{Binding}" Header="{Binding}" 
                           HorizontalAlignment="Stretch" Name="exp"
-                          materialDesign:ExpanderAssist.DownHeaderPadding="5 5 25 5"
+                          materialDesign:ExpanderAssist.DownHeaderPadding="5 5 5 5"
                           Style="{StaticResource ActionEditorExpander}"
                           ContentTemplate="{StaticResource ActionEditorBodyItemTemplate}"
                           HeaderTemplate="{StaticResource ActionEditorHeaderItemTemplate}">

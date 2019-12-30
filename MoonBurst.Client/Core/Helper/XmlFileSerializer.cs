@@ -6,18 +6,18 @@ using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel
 {
-    public class DataSerializer<T, TY> where T : IFileSerializableType<TY>, new()
-        where TY : IFileSerializableData, new()
+    public class DataSerializer<T> where T : IFileSerializableType, new()
     {
         public static void SaveToFile(T data)
         {
-            XmlFileSerializer<TY>.Save(data.Path, (TY)data.GetData());
+            if (String.IsNullOrEmpty(data.Path)) SaveDefault(data);
+            else XmlFileSerializer<T>.Save(data.Path, data);
         }
 
         public static T LoadFromFile(string path)
         {
             if (String.IsNullOrEmpty(path)) return LoadDefault();
-            var newObject = (T)new T().CreateFromData(XmlFileSerializer<TY>.Load(path),  path);
+            var newObject = XmlFileSerializer<T>.Load(path);
             newObject.Path = path;
             return newObject;
         }
@@ -34,7 +34,7 @@ namespace MoonBurst.ViewModel
         }
     }
 
-    public class XmlFileSerializer<T> where T : IFileSerializableData, new()
+    public class XmlFileSerializer<T> where T : new()
     {
         public static void Save(string filename, T obj)
         {

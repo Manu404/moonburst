@@ -1,28 +1,20 @@
 using System;
+using System.Xml.Serialization;
 
 namespace MoonBurst.ViewModel
 {
-
-
-    public class ClientConfiguration : IFileSerializableType<ClientConfiguration.ClientConfigurationData>
+    public class ClientConfiguration
     {
         public string LastHardwareConfigurationPath { get; set; }
         public string LastLayoutPath { get; set; }
+        public string Path { get; set; }
 
-        public ClientConfiguration()
-        {
-
-        }
-
-        public ClientConfiguration(ClientConfigurationData data, string path) : this()
+        public void LoadData(ClientConfigurationData data)
         {
             LastHardwareConfigurationPath = data.LastHardwareConfigurationPath;
             LastLayoutPath = data.LastLayoutPath;
-            Path = path;
+            Path = data.Path;
         }
-
-        public string Path { get; set; }
-        public string Default { get => "default_client.xml"; }
 
         public ClientConfigurationData GetData()
         {
@@ -33,16 +25,20 @@ namespace MoonBurst.ViewModel
             };
         }
 
-        public IFileSerializableType<ClientConfigurationData> CreateFromData(ClientConfigurationData data, string path)
+        public class ClientConfigurationData : IFileSerializableType
         {
-            return new ClientConfiguration(data, path);
-        }
-
-        public class ClientConfigurationData : IFileSerializableData
-        {
+            [XmlIgnore]
+            public string Path { get; set; }
+            [XmlIgnore]
+            public string Default { get => "default_client.xml"; }
 
             public string LastHardwareConfigurationPath { get; set; }
             public string LastLayoutPath { get; set; }
+        }
+
+        public void LoadDefault()
+        {
+            LoadData(DataSerializer<ClientConfigurationData>.LoadDefault());
         }
     }
 }

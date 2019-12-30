@@ -5,11 +5,18 @@ namespace MoonBurst.ViewModel
 
     }
 
-    public interface IFileSerializableType<T> where T : IFileSerializableData
+    public interface IFileSerializableType
+    {
+        string Path { get; set; }
+        string Default { get; }
+    }
+
+
+    public interface IFileSerializer<T>
     {
         string Path { get; set; }
         string Default { get; }
         T GetData();
-        IFileSerializableType<T> CreateFromData(T data, string path);
+        void SaveData(string path);
     }
 }

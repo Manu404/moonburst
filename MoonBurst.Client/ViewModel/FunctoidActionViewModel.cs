@@ -1,15 +1,63 @@
+using System;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MaterialDesignThemes.Wpf;
+using MoonBurst.Core.Helper;
 using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel
 {
-    public class TriggeredActionMessage : MessageBase
+    public class DeviceInputViewModel : ViewModelBase
     {
-        public FunctoidActionViewModel.FunctoidActionData Data { get; set; }
+        public IArduinoPort Port { get; set; }
+        public IDeviceDefinition Device { get; set; }
+        public IDeviceInput Input { get; set; }
+
+        public IFootswitchState State
+        {
+            get => _state;
+            set
+            {
+                _state = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string PortName => $"Port: {Port.Position + 1}";
+        public string DeviceName => $"Device: {Device.Name}";
+        public string ControllerName => $"Controller: {ControllerNameWithoutHeader}";
+        public string ControllerNameWithoutHeader => $"{Input.Name} ({Input.Position + 1})";
+
+        public string FormatedName => $"{PortName}\n{DeviceName}\n{ControllerName}";
+
+        private IMessenger _messenger;
+        private IFootswitchState _state;
+
+        public DeviceInputViewModel(IMessenger messenger)
+        {
+            _messenger = messenger;
+            _messenger.Register<ControllerStateMessage>(this, OnControllerStateChanged);
+        }
+
+        private void OnControllerStateChanged(ControllerStateMessage obj)
+        {
+            if (obj.Port != Port.Position) return;
+            foreach(var state in obj.States)
+                if (state.Index == Input.Position)
+                {
+                    State = state;
+                    return;
+                }
+        }
     }
 
     public class FunctoidActionViewModel : ViewModelBase
@@ -23,6 +71,19 @@ namespace MoonBurst.ViewModel
         private int _data1;
         private int _midiChannel;
         private int _delay;
+        private bool _isTriggered;
+
+        public bool IsTriggered
+        {
+            get => _isTriggered;
+            set
+            {
+                _isTriggered = value;
+                RaisePropertyChanged();
+                _isTriggered = false;
+                RaisePropertyChanged();
+            }
+        }
 
         public int MidiChannel
         {
@@ -115,25 +176,39 @@ namespace MoonBurst.ViewModel
         }
 
         public ICommand OnDeleteActionCommand { get; set; }
-        public ICommand OnTestActionCommand { get; set; }
+        public ICommand OnToggleActionCommand { get; set; }
+        public ICommand OnTriggerActionCommand { get; set; }
+
+        private IArduinoGateway _arduinoGateway;
 
         public FunctoidActionViewModel()
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
-            OnTestActionCommand = new RelayCommand(OnTestAction);
+            OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
+            OnToggleActionCommand = new RelayCommand(OnToggle);
         }
 
-        private void OnTestAction()
+        private void OnToggle()
+        {
+            this.IsEnabled = !this.IsEnabled;
+        }
+
+        private void OnTriggerAction()
         {
             Messenger.Default.Send(new TriggeredActionMessage() { Data = this.GetData() });
+            this.IsTriggered = true;
         }
 
-        private void OnDelete()
+        private async void OnDelete()
         {
-            MessengerInstance.Send(new DeleteFunctoidActionMessage(this));
+            var result = await ConfirmationHelper.RequestConfirmationForDeletation();
+            if (result is bool boolResult && boolResult)
+            {
+                MessengerInstance.Send(new DeleteFunctoidActionMessage(this));
+            }
         }
 
-        public FunctoidActionViewModel(FunctoidActionData data) : this()
+        public FunctoidActionViewModel(FunctoidActionData data, IArduinoGateway arduinoGateway) : this()
         {
             this.MidiChannel = data.MidiChannel;
             this.Data2 = data.Data2;
@@ -142,6 +217,7 @@ namespace MoonBurst.ViewModel
             this.Trigger = data.Trigger;
             this.IsEnabled = data.IsEnabled;
             this.IsExpanded = data.IsExpanded;
+            this._arduinoGateway = arduinoGateway;
         }
 
         public FunctoidActionData GetData()

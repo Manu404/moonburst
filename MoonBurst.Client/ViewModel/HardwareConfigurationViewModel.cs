@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -10,10 +12,13 @@ using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel
 {
-    public class HardwareConfigurationViewModel : ViewModelBase, IFileSerializableType<HardwareConfigurationViewModel.HardwareConfigurationData>
+    public class HardwareConfigurationViewModel : ViewModelBase
     {
         private IMidiGateway _midiGateway;
         private ISerialGateway _serialGateway;
+        private IArduinoGateway _arduinoConfig;
+        private IMessenger _messenger;
+
         private bool _isMidiConnected;
         private bool _isComConnected;
 
@@ -50,6 +55,7 @@ namespace MoonBurst.ViewModel
         public ObservableCollection<OutputMidiDevice> OutputMidiDevices { get; set; }
         public ObservableCollection<InputCOMPort> InputComPorts { get; set; }
         public ObservableCollection<int> SupportedBaudRates { get; set; }
+        public ObservableCollection<ArduinoConfigPortViewModel> ArduinoPorts { get; }
 
         public bool IsMidiConnected
         {
@@ -81,11 +87,14 @@ namespace MoonBurst.ViewModel
         public ICommand SaveConfigCommand { get; set; }
         public ICommand SaveAsConfigCommand { get; set; }
 
-        public HardwareConfigurationViewModel()
+        public HardwareConfigurationViewModel(IMidiGateway midiGateway, ISerialGateway serialGateway, IArduinoGateway arduinoGateway, IMessenger messenger)
         {
-            _midiGateway = new MidiGateway(MessengerInstance);
-            _serialGateway = new SerialGateway(MessengerInstance);
+            _midiGateway = midiGateway;
+            _serialGateway = serialGateway;
+            _arduinoConfig = arduinoGateway;
+            _messenger = messenger;
 
+            ArduinoPorts = new ObservableCollection<ArduinoConfigPortViewModel>();
             OutputMidiDevices = new ObservableCollection<OutputMidiDevice>();
             InputComPorts = new ObservableCollection<InputCOMPort>();
             SupportedBaudRates = new ObservableCollection<int>();
@@ -102,17 +111,10 @@ namespace MoonBurst.ViewModel
 
             OnRefreshMidiDevices();
             OnRefreshCOMDevices();
+            OnRefreshArduinoPorts();
 
-            MessengerInstance.Register<MidiConnectionStateChangedMessage>(this, (o) => this.IsMidiConnected = o.NewState == MidiConnectionStatus.Connected);
-            MessengerInstance.Register<SerialConnectionStateChangedMessage>(this, (o) => this.IsComConnected = o.NewState);
-        }
-        
-        public HardwareConfigurationViewModel(HardwareConfigurationData config, string path) : this()
-        {
-            this.SelectedComPort = config.ComPort;
-            this.SelectedOutputMidiDevice = config.MidiOut;
-            this.SelectedSpeed = config.Speed;
-            this.Path = path;
+            _messenger.Register<MidiConnectionStateChangedMessage>(this, (o) => this.IsMidiConnected = o.NewState == MidiConnectionStatus.Connected);
+            _messenger.Register<SerialConnectionStateChangedMessage>(this, (o) => this.IsComConnected = o.NewState);
         }
 
         private void OnSaveAsConfig()
@@ -125,13 +127,13 @@ namespace MoonBurst.ViewModel
             if (saveFileDialog1.FileName != "")
             {
                 Path = saveFileDialog1.FileName;
-                DataSerializer<HardwareConfigurationViewModel, HardwareConfigurationData>.SaveToFile(this);
+                DataSerializer<HardwareConfigurationData>.SaveToFile(GetData());
             }
         }
 
         private void OnSaveConfig()
         {
-            DataSerializer<HardwareConfigurationViewModel, HardwareConfigurationData>.SaveToFile(this);
+            DataSerializer<HardwareConfigurationData>.SaveToFile(GetData());
         }
 
         private void OnLoadConfig()
@@ -141,7 +143,7 @@ namespace MoonBurst.ViewModel
             openFileDialog1.Title = "Load layout";
             if (openFileDialog1.ShowDialog() == true)
             {
-                Load(DataSerializer<HardwareConfigurationViewModel, HardwareConfigurationData>.LoadFromFile(openFileDialog1.FileName));
+                LoadData(DataSerializer<HardwareConfigurationData>.LoadFromFile(openFileDialog1.FileName));
             }
         }
 
@@ -161,36 +163,59 @@ namespace MoonBurst.ViewModel
             RaisePropertyChanged("SelectedComPort");
         }
 
-        public void Load(HardwareConfigurationViewModel config)
+        void OnRefreshArduinoPorts()
         {
-            this.SelectedComPort = config.SelectedComPort;
-            this.SelectedOutputMidiDevice = config.SelectedOutputMidiDevice;
-            this.SelectedSpeed = config.SelectedSpeed;
+            ArduinoPorts.Clear();
+            foreach (var port in _arduinoConfig.Ports.OrderBy(c => c.Position))
+                ArduinoPorts.Add(new ArduinoConfigPortViewModel(port, _messenger));
+        }
+        
+        public string Path { get; set; }
+
+        public void UpdateArduinoPorts(List<ArduinoPortConfig> data)
+        {
+            foreach (var port in ArduinoPorts)
+            {
+                var dataPort = data.FirstOrDefault(d => d.Position == port.Position);
+                if (dataPort != null)
+                {
+                    port.IsEnabled = dataPort.IsEnabled;
+                    port.Connect(dataPort.ConnectedDevice);
+                }
+            }
+        }
+        
+        public void LoadData(HardwareConfigurationData config)
+        {
+            this.SelectedComPort = config.ComPort;
+            this.SelectedOutputMidiDevice = config.MidiOut;
+            this.SelectedSpeed = config.Speed;
             this.Path = config.Path;
+            this.UpdateArduinoPorts(config.ArduinoPorts);
         }
 
-        public string Path { get; set; }
-        public string Default { get => "default_hardware.xml"; }
-
-        HardwareConfigurationData IFileSerializableType<HardwareConfigurationData>.GetData()
+        HardwareConfigurationData GetData()
         {
             return new HardwareConfigurationData()
             {
                 ComPort = this.SelectedComPort,
                 MidiOut = this.SelectedOutputMidiDevice,
-                Speed = this.SelectedSpeed
+                Speed = this.SelectedSpeed,
+                ArduinoPorts = ArduinoPorts.ToList().ConvertAll(c => c.GetData()).ToList(),
+                Path = this.Path
             };
         }
 
-        public IFileSerializableType<HardwareConfigurationData> CreateFromData(HardwareConfigurationData data, string path)
+        public class HardwareConfigurationData : IFileSerializableType
         {
-            return new HardwareConfigurationViewModel(data, path);
-        }
+            [XmlIgnore]
+            public string Path { get; set; }
+            [XmlIgnore]
+            public string Default { get => "default_hardware.xml"; }
 
-        public class HardwareConfigurationData : IFileSerializableData
-        {
             public InputCOMPort ComPort { get; set; }
             public OutputMidiDevice MidiOut { get; set; }
+            public List<ArduinoPortConfig> ArduinoPorts { get; set; }
             public int Speed { get; set; }
         }
     }

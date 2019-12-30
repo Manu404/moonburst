@@ -6,24 +6,77 @@
              xmlns:local="clr-namespace:MoonBurst"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d">
-    <Grid>
+
+    <StackPanel>
+
         <!-- Toolbar -->
         <ToolBarTray>
-            <!-- Config Toolbar -->
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding CurrentHardwareConfig}">
-                <Button Command="{Binding LoadConfigCommand}" ToolTip="Load Configuration">
-                    <materialDesign:PackIcon Kind="FolderOpenOutline" />
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                <Menu Style="{DynamicResource MaterialDesignMenu}"> 
+                    <MenuItem Header="_File" Style="{DynamicResource MaterialDesignMenuItem}" Background="{StaticResource MaterialDesignToolBarBackground}">
+                        <MenuItem Header="_Open Layout..." Command="{Binding Layout.OnLoadLayoutCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="FolderOpenOutline" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Save Layout" Command="{Binding Layout.OnSaveLayoutCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentSaveSettingsOutline" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Save Layout As..." Command="{Binding Layout.OnSaveAsLayoutCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentSaveAll" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Open Hardware Config..." Command="{Binding HardwareConfig.LoadConfigCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="FolderOpenOutline" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Save _Hardware Config" Command="{Binding HardwareConfig.SaveConfigCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentSaveSettingsOutline" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Save Hardware Config As..." Command="{Binding HardwareConfig.SaveAsConfigCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentSaveAll" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="_Quit" Command="{Binding CloseApp}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="CloseOutline" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+            </ToolBar>
+
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" DataContext="{Binding Layout}">
+                    <Button Command="{Binding OnAddChannelCommand}" ToolTip="Add Functoid">
+                    <materialDesign:PackIcon Kind="Plus" />
                 </Button>
-                <Button Command="{Binding SaveConfigCommand}" ToolTip="Save Configuration">
-                    <materialDesign:PackIcon Kind="ContentSaveSettingsOutline"/>
+                <Button Command="{Binding OnCollaspeAllCommand}" ToolTip="Collapse All">
+                    <materialDesign:PackIcon Kind="ArrowCollapseHorizontal"/>
                 </Button>
-                <Button Command="{Binding SaveAsConfigCommand}" ToolTip="Save Configuration As...">
-                    <materialDesign:PackIcon Kind="ContentSaveAll"/>
+                <Button Command="{Binding OnExpandAllCommand}" ToolTip="Expand All">
+                    <materialDesign:PackIcon Kind="ArrowExpandHorizontal"/>
                 </Button>
             </ToolBar>
 
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                        CommandParameter="{x:Static Dock.Bottom}">
+                    <materialDesign:PackIcon Kind="PowerPlug" />
+                </Button>
+            </ToolBar>
+
+
             <!-- Midi Toolbar -->
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding CurrentHardwareConfig}">
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding HardwareConfig}">
                 <ComboBox ItemsSource="{Binding OutputMidiDevices}" DisplayMemberPath="Name" 
                           IsEnabled="{Binding IsMidiConnected, Converter={StaticResource InverseBooleanConverter}}"
                           SelectedItem="{Binding SelectedOutputMidiDevice, Mode=TwoWay}" materialDesign:HintAssist.Hint="Midi Output" ></ComboBox>
@@ -32,7 +85,7 @@
                 </Button>
                 <Button Command="{Binding OnConnectMidiCommand}">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsMidiConnected}" Value="False">
                                     <Setter Property="Content">
@@ -55,11 +108,18 @@
                                     </Setter>
                                     <Setter Property="Foreground">
                                         <Setter.Value>
-                                            <SolidColorBrush Color="{StaticResource RedAccent200}"></SolidColorBrush>
+                                            <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
                                         </Setter.Value>
                                     </Setter>
                                     <Setter Property="ToolTip" Value="Disconnect"></Setter>
                                 </DataTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource GrayNormal}"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
@@ -67,7 +127,7 @@
             </ToolBar>
 
             <!-- Config Toolbar -->
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding CurrentHardwareConfig}">
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding HardwareConfig}">
                 <ComboBox ItemsSource="{Binding InputComPorts}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedComPort, Mode=TwoWay}" materialDesign:HintAssist.Hint="COM Port" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
                 <ComboBox ItemsSource="{Binding SupportedBaudRates}" SelectedValue="{Binding SelectedSpeed, Mode=TwoWay}" materialDesign:HintAssist.Hint="Speed" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
                 <Button Command="{Binding OnRefreshComCommand}" ToolTip="Refresh">
@@ -75,7 +135,7 @@
                 </Button>
                 <Button Command="{Binding OnConnectComCommand}">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsComConnected}" Value="False">
                                     <Setter Property="Content">
@@ -88,7 +148,7 @@
                                             <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter Property="ToolTip" Value="Connect"></Setter>
+                                    <Setter Property="ToolTip" Value="Connect" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsComConnected}" Value="True">
                                     <Setter Property="Content">
@@ -98,19 +158,27 @@
                                     </Setter>
                                     <Setter Property="Foreground">
                                         <Setter.Value>
-                                            <SolidColorBrush Color="{StaticResource RedAccent200}"></SolidColorBrush>
+                                            <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter Property="ToolTip" Value="Disconnect"></Setter>
+                                    <Setter Property="ToolTip" Value="Disconnect" />
                                 </DataTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="{DynamicResource GrayNormal}"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
             </ToolBar>
 
+
             <!-- Debug Toolbar -->
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding CurrentHardwareConfig}">
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding HardwareConfig}">
                 <Button Command="{Binding OnOpenConsoleCommand}" ToolTip="Refresh">
                     <materialDesign:PackIcon Kind="EventAlert" />
                     <Button.Foreground>
@@ -131,5 +199,5 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-    </Grid>
+    </StackPanel>
 </UserControl>

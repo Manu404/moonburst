@@ -6,6 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Core;
 using MoonBurst.ViewModel;
 
 namespace MoonBurst
@@ -34,6 +38,15 @@ namespace MoonBurst
                     DefaultIcon = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "img\\", "moonfile.ico")
                 }
             });
+
+            var container = new WindsorContainer();
+
+            // Register the CompositionRoot type with the container
+            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
+            container.Register(Component.For<IMidiGateway>().ImplementedBy<MidiGateway>());
+            container.Register(Component.For<ISerialGateway>().ImplementedBy<SerialGateway>());
+            container.Register(Component.For<IArduinoGateway>().ImplementedBy<ArduinoGateway>());
+
             base.OnStartup(e);
         }
     }
