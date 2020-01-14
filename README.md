@@ -80,7 +80,6 @@ I have a FS3X footswitch from digitech (3 momentary swtich box), it's 25€, wor
 
 After posting the previous message and asking for review on several facebook music nerd/tech geek related groups, the reaction I had motivated me to make this project public. And here I'm, having to refactor that code I though nobody would read :p
 
-# License
 This work is licensed under a [Creative Commons Attribution 4.0 International
 License][cc-by].
 
