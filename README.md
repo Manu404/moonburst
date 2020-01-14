@@ -8,6 +8,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 
 # Compatible Controllers
 Full compatibility: Those controlles have been tested and working
+
 Haf compatibility: Those are assumed to be comptabible based on documentation, but not tested by the dev.
 If you have those, it would be amazing to send us a message about your expérience and confirm the support opr any issues !
 
