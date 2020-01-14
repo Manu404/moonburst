@@ -90,7 +90,7 @@ After posting the previous message and asking for review on several facebook mus
 
 - [LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
 - [Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you two at least.
-- [Romain Caudron](https://www.facebook.com/RCAguitar/), for the borrowed ENGL, Peavy and Marshall amp footswitchs
+- [Romain Caudron](https://www.facebook.com/RCAguitar/) (great) metal guitarist, for the borrowed ENGL, Peavy and Marshall amp footswitchs
 
 This work is licensed under a [Creative Commons Attribution 4.0 International
 License CC-BY](https://github.com/Manu404/moonburst/blob/master/LICENSE).
