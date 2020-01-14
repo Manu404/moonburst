@@ -32,7 +32,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Scene management for layouts
  - Piano roll for midi message builder
  - Midi-clocked delay
- - Implement value triggers (expression pedal)
+ - Implement value triggers to support expression pedal
 
 # Compatible Controllers
 Full compatibility: Those controlles have been tested and working
