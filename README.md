@@ -97,6 +97,6 @@ License][cc-by].
 
 # Gr33tz
 
-[LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
-[Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you a beer at least.
-[Romain Caudron](https://www.facebook.com/RCAguitar/), for the borrowed ENGL, Peavy and Marshall amp footswitchs
+- [LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
+- [Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you a beer at least.
+- [Romain Caudron](https://www.facebook.com/RCAguitar/), for the borrowed ENGL, Peavy and Marshall amp footswitchs
