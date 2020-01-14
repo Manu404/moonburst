@@ -86,17 +86,11 @@ I have a FS3X footswitch from digitech (3 momentary swtich box), it's 25€, wor
 
 After posting the previous message and asking for review on several facebook music nerd/tech geek related groups, the reaction I had motivated me to make this project public. And here I'm, having to refactor that code I though nobody would read :p
 
-This work is licensed under a [Creative Commons Attribution 4.0 International
-License][cc-by].
-
-[![CC BY 4.0][cc-by-image]][cc-by]
-
-[cc-by]: http://creativecommons.org/licenses/by/4.0/
-[cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
-[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
-
-# Gr33tz
+# b33rz
 
 - [LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
-- [Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you a beer at least.
+- [Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you two at least.
 - [Romain Caudron](https://www.facebook.com/RCAguitar/), for the borrowed ENGL, Peavy and Marshall amp footswitchs
+
+This work is licensed under a [Creative Commons Attribution 4.0 International
+License][cc-by].
