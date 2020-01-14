@@ -15,7 +15,7 @@ If you have those, it would be amazing to send us a message about your expérien
 Full Support: 
  - Digitech FS3X
  
-### Coming Supported Controller
+### In Developement Supported Controller
 Full Support:
  - Generic Switch/Tap on mono interface
  - Generic 2 Switch/Tap on stereo interface
