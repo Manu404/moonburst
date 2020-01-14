@@ -8,9 +8,10 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 
 # Features
 
- - Use Virtual Midi Loopback or existing midi interface to send midi
+ - Tranform your regular footswitch pedals into full midi controllers
+ - Use existing midi interface to send midi or use the built in midi loopback interface
  - Arduino hot-plug support and auto config
- - React to multiple triggers : 
+ - React to variety triggers : 
    - Event
      - Press
      - Sustain/Pressed
@@ -31,6 +32,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Scene management for layouts
  - Piano roll for midi message builder
  - Midi-clocked delay
+ - Implement value triggers (expression pedal)
 
 # Compatible Controllers
 Full compatibility: Those controlles have been tested and working
