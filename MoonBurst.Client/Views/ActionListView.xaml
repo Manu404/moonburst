@@ -239,8 +239,8 @@
                         <Label Style="{DynamicResource ActionEditorFieldLabel}" 
                                    Content="Channel" />
                         <mah:NumericUpDown  Width="150"
-                                                Minimum="0" 
-                                                Maximum="128"
+                                                Minimum="1" 
+                                                Maximum="16"
                                                 TextAlignment="Left"
                                                 HorizontalContentAlignment="Stretch"
                                                 materialDesign:HintAssist.Hint="Midi Channel"
@@ -253,7 +253,7 @@
                         <Label Style="{DynamicResource ActionEditorFieldLabel}"
                                    Content="Data 1"/>
                         <mah:NumericUpDown  Width="150"
-                                                Minimum="0"
+                                                Minimum="1"
                                                 Maximum="128"
                                                 TextAlignment="Left"
                                                 HorizontalContentAlignment="Stretch"
@@ -267,7 +267,7 @@
                         <Label Style="{DynamicResource ActionEditorFieldLabel}"
                                    Content="Data 2"/>
                         <mah:NumericUpDown  Width="150"
-                                                Minimum="0"
+                                                Minimum="1"
                                                 Maximum="128"
                                                 TextAlignment="Left"
                                                 HorizontalContentAlignment="Stretch"

@@ -8,7 +8,8 @@ namespace MoonBurst.Model
         Press = 0,
         Sustain = 1,
         Release = 2,
-        On = 3, 
-        Off = 4,
+        Released = 3,
+        On = 4, 
+        Off = 5,
     }
 }

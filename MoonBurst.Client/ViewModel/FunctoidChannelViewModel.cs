@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Core;
 using MoonBurst.Core.Helper;
-using MoonBurst.Model;
+using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
@@ -94,6 +96,7 @@ namespace MoonBurst.ViewModel
         public ICommand OnDeleteCommand { get; set; }
         public ICommand OnAddActionCommand { get; set; }
         public ICommand OnTriggerCommand { get; set; }
+        public ICommand OnToggleCommand { get; set; }
         public ICommand OnExpandActionsCommand { get; set; }
         public ICommand OnCollapseActionsCommand { get; set; }
 
@@ -104,6 +107,7 @@ namespace MoonBurst.ViewModel
             OnDeleteCommand = new RelayCommand(OnDelete);
             OnAddActionCommand = new RelayCommand(OnAddAction);
             OnTriggerCommand = new RelayCommand(OnTrigger);
+            OnToggleCommand = new RelayCommand(()  => this.IsEnabled = !this.IsEnabled);
 
             OnExpandActionsCommand = new RelayCommand(() => ToggleAction(true));
             OnCollapseActionsCommand = new RelayCommand(() => ToggleAction(false));
@@ -112,8 +116,25 @@ namespace MoonBurst.ViewModel
 
             _messenger.Register<DeleteFunctoidActionMessage>(this, OnDeleteAction);
             _messenger.Register<PortConfigChangedMessage>(this, OnPortConfigChanged);
+            _messenger.Register<ControllerStateMessage>(this, OnControllerStateChanged);
 
             AvailableInputs = new ObservableCollection<DeviceInputViewModel>();
+        }
+
+        private void OnControllerStateChanged(ControllerStateMessage obj)
+        {
+            if (this.SelectedInput == null) return;
+            if (obj.Port != this.SelectedInput.Port.Position) return;
+            foreach (var state in obj.States)
+                if (state.Index == this.SelectedInput.Input.Position)
+                {
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        this.IsTriggered = true;
+                    }));
+                    this.Actions.Where(a => (int)a.Trigger == (int)state.State).ToList().ForEach(a => a.OnTriggerAction());
+                    return;
+                }
         }
 
         private void ToggleAction(bool isExpanded)
@@ -161,15 +182,14 @@ namespace MoonBurst.ViewModel
 
         private void OnAddAction()
         {
-            Actions.Add(new FunctoidActionViewModel());
+            Actions.Add(new FunctoidActionViewModel(_messenger, _arduinoGateway));
         }
 
         public FunctoidChannelViewModel(FunctoidChannelData data, IArduinoGateway arduinoGateway, IMessenger messenger) : this(messenger)
         {
-            this.ArduinoBitMask = data.ArduinoBitMask;
             this.Index = data.Index;
             this.Name = data.Name;
-            this.Actions = new ObservableCollection<FunctoidActionViewModel>(data.Actions.ConvertAll(d => new FunctoidActionViewModel(d, this._arduinoGateway)));
+            this.Actions = new ObservableCollection<FunctoidActionViewModel>(data.Actions.ConvertAll(d => new FunctoidActionViewModel(d, this._arduinoGateway, _messenger)));
             this.IsEnabled = data.IsEnabled;
             this.IsExpanded = data.IsExpanded;
             this._arduinoGateway = arduinoGateway;
@@ -184,7 +204,6 @@ namespace MoonBurst.ViewModel
             {
                 _messenger.Send(new DeleteFunctoidChannelMessage(this));
             }
-
         }
 
         public FunctoidChannelData GetData()
@@ -193,7 +212,6 @@ namespace MoonBurst.ViewModel
             {
                 Index = this.Index,
                 Name = this.Name,
-                ArduinoBitMask = this.ArduinoBitMask,
                 Actions = this.Actions?.ToList().ConvertAll(input => input.GetData()),
                 IsEnabled = this.IsEnabled,
                 IsExpanded = this.IsExpanded,
@@ -204,7 +222,6 @@ namespace MoonBurst.ViewModel
 
         public class FunctoidChannelData
         {
-            public int ArduinoBitMask { get; set; }
             public int Index { get; set; }
             public string Name { get; set; }
             public bool IsEnabled { get; set; }

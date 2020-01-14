@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using Microsoft.Win32;
 using MoonBurst.Model;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.Core
 {
     public class DataSerializer<T> where T : IFileSerializableType, new()
     {

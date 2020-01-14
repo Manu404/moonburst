@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
@@ -9,6 +11,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
 using MoonBurst.Core;
 using MoonBurst.Model;
+using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
@@ -39,6 +42,7 @@ namespace MoonBurst.ViewModel
             {
                 _serialGateway.CurrentPort = value;
                 RaisePropertyChanged();
+                RefreshAvailabledSpeeds();
             }
         }
 
@@ -99,7 +103,7 @@ namespace MoonBurst.ViewModel
             InputComPorts = new ObservableCollection<InputCOMPort>();
             SupportedBaudRates = new ObservableCollection<int>();
 
-            OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(), () => this.SelectedComPort?.Id >= 0);
+            OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
             OnConnectMidiCommand = new RelayCommand(() => _midiGateway.Connect(), () => this.SelectedOutputMidiDevice?.Id >= 0);
             OnRefreshComCommand = new RelayCommand(OnRefreshCOMDevices, () => !this.IsComConnected);
             OnRefreshMidiCommand = new RelayCommand(OnRefreshMidiDevices, () => !this.IsMidiConnected);
@@ -114,7 +118,20 @@ namespace MoonBurst.ViewModel
             OnRefreshArduinoPorts();
 
             _messenger.Register<MidiConnectionStateChangedMessage>(this, (o) => this.IsMidiConnected = o.NewState == MidiConnectionStatus.Connected);
-            _messenger.Register<SerialConnectionStateChangedMessage>(this, (o) => this.IsComConnected = o.NewState);
+            _messenger.Register<SerialConnectionStateChangedMessage>(this, OnSerialStateChange);
+        }
+
+        private void OnSerialStateChange(SerialConnectionStateChangedMessage obj)
+        {
+            this.IsComConnected = obj.NewState;
+            if(!IsComConnected)
+                this.OnRefreshCOMDevices();
+        }
+
+        public void Close()
+        {
+            _serialGateway.Close();
+            _midiGateway.Close();
         }
 
         private void OnSaveAsConfig()
@@ -154,13 +171,33 @@ namespace MoonBurst.ViewModel
             RaisePropertyChanged("SelectedOutput");
         }
 
+        void RefreshAvailabledSpeeds()
+        {
+            if (this.SelectedComPort != null)
+            {
+                SupportedBaudRates.Clear();
+                var selectedSpeed = SelectedSpeed;
+                _serialGateway.GetRates().Where(r => r <= this.SelectedComPort.MaxBaudRate).ToList()
+                    .ForEach(SupportedBaudRates.Add);
+                SelectedSpeed = selectedSpeed;
+            }
+        }
+
         void OnRefreshCOMDevices()
         {
-            InputComPorts.Clear();
-            SupportedBaudRates.Clear();
-            _serialGateway.GetPorts().ForEach(InputComPorts.Add);
-            _serialGateway.GetRates().ForEach(SupportedBaudRates.Add);
-            RaisePropertyChanged("SelectedComPort");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var selectedCom = SelectedComPort?.Name;
+                InputComPorts.Clear();
+                _serialGateway.GetPorts().ForEach(InputComPorts.Add);
+
+                if (!String.IsNullOrEmpty(selectedCom) && InputComPorts.Any(o => o.Name == selectedCom))
+                    SelectedComPort = InputComPorts.FirstOrDefault(o => o.Name == selectedCom);
+                else
+                    SelectedComPort = null;
+
+                RaisePropertyChanged("SelectedComPort");
+            });
         }
 
         void OnRefreshArduinoPorts()

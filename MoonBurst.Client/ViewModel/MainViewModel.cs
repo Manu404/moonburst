@@ -1,42 +1,16 @@
 using GalaSoft.MvvmLight;
-using Sanford.Multimedia.Midi;
-using Sanford.Multimedia.Midi.UI;
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO.Ports;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security;
-using System.Threading;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using MahApps.Metro;
-using MaterialDesignThemes.Wpf;
-using Microsoft.Win32;
 using MoonBurst.Core;
 using MoonBurst.Model;
+using MoonBurst.Model.Messages;
 using MoonBurst.Views;
-using ChannelCommand = MoonBurst.Model.ChannelCommand;
 
 namespace MoonBurst.ViewModel
 {
-    public class SideMenuAction
-    {
-        public PackIconKind Kind { get; set; }
-        public ICommand Execute { get; set; }
-        public string TootTip { get; set; }
-        public string Name { get; set; }
-    }
-
     public class MainViewModel : ViewModelBase
     {
-        public ObservableCollection<SideMenuAction> QuickActions { get; set; }
-
         private DebugWindow debugWindow;
         private string _log;
         private string _appVersion;
@@ -114,7 +88,7 @@ namespace MoonBurst.ViewModel
         public MainViewModel()
         {
             AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Title = "Moon Burst";
+            Title = "MoonBurst";
             
             _arduinoGateway = new ArduinoGateway();
             _messenger = MessengerInstance;
@@ -122,7 +96,6 @@ namespace MoonBurst.ViewModel
             ClientConfiguration = new ClientConfiguration();
             HardwareConfig = new HardwareConfigurationViewModel(new MidiGateway(_messenger), new SerialGateway(_messenger), _arduinoGateway, _messenger);
             Layout = new LayoutViewModel(_arduinoGateway, _messenger);
-            QuickActions = new ObservableCollection<SideMenuAction>();
             
             InitializeConfigs();
 
@@ -160,6 +133,7 @@ namespace MoonBurst.ViewModel
         {
             Layout.OnSaveLayoutCommand.Execute(null);
             HardwareConfig.SaveConfigCommand.Execute(null);
+            HardwareConfig.Close();
             UpdateAndSaveClientConfig();
         }
 

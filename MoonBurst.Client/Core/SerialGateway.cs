@@ -1,129 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
+using System.Management;
+using System.Threading;
+using System.Windows;
+using Castle.Core.Internal;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Core.Parser;
 using MoonBurst.Model;
+using MoonBurst.Model.Messages;
+using MoonBurst.Model.Parser;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.Core
 {
-    public enum FootswitchState
-    {
-        [Description("Pressing")]
-        Pressing = 0,
-        [Description("Pressed")]
-        Pressed = 1,
-        [Description("Releasing")]
-        Releasing = 2,
-        [Description("Released")]
-        Released = 3,
-        [Description("Unknown")]
-        Unknown = 4
-    }
-
-    public interface IControllerInputState
-    {
-        int Index { get; }
-    }
-
-    public interface IFootswitchState  : IControllerInputState
-    {
-        FootswitchState State { get; }
-    }
-
-    public class MomentaryFootswitchState : IFootswitchState
-    {
-        public FootswitchState State { get; }
-        public int  Index { get; }
-
-        public MomentaryFootswitchState(FootswitchState state, int index)
-        {
-            State = state;
-            Index = index;
-        }
-    }
-
-    public interface IControllerInputParser
-    {
-        IControllerInputState ParseState(string state, int index);
-    }
-
-    public interface IFootswitchParser : IControllerInputParser
-    {
-        new IFootswitchState ParseState(string state, int index);
-    }
-
-    public interface IControllerParser
-    {
-        IDeviceDefinition Device { get; }
-        List<MomentaryFootswitchState> ParseState(string state, int index);
-        bool ValidateState(string state);
-    }
-
-    public class MomentaryFootswitchParser : IFootswitchParser
-    {
-        private int previous;
-
-        public IFootswitchState ParseState(string state, int index)
-        {
-            int isPressed, wasPressed = previous;
-            if(Int32.TryParse(state, out isPressed))
-            {
-                previous = isPressed;
-                if (isPressed == 1)
-                {
-                    if(wasPressed == 1) return new MomentaryFootswitchState(FootswitchState.Pressed, index);
-                    return new MomentaryFootswitchState(FootswitchState.Pressing, index);
-                }
-                else
-                {
-                    if (wasPressed == 0) return new MomentaryFootswitchState(FootswitchState.Released, index);
-                    return new MomentaryFootswitchState(FootswitchState.Releasing, index);
-                }
-            }
-            return new MomentaryFootswitchState(FootswitchState.Unknown, index);
-        }
-
-        IControllerInputState IControllerInputParser.ParseState(string state, int index)
-        {
-            return ParseState(state, index);
-        }
-    }
-
-    public class Fs3XParser : IControllerParser
-    {
-        readonly MomentaryFootswitchParser[] _parser = new MomentaryFootswitchParser[3];
-
-        public Fs3XParser()
-        {
-            for(int i = 0; i < 3; i++)
-                _parser[i] = new MomentaryFootswitchParser();
-        }
-
-        public IDeviceDefinition Device => new Fs3xDeviceDefinition();
-
-        public List<MomentaryFootswitchState> ParseState(string state, int index)
-        {
-            var result = new List<MomentaryFootswitchState>();
-            if (state.Length != 4) return result;
-            for(int i = 0; i < 3; i++)
-                result.Add((MomentaryFootswitchState) _parser[i].ParseState(state[i].ToString(), i));
-            return result;
-        }
-
-        public bool ValidateState(string state)
-        {
-            return true;
-        }
-    }
-
-    public class ControllerStateMessage : MessageBase
-    {
-        public List<MomentaryFootswitchState> States { get; set; }
-        public int Port { get; set; }
-    }
-
     public interface ISerialGateway
     {
         bool IsConnected { get; }
@@ -132,6 +22,7 @@ namespace MoonBurst.ViewModel
         List<InputCOMPort> GetPorts();
         List<int> GetRates();
         void Connect();
+        void Close();
     }
 
     public class SerialGateway : ISerialGateway
@@ -140,6 +31,7 @@ namespace MoonBurst.ViewModel
         private IMessenger _messenger;
         private SerialPort _serialPort;
         private bool _isConnected;
+        private Timer _checkStatusTimer;
 
         public bool IsConnected
         {
@@ -161,6 +53,16 @@ namespace MoonBurst.ViewModel
         {
             _messenger = messenger;
             _footswitchParser = new Fs3XParser();
+            _checkStatusTimer = new Timer(OnCheckStatus, this, 0, 1000);
+        }
+
+        private void OnCheckStatus(object state)
+        {
+            if (this.IsConnected)
+            {
+                if (!this._serialPort.IsOpen)
+                    this.Close();
+            }
         }
 
         public void Connect()
@@ -169,7 +71,7 @@ namespace MoonBurst.ViewModel
             {
                 try
                 {
-                    _serialPort = new SerialPort(this.CurrentPort.Name, CurrentSpeed, Parity.None, 8, StopBits.One);
+                    _serialPort = new SerialPort(this.CurrentPort.Id, CurrentSpeed, Parity.None, 8, StopBits.One);
                     _serialPort.DataReceived += SerialPortOnDataReceived;
                     _serialPort.Open();
                     this.IsConnected = true;
@@ -188,10 +90,22 @@ namespace MoonBurst.ViewModel
                         _serialPort.DataReceived -= SerialPortOnDataReceived;
                         _serialPort.Close();
                     }
+
                 }
                 catch (Exception e)
                 {
                 }
+                this.IsConnected = false;
+            }
+        }
+
+        public void Close()
+        {
+            if (this.IsConnected)
+            {
+                _serialPort.DataReceived -= SerialPortOnDataReceived;
+                _serialPort.Close();
+                _serialPort.Dispose();
                 this.IsConnected = false;
             }
         }
@@ -207,19 +121,25 @@ namespace MoonBurst.ViewModel
         public List<InputCOMPort> GetPorts()
         {
             var result = new List<InputCOMPort>();
-            string[] ports = SerialPort.GetPortNames();
-            if (ports.Any())
+            try
             {
-                int i = 0;
-                foreach (var port in ports)
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SerialPort");
+                foreach (ManagementObject queryObj in searcher.Get())
                 {
-                    result.Add(new InputCOMPort() { Name = port, Id = i });
-                    i++;
+                    result.Add(new InputCOMPort()
+                    {
+                        Name = queryObj["Name"].ToString(),
+                        Id = queryObj["DeviceID"].ToString(),
+                        MaxBaudRate = Int32.Parse(queryObj["MaxBaudRate"].ToString())
+                    });
                 }
+                if(!result.Any())
+                    result.Add(new InputCOMPort() { Name = "No COM ports available...", Id = "", MaxBaudRate = 0});
+
             }
-            else
+            catch (ManagementException e)
             {
-                result.Add(new InputCOMPort() { Name = "No COM ports available...", Id = -1 });
+                MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
             }
             return result;
         }

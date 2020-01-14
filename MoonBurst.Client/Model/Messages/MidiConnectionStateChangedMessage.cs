@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Model;
 
-namespace MoonBurst.Core
+namespace MoonBurst.Model.Messages
 {
     public class MidiConnectionStateChangedMessage : MessageBase
     {

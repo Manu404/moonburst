@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core;
 using MoonBurst.Model;
+using MoonBurst.Model.Messages;
 using MoonBurst.ViewModel;
 using Sanford.Multimedia.Midi;
 
@@ -14,6 +15,7 @@ namespace MoonBurst.Core
         void Trigger(TriggeredActionMessage obj);
         void Connect();
         void SendTest();
+        void Close();
         List<OutputMidiDevice> GetDevices();
     }
 
@@ -58,15 +60,14 @@ namespace MoonBurst.Core
             {
 
                 _builder.Command = (Sanford.Multimedia.Midi.ChannelCommand)obj.Data.Command;
-                _builder.MidiChannel = obj.Data.MidiChannel;
-                _builder.Data1 = obj.Data.Data1;
-                _builder.Data2 = obj.Data.Data2;
+                _builder.MidiChannel = obj.Data.MidiChannel - 1;
+                _builder.Data1 = obj.Data.Data1 - 1;
+                _builder.Data2 = obj.Data.Data2 - 1;
                 _builder.Build();
 
                 this._outDevice.Send(_builder.Result);
             }
         }
-
 
         public void Connect()
         {
@@ -77,9 +78,15 @@ namespace MoonBurst.Core
             }
             else
             {
-                _outDevice?.Close();
-                this.IsConnected = false;
+                Close();
             }
+        }
+
+        public void Close()
+        {
+
+            _outDevice?.Close();
+            this.IsConnected = false;
         }
 
         public void SendTest()

@@ -4,7 +4,7 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
-    <Style  x:Key="ChannelMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
+    <Style  x:Key="ChannelExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
@@ -18,14 +18,14 @@
                                     <DataTrigger Binding="{Binding IsEnabled}" Value="True">
                                         <Setter Property="BorderBrush">
                                             <Setter.Value>
-                                                <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
+                                                <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsEnabled}" Value="False">
                                         <Setter Property="BorderBrush">
                                             <Setter.Value>
-                                                <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
+                                                <SolidColorBrush Color="{StaticResource RedAccent100}"></SolidColorBrush>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -62,7 +62,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ChannelExpander" TargetType="{x:Type Expander}" BasedOn="{StaticResource MaterialDesignExpander}">
+    <Style x:Key="ChannelExpanderStyle" TargetType="{x:Type Expander}" BasedOn="{StaticResource MaterialDesignExpander}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
@@ -148,7 +148,7 @@
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="Height" TargetName="ContentPanel" Value="Auto"/>
-                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ChannelMaterialExpanderHeaderStyle}"/>
+                            <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ChannelExpanderHeaderStyle}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -160,7 +160,7 @@
         <Grid>
             <Ellipse Style="{StaticResource TriggerStatusEllipseControl}" VerticalAlignment="Center" HorizontalAlignment="Center">
             </Ellipse>
-            <Button ToolTip="{Binding ActionName}" Width="30" Height="30">
+            <Button ToolTip="{Binding ActionName}">
                 <materialDesign:PackIcon Kind="PlayOutline" Margin="5" />
                 <Button.InputBindings>
                     <MouseBinding Gesture="RightClick" Command="{Binding OnToggleActionCommand}" />
@@ -207,38 +207,40 @@
                     <Ellipse Style="{StaticResource TriggerStatusEllipseControl}" VerticalAlignment="Center" HorizontalAlignment="Center">
                     </Ellipse>
 
-                    <ToggleButton ToolTip="(De)Activate Functoid" IsChecked="{Binding IsEnabled}" Background="Transparent">
-                        <ToggleButton.Content>
-                            <materialDesign:PackIcon Kind="Function" />
-                        </ToggleButton.Content>
-                        <ToggleButton.Style>
-                            <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
+
+                    <Button ToolTip="{Binding Name}">
+                        <materialDesign:PackIcon Kind="Function" Margin="5" />
+                        <Button.InputBindings>
+                            <MouseBinding Gesture="LeftClick" Command="{Binding OnToggleCommand}" />
+                        </Button.InputBindings>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignIconForegroundButton}">
                                 <Style.Triggers>
-                                    <Trigger Property="IsChecked" Value="True">
-                                        <Setter Property="Foreground">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                    <Trigger Property="IsChecked" Value="False">
+                                    <DataTrigger Binding="{Binding IsEnabled}" Value="True" >
                                         <Setter Property="Foreground">
                                             <Setter.Value>
                                                 <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
                                             </Setter.Value>
                                         </Setter>
-                                    </Trigger>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsEnabled}" Value="False">
+                                        <Setter Property="Foreground">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="{DynamicResource RedAccent100}"></SolidColorBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </ToggleButton.Style>
-                    </ToggleButton>
-
+                        </Button.Style>
+                    </Button>
                 </Grid>
 
                 <Separator />
 
                 <TextBlock MinWidth="100" FontSize="13"
                                Text="{Binding Name}" 
+                               HorizontalAlignment="Center"
                                Margin="10 10 10 10"
                                RenderTransformOrigin=".5,.5">
                     <TextBlock.LayoutTransform>
@@ -248,14 +250,6 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1">
-                <Separator />
-                <TextBlock Text="Actions" FontSize="13"
-                               Margin="10 10 10 10"
-                               RenderTransformOrigin=".5,.5">
-                    <TextBlock.LayoutTransform>
-                        <RotateTransform Angle="90" />
-                    </TextBlock.LayoutTransform>
-                </TextBlock>
                 <Separator />
                 <ItemsControl Margin="0,10,0,0" ItemsSource="{Binding Actions}" ItemTemplate="{StaticResource ChannelHeaderActionStatusTemplate}" />
             </StackPanel>
@@ -360,7 +354,7 @@
             <Expander ExpandDirection="Right" 
                           IsExpanded="{Binding IsExpanded}" 
                           VerticalContentAlignment="Stretch"
-                          Style="{StaticResource ChannelExpander}" 
+                          Style="{StaticResource ChannelExpanderStyle}" 
                           Header="{Binding}" Content="{Binding}"
                           ContentTemplate="{StaticResource ChannelExpanderBodyTemplate}"
                           HeaderTemplate="{StaticResource ChannelExpanderHeaderTemplate}"

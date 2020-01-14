@@ -7,8 +7,8 @@ using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
+using MoonBurst.Core;
 using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel

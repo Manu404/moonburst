@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.ViewModel
+﻿namespace MoonBurst.Model
 {
 
     public class ArduinoPortConfig

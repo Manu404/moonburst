@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2019.4.0.1251</AssemblyVersion>
+    <AssemblyVersion>2020.1.0.1312</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -102,6 +102,12 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Management, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Management.4.0.0\lib\System.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management.Instrumentation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Management.4.0.0\lib\System.Management.Instrumentation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -126,21 +132,32 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\ArduinoGateway.cs" />
+    <Compile Include="Model\Messages\ControllerStateMessage.cs" />
+    <Compile Include="Model\Parser\FootswitchState.cs" />
+    <Compile Include="Core\Parser\Fs3XParser.cs" />
     <Compile Include="Core\Helper\ConfirmationHelper.cs" />
     <Compile Include="Core\Helper\EnumeratorToStringConverter.cs" />
+    <Compile Include="Model\Parser\IControllerInputParser.cs" />
+    <Compile Include="Model\Parser\IControllerInputState.cs" />
+    <Compile Include="Model\Parser\IControllerParser.cs" />
+    <Compile Include="Model\Parser\IFootswitchParser.cs" />
+    <Compile Include="Model\Parser\IFootswitchState.cs" />
+    <Compile Include="Core\Parser\MomentaryFootswitchParser.cs" />
+    <Compile Include="Model\Parser\MomentaryFootswitchState.cs" />
     <Compile Include="Model\Messages\SerialConnectionStateChangedMessage.cs" />
     <Compile Include="Model\Messages\MidiConnectionStateChangedMessage.cs" />
-    <Compile Include="Model\Enums\MidiConnectionStatus.cs" />
+    <Compile Include="Model\UI\Enums\MidiConnectionStatus.cs" />
     <Compile Include="Core\MidiGateway.cs" />
     <Compile Include="Core\SerialGateway.cs" />
     <Compile Include="Model\Messages\TriggeredActionMessage.cs" />
     <Compile Include="Model\Serializable\ArduinoPortConfig.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
+    <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Enums\FootTrigger.cs" />
-    <Compile Include="Core\IFileSerializableType.cs" />
+    <Compile Include="Model\UI\Enums\FootTrigger.cs" />
+    <Compile Include="Model\Serializable\IFileSerializableType.cs" />
     <Compile Include="Model\Serializable\InputCOMPort.cs" />
     <Compile Include="Model\Serializable\OutputMidiDevice.cs" />
     <Compile Include="Model\ClientConfiguration.cs" />
@@ -153,9 +170,9 @@
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\EnumToItemsSource.cs" />
-    <Compile Include="Core\InverseBooleanConverter.cs" />
-    <Compile Include="Model\Enums\ChannelCommand.cs" />
+    <Compile Include="Core\Helper\EnumToItemsSource.cs" />
+    <Compile Include="Core\Helper\InverseBooleanConverter.cs" />
+    <Compile Include="Model\UI\Enums\ChannelCommand.cs" />
     <Compile Include="Model\Messages\DeleteFunctoidChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="Themes\Imports.xaml">
@@ -251,5 +268,6 @@
   <ItemGroup>
     <SplashScreen Include="img\smallsplash.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

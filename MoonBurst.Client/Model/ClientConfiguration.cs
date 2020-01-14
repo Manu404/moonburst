@@ -1,7 +1,9 @@
 using System;
 using System.Xml.Serialization;
+using MoonBurst.Core;
+using MoonBurst.ViewModel;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.Model
 {
     public class ClientConfiguration
     {

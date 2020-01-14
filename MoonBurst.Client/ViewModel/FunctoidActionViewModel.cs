@@ -1,18 +1,14 @@
 using System;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using MaterialDesignThemes.Wpf;
+using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Model;
+using MoonBurst.Model.Messages;
+using MoonBurst.Model.Parser;
 
 namespace MoonBurst.ViewModel
 {
@@ -78,7 +74,7 @@ namespace MoonBurst.ViewModel
             get => _isTriggered;
             set
             {
-                _isTriggered = value;
+                _isTriggered = true;
                 RaisePropertyChanged();
                 _isTriggered = false;
                 RaisePropertyChanged();
@@ -180,12 +176,16 @@ namespace MoonBurst.ViewModel
         public ICommand OnTriggerActionCommand { get; set; }
 
         private IArduinoGateway _arduinoGateway;
+        private IMessenger _messenger;
 
-        public FunctoidActionViewModel()
+        public FunctoidActionViewModel(IMessenger messenger, IArduinoGateway arduinoGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
             OnToggleActionCommand = new RelayCommand(OnToggle);
+
+            _arduinoGateway = arduinoGateway;
+            _messenger = messenger;
         }
 
         private void OnToggle()
@@ -193,10 +193,13 @@ namespace MoonBurst.ViewModel
             this.IsEnabled = !this.IsEnabled;
         }
 
-        private void OnTriggerAction()
+        public void OnTriggerAction()
         {
-            Messenger.Default.Send(new TriggeredActionMessage() { Data = this.GetData() });
-            this.IsTriggered = true;
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                this.IsTriggered = true;
+            }));
+            _messenger.Send(new TriggeredActionMessage() { Data = this.GetData() });
         }
 
         private async void OnDelete()
@@ -204,11 +207,11 @@ namespace MoonBurst.ViewModel
             var result = await ConfirmationHelper.RequestConfirmationForDeletation();
             if (result is bool boolResult && boolResult)
             {
-                MessengerInstance.Send(new DeleteFunctoidActionMessage(this));
+                _messenger.Send(new DeleteFunctoidActionMessage(this));
             }
         }
 
-        public FunctoidActionViewModel(FunctoidActionData data, IArduinoGateway arduinoGateway) : this()
+        public FunctoidActionViewModel(FunctoidActionData data, IArduinoGateway arduinoGateway, IMessenger messenger) : this(messenger, arduinoGateway)
         {
             this.MidiChannel = data.MidiChannel;
             this.Data2 = data.Data2;
@@ -217,7 +220,6 @@ namespace MoonBurst.ViewModel
             this.Trigger = data.Trigger;
             this.IsEnabled = data.IsEnabled;
             this.IsExpanded = data.IsExpanded;
-            this._arduinoGateway = arduinoGateway;
         }
 
         public FunctoidActionData GetData()

@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Core;
+using MoonBurst.Model;
+using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
-    public class PortConfigChangedMessage : MessageBase
-    {
-
-    }
-
     public class ArduinoConfigPortViewModel : ViewModelBase
     {
         private IMessenger _messenger;

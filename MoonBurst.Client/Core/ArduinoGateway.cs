@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoonBurst.Model;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.Core
 {
     public interface IDeviceInput
     {
