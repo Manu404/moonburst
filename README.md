@@ -6,6 +6,33 @@ Moonburst is an arduino based solution for musician that aim to provide a generi
 
 The software is simple : you define functoid, that are binded to a footswitch, than can create multiple actions on that functoid based on footswtich triggers and/or states that will then send midi messages or trigger other functoid, etc,... To add buttons, just add new footswtichs. The idea is to be modular and open as possible.
 
+# Features
+
+ - Use Virtual Midi Loopback or existing midi interface to send midi
+ - Arduino hot-plug support and auto config
+ - Support layout and configs file
+ - React to multiple triggers : 
+   - Event
+     - Press
+     - Sustain/Pressed
+     - Release
+     - Released
+   - State: (treat your switch as a toggle button)
+     - On
+     - Off
+ - Custom midi message build
+ - Time-domain delay feature
+ - Trigger multiple midi messages from the same event
+ - Manual trigger of each functoid/channel
+ - Mute features
+ - Midi Monitor
+ 
+# Roadmap
+ - For controllers compatibility, check the related section.
+ - Scene management for layouts
+ - Piano roll for midi message builder
+ - Midi-clocked delay
+
 # Compatible Controllers
 Full compatibility: Those controlles have been tested and working
 
