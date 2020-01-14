@@ -1,4 +1,4 @@
-[![CC BY 4.0][cc-by-shield]][cc-by]
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 # What is MoonBurst ?
 
@@ -92,5 +92,5 @@ After posting the previous message and asking for review on several facebook mus
 - [Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you two at least.
 - [Romain Caudron](https://www.facebook.com/RCAguitar/), for the borrowed ENGL, Peavy and Marshall amp footswitchs
 
-This work is licensed under a [Creative Commons Attribution 4.0 International
-License][cc-by].
+This work is licensed under a Creative Commons Attribution 4.0 International
+License CC-BY.
