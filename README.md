@@ -1,4 +1,4 @@
-# What is MoonBurst ?
+# MoonBurst in short
 
 Moonburst is an arduino based solution for musician that aim to provide a generic midi open source interface that accept as many "generic" controller as possible, keeping the cost factor really low, yet versatile and open. Some solutions already exists, but not as I envision mine, or at high costs and sometimes long learning curve.
 
@@ -11,7 +11,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Tranform your regular footswitch pedals into full midi controllers
  - Use existing midi interface to send midi or use the built in midi loopback interface
  - Arduino hot-plug support and auto config
- - React to variety triggers : 
+ - React to variety of triggers : 
    - Event
      - Press
      - Sustain/Pressed
@@ -20,16 +20,17 @@ The software is simple : you define functoid, that are binded to a footswitch, t
    - State: (treat your switch as a toggle button)
      - On
      - Off
- - Custom midi message builder to define precisely what's send.
- - Trigger multiple midi messages from the same event
- - Manual trigger of each functoid/channel
- - Can add real time delay per trigger
+ - Custom midi message builder to define precisely what's send by each action.
+ - Send multiple midi messages from the same trigger
+ - Manual trigger of each action/channel
+ - Real time delay per action
  - Midi Monitor
  
 # Roadmap
 It would be tempting to add a lot of midi features and tools, from remaping to routing, but I want to reduce the footprint of the project as much as possible, so those concerns can be managed at your will on your side. There's a lot of free midi (http://www.vst4free.com/index.php?m=midiVST) utility that I think are better option than trying to implement them (badly ?) myself. The only developement done that way for the moment was the midi monitor for ease of automated testing. Moonburst should always remain a dumb, yet highly confirgurable and versatile, midi controller.
 
  - Write documentation for arduino wiring
+ - Define a more clearer and consistent vocabulary
  - For controllers compatibility, check the related section.
  - Scene management for layouts
  - Piano roll for midi message builder
