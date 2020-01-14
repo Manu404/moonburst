@@ -68,9 +68,9 @@ If you have those, it would be amazing to send us a message about your expérien
  - 1 ENGL, 1 Peavy and 1 Marshall amp footswitchs (precise model coming soon)
  
 # Supported Systems
-Moonburst was designed for Microsoft Windows, the UI wouldn't be portable easily to linux, even thon there's plan to migrate as much as possible to .Net Core over time. The software was designed for a personal need first, so a lot of decision were made toward speed of developement regarding technologies.
+Moonburst was designed for Microsoft Windows, the UI wouldn't be portable easily to linux, even tho there's plan to migrate as much as possible to .Net Core over time. The software was designed for a personal need first, so a lot of decision were made toward speed of developement regarding already known technologies.
 
-Each release was tested against a clean default windows 10 install with latest updates.
+Each release is tested against a clean default windows 10 install with latest updates.
  
 # About the project
 
