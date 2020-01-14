@@ -11,11 +11,11 @@ Full support: Those controlles have been tested and working
 Haf support: Those are assumed to be comptabible based on documentation, but not tested by the dev.
 If you have those, it would be amazing to send us a message about your expérience and confirm the support opr any issues !
 
-### Currently Supported Controller
+### Currently Supported
 Full Support: 
  - Digitech FS3X
  
-### In Developement Supported Controller
+### In Developement
 Full Support:
  - Generic Switch/Tap on mono interface
  - Generic 2 Switch/Tap on stereo interface
@@ -27,7 +27,7 @@ Half Support:
  - Boss FS5U
  - Boss FS7
 
-### Planned Supported Controllers (Q2 2020) : 
+### Planned (Q2 2020) : 
 Full Support:
  - Vox VFS55
  
