@@ -11,7 +11,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 # Features
 
  - Tranform your regular footswitch pedals into full midi controllers
- - Use existing midi interface to send midi or use the integrated [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) (instaled  by default if not found)
+ - Use existing midi interface to send midi or use [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) to create virtual interfaces
  - Arduino hot-plug support and auto config
  - React to variety of triggers : 
    - Event
@@ -93,3 +93,8 @@ License][cc-by].
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+
+# Gr33tz
+
+[LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
+[Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you a beer at least.
