@@ -1,10 +1,12 @@
-# MoonBurst
+# What is MoonBurst ?
 
 ![screenshot](https://github.com/Manu404/moonburst/blob/master/scrns/screen.png)
 
 Moonburst is an arduino based solution for musician that aim to provide a generic midi open source interface that accept as much "generic" controller as possible, keeping the cost factor really low, yet versatile and open as much as possible. Some solutions already exists, but not as I envision mine, or at high costs and sometimes long learning curve.
 
 The software is simple : you define functoid, that are binded to a footswitch, than can create multiple actions on that functoid based on footswtich triggers and/or states that will then send midi messages or trigger other functoid, etc,... To add buttons, just add new footswtichs. The idea is to be modular and open as possible.
+
+# Supported Controllers
 
 Currently Supported Controller: 
  - Digitech FS3X
@@ -31,4 +33,4 @@ Being a guitarist, I need to control most of the software with footswtich and I 
 
 I have a FS3X footswitch from digitech (3 momentary swtich box), it's 25€, works with a standard stereo jack interface, I know a bit of electronic and worked as a software developer in the past.
 
-Few days later, here I am, with a generic midi gateway software using an arduino to interface multiple FS3X. I also want the UI to be touch-compatible (so button size etc is important) as I use android client that act as additional monitor, so this client would be displayed on a tablet during live performance. Also need to lock/secure some parts for live performance to avoid some disaster.
+There started this project...
