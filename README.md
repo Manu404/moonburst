@@ -23,7 +23,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Custom midi message builder to define precisely what's send.
  - Trigger multiple midi messages from the same event
  - Manual trigger of each functoid/channel
- - Time-domain delay
+ - Can add real time delay per trigger
  - Midi Monitor
  
 # Roadmap
