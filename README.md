@@ -11,7 +11,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 # Features
 
  - Tranform your regular footswitch pedals into full midi controllers
- - Use existing midi interface to send midi or use [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) to create virtual interfaces
+ - Use existing midi interface to send midi or use [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) to create your own virtual interfaces
  - Arduino hot-plug support and auto config
  - React to variety of triggers : 
    - Event
@@ -65,6 +65,7 @@ If you have those, it would be amazing to send us a message about your expérien
 ### Planned 
 *Full*
  - Vox VFS55
+ - 1 ENGL, 1 Peavy and 1 Marshall amp footswitchs (precise model coming soon)
  
 # Supported Systems
 Moonburst was designed for Microsoft Windows, the UI wouldn't be portable easily to linux, even thon there's plan to migrate as much as possible to .Net Core over time. The software was designed for a personal need first, so a lot of decision were made toward speed of developement regarding technologies.
@@ -98,3 +99,4 @@ License][cc-by].
 
 [LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
 [Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you a beer at least.
+[Romain Caudron](https://www.facebook.com/RCAguitar/), for the borrowed ENGL, Peavy and Marshall amp footswitchs
