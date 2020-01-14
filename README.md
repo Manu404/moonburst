@@ -29,7 +29,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Midi Monitor
  
 # Roadmap
-*For controllers compatibility, check the related section.*
+*For supported controllers, check the related section.*
 
 It would be tempting to add a lot of midi features and tools, from remaping to routing, but I want to reduce the footprint of the project as much as possible, so those concerns can be managed at your will on your side. There's a lot of free midi (http://www.vst4free.com/index.php?m=midiVST) utility that I think are better option than trying to implement them (badly ?) myself. The only developement done that way for the moment was the midi monitor for ease of automated testing. Moonburst should always remain a dumb, yet highly confirgurable and versatile, midi controller.
 
@@ -40,10 +40,10 @@ It would be tempting to add a lot of midi features and tools, from remaping to r
  - Midi-clocked delay
  - Implement value triggers to support expression pedal
 
-# Compatible Controllers
-*Full compatibility: Those controlles have been tested and working*
+# Supported Controllers
+*Full: Those controlles have been tested and working*
 
-*Haf compatibility: Those are assumed to be comptabible based on documentation, but not tested by the dev.
+*Half: Those are assumed to be comptabible based on documentation, but not tested by the dev.
 If you have those, it would be amazing to send us a message about your expérience and confirm the support opr any issues !*
 
 ### Implemented
