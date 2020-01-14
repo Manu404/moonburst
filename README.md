@@ -9,11 +9,12 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 Currently Supported Controller: 
  - Digitech FS3X
  
-Planned Supported Controller (Q2 2020) 
+Coming Supported Controller :
  - Generic Switch/Tap on mono interface
  - Generic 2 Switch/Tap on stereo interface
  - Generic Pot (expression pedal) on mono interface (this will enable support of most volume pedal on the market from known manufacturer)
 
+Planned Supported Controllers (Q2 2020) : 
  - Vox VFS55
  - Boss FS6
  
