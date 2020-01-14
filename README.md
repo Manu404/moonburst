@@ -27,6 +27,8 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Midi Monitor
  
 # Roadmap
+It would be tempting to add a lot of midi features and tools, from remaping to routing, but I want to reduce the footprint of the project as much as possible, so those concerns can be managed at your will on your side. There's a lot of free midi (http://www.vst4free.com/index.php?m=midiVST) utility that I think are better option than trying to implement them (badly ?) myself. The only developement done that way for the moment was the midi monitor for ease of automated testing.
+
  - Write documentation for arduino wiring
  - For controllers compatibility, check the related section.
  - Scene management for layouts
