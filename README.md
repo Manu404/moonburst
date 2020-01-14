@@ -45,23 +45,23 @@ It would be tempting to add a lot of midi features and tools, from remaping to r
 If you have those, it would be amazing to send us a message about your expérience and confirm the support opr any issues !*
 
 ### Implemented
-Full: 
+*Full*
  - Digitech FS3X
  
 ### In Developement
-Full:
+*Full*
  - Generic Switch/Tap on mono interface
  - Generic 2 Switch/Tap on stereo interface
  - Generic Pot (expression pedal) on mono interface (this will enable support of most volume pedal on the market from known manufacturer)
  
-Half: 
+*Half*
  - Boss FS6
  - Boss FS5L
  - Boss FS5U
  - Boss FS7
 
-### Planned (Q2 2020) : 
-Full:
+### Planned 
+*Full*
  - Vox VFS55
  
 # About the project
