@@ -19,11 +19,10 @@ The software is simple : you define functoid, that are binded to a footswitch, t
    - State: (treat your switch as a toggle button)
      - On
      - Off
- - Custom midi message build
- - Time-domain delay feature
+ - Custom midi message builder to define precisely what's send.
  - Trigger multiple midi messages from the same event
  - Manual trigger of each functoid/channel
- - Mute features
+ - Time-domain delay
  - Midi Monitor
  
 # Roadmap
