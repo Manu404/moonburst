@@ -7,20 +7,28 @@ Moonburst is an arduino based solution for musician that aim to provide a generi
 The software is simple : you define functoid, that are binded to a footswitch, than can create multiple actions on that functoid based on footswtich triggers and/or states that will then send midi messages or trigger other functoid, etc,... To add buttons, just add new footswtichs. The idea is to be modular and open as possible.
 
 # Supported Controllers
+Full support : Those controlles have been tested and working
+Haf support : Those are assumed to be comptabible based on documentation, but not tested by the dev.
+If you have those, it would be amazing to send us a message about your expérience and confirm the support opr any issues !
 
-Currently Supported Controller: 
+## Currently Supported Controller
+### Full Support
  - Digitech FS3X
  
-Coming Supported Controller :
+## Coming Supported Controller :
+### Full Support
  - Generic Switch/Tap on mono interface
  - Generic 2 Switch/Tap on stereo interface
  - Generic Pot (expression pedal) on mono interface (this will enable support of most volume pedal on the market from known manufacturer)
+### Half Support  
+ - Boss FS6
+ - Boss FS5L
+ - Boss FS5U
+ - Boss FS7
 
 Planned Supported Controllers (Q2 2020) : 
  - Vox VFS55
- - Boss FS6
  
-
 # About the project
 
 <img align="left" src="https://github.com/Manu404/moonburst/blob/master/scrns/header_half.jpg">
