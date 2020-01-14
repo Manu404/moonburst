@@ -33,4 +33,4 @@ Being a guitarist, I need to control most of the software with footswtich and I 
 
 I have a FS3X footswitch from digitech (3 momentary swtich box), it's 25€, works with a standard stereo jack interface, I know a bit of electronic and worked as a software developer in the past.
 
-There started this project...
+After posting the previous message and asking for review on several facebook groups, the reaction I had motivated me to make this project public. There started this project... And here I'm, having to refactor that code I though nobody would read :p
