@@ -10,7 +10,6 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 
  - Use Virtual Midi Loopback or existing midi interface to send midi
  - Arduino hot-plug support and auto config
- - Support layout and configs file
  - React to multiple triggers : 
    - Event
      - Press
