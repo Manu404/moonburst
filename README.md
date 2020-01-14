@@ -12,7 +12,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 
  - Tranform your regular footswitch pedals into full midi controllers
  - Use existing midi interface to send midi or use [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) to create your own virtual interfaces
- - Arduino hot-plug support and auto config
+ - Arduino hot-plug support
  - React to variety of triggers : 
    - Event
      - Press
@@ -28,6 +28,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Real time delay per action
  - Midi Monitor
  
+ 
 # Roadmap
 *For supported controllers, check the related section.*
 
@@ -35,6 +36,7 @@ It would be tempting to add a lot of midi features and tools, from remaping to r
 
  - Write documentation for arduino wiring
  - Define a more clearer and consistent vocabulary
+ - Arduino auto-config
  - Scene management for layouts
  - Piano roll for midi message builder
  - Midi-clocked delay
