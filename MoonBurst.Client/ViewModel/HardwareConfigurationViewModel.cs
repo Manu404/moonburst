@@ -103,7 +103,7 @@ namespace MoonBurst.ViewModel
             InputComPorts = new ObservableCollection<InputCOMPort>();
             SupportedBaudRates = new ObservableCollection<int>();
 
-            OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
+            OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(_arduinoConfig.Ports), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
             OnConnectMidiCommand = new RelayCommand(() => _midiGateway.Connect(), () => this.SelectedOutputMidiDevice?.Id >= 0);
             OnRefreshComCommand = new RelayCommand(OnRefreshCOMDevices, () => !this.IsComConnected);
             OnRefreshMidiCommand = new RelayCommand(OnRefreshMidiDevices, () => !this.IsMidiConnected);

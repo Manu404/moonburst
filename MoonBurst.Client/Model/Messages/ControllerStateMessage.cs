@@ -6,7 +6,7 @@ namespace MoonBurst.Model.Messages
 {
     public class ControllerStateMessage : MessageBase
     {
-        public List<MomentaryFootswitchState> States { get; set; }
+        public MomentaryFootswitchState[] States { get; set; }
         public int Port { get; set; }
     }
 }

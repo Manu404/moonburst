@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using Castle.Core.Internal;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core.Parser;
@@ -21,13 +23,14 @@ namespace MoonBurst.Core
         InputCOMPort CurrentPort { get; set; }
         List<InputCOMPort> GetPorts();
         List<int> GetRates();
-        void Connect();
+        void Connect(IArduinoPort[] ports);
         void Close();
     }
 
     public class SerialGateway : ISerialGateway
     {
-        private IControllerParser _footswitchParser;
+        private IControllerParser[] _footswitchParsers;
+        private IArduinoPort[] _arduinoPorts;
         private IMessenger _messenger;
         private SerialPort _serialPort;
         private bool _isConnected;
@@ -52,8 +55,20 @@ namespace MoonBurst.Core
         public SerialGateway(IMessenger messenger)
         {
             _messenger = messenger;
-            _footswitchParser = new Fs3XParser();
             _checkStatusTimer = new Timer(OnCheckStatus, this, 0, 1000);
+        }
+
+        private void InitializeParsers(IArduinoPort[] ports)
+        {
+            _arduinoPorts = ports;
+            _footswitchParsers = new IControllerParser[ports.Length];
+            for (int i = 0; i < ports.Length; i++)
+            {
+                if (ports[i].ConnectedDevice != null)
+                {
+                    _footswitchParsers[i] = new Fs3XParser();
+                }
+            }
         }
 
         private void OnCheckStatus(object state)
@@ -65,7 +80,7 @@ namespace MoonBurst.Core
             }
         }
 
-        public void Connect()
+        public void Connect(IArduinoPort[] ports)
         {
             if (!this.IsConnected)
             {
@@ -74,6 +89,7 @@ namespace MoonBurst.Core
                     _serialPort = new SerialPort(this.CurrentPort.Id, CurrentSpeed, Parity.None, 8, StopBits.One);
                     _serialPort.DataReceived += SerialPortOnDataReceived;
                     _serialPort.Open();
+                    InitializeParsers(ports);
                     this.IsConnected = true;
                 }
                 catch (Exception e)
@@ -90,7 +106,6 @@ namespace MoonBurst.Core
                         _serialPort.DataReceived -= SerialPortOnDataReceived;
                         _serialPort.Close();
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -110,12 +125,28 @@ namespace MoonBurst.Core
             }
         }
 
+        private string accumulator = "";
+        Regex group = new Regex(@"[01]{3}", RegexOptions.Compiled);
         private void SerialPortOnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
-            foreach(var line in indata.Split('\n'))
-                _messenger.Send(new ControllerStateMessage { States = _footswitchParser.ParseState(line, 0), Port = 0 });
+            accumulator += _serialPort.ReadExisting();
+            if (accumulator.Length < 100 || _arduinoPorts == null) return;
+
+            var lines = accumulator.Split('\n');
+            accumulator = "";
+
+            foreach (var line in lines)
+            {
+                MatchCollection match = group.Matches(line);
+                if (match.Count == _arduinoPorts.Length)
+                {
+                    for (int pos = 0; pos < _arduinoPorts.Length; pos++)
+                    {
+                        if (_footswitchParsers[pos] != null)
+                            _messenger.Send(new ControllerStateMessage { States = _footswitchParsers[pos].ParseState(match[pos].Value, pos), Port = pos });
+                    }
+                }
+            }
         }
 
         public List<InputCOMPort> GetPorts()

@@ -128,10 +128,6 @@ namespace MoonBurst.ViewModel
             foreach (var state in obj.States)
                 if (state.Index == this.SelectedInput.Input.Position)
                 {
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        this.IsTriggered = true;
-                    }));
                     this.Actions.Where(a => (int)a.Trigger == (int)state.State).ToList().ForEach(a => a.OnTriggerAction());
                     return;
                 }

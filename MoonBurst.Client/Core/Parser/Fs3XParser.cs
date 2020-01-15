@@ -5,22 +5,23 @@ namespace MoonBurst.Core.Parser
 {
     public class Fs3XParser : IControllerParser
     {
-        readonly MomentaryFootswitchParser[] _parser = new MomentaryFootswitchParser[3];
+        private const int SwitchCount = 3;
+        readonly MomentaryFootswitchParser[] _parser = new MomentaryFootswitchParser[SwitchCount];
 
         public Fs3XParser()
         {
-            for(int i = 0; i < 3; i++)
+            for(int i = 0; i < SwitchCount; i++)
                 _parser[i] = new MomentaryFootswitchParser();
         }
 
         public IDeviceDefinition Device => new Fs3xDeviceDefinition();
 
-        public List<MomentaryFootswitchState> ParseState(string state, int index)
+        public MomentaryFootswitchState[] ParseState(string state, int index)
         {
-            var result = new List<MomentaryFootswitchState>();
-            if (state.Length != 4) return result;
-            for(int i = 0; i < 3; i++)
-                result.Add((MomentaryFootswitchState) _parser[i].ParseState(state[i].ToString(), i));
+            var result = new MomentaryFootswitchState[SwitchCount];
+            if (state.Length != SwitchCount) return new MomentaryFootswitchState[0];
+            for(int i = 0; i < SwitchCount; i++)
+                result[i] = ((MomentaryFootswitchState) _parser[i].ParseState(state[i].ToString(), i));
             return result;
         }
 

@@ -6,7 +6,7 @@ namespace MoonBurst.Model.Parser
     public interface IControllerParser
     {
         IDeviceDefinition Device { get; }
-        List<MomentaryFootswitchState> ParseState(string state, int index);
+        MomentaryFootswitchState[] ParseState(string state, int index);
         bool ValidateState(string state);
     }
 }

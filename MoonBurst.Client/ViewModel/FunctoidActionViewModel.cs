@@ -48,7 +48,7 @@ namespace MoonBurst.ViewModel
         {
             if (obj.Port != Port.Position) return;
             foreach(var state in obj.States)
-                if (state.Index == Input.Position)
+                if (state.Index == Input.Position && state != State)
                 {
                     State = state;
                     return;

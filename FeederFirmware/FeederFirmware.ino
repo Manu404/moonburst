@@ -1,30 +1,33 @@
-const int firstPin = 2;
-const int pinCount = 3;
-const int lastPin = firstPin + pinCount;
+const int portCount = 4;
+const int pinPadding = 0;
+const int serialSpeed = 9600;
+
 String state = "";
 
-void setup() {
-	Serial.begin(9600);
-	pinMode(12, INPUT_PULLUP);
-	pinMode(13, INPUT_PULLUP);
+void initPort(int id) 
+{
+	pinMode(id * 2, INPUT_PULLUP);
+	pinMode((id * 2) + 1, INPUT_PULLUP);
 }
 
-void loop() {
-	state = "";
+void readPort(int id)
+{
+	int ring = (id * 2) + pinPadding;
+	int tip = ring + 1;
+	state += " ";
 
-
-	if (digitalRead(12) == LOW && digitalRead(13) == LOW) {
+	if (digitalRead(ring) == LOW && digitalRead(tip) == LOW) {
 		state += "001";
 	}
 	else {
-		if (digitalRead(13) == LOW) {
+		if (digitalRead(tip) == LOW) {
 			state += "1";
 		}
 		else {
 			state += "0";
 		}
 
-		if (digitalRead(12) == LOW) {
+		if (digitalRead(ring) == LOW) {
 			state += "1";
 		}
 		else {
@@ -32,6 +35,15 @@ void loop() {
 		}
 		state += "0";
 	}
+}
 
+void setup() {
+	Serial.begin(serialSpeed);
+	for (int i = 1; i <= portCount; initPort(i++));
+}
+
+void loop() {
+	state = "";
+	for (int i = 1; i <= portCount; readPort(i++));
 	Serial.println(state);
 }
