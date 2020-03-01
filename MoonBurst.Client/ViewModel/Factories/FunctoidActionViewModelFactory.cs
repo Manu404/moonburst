@@ -14,16 +14,19 @@ namespace MoonBurst.ViewModel
         private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
         private IMusicalNoteHelper _noteHelper;
+        private IDynamicsHelper _dynamicsHelper;
         private IExtractor<IFunctoidActionViewModel, FunctoidActionData> _actionExtractor;
 
-        public FunctoidActionViewModelFactory(IMessenger messenger,             
-            IArduinoGateway arduinoGateway, 
+        public FunctoidActionViewModelFactory(IMessenger messenger,
+            IArduinoGateway arduinoGateway,
             IMusicalNoteHelper noteHelper,
+            IDynamicsHelper dynamicsHelper,
             IExtractor<IFunctoidActionViewModel, FunctoidActionData> actionExtractor)
         {
             _arduinoGateway = arduinoGateway;
             _messenger = messenger;
             _noteHelper = noteHelper;
+            _dynamicsHelper = dynamicsHelper;
             _actionExtractor = actionExtractor;
         }
 
@@ -36,7 +39,7 @@ namespace MoonBurst.ViewModel
 
         public IFunctoidActionViewModel Build()
         {
-            return new FunctoidActionViewModel(_messenger, _arduinoGateway, _noteHelper);
+            return new FunctoidActionViewModel(_messenger, _arduinoGateway, _noteHelper, _dynamicsHelper);
         }
     }
 }

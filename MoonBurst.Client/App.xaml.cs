@@ -38,17 +38,14 @@ namespace MoonBurst
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(IExtractor<>)).WithServiceAllInterfaces());
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(IExtractor<,>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IHardwareService)).WithServiceAllInterfaces());
 
             container.Register(Component.For<IFootswitchParser>().ImplementedBy<MomentaryFootswitchParser>());
             container.Register(Component.For<IControllerParser>().ImplementedBy<Fs3XParser>());
             container.Register(Component.For<IMusicalNoteHelper>().ImplementedBy<MusicalNoteHelper>());
+            container.Register(Component.For<IDynamicsHelper>().ImplementedBy<DynamicsHelper>());
 
-            container.Register(Component.For<IMidiGateway>().ImplementedBy<MidiGateway>());
-            container.Register(Component.For<ISerialGateway>().ImplementedBy<SerialGateway>());
-            container.Register(Component.For<IArduinoGateway>().ImplementedBy<ArduinoGateway>());
-
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
-                        
             base.OnStartup(e);
 
             MainWindow mw = new MainWindow(container.Resolve<IMainViewModel>());

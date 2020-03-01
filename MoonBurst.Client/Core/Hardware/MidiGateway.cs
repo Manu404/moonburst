@@ -8,18 +8,7 @@ using Sanford.Multimedia.Midi;
 
 namespace MoonBurst.Core
 {
-    public interface IMidiGateway
-    {
-        OutputMidiDeviceData SelectedOutput { get; set; }
-        bool IsConnected { get; }
-        void Trigger(TriggeredActionMessage obj);
-        void Connect();
-        void SendTest();
-        void Close();
-        List<OutputMidiDeviceData> GetDevices();
-    }
-
-    public class MidiGateway : IMidiGateway
+    public class MidiGateway : IMidiGateway, IHardwareService
     {
         private OutputDevice _outDevice;
         private TeVirtualMIDI _virtualMidi;

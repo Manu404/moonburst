@@ -19,6 +19,7 @@ namespace MoonBurst.ViewModel
         private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
         private IMusicalNoteHelper _noteHelper;
+        private IDynamicsHelper _dynamicsHelper;
 
         private bool _isEnabled;
         private bool _isExpanded;
@@ -30,16 +31,22 @@ namespace MoonBurst.ViewModel
         private int _midiChannel;
         private int _delay;
         private bool _isTriggered;
-                
-        public bool IsTriggered
+        private bool _isMusicalMode;
+        private bool _forceNumericMode;
+
+        public string ActionName
         {
-            get => _isTriggered;
+            get => $"On {Trigger} \n{Command}({Data1},{Data2}) Channel({MidiChannel})";
+        }
+
+        public FootTrigger Trigger
+        {
+            get => _trigger;
             set
             {
-                _isTriggered = true;
+                _trigger = value;
                 RaisePropertyChanged();
-                _isTriggered = false;
-                RaisePropertyChanged();
+                RaisePropertyChanged("ActionName");
             }
         }
 
@@ -53,7 +60,7 @@ namespace MoonBurst.ViewModel
                 RaisePropertyChanged("ActionName");
             }
         }
-        
+
         public int Data1
         {
             get => _data1;
@@ -83,18 +90,18 @@ namespace MoonBurst.ViewModel
             {
                 _command = value;
                 RaisePropertyChanged();
+                IsMusicalMode = (Command == ChannelCommand.NoteOn || Command == ChannelCommand.NoteOff) && !ForceNumericMode;
                 RaisePropertyChanged("ActionName");
             }
         }
 
-        public FootTrigger Trigger
+        public int Delay
         {
-            get => _trigger;
+            get => _delay;
             set
             {
-                _trigger = value;
+                _delay = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("ActionName");
             }
         }
 
@@ -118,28 +125,47 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public int Delay
+        public bool IsTriggered
         {
-            get => _delay;
+            get => _isTriggered;
             set
             {
-                _delay = value;
+                _isTriggered = true;
+                RaisePropertyChanged();
+                _isTriggered = false;
                 RaisePropertyChanged();
             }
         }
 
-        public string ActionName
+        public bool IsMusicalMode
         {
-            get => $"On {Trigger} \n{Command}({Data1},{Data2}) Channel({MidiChannel})";
+            get => _isMusicalMode;
+            set
+            {
+                _isMusicalMode = value;
+                RaisePropertyChanged();
+            }
         }
-                        
+
+        public bool ForceNumericMode
+        {
+            get => _forceNumericMode;
+            set
+            {
+                _forceNumericMode = value;
+                IsMusicalMode = (Command == ChannelCommand.NoteOn || Command == ChannelCommand.NoteOff) && !ForceNumericMode;
+                RaisePropertyChanged();
+            }
+        }
+
         public List<MusicalNote> AvailableNotes => _noteHelper.AvailableNotes;
+        public List<Dynamic> AvailableDynamics => _dynamicsHelper.AvailableDynamics;
 
         public ICommand OnDeleteActionCommand { get; set; }
         public ICommand OnToggleActionCommand { get; set; }
         public ICommand OnTriggerActionCommand { get; set; }
 
-        public FunctoidActionViewModel(IMessenger messenger, IArduinoGateway arduinoGateway, IMusicalNoteHelper noteHelper)
+        public FunctoidActionViewModel(IMessenger messenger, IArduinoGateway arduinoGateway, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
@@ -148,6 +174,7 @@ namespace MoonBurst.ViewModel
             _arduinoGateway = arduinoGateway;
             _messenger = messenger;
             _noteHelper = noteHelper;
+            _dynamicsHelper = dynamicsHelper;
         }
 
         private void OnToggle()

@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.1.0.1490</AssemblyVersion>
+    <AssemblyVersion>2020.1.0.1565</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -131,13 +131,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\Hardware\ArduinoGateway.cs" />
+    <Compile Include="Core\Hardware\Arduino\ArduinoGateway.cs" />
+    <Compile Include="Core\Hardware\Arduino\ArduinoPort.cs" />
+    <Compile Include="Core\Hardware\Arduino\Fs3xDeviceDefinition.cs" />
+    <Compile Include="Core\Hardware\Arduino\GenericOneMomentarySwitchMonoJackDefinition.cs" />
+    <Compile Include="Core\Hardware\Arduino\IArduinoGateway.cs" />
+    <Compile Include="Core\Hardware\Arduino\IArduinoPort.cs" />
+    <Compile Include="Core\Hardware\Arduino\IBooleanInput.cs" />
+    <Compile Include="Core\Hardware\Arduino\IDeviceDefinition.cs" />
+    <Compile Include="Core\Hardware\Arduino\IDeviceInput.cs" />
+    <Compile Include="Core\Hardware\IHardwareService.cs" />
+    <Compile Include="Core\Hardware\IMidiGateway.cs" />
+    <Compile Include="Core\Hardware\Arduino\INumericInput.cs" />
+    <Compile Include="Core\Hardware\ISerialGateway.cs" />
+    <Compile Include="Core\Hardware\Arduino\MomentaryFootswitchInput.cs" />
     <Compile Include="Core\IViewModel.cs" />
     <Compile Include="Core\Serializer\IExtractor.cs" />
+    <Compile Include="Helper\DynamicsHelper.cs" />
     <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
     <Compile Include="Core\Serializer\ISerializer.cs" />
     <Compile Include="Core\Serializer\SerializerBase.cs" />
+    <Compile Include="Helper\UI\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helper\UI\ValueConverterGroup.cs" />
     <Compile Include="Model\Serializable\ArduinoPortConfigData.cs" />
     <Compile Include="Model\Serializable\FunctoidActionData.cs" />
     <Compile Include="Model\Serializable\FunctoidChannelData.cs" />
@@ -262,6 +278,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="img\METDEMO.TTF" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

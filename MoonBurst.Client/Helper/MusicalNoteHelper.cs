@@ -28,6 +28,7 @@ namespace MoonBurst.Core.Helper
             {
                 AvailableNotes.Add(new MusicalNote() { Name = FromMidiValueToNoteName(i), Value = i });
             }
+            AvailableNotes.Reverse();
         }
 
         private string FromMidiValueToNoteName(int value)

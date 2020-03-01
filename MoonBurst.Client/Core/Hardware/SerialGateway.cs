@@ -16,18 +16,7 @@ using MoonBurst.Model.Parser;
 
 namespace MoonBurst.Core
 {
-    public interface ISerialGateway
-    {
-        bool IsConnected { get; }
-        int CurrentSpeed { get; set; }
-        InputCOMPortData CurrentPort { get; set; }
-        List<InputCOMPortData> GetPorts();
-        List<int> GetRates();
-        void Connect(IArduinoPort[] ports);
-        void Close();
-    }
-
-    public class SerialGateway : ISerialGateway
+    public class SerialGateway : ISerialGateway, IHardwareService
     {
         private IControllerParser[] _footswitchParsers;
         private IArduinoPort[] _arduinoPorts;

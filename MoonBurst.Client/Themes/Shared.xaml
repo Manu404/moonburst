@@ -8,7 +8,10 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:helper="clr-namespace:MoonBurst.Core.Helper">
 
+    <FontFamily x:Key="MetDemo">pack://application:,,,/img/#MetDemo</FontFamily>
+
     <core:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    <core:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
     <helper:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
 
     <Style TargetType="{x:Type Ellipse}" x:Key="TriggerStatusEllipseControl">
