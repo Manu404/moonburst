@@ -40,5 +40,15 @@ namespace MoonBurst.Core
         {
 
         }
+
+        public object GetData(T source)
+        {
+            return ExtractData(source);
+        }
+
+        public void ApplyData(object source, T target)
+        {
+            ApplyData(source, target);
+        }
     }
 }

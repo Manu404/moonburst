@@ -1,20 +1,18 @@
-using System;
-using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 using MoonBurst.Core;
 using MoonBurst.ViewModel;
 
 namespace MoonBurst.Model
 {
-    public partial class ClientConfigurationViewModel : ViewModelBase, IClientConfiguration, IFileSerializableType
+    public partial class ClientConfigurationViewModel : ViewModelBase, IClientConfigurationViewModel
     {
+        private ISerializer<IClientConfigurationViewModel> _serializer;
+
         public string LastHardwareConfigurationPath { get; set; }
         public string LastLayoutPath { get; set; }
         public string CurrentPath { get; set; }
 
-        private ISerializer<ClientConfigurationViewModel> _serializer;
-
-        public ClientConfigurationViewModel(ISerializer<ClientConfigurationViewModel> serializer)
+        public ClientConfigurationViewModel(ISerializer<IClientConfigurationViewModel> serializer)
         {
             _serializer = serializer;
         }

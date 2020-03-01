@@ -1,6 +1,9 @@
-﻿namespace MoonBurst.Model
+﻿using MoonBurst.Core;
+using MoonBurst.Model;
+
+namespace MoonBurst.ViewModel
 {
-    public interface IClientConfiguration
+    public interface IClientConfigurationViewModel : IViewModel, IFileSerializableType
     {
         string LastHardwareConfigurationPath { get; set; }
         string LastLayoutPath { get; set; }

@@ -12,10 +12,11 @@ using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class FunctoidChannelViewModel : ViewModelBase
+    public partial class FunctoidChannelViewModel : ViewModelBase, IFunctoidChannelViewModel
     {
         private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
+        private IFunctoidActionViewModelFactory _actionFactory;
         private string _lastInput;
         
         private int _index;
@@ -88,9 +89,10 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public int ArduinoBitMask { get; set; }
-        public ObservableCollection<FunctoidActionViewModel> Actions { get; set; }
+        public ObservableCollection<IFunctoidActionViewModel> Actions { get; set; }
         public ObservableCollection<DeviceInputViewModel> AvailableInputs { get; set; }
+
+        public int ArduinoBitMask { get; set; }
 
         public ICommand OnDeleteCommand { get; set; }
         public ICommand OnAddActionCommand { get; set; }
@@ -99,9 +101,13 @@ namespace MoonBurst.ViewModel
         public ICommand OnExpandActionsCommand { get; set; }
         public ICommand OnCollapseActionsCommand { get; set; }
 
-        public FunctoidChannelViewModel(IMessenger messenger)
+        public FunctoidChannelViewModel(IMessenger messenger, 
+            IArduinoGateway arduinoGateway, 
+            IFunctoidActionViewModelFactory actionFactory)
         {
             _messenger = messenger;
+            _actionFactory = actionFactory;
+            _arduinoGateway = arduinoGateway;
 
             OnDeleteCommand = new RelayCommand(OnDelete);
             OnAddActionCommand = new RelayCommand(OnAddAction);
@@ -111,7 +117,7 @@ namespace MoonBurst.ViewModel
             OnExpandActionsCommand = new RelayCommand(() => ToggleAction(true));
             OnCollapseActionsCommand = new RelayCommand(() => ToggleAction(false));
 
-            Actions = new ObservableCollection<FunctoidActionViewModel>();
+            Actions = new ObservableCollection<IFunctoidActionViewModel>();
 
             _messenger.Register<DeleteFunctoidActionMessage>(this, OnDeleteAction);
             _messenger.Register<PortConfigChangedMessage>(this, OnPortConfigChanged);
@@ -162,7 +168,7 @@ namespace MoonBurst.ViewModel
                 }
             }
 
-            this.SelectedInput = AvailableInputs.FirstOrDefault(d => d.FormatedName == _lastInput);
+            TryBindInput(_lastInput);
         }
 
         private void OnTrigger()
@@ -177,7 +183,7 @@ namespace MoonBurst.ViewModel
 
         private void OnAddAction()
         {
-            Actions.Add(new FunctoidActionViewModel(_messenger, _arduinoGateway));
+            Actions.Add(_actionFactory.Build());
         }
 
         private async void OnDelete()
@@ -189,29 +195,9 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public FunctoidChannelViewModel(FunctoidChannelData data, IArduinoGateway arduinoGateway, IMessenger messenger) : this(messenger)
+        public void TryBindInput(string bindedInput)
         {
-            this.Index = data.Index;
-            this.Name = data.Name;
-            this.Actions = new ObservableCollection<FunctoidActionViewModel>(data.Actions.ConvertAll(d => new FunctoidActionViewModel(d, this._arduinoGateway, _messenger)));
-            this.IsEnabled = data.IsEnabled;
-            this.IsExpanded = data.IsExpanded;
-            this._arduinoGateway = arduinoGateway;
-            this._lastInput = data.BindedInput;
-            this._messenger = messenger;
-        }
-
-        public FunctoidChannelData GetData()
-        {
-            return new FunctoidChannelData()
-            {
-                Index = this.Index,
-                Name = this.Name,
-                Actions = this.Actions?.ToList().ConvertAll(input => input.GetData()),
-                IsEnabled = this.IsEnabled,
-                IsExpanded = this.IsExpanded,
-                BindedInput = this.SelectedInput?.FormatedName,
-            };
+            this.SelectedInput = AvailableInputs.FirstOrDefault(d => d.FormatedName == bindedInput);
         }
     }
 }

@@ -15,18 +15,18 @@ using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class HardwareConfigurationViewModel : ViewModelBase, IFileSerializableType, IHardwareConfigurationViewModel
+    public partial class HardwareConfigurationViewModel : ViewModelBase, IHardwareConfigurationViewModel
     {
         private IMidiGateway _midiGateway;
         private ISerialGateway _serialGateway;
         private IArduinoGateway _arduinoConfig;
         private IMessenger _messenger;
-        private IClientConfiguration _config;
-        private ISerializer<HardwareConfigurationViewModel> _serializer;
+        private IClientConfigurationViewModel _config;
+        private ISerializer<IHardwareConfigurationViewModel> _serializer;
 
         private bool _isMidiConnected;
         private bool _isComConnected;
-
+        
         public int SelectedSpeed
         {
             get => _serialGateway.CurrentSpeed;
@@ -58,11 +58,6 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ObservableCollection<OutputMidiDeviceData> OutputMidiDevices { get; set; }
-        public ObservableCollection<InputCOMPortData> InputComPorts { get; set; }
-        public ObservableCollection<int> SupportedBaudRates { get; set; }
-        public ObservableCollection<ArduinoConfigPortViewModel> ArduinoPorts { get; }
-
         public bool IsMidiConnected
         {
             get => _isMidiConnected;
@@ -83,6 +78,13 @@ namespace MoonBurst.ViewModel
             }
         }
 
+        public ObservableCollection<OutputMidiDeviceData> OutputMidiDevices { get; set; }
+        public ObservableCollection<InputCOMPortData> InputComPorts { get; set; }
+        public ObservableCollection<int> SupportedBaudRates { get; set; }
+        public ObservableCollection<ArduinoConfigPortViewModel> ArduinoPorts { get; }
+
+        public string CurrentPath { get; set; }
+
         public ICommand OnSendMidiTestCommand { get; set; }
         public ICommand OnRefreshMidiCommand { get; set; }
         public ICommand OnRefreshComCommand { get; set; }
@@ -93,15 +95,12 @@ namespace MoonBurst.ViewModel
         public ICommand SaveConfigCommand { get; set; }
         public ICommand SaveAsConfigCommand { get; set; }
 
-        public string CurrentPath { get; set; }
-
-
         public HardwareConfigurationViewModel(IMidiGateway midiGateway, 
             ISerialGateway serialGateway, 
             IArduinoGateway arduinoGateway, 
             IMessenger messenger, 
-            IClientConfiguration config,
-            ISerializer<HardwareConfigurationViewModel> serializer)
+            IClientConfigurationViewModel config,
+            ISerializer<IHardwareConfigurationViewModel> serializer)
         {
             _midiGateway = midiGateway;
             _serialGateway = serialGateway;
@@ -193,6 +192,7 @@ namespace MoonBurst.ViewModel
 
         public void UpdateArduinoPorts(List<ArduinoPortConfigData> data)
         {
+            if (data == null) return;
             foreach (var port in ArduinoPorts)
             {
                 var dataPort = data.FirstOrDefault(d => d.Position == port.Position);
@@ -203,7 +203,6 @@ namespace MoonBurst.ViewModel
                 }
             }
         }
-
 
         private void OnSaveAsConfig()
         {
@@ -235,7 +234,7 @@ namespace MoonBurst.ViewModel
             _config.LastHardwareConfigurationPath = path;
         }
 
-        public void Load(string path, HardwareConfigurationViewModel source)
+        public void Load(string path, IHardwareConfigurationViewModel source)
         {
             _serializer.Load(path, this);
             _config.LastHardwareConfigurationPath = path;

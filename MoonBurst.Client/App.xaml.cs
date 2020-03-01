@@ -34,6 +34,10 @@ namespace MoonBurst
 
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(ISerializer<,>)).WithServiceAllInterfaces());
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(ISerializer<>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IFactory<>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IExtractor<>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IExtractor<,>)).WithServiceAllInterfaces());
 
             container.Register(Component.For<IFootswitchParser>().ImplementedBy<MomentaryFootswitchParser>());
             container.Register(Component.For<IControllerParser>().ImplementedBy<Fs3XParser>());
@@ -43,7 +47,7 @@ namespace MoonBurst
             container.Register(Component.For<ISerialGateway>().ImplementedBy<SerialGateway>());
             container.Register(Component.For<IArduinoGateway>().ImplementedBy<ArduinoGateway>());
 
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(ViewModelBase)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
                         
             base.OnStartup(e);
 

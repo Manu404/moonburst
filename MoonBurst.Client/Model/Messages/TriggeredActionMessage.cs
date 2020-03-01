@@ -5,6 +5,6 @@ namespace MoonBurst.Model.Messages
 {
     public class TriggeredActionMessage : MessageBase
     {
-        public FunctoidActionViewModel.FunctoidActionData Data { get; set; }
+        public IFunctoidActionViewModel Data { get; set; }
     }
 }

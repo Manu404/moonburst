@@ -1,12 +1,13 @@
 ﻿using MoonBurst.Core;
+using MoonBurst.ViewModel;
 
 namespace MoonBurst.Model
 {
-    public partial class ClientConfigurationViewModelSerializer : SerializerBase<ClientConfigurationViewModel, ClientConfigurationData>
+    public class ClientConfigurationViewModelSerializer : SerializerBase<IClientConfigurationViewModel, ClientConfigurationData>
     {
         public override string Default { get => "default_client.xml"; }
 
-        public override ClientConfigurationData ExtractData(ClientConfigurationViewModel source)
+        public override ClientConfigurationData ExtractData(IClientConfigurationViewModel source)
         {
             return new ClientConfigurationData()
             {
@@ -15,7 +16,7 @@ namespace MoonBurst.Model
             };
         }
 
-        public override void ApplyData(ClientConfigurationData config, ClientConfigurationViewModel target)
+        public override void ApplyData(ClientConfigurationData config, IClientConfigurationViewModel target)
         {
             target.LastHardwareConfigurationPath = config.LastHardwareConfigurationPath;
             target.LastLayoutPath = config.LastLayoutPath;

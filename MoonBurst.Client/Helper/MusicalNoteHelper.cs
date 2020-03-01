@@ -24,7 +24,7 @@ namespace MoonBurst.Core.Helper
         public MusicalNoteHelper()
         {
             AvailableNotes = new List<MusicalNote>();
-            for(int i = 0; i < 127; i++)
+            for(int i = 0; i < 128; i++)
             {
                 AvailableNotes.Add(new MusicalNote() { Name = FromMidiValueToNoteName(i), Value = i });
             }

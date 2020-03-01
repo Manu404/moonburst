@@ -16,20 +16,6 @@ namespace MoonBurst.ViewModel
         private bool _isConnected;
         private bool _isEnabled;
 
-        public ICommand ConnectCommand { get; }
-        public ICommand DisableCommand { get; }
-
-        public int Position => Port.Position;
-
-        public ObservableCollection<IDeviceDefinition> AvailableDevices { get; }
-        public ObservableCollection<DeviceInputViewModel> AvailableInputs { get; }
-
-        public string PortName => $"Port {Position + 1}" + (IsEnabled ? "" : "(muted)");
-
-        public string ConnectedDeviceName => ConnectedDevice != null ? ConnectedDevice.Name : "Disconnected";
-
-        public IArduinoPort Port { get; }
-
         private IDeviceDefinition ConnectedDevice
         {
             get => Port.ConnectedDevice;
@@ -62,6 +48,19 @@ namespace MoonBurst.ViewModel
                 RaisePropertyChanged();
             }
         }
+        
+        public IArduinoPort Port { get; }
+
+        public int Position => Port.Position;
+
+        public ObservableCollection<IDeviceDefinition> AvailableDevices { get; }
+        public ObservableCollection<DeviceInputViewModel> AvailableInputs { get; }
+
+        public string PortName => $"Port {Position + 1}" + (IsEnabled ? "" : "(muted)");
+        public string ConnectedDeviceName => ConnectedDevice != null ? ConnectedDevice.Name : "Disconnected";
+        
+        public ICommand ConnectCommand { get; }
+        public ICommand DisableCommand { get; }
 
         public ArduinoConfigPortViewModel(IArduinoPort port, IMessenger messenger)
         {

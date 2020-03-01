@@ -10,8 +10,7 @@ namespace MoonBurst.Core
         void SaveDefault(T source);
     }
 
-    public interface ISerializer<T, Y> : ISerializer<T> where T : IFileSerializableType where Y : new()
+    public interface ISerializer<T, Y> : ISerializer<T> where Y : new()
     {
-
     }
 }

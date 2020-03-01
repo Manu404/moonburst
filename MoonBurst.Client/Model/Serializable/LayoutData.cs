@@ -4,10 +4,10 @@ namespace MoonBurst.ViewModel
 {
     public class LayoutData
     {
-        public List<FunctoidChannelViewModel.FunctoidChannelData> Channels { get; set; }
+        public List<FunctoidChannelData> Channels { get; set; }
         public LayoutData()
         {
-            Channels = new List<FunctoidChannelViewModel.FunctoidChannelData>();
+            Channels = new List<FunctoidChannelData>();
         }
     }
 }

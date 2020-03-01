@@ -13,7 +13,7 @@ namespace MoonBurst.ViewModel
     {
         private IMessenger _messenger;
 
-        private IClientConfiguration _clientConfiguration;
+        private IClientConfigurationViewModel _clientConfiguration;
         private IHardwareConfigurationViewModel _hardwareConfig;
         private ILayoutViewModel _layout;
 
@@ -35,7 +35,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public IClientConfiguration ClientConfiguration
+        public IClientConfigurationViewModel ClientConfiguration
         {
             get => _clientConfiguration;
             set
@@ -87,7 +87,7 @@ namespace MoonBurst.ViewModel
 
 
         public MainViewModel(IMessenger messenger,  
-            IClientConfiguration clientConfiguration,
+            IClientConfigurationViewModel clientConfiguration,
             IHardwareConfigurationViewModel hardware_viewModel,
             ILayoutViewModel layout_viewModel)
         {
@@ -143,9 +143,5 @@ namespace MoonBurst.ViewModel
             this.Log += newLine + "\n";
         }
         #endregion
-    }
-
-    public interface IMainViewModel
-    {
     }
 }

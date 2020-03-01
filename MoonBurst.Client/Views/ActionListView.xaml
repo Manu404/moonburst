@@ -263,6 +263,30 @@
                                                 Interval="1" />
                     </StackPanel>
 
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
+                                   Content="Data 1"/>
+                        <ComboBox
+                              materialDesign:HintAssist.Hint="Note"
+                              MinWidth="150"
+                              VerticalAlignment="Stretch"
+                              ItemsSource="{Binding AvailableNotes}"
+                                SelectedValue="{Binding Data1}"
+                                SelectedValuePath="Value">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal">
                         <Label Style="{DynamicResource ActionEditorFieldLabel}"
                                    Content="Data 2"/>

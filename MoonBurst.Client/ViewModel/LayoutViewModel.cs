@@ -13,14 +13,17 @@ using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class LayoutViewModel : ViewModelBase, IFileSerializableType, ILayoutViewModel
+    public partial class LayoutViewModel : ViewModelBase, ILayoutViewModel
     {
         private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
-        private IClientConfiguration _config;
-        private ISerializer<LayoutViewModel> _serializer;
+        private IClientConfigurationViewModel _config;
+        private ISerializer<ILayoutViewModel> _serializer;
+        private IFunctoidChannelViewModelFactory _channelFactory;
 
-        public ObservableCollection<FunctoidChannelViewModel> FunctoidChannels { get; set; }
+        public ObservableCollection<IFunctoidChannelViewModel> FunctoidChannels { get; set; }
+
+        public string CurrentPath { get; set; }
 
         public ICommand OnAddChannelCommand { get; set; }
         public ICommand OnSaveLayoutCommand { get; set; }
@@ -29,19 +32,20 @@ namespace MoonBurst.ViewModel
         public ICommand OnCollaspeAllCommand { get; set; }
         public ICommand OnExpandAllCommand { get; set; }
 
-        public string CurrentPath { get; set; }
-
         public LayoutViewModel(IArduinoGateway arduinoGateway, 
             IMessenger messenger, 
-            IClientConfiguration clientConfiguration,
-            ISerializer<LayoutViewModel> serializer)
+            IClientConfigurationViewModel clientConfiguration,
+            ISerializer<ILayoutViewModel> serializer,
+            IFunctoidChannelViewModelFactory channelFactory)
         {
             _arduinoGateway = arduinoGateway;
             _messenger = messenger;
             _config = clientConfiguration;
             _serializer = serializer;
+            _channelFactory = channelFactory;
 
-            FunctoidChannels = new ObservableCollection<FunctoidChannelViewModel>();
+            FunctoidChannels = new ObservableCollection<IFunctoidChannelViewModel>();
+            FunctoidChannels.CollectionChanged += (o,e) => UpdateIndexes();
             CurrentPath = string.Empty;
 
             OnAddChannelCommand = new RelayCommand(() => AddChannel());
@@ -50,6 +54,11 @@ namespace MoonBurst.ViewModel
             OnSaveAsLayoutCommand = new RelayCommand(OnSaveAsLayout);
             OnCollaspeAllCommand = new RelayCommand(() => ToggleChannelAll(false));
             OnExpandAllCommand = new RelayCommand(() => ToggleChannelAll(true));
+        }
+
+        private void UpdateIndexes()
+        {
+            for (int i = 0; i < this.FunctoidChannels.Count; this.FunctoidChannels[i].Index = (i++) + 1) ;
         }
 
         private void ToggleChannelAll(bool newState)
@@ -62,26 +71,12 @@ namespace MoonBurst.ViewModel
 
         public void AddChannel()
         {
-            this.FunctoidChannels.Add(new FunctoidChannelViewModel(_messenger));
-            UpdateChannelIndexes();
+            this.FunctoidChannels.Add(_channelFactory.Build());
         }
 
-        public void DeleteChannel(FunctoidChannelViewModel channel)
+        public void DeleteChannel(IFunctoidChannelViewModel channel)
         {
             this.FunctoidChannels.Remove(channel);
-            UpdateChannelIndexes();
-        }
-
-        public void UpdateChannelIndexes()
-        {
-            for (int i = 0; i < this.FunctoidChannels.Count; this.FunctoidChannels[i - 1].Index = i++) ;
-        }
-
-        public void UpdateChannels(List<FunctoidChannelViewModel.FunctoidChannelData> source)
-        {
-            this.FunctoidChannels.Clear();
-            source.ConvertAll(d => new FunctoidChannelViewModel(d, this._arduinoGateway, _messenger)).ForEach(this.FunctoidChannels.Add);
-            this.FunctoidChannels.ToList().ForEach(d => d.RefreshInputs());
         }
 
         private void OnSaveAsLayout()
@@ -124,11 +119,13 @@ namespace MoonBurst.ViewModel
         public void Save()
         {
             _serializer.Save(this, CurrentPath);
+            _config.LastLayoutPath = CurrentPath;
         }
 
         public void Save(string path)
         {
             _serializer.Save(this, path);
+            _config.LastLayoutPath = path;
         }
 
         public void SaveLastConfig()
@@ -139,6 +136,7 @@ namespace MoonBurst.ViewModel
         public void Load(string path)
         {
             _serializer.Load(path, this);
+            _config.LastLayoutPath = path;
         }
 
         public void LoadLastConfig()
