@@ -10,13 +10,13 @@ namespace MoonBurst.Core
 {
     public interface IMidiGateway
     {
-        OutputMidiDevice SelectedOutput { get; set; }
+        OutputMidiDeviceData SelectedOutput { get; set; }
         bool IsConnected { get; }
         void Trigger(TriggeredActionMessage obj);
         void Connect();
         void SendTest();
         void Close();
-        List<OutputMidiDevice> GetDevices();
+        List<OutputMidiDeviceData> GetDevices();
     }
 
     public class MidiGateway : IMidiGateway
@@ -28,7 +28,7 @@ namespace MoonBurst.Core
         private MidiConnectionStatus _state;
         private bool _isConnected;
 
-        public OutputMidiDevice SelectedOutput { get; set; }
+        public OutputMidiDeviceData SelectedOutput { get; set; }
 
         public bool IsConnected
         {
@@ -101,20 +101,20 @@ namespace MoonBurst.Core
         }
 
 
-        public List<OutputMidiDevice> GetDevices()
+        public List<OutputMidiDeviceData> GetDevices()
         {
-            var result = new List<OutputMidiDevice>();
+            var result = new List<OutputMidiDeviceData>();
             if (OutputDevice.DeviceCount > 0)
             {
                 for (int i = 0; i < OutputDevice.DeviceCount; i++)
                 {
-                    result.Add(new OutputMidiDevice() { Name = OutputDevice.GetDeviceCapabilities(i).name, Id = i });
+                    result.Add(new OutputMidiDeviceData() { Name = OutputDevice.GetDeviceCapabilities(i).name, Id = i });
                 }
             }
             else
             {
                 //WriteLine("No devices found... :(");
-                result.Add(new OutputMidiDevice() { Name = "No device output devices available...", Id = -1 });
+                result.Add(new OutputMidiDeviceData() { Name = "No device output devices available...", Id = -1 });
             }
 
             return result;

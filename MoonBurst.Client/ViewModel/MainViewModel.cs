@@ -9,20 +9,23 @@ using MoonBurst.Views;
 
 namespace MoonBurst.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IMainViewModel
     {
-        private DebugWindow debugWindow;
+        private IMessenger _messenger;
+
+        private IClientConfiguration _clientConfiguration;
+        private IHardwareConfigurationViewModel _hardwareConfig;
+        private ILayoutViewModel _layout;
+
+        private DebugWindow _debugWindow;
         private string _log;
         private string _appVersion;
         private string _title;
-        private LayoutViewModel _layout;
-        private ClientConfiguration _clientConfiguration;
-        private HardwareConfigurationViewModel _hardwareConfig;
         
         public ICommand OnOpenConsoleCommand { get; set; }
         public ICommand OnCloseCommand { get; set; }
         
-        public HardwareConfigurationViewModel HardwareConfig
+        public IHardwareConfigurationViewModel HardwareConfig
         {
             get => _hardwareConfig;
             set
@@ -32,7 +35,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ClientConfiguration ClientConfiguration
+        public IClientConfiguration ClientConfiguration
         {
             get => _clientConfiguration;
             set
@@ -42,7 +45,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public LayoutViewModel Layout
+        public ILayoutViewModel Layout
         {
             get => _layout;
             set
@@ -64,7 +67,7 @@ namespace MoonBurst.ViewModel
 
         public string Title
         {
-            get => _title.ToUpper() + " - "  + AppVersion + " - " + Layout?.Path;
+            get =>$"{_title.ToUpper()} - {AppVersion} - {Layout?.CurrentPath} - {HardwareConfig?.CurrentPath} ";
             set
             {
                 _title = value;
@@ -82,24 +85,23 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        private IArduinoGateway _arduinoGateway;
-        private IMessenger _messenger;
 
-        public MainViewModel()
+        public MainViewModel(IMessenger messenger,  
+            IClientConfiguration clientConfiguration,
+            IHardwareConfigurationViewModel hardware_viewModel,
+            ILayoutViewModel layout_viewModel)
         {
             AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Title = "MoonBurst";
             
-            _arduinoGateway = new ArduinoGateway();
-            _messenger = MessengerInstance;
+            _messenger = messenger;
+            _clientConfiguration = clientConfiguration;
 
-            ClientConfiguration = new ClientConfiguration();
-            HardwareConfig = new HardwareConfigurationViewModel(new MidiGateway(_messenger), new SerialGateway(_messenger), _arduinoGateway, _messenger);
-            Layout = new LayoutViewModel(_arduinoGateway, _messenger);
+            ClientConfiguration = _clientConfiguration;
+            HardwareConfig = hardware_viewModel;
+            Layout = layout_viewModel;
             
             InitializeConfigs();
-
-            BuildQuickActions();
 
             OnOpenConsoleCommand = new RelayCommand(OpenConsole);
             OnCloseCommand = new RelayCommand(OnClose);
@@ -110,42 +112,29 @@ namespace MoonBurst.ViewModel
             _messenger.Register<DeleteFunctoidChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
         }
 
-        private void BuildQuickActions()
-        {
-        }
-
         private void InitializeConfigs()
         {
             ClientConfiguration.LoadDefault();
-            HardwareConfig.LoadData(DataSerializer<HardwareConfigurationViewModel.HardwareConfigurationData>.LoadFromFile(ClientConfiguration.LastHardwareConfigurationPath));
-            Layout.LoadData(DataSerializer<LayoutViewModel.LayoutData>.LoadFromFile(ClientConfiguration.LastLayoutPath));
-        }
-
-        private void UpdateAndSaveClientConfig()
-        {
-            this.ClientConfiguration.LastLayoutPath = this.Layout.Path;
-            this.ClientConfiguration.LastHardwareConfigurationPath = this.HardwareConfig.Path;
-            DataSerializer<ClientConfiguration.ClientConfigurationData>.SaveDefault(this.ClientConfiguration.GetData());
-            RaisePropertyChanged();
+            HardwareConfig.LoadLastConfig();
+            Layout.LoadLastConfig();
         }
 
         private void OnClose()
         {
-            Layout.OnSaveLayoutCommand.Execute(null);
-            HardwareConfig.SaveConfigCommand.Execute(null);
-            HardwareConfig.Close();
-            UpdateAndSaveClientConfig();
+            this.Layout.Close();
+            this.HardwareConfig.Close();
+            this.ClientConfiguration.Close();
         }
 
         void OpenConsole()
         {
-            if (debugWindow == null)
+            if (_debugWindow == null)
             {
-                debugWindow = new DebugWindow(this);
-                debugWindow.Closed += (sender, args) => this.debugWindow = null;
+                _debugWindow = new DebugWindow(this);
+                _debugWindow.Closed += (sender, args) => this._debugWindow = null;
             }
 
-            debugWindow.Show();
+            _debugWindow.Show();
         }
 
         #region utils
@@ -154,5 +143,9 @@ namespace MoonBurst.ViewModel
             this.Log += newLine + "\n";
         }
         #endregion
+    }
+
+    public interface IMainViewModel
+    {
     }
 }

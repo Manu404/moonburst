@@ -108,9 +108,9 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ArduinoPortConfig GetData()
+        public ArduinoPortConfigData GetData()
         {
-            return new ArduinoPortConfig()
+            return new ArduinoPortConfigData()
             {
                 Position = this.Position,
                 ConnectedDevice = this.ConnectedDeviceName,

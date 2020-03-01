@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.1.0.1359</AssemblyVersion>
+    <AssemblyVersion>2020.1.0.1409</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -131,50 +131,66 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\ArduinoGateway.cs" />
+    <Compile Include="Core\Hardware\ArduinoGateway.cs" />
+    <Compile Include="Helper\MusicalNoteHelper.cs" />
+    <Compile Include="Helper\FileAssociationsHelper.cs" />
+    <Compile Include="Core\Serializer\ISerializer.cs" />
+    <Compile Include="Core\Serializer\SerializerBase.cs" />
+    <Compile Include="Model\Serializable\ArduinoPortConfigData.cs" />
+    <Compile Include="Model\Serializable\InputCOMPortData.cs" />
+    <Compile Include="Model\Serializable\OutputMidiDeviceData.cs" />
+    <Compile Include="ViewModel\ClientConfigurationViewModel.cs" />
+    <Compile Include="Model\Serializable\FunctoidActionViewModel.FunctoidActionData.cs" />
+    <Compile Include="Model\Serializable\FunctoidChannelViewModel.FunctoidChannelData.cs" />
+    <Compile Include="ViewModel\Interfaces\IClientConfiguration.cs" />
     <Compile Include="Model\Messages\ControllerStateMessage.cs" />
     <Compile Include="Model\Parser\FootswitchState.cs" />
-    <Compile Include="Core\Parser\Fs3XParser.cs" />
-    <Compile Include="Core\Helper\ConfirmationHelper.cs" />
-    <Compile Include="Core\Helper\EnumeratorToStringConverter.cs" />
+    <Compile Include="Core\Hardware\Parser\Fs3XParser.cs" />
+    <Compile Include="Helper\UI\ConfirmationHelper.cs" />
+    <Compile Include="Helper\UI\EnumeratorToStringConverter.cs" />
     <Compile Include="Model\Parser\IControllerInputParser.cs" />
     <Compile Include="Model\Parser\IControllerInputState.cs" />
     <Compile Include="Model\Parser\IControllerParser.cs" />
     <Compile Include="Model\Parser\IFootswitchParser.cs" />
     <Compile Include="Model\Parser\IFootswitchState.cs" />
-    <Compile Include="Core\Parser\MomentaryFootswitchParser.cs" />
+    <Compile Include="Core\Hardware\Parser\MomentaryFootswitchParser.cs" />
     <Compile Include="Model\Parser\MomentaryFootswitchState.cs" />
     <Compile Include="Model\Messages\SerialConnectionStateChangedMessage.cs" />
     <Compile Include="Model\Messages\MidiConnectionStateChangedMessage.cs" />
     <Compile Include="Model\UI\Enums\MidiConnectionStatus.cs" />
-    <Compile Include="Core\MidiGateway.cs" />
-    <Compile Include="Core\SerialGateway.cs" />
+    <Compile Include="Core\Hardware\MidiGateway.cs" />
+    <Compile Include="Core\Hardware\SerialGateway.cs" />
     <Compile Include="Model\Messages\TriggeredActionMessage.cs" />
-    <Compile Include="Model\Serializable\ArduinoPortConfig.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
     <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
+    <Compile Include="Model\Serializable\ClientConfigurationData.cs" />
+    <Compile Include="ViewModel\Serializer\ClientConfigurationViewModelSerializer.cs" />
+    <Compile Include="Model\Serializable\HardwareConfigurationData.cs" />
+    <Compile Include="ViewModel\Serializer\HardwareConfigurationViewModelSerializer.cs" />
+    <Compile Include="ViewModel\Interfaces\IHardwareConfigurationViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\ILayoutViewModel.cs" />
+    <Compile Include="Model\Serializable\LayoutData.cs" />
+    <Compile Include="ViewModel\Serializer\LayoutViewModelSerializer.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\UI\Enums\FootTrigger.cs" />
     <Compile Include="Model\Serializable\IFileSerializableType.cs" />
-    <Compile Include="Model\Serializable\InputCOMPort.cs" />
-    <Compile Include="Model\Serializable\OutputMidiDevice.cs" />
-    <Compile Include="Model\ClientConfiguration.cs" />
-    <Compile Include="Core\Helper\FileAssociations.cs" />
+    <Compile Include="Helper\FileAssociations.cs" />
     <Compile Include="ViewModel\FunctoidActionViewModel.cs" />
     <Compile Include="ViewModel\FunctoidChannelViewModel.cs" />
     <Compile Include="ViewModel\HardwareConfigurationViewModel.cs" />
     <Compile Include="ViewModel\LayoutViewModel.cs" />
-    <Compile Include="Core\Helper\XmlFileSerializer.cs" />
+    <Compile Include="Core\Serializer\XmlFileSerializer.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Helper\EnumToItemsSource.cs" />
-    <Compile Include="Core\Helper\InverseBooleanConverter.cs" />
+    <Compile Include="Helper\UI\EnumToItemsSource.cs" />
+    <Compile Include="Helper\UI\InverseBooleanConverter.cs" />
     <Compile Include="Model\UI\Enums\ChannelCommand.cs" />
     <Compile Include="Model\Messages\DeleteFunctoidChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Helper\UI\ToggleButtonAssist.cs" />
     <Page Include="Themes\Imports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -207,7 +223,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Core\TeVirtualMIDI.cs" />
+    <Compile Include="Core\Hardware\TeVirtualMIDI.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

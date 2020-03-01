@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -13,7 +12,7 @@ using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
-    public class FunctoidChannelViewModel : ViewModelBase
+    public partial class FunctoidChannelViewModel : ViewModelBase
     {
         private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
@@ -181,6 +180,15 @@ namespace MoonBurst.ViewModel
             Actions.Add(new FunctoidActionViewModel(_messenger, _arduinoGateway));
         }
 
+        private async void OnDelete()
+        {
+            var result = await ConfirmationHelper.RequestConfirmationForDeletation();
+            if (result is bool boolResult && boolResult)
+            {
+                _messenger.Send(new DeleteFunctoidChannelMessage(this));
+            }
+        }
+
         public FunctoidChannelViewModel(FunctoidChannelData data, IArduinoGateway arduinoGateway, IMessenger messenger) : this(messenger)
         {
             this.Index = data.Index;
@@ -191,15 +199,6 @@ namespace MoonBurst.ViewModel
             this._arduinoGateway = arduinoGateway;
             this._lastInput = data.BindedInput;
             this._messenger = messenger;
-        }
-
-        private async void OnDelete()
-        {
-            var result = await ConfirmationHelper.RequestConfirmationForDeletation();
-            if (result is bool boolResult && boolResult)
-            {
-                _messenger.Send(new DeleteFunctoidChannelMessage(this));
-            }
         }
 
         public FunctoidChannelData GetData()
@@ -213,23 +212,6 @@ namespace MoonBurst.ViewModel
                 IsExpanded = this.IsExpanded,
                 BindedInput = this.SelectedInput?.FormatedName,
             };
-        }
-
-
-        public class FunctoidChannelData
-        {
-            public int Index { get; set; }
-            public string Name { get; set; }
-            public bool IsEnabled { get; set; }
-            public bool IsExpanded { get; set; }
-            public string BindedInput { get; set; }
-
-            public List<FunctoidActionViewModel.FunctoidActionData> Actions { get; set; }
-
-            public FunctoidChannelData()
-            {
-                Actions = new List<FunctoidActionViewModel.FunctoidActionData>();
-            }
         }
     }
 }

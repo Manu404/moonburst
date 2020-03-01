@@ -3,12 +3,9 @@ using MoonBurst.ViewModel;
 
 namespace MoonBurst.Views
 {
-    /// <summary>
-    /// Interaction logic for DebugWindow.xaml
-    /// </summary>
     public partial class DebugWindow : MetroWindow
     {
-        public DebugWindow(MainViewModel context)
+        public DebugWindow(IMainViewModel context)
         {
             InitializeComponent();
             this.DataContext = context;

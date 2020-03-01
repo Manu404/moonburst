@@ -20,8 +20,8 @@ namespace MoonBurst.Core
     {
         bool IsConnected { get; }
         int CurrentSpeed { get; set; }
-        InputCOMPort CurrentPort { get; set; }
-        List<InputCOMPort> GetPorts();
+        InputCOMPortData CurrentPort { get; set; }
+        List<InputCOMPortData> GetPorts();
         List<int> GetRates();
         void Connect(IArduinoPort[] ports);
         void Close();
@@ -50,7 +50,7 @@ namespace MoonBurst.Core
         }
 
         public int CurrentSpeed { get; set; }
-        public InputCOMPort CurrentPort { get; set; }
+        public InputCOMPortData CurrentPort { get; set; }
 
         public SerialGateway(IMessenger messenger)
         {
@@ -149,23 +149,30 @@ namespace MoonBurst.Core
             }
         }
 
-        public List<InputCOMPort> GetPorts()
+        public List<InputCOMPortData> GetPorts()
         {
-            var result = new List<InputCOMPort>();
+            var result = new List<InputCOMPortData>();
             try
             {
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SerialPort");
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
-                    result.Add(new InputCOMPort()
+                    try
                     {
-                        Name = queryObj["Name"].ToString(),
-                        Id = queryObj["DeviceID"].ToString(),
-                        MaxBaudRate = Int32.Parse(queryObj["MaxBaudRate"].ToString())
-                    });
+                        result.Add(new InputCOMPortData()
+                        {
+                            Name = queryObj["Name"].ToString(),
+                            Id = queryObj["DeviceID"].ToString(),
+                            MaxBaudRate = Int32.Parse(queryObj["MaxBaudRate"].ToString())
+                        });
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 if(!result.Any())
-                    result.Add(new InputCOMPort() { Name = "No COM ports available...", Id = "", MaxBaudRate = 0});
+                    result.Add(new InputCOMPortData() { Name = "No COM ports available...", Id = "", MaxBaudRate = 0});
 
             }
             catch (ManagementException e)

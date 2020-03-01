@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core;
+using MoonBurst.Core.Helper;
+using MoonBurst.Core.Parser;
+using MoonBurst.Model;
+using MoonBurst.Model.Parser;
 using MoonBurst.ViewModel;
 
 namespace MoonBurst
@@ -21,33 +26,30 @@ namespace MoonBurst
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            FileAssociations.EnsureAssociationsSet(new []{ new FileAssociations.FileAssociation()
-            {
-                ExecutableFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location,
-                Extension = ".mblayout",
-                FileTypeDescription = "MoonBurst Layout",
-                ProgId = "MOONBURST",
-                DefaultIcon = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "img\\", "moonfile.ico")
-            },
-                new FileAssociations.FileAssociation()
-                {
-                    ExecutableFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location,
-                    Extension = ".mbconfig",
-                    FileTypeDescription = "MoonBurst Config",
-                    ProgId = "MOONBURST",
-                    DefaultIcon = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "img\\", "moonfile.ico")
-                }
-            });
+            FileAssociationsHelper.EnsureFileAssociation();
 
             var container = new WindsorContainer();
 
-            // Register the CompositionRoot type with the container
             container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
+
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(ISerializer<,>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(ISerializer<>)).WithServiceAllInterfaces());
+
+            container.Register(Component.For<IFootswitchParser>().ImplementedBy<MomentaryFootswitchParser>());
+            container.Register(Component.For<IControllerParser>().ImplementedBy<Fs3XParser>());
+            container.Register(Component.For<IMusicalNoteHelper>().ImplementedBy<MusicalNoteHelper>());
+
             container.Register(Component.For<IMidiGateway>().ImplementedBy<MidiGateway>());
             container.Register(Component.For<ISerialGateway>().ImplementedBy<SerialGateway>());
             container.Register(Component.For<IArduinoGateway>().ImplementedBy<ArduinoGateway>());
 
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(ViewModelBase)).WithServiceAllInterfaces());
+                        
             base.OnStartup(e);
+
+            MainWindow mw = new MainWindow(container.Resolve<IMainViewModel>());
+            mw.Show();
         }
+
     }
 }

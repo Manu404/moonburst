@@ -1,7 +1,6 @@
 ﻿namespace MoonBurst.Model
 {
-
-    public class ArduinoPortConfig
+    public class ArduinoPortConfigData
     {
         public int Position { get; set; }
         public string ConnectedDevice { get; set; }

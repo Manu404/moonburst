@@ -13,10 +13,12 @@ using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel
 {
-    public class LayoutViewModel : ViewModelBase
+    public partial class LayoutViewModel : ViewModelBase, IFileSerializableType, ILayoutViewModel
     {
         private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
+        private IClientConfiguration _config;
+        private ISerializer<LayoutViewModel> _serializer;
 
         public ObservableCollection<FunctoidChannelViewModel> FunctoidChannels { get; set; }
 
@@ -27,13 +29,20 @@ namespace MoonBurst.ViewModel
         public ICommand OnCollaspeAllCommand { get; set; }
         public ICommand OnExpandAllCommand { get; set; }
 
-        public LayoutViewModel(IArduinoGateway arduinoGateway, IMessenger messenger)
+        public string CurrentPath { get; set; }
+
+        public LayoutViewModel(IArduinoGateway arduinoGateway, 
+            IMessenger messenger, 
+            IClientConfiguration clientConfiguration,
+            ISerializer<LayoutViewModel> serializer)
         {
             _arduinoGateway = arduinoGateway;
             _messenger = messenger;
+            _config = clientConfiguration;
+            _serializer = serializer;
 
             FunctoidChannels = new ObservableCollection<FunctoidChannelViewModel>();
-            Path = string.Empty;
+            CurrentPath = string.Empty;
 
             OnAddChannelCommand = new RelayCommand(() => AddChannel());
             OnSaveLayoutCommand = new RelayCommand(OnSaveLayout);
@@ -65,12 +74,14 @@ namespace MoonBurst.ViewModel
 
         public void UpdateChannelIndexes()
         {
-            int i = 1;
-            foreach (var functoidChannel in this.FunctoidChannels)
-            {
-                functoidChannel.Index = i;
-                i++;
-            }
+            for (int i = 0; i < this.FunctoidChannels.Count; this.FunctoidChannels[i - 1].Index = i++) ;
+        }
+
+        public void UpdateChannels(List<FunctoidChannelViewModel.FunctoidChannelData> source)
+        {
+            this.FunctoidChannels.Clear();
+            source.ConvertAll(d => new FunctoidChannelViewModel(d, this._arduinoGateway, _messenger)).ForEach(this.FunctoidChannels.Add);
+            this.FunctoidChannels.ToList().ForEach(d => d.RefreshInputs());
         }
 
         private void OnSaveAsLayout()
@@ -82,8 +93,7 @@ namespace MoonBurst.ViewModel
 
             if (saveFileDialog1.FileName != "")
             {
-                Path = saveFileDialog1.FileName;
-                DataSerializer<LayoutData>.SaveToFile(GetData());
+                Save(saveFileDialog1.FileName);
             }
         }
 
@@ -94,50 +104,48 @@ namespace MoonBurst.ViewModel
             openFileDialog1.Title = "Load layout";
             if (openFileDialog1.ShowDialog() == true)
             {
-                LoadData(DataSerializer<LayoutData>.LoadFromFile(openFileDialog1.FileName));
+                Load(openFileDialog1.FileName);
             }
         }
 
         private void OnSaveLayout()
         {
-            if (String.IsNullOrEmpty(this.Path))
+            if (String.IsNullOrEmpty(this.CurrentPath))
                 OnSaveAsLayout();
             else
-                DataSerializer<LayoutData>.SaveToFile(GetData());
+                Save();
         }
 
-        public string Path { get; set; }
-
-        public LayoutData GetData()
+        public void Close()
         {
-            return new LayoutData()
-            {
-                Path = this.Path,
-                Channels = this.FunctoidChannels.ToList().ConvertAll(f => f.GetData())
-            };
+            OnSaveLayoutCommand.Execute(null);
         }
 
-        public void LoadData(LayoutData data)
+        public void Save()
         {
-            this.FunctoidChannels.Clear();
-            data.Channels.ConvertAll(d => new FunctoidChannelViewModel(d, this._arduinoGateway, _messenger)).ForEach(this.FunctoidChannels.Add);
-            FunctoidChannels.ToList().ForEach(d => d.RefreshInputs());
-            this.Path = data.Path;
+            _serializer.Save(this, CurrentPath);
         }
 
-        public class LayoutData : IFileSerializableType
+        public void Save(string path)
         {
-            [XmlIgnore]
-            public string Path { get; set; }
-            [XmlIgnore]
-            public string Default => "default_layout.xml";
-
-            public List<FunctoidChannelViewModel.FunctoidChannelData> Channels { get; set; }
-
-            public LayoutData()
-            {
-                Channels = new List<FunctoidChannelViewModel.FunctoidChannelData>();
-            }
+            _serializer.Save(this, path);
         }
+
+        public void SaveLastConfig()
+        {
+            Save(_config.LastLayoutPath);
+        }
+
+        public void Load(string path)
+        {
+            _serializer.Load(path, this);
+        }
+
+        public void LoadLastConfig()
+        {
+            Load(_config.LastLayoutPath);
+        }
+
+
     }
 }

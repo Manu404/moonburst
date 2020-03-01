@@ -152,6 +152,7 @@ namespace MoonBurst.Core
             fVersionString = Marshal.PtrToStringAuto(virtualMIDIGetVersion(ref fVersionMajor, ref fVersionMinor, ref fVersionRelease, ref fVersionBuild));
             fDriverVersionString = Marshal.PtrToStringAuto(virtualMIDIGetDriverVersion(ref fDriverVersionMajor, ref fDriverVersionMinor, ref fDriverVersionRelease, ref fDriverVersionBuild));
 
+
         }
 
 
