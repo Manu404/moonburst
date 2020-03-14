@@ -26,6 +26,9 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Real time delay per action
  - Midi Monitor
  
+# Build MK1
+Here's some pics and buylist for the mk1 prototype. The enclosure was one lying around, the tape was to fill some holes made for a previous project. Inputs are not well aligned and not planned well (analog/digital), the mk2 will improve on those points. But this one is working as a charm and is the one used for developement.
+
 ### Buylist
 
 - Enclosure
@@ -85,9 +88,6 @@ It would be tempting to add a lot of midi features and tools, from remaping to r
  - Piano roll for midi message builder
  - Midi-clocked delay
  - Implement value triggers to support expression pedal
-
-# Build MK1
-Here's some pics and buylist for the mk1 prototype. The enclosure was one lying around, the tape was to fill some holes made for a previous project. Inputs are not well aligned and not planned well (analog/digital), the mk2 will improve on those points. But this one is working as a charm and is the one used for developement.
 
 # About the project
 
