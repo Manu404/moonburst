@@ -71,7 +71,24 @@ If you have those, it would be amazing to send us a message about your expérien
 Moonburst was designed for Microsoft Windows, the UI wouldn't be portable easily to linux, even tho there's plan to migrate as much as possible to .Net Core over time. The software was designed for a personal need first, so a lot of decision were made toward speed of developement regarding already known technologies.
 
 Each release is tested against a clean default windows 10 install with latest updates.
- 
+
+# Build MK1
+Here's some pics and buylist for the mk1 prototype. The enclosure was one lying around, the tape was to fill some holes made for a previous project. Inputs are not well aligned and not planned well (analog/digital), the mk2 will improve on those points. But this one is working as a charm and is the one used for developement.
+
+### Buylist
+
+- Enclosure
+- 4 dual TRS female / [thomann (2.88€/u)](https://www.thomann.de/be/neutrik_nsj12_hh_1.htm)
+- TRS connector mounting screws / [thomann (0.98€/u)](https://www.thomann.de/be/neutrik_nrj_nut_b.htm)
+- Arduino Uno (cheaper clone mostly works) / [amazon (25€/u)](https://www.amazon.fr/Arduino-A000066-M%C3%A9moire-flash-32/dp/B008GRTSV6/)
+- Dupont connectors sets / [amazon (10€/set)](https://www.amazon.fr/ARCELI-Connecteur-Goupilles-Adaptateur-Assortiment/dp/B07PVVD26W/)
+- Signal wire set, 9 color, 60m / [amazon(15€)](https://www.amazon.fr/Kit-fil-fixation-10-couleurs-60-m/dp/B001IRQRRO/)
+
+### Pics
+
+![mk1a](https://github.com/Manu404/moonburst/blob/master/scrns/out.png)
+![mk1b](https://github.com/Manu404/moonburst/blob/master/scrns/in.png)
+
 # About the project
 
 <img align="left" src="https://github.com/Manu404/moonburst/blob/master/scrns/header_half.jpg">
