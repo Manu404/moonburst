@@ -12,8 +12,6 @@ using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
-
-
     public partial class FunctoidActionViewModel : ViewModelBase, IFunctoidActionViewModel
     {
         private IArduinoGateway _arduinoGateway;
@@ -23,7 +21,6 @@ namespace MoonBurst.ViewModel
 
         private bool _isEnabled;
         private bool _isExpanded;
-        private string _actionName;
         private FootTrigger _trigger;
         private ChannelCommand _command;
         private int _data2;

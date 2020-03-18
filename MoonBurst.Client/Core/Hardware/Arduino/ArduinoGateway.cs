@@ -16,7 +16,7 @@ namespace MoonBurst.Core
 
         public ArduinoGateway()
         {
-            int portCount = 4;
+            int portCount = 6;
             Ports = new IArduinoPort[portCount];
             InitializePorts();
         }

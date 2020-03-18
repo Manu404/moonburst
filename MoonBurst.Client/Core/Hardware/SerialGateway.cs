@@ -115,7 +115,7 @@ namespace MoonBurst.Core
         }
 
         private string accumulator = "";
-        Regex group = new Regex(@"[01]{3}", RegexOptions.Compiled);
+        Regex group = new Regex(@"\?([0-9]+);([0-9]+);([0-9]+)\!", RegexOptions.Compiled);
         private void SerialPortOnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             accumulator += _serialPort.ReadExisting();
@@ -126,14 +126,29 @@ namespace MoonBurst.Core
 
             foreach (var line in lines)
             {
-                MatchCollection match = group.Matches(line);
-                if (match.Count == _arduinoPorts.Length)
+                try
                 {
-                    for (int pos = 0; pos < _arduinoPorts.Length; pos++)
+                    Match match = group.Match(line);
+                    if (match.Groups.Count == 4)
                     {
-                        if (_footswitchParsers[pos] != null)
-                            _messenger.Send(new ControllerStateMessage { States = _footswitchParsers[pos].ParseState(match[pos].Value, pos), Port = pos });
+                        byte PIND = Byte.Parse(match.Groups[1].Value);
+                        byte PINB = Byte.Parse(match.Groups[2].Value);
+
+                        int digitalPins = (PIND | (PINB << 8));
+                        for (int pos = 0; pos < _arduinoPorts.Length; pos++)
+                        {
+                            digitalPins = digitalPins >> 2;
+                            int current = digitalPins & 3;
+
+                            if (_footswitchParsers[pos] != null)
+                                _messenger.Send(new ControllerStateMessage { States = _footswitchParsers[pos].ParseState(current, pos), Port = pos });
+                        }
+
                     }
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
         }

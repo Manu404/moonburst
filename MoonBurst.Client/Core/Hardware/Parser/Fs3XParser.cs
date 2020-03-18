@@ -16,13 +16,14 @@ namespace MoonBurst.Core.Parser
 
         public IDeviceDefinition Device => new Fs3xDeviceDefinition();
 
-        public MomentaryFootswitchState[] ParseState(string state, int index)
+        public MomentaryFootswitchState[] ParseState(int state, int index)
         {
-            var result = new MomentaryFootswitchState[SwitchCount];
-            if (state.Length != SwitchCount) return new MomentaryFootswitchState[0];
-            for(int i = 0; i < SwitchCount; i++)
-                result[i] = ((MomentaryFootswitchState) _parser[i].ParseState(state[i].ToString(), i));
-            return result;
+            return new MomentaryFootswitchState[SwitchCount]
+            {
+                ((MomentaryFootswitchState) _parser[0].ParseState((state == 1) ? 1 : 0, 0)),
+                ((MomentaryFootswitchState) _parser[1].ParseState((state == 2) ? 1 : 0, 1)),
+                ((MomentaryFootswitchState) _parser[2].ParseState((state == 0) ? 1 : 0, 2))
+            };
         }
 
         public bool ValidateState(string state)

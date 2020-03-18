@@ -2,6 +2,6 @@ namespace MoonBurst.Model.Parser
 {
     public interface IFootswitchParser : IControllerInputParser
     {
-        new IFootswitchState ParseState(string state, int index);
+        new IFootswitchState ParseState(int state, int index);
     }
 }
