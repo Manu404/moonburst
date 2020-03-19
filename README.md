@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/2ohdsl0j6kgifhov?svg=true)](https://ci.appveyor.com/project/Manu404/moonburst)
 # What is MoonBurst ?
 
 Moonburst is an arduino based solution for musician that aim to provide a generic midi open source interface that accept as many "generic" controller as possible, keeping the cost factor really low, yet versatile and open. Some solutions already exists, but not as I envision mine, or at high costs and sometimes long learning curve.
