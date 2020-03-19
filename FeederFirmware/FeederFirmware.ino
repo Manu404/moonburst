@@ -1,49 +1,20 @@
-const int portCount = 4;
-const int pinPadding = 0;
+const int digitalPortCount = 6;
+const int analogPortCount = 2;
 const int serialSpeed = 9600;
 
-String state = "";
-
-void initPort(int id) 
-{
-	pinMode(id * 2, INPUT_PULLUP);
-	pinMode((id * 2) + 1, INPUT_PULLUP);
-}
-
-void readPort(int id)
-{
-	int ring = (id * 2) + pinPadding;
-	int tip = ring + 1;
-	state += " ";
-
-	if (digitalRead(ring) == LOW && digitalRead(tip) == LOW) {
-		state += "001";
-	}
-	else {
-		if (digitalRead(tip) == LOW) {
-			state += "1";
-		}
-		else {
-			state += "0";
-		}
-
-		if (digitalRead(ring) == LOW) {
-			state += "1";
-		}
-		else {
-			state += "0";
-		}
-		state += "0";
-	}
+void initPort(int padding, int id) {
+	pinMode(padding + (id * 2), INPUT_PULLUP);
+	pinMode(padding + ((id * 2) + 1), INPUT_PULLUP);
 }
 
 void setup() {
 	Serial.begin(serialSpeed);
-	for (int i = 1; i <= portCount; initPort(i++));
+	for (int i = 0; i <= digitalPortCount; initPort(2, i++));
+	for (int i = 0; i <= analogPortCount; initPort(A0, i++));
 }
 
 void loop() {
-	state = "";
-	for (int i = 1; i <= portCount; readPort(i++));
-	Serial.println(state);
+	// send pin registers over serial in human readble format for debug/trouble
+	// format: ?[D0 - D7];[D7 -  D13];[A0 - A5]!
+	Serial.println("?" + String(PIND, DEC) + ";" + String(PINB, DEC) + ";" + String(PINC, DEC) + "!");
 }
