@@ -7,12 +7,13 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MoonBurst.Client")]
-[assembly: AssemblyDescription("MoonBurst Client")]
+[assembly: AssemblyTitle("MoonBurst.Vst")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MoonBurst Client")]
-[assembly: AssemblyCopyright("Free software copyleft 2019")]
+[assembly: AssemblyProduct("MoonBurst.Vst")]
+[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -30,16 +31,6 @@ using System.Windows;
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
 
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
-                                     //(used if a resource is not found in the page,
-                                     // or application resource dictionaries)
-    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
-                                              //(used if a resource is not found in the page,
-                                              // app, or any theme specific resource dictionaries)
-)]
-
-
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
@@ -50,5 +41,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2020.1.0.1611")]
-[assembly: AssemblyFileVersion("2020.1.0.1609")]
+[assembly: AssemblyVersion("2020.1.0.43")]
+[assembly: AssemblyFileVersion("2020.1.0.43")]

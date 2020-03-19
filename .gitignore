@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 /*.DotSettings
+/FeederFirmware/__vm/Compile.vmps.xml
+/FeederFirmware/__vm/Configuration.Debug.vmps.xml
+/FeederFirmware/__vm/Upload.vmps.xml
