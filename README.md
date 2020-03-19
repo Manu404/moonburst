@@ -10,6 +10,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 
  - Tranform your regular footswitch pedals into full midi controllers
  - Use existing midi interface to send midi or use [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) to create your own virtual interfaces
+ - Host as a VST outputing midi (in dev)
  - Arduino hot-plug support
  - React to variety of triggers : 
    - Event
@@ -25,6 +26,8 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Manual trigger of each action/channel
  - Real time delay per action
  - Midi Monitor
+ - Piano roll for midi message builder
+ - Western notation for pitch and dynamics
  
 # Build MK1
 Here's some pics and buylist for the mk1 prototype. The enclosure was one lying around, the tape was to fill some holes made for a previous project. Inputs are not well aligned and not planned well (analog/digital), the mk2 will improve on those points. But this one is working as a charm and is the one used for developement.
@@ -79,15 +82,13 @@ Each release is tested against a clean default windows 10 install with latest up
 # Roadmap
 *For supported controllers, check the related section.*
 
-It would be tempting to add a lot of midi features and tools, from remaping to routing, but I want to reduce the scope of the solution as much as possible, so those concerns can be managed at your will on your side. There's a lot of free midi (http://www.vst4free.com/index.php?m=midiVST) utility that I think are better option than trying to implement them (badly ?) myself. The only developement done that way for the moment was the midi monitor for ease of automated testing. Moonburst should always remain a dumb, yet highly confirgurable and versatile, midi controller.
-
  - Write documentation for arduino wiring
- - Define a more clearer and consistent vocabulary
  - Arduino auto-config
  - Scene management for layouts
- - Piano roll for midi message builder
  - Midi-clocked delay
  - Implement value triggers to support expression pedal
+ 
+It would be tempting to add a lot of midi features and tools, from remaping to routing, but I want to reduce the scope of the solution as much as possible, so those concerns can be managed at your will on your side. There's a lot of free midi (http://www.vst4free.com/index.php?m=midiVST) utility that I think are better option than trying to implement them (badly ?) myself.
 
 # About the project
 
