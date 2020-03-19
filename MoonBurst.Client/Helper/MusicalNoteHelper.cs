@@ -31,7 +31,7 @@ namespace MoonBurst.Core.Helper
             AvailableNotes.Reverse();
         }
 
-        private string FromMidiValueToNoteName(int value)
+        public string FromMidiValueToNoteName(int value)
         {
             if (value < 0 || value > 127) throw new Exception($"'{value}' is not a valid midi note value");
 
