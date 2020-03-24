@@ -20,18 +20,20 @@ namespace MoonBurst
         {
             FileAssociationsHelper.EnsureFileAssociation();
 
+            AssemblyFilter filter = new AssemblyFilter(".", "MoonBurst.*");
+
             var container = new WindsorContainer();
 
             container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
 
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(ISerializer<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(ISerializer<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IFactory<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IHardwareService)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(ISerializer<,>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(ISerializer<>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IFactory<>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IHardwareService)).WithServiceAllInterfaces());
 
             container.Register(Component.For<IFootswitchParser>().ImplementedBy<MomentaryFootswitchParser>());
             container.Register(Component.For<IControllerParser>().ImplementedBy<Fs3XParser>());
