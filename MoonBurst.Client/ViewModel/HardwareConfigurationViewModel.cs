@@ -9,6 +9,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
+using MoonBurst.Api.Enums;
+using MoonBurst.Api.Services;
 using MoonBurst.Core;
 using MoonBurst.Model;
 using MoonBurst.Model.Messages;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using MoonBurst.Api.Enums;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Model;

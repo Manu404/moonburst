@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Services;
 using MoonBurst.Core;
 
 namespace MoonBurst.ViewModel
@@ -13,12 +14,12 @@ namespace MoonBurst.ViewModel
         IArduinoGateway _arduinoGateway;
         IMessenger _messenger;
         IFunctoidActionViewModelFactory _factory;
-        IExtractor<IFunctoidChannelViewModel, FunctoidChannelData> _channel_extractor;
+        IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData> _channel_extractor;
 
         public FunctoidChannelViewModelFactory(IArduinoGateway arduinoGateway, 
             IMessenger messenger, 
             IFunctoidActionViewModelFactory factory,
-            IExtractor<IFunctoidChannelViewModel, FunctoidChannelData> extractor)
+            IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData> extractor)
         {
             _arduinoGateway = arduinoGateway;
             _messenger = messenger;

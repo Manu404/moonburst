@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Model.Parser;
+using MoonBurst.Api.Parser;
 
 namespace MoonBurst.Model.Messages
 {

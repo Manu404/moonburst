@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Core
+﻿namespace MoonBurst.Api.Hardware
 {
     public interface IBooleanInput : IDeviceInput
     {

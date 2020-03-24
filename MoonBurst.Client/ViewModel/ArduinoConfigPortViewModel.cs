@@ -4,6 +4,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Hardware;
 using MoonBurst.Core;
 using MoonBurst.Model;
 using MoonBurst.Model.Messages;

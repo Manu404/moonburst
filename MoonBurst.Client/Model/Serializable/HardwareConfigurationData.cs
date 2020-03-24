@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using MoonBurst.Api.Services;
+using MoonBurst.Core;
 using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel

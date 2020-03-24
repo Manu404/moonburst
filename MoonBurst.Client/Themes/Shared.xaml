@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:MoonBurst.Views"
                     xmlns:core="clr-namespace:MoonBurst.Core"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:model="clr-namespace:MoonBurst.Model"
+                    xmlns:model="clr-namespace:MoonBurst.Api.Enums;assembly=MoonBurst.Api"
                     xmlns:moonBurst="clr-namespace:MoonBurst"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:helper="clr-namespace:MoonBurst.Core.Helper">

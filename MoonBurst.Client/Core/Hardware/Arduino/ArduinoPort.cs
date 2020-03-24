@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MoonBurst.Api.Hardware;
+using System.Collections.Generic;
 
 namespace MoonBurst.Core
 {

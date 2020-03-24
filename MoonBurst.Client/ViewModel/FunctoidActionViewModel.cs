@@ -5,6 +5,8 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Enums;
+using MoonBurst.Api.Services;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Model;
@@ -18,6 +20,7 @@ namespace MoonBurst.ViewModel
         private IMessenger _messenger;
         private IMusicalNoteHelper _noteHelper;
         private IDynamicsHelper _dynamicsHelper;
+        private IMidiGateway _midiGateway;
 
         private bool _isEnabled;
         private bool _isExpanded;
@@ -162,7 +165,7 @@ namespace MoonBurst.ViewModel
         public ICommand OnToggleActionCommand { get; set; }
         public ICommand OnTriggerActionCommand { get; set; }
 
-        public FunctoidActionViewModel(IMessenger messenger, IArduinoGateway arduinoGateway, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper)
+        public FunctoidActionViewModel(IMessenger messenger, IArduinoGateway arduinoGateway, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
@@ -172,6 +175,7 @@ namespace MoonBurst.ViewModel
             _messenger = messenger;
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
+            _midiGateway = midiGateway;
         }
 
         private void OnToggle()
@@ -185,7 +189,15 @@ namespace MoonBurst.ViewModel
             {
                 this.IsTriggered = true;
             }));
-            _messenger.Send(new TriggeredActionMessage() { Data = this });
+
+            _midiGateway.Trigger(new MidiTriggerData()
+            {
+                Command = this.Command,
+                Data1 = this.Data1,
+                Data2 = this.Data2,
+                MidiChannel = this.MidiChannel,
+                Delay = this.Delay
+            });
         }
 
         private async void OnDelete()

@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace MoonBurst.Model.Parser
+namespace MoonBurst.Api.Parser
 {
     public enum FootswitchState
     {

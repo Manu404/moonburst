@@ -5,12 +5,12 @@ using MoonBurst.Core;
 namespace MoonBurst.ViewModel
 {
 
-    public class FunctoidChannelViewModelDataSerializer : IExtractor<IFunctoidChannelViewModel, FunctoidChannelData>
+    public class FunctoidChannelViewModelDataSerializer : IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData>
     {
         IFunctoidActionViewModelFactory _actionFactory;
-        IExtractor<IFunctoidActionViewModel, FunctoidActionData> _actionExtractor;
+        IDataExtractor<IFunctoidActionViewModel, FunctoidActionData> _actionExtractor;
 
-        public FunctoidChannelViewModelDataSerializer(IFunctoidActionViewModelFactory actionFactory, IExtractor<IFunctoidActionViewModel, FunctoidActionData> actionExtractor)
+        public FunctoidChannelViewModelDataSerializer(IFunctoidActionViewModelFactory actionFactory, IDataExtractor<IFunctoidActionViewModel, FunctoidActionData> actionExtractor)
         {
             _actionFactory = actionFactory;
             _actionExtractor = actionExtractor;

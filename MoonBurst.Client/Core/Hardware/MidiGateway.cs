@@ -2,12 +2,16 @@ using System.Collections.Generic;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core;
 using MoonBurst.Model;
+using MoonBurst.Api;
 using MoonBurst.Model.Messages;
 using MoonBurst.ViewModel;
 using Sanford.Multimedia.Midi;
+using MoonBurst.Api.Services;
+using MoonBurst.Api.Enums;
 
 namespace MoonBurst.Core
 {
+
     public class MidiGateway : IMidiGateway, IHardwareService
     {
         private OutputDevice _outDevice;
@@ -39,19 +43,17 @@ namespace MoonBurst.Core
             _messenger = messenger;
             _state = MidiConnectionStatus.Disconnected;
             _builder = new ChannelMessageBuilder();
-
-            _messenger.Register<TriggeredActionMessage>(this, Trigger);
         }
 
-        public void Trigger(TriggeredActionMessage obj)
+        public void Trigger(MidiTriggerData obj)
         {
-            if (this.IsConnected && obj.Data != null)
+            if (this.IsConnected && obj != null)
             {
 
-                _builder.Command = (Sanford.Multimedia.Midi.ChannelCommand)obj.Data.Command;
-                _builder.MidiChannel = obj.Data.MidiChannel - 1;
-                _builder.Data1 = obj.Data.Data1 - 1;
-                _builder.Data2 = obj.Data.Data2 - 1;
+                _builder.Command = (Sanford.Multimedia.Midi.ChannelCommand)obj.Command;
+                _builder.MidiChannel = obj.MidiChannel - 1;
+                _builder.Data1 = obj.Data1 - 1;
+                _builder.Data2 = obj.Data2 - 1;
                 _builder.Build();
 
                 this._outDevice.Send(_builder.Result);
@@ -73,7 +75,6 @@ namespace MoonBurst.Core
 
         public void Close()
         {
-
             _outDevice?.Close();
             this.IsConnected = false;
         }

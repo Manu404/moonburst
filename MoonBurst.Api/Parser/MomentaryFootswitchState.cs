@@ -1,4 +1,4 @@
-namespace MoonBurst.Model.Parser
+namespace MoonBurst.Api.Parser
 {
     public class MomentaryFootswitchState : IFootswitchState
     {

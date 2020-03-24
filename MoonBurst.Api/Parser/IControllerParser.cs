@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using MoonBurst.Api.Hardware;
 using MoonBurst.Core;
 
-namespace MoonBurst.Model.Parser
+namespace MoonBurst.Api.Parser
 {
     public interface IControllerParser
     {

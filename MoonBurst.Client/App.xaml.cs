@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Parser;
+using MoonBurst.Api.Services;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Core.Parser;
-using MoonBurst.Model;
-using MoonBurst.Model.Parser;
 using MoonBurst.ViewModel;
 
 namespace MoonBurst
@@ -36,8 +28,8 @@ namespace MoonBurst
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(ISerializer<>)).WithServiceAllInterfaces());
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(IFactory<>)).WithServiceAllInterfaces());
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IExtractor<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IExtractor<,>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
             container.Register(Classes.FromThisAssembly().BasedOn(typeof(IHardwareService)).WithServiceAllInterfaces());
 

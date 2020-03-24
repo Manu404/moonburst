@@ -10,9 +10,11 @@ using System.Windows.Automation.Peers;
 using Castle.Core.Internal;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core.Parser;
-using MoonBurst.Model;
+using MoonBurst.Api;
 using MoonBurst.Model.Messages;
-using MoonBurst.Model.Parser;
+using MoonBurst.Api.Services;
+using MoonBurst.Api.Parser;
+using MoonBurst.Api.Hardware;
 
 namespace MoonBurst.Core
 {

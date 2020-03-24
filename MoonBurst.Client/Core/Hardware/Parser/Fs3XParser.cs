@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using MoonBurst.Model.Parser;
+using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Parser;
 
 namespace MoonBurst.Core.Parser
 {

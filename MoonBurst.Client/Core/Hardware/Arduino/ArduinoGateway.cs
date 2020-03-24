@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using MoonBurst.Model;
+using MoonBurst.Api;
+using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Services;
 
 namespace MoonBurst.Core
 {

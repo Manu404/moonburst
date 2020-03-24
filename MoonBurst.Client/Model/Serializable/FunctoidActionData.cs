@@ -1,4 +1,4 @@
-﻿using MoonBurst.Model;
+﻿using MoonBurst.Api.Enums;
 
 namespace MoonBurst.ViewModel
 {

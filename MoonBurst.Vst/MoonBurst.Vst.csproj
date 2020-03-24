@@ -14,7 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.1.0.47</AssemblyVersion>
+    <AssemblyVersion>2020.1.0.50</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -102,6 +102,7 @@
     <Compile Include="TestUi.xaml.cs">
       <DependentUpon>TestUi.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WpfControlWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapNoteItem.cs" />

@@ -1,6 +1,6 @@
 using System;
 
-namespace MoonBurst.Model
+namespace MoonBurst.Api.Enums
 {
     [Serializable]
     public enum ChannelCommand

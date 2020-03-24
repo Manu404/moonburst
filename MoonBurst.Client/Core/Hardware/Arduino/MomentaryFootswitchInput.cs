@@ -1,4 +1,6 @@
-﻿namespace MoonBurst.Core
+﻿using MoonBurst.Api.Hardware;
+
+namespace MoonBurst.Core
 {
     public class MomentaryFootswitchInput : IBooleanInput
     {

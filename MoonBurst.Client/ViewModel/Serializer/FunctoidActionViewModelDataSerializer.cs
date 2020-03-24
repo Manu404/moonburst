@@ -2,7 +2,7 @@
 
 namespace MoonBurst.ViewModel
 {
-    public class FunctoidActionViewModelDataSerializer : IExtractor<IFunctoidActionViewModel, FunctoidActionData>
+    public class FunctoidActionViewModelDataSerializer : IDataExtractor<IFunctoidActionViewModel, FunctoidActionData>
     {
         public FunctoidActionData ExtractData(IFunctoidActionViewModel source)
         {

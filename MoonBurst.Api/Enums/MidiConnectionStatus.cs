@@ -1,4 +1,4 @@
-namespace MoonBurst.Model
+namespace MoonBurst.Api.Enums
 {
     public enum MidiConnectionStatus
     {

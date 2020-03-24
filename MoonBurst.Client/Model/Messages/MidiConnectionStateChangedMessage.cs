@@ -1,5 +1,5 @@
 using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Model;
+using MoonBurst.Api.Enums;
 
 namespace MoonBurst.Model.Messages
 {

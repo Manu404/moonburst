@@ -1,11 +1,9 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
-using Microsoft.Win32;
 
 namespace MoonBurst.Core
 {
-
     public class XmlFileSerializer<T> where T : new()
     {
         public static void Save(string filename, T obj)
