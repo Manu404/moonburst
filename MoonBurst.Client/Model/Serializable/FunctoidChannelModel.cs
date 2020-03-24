@@ -3,7 +3,7 @@ using MoonBurst.ViewModel;
 
 namespace MoonBurst.Model.Serializable
 {
-    public class FunctoidChannelData
+    public class FunctoidChannelModel
     {
         public int Index { get; set; }
         public string Name { get; set; }
@@ -11,11 +11,11 @@ namespace MoonBurst.Model.Serializable
         public bool IsExpanded { get; set; }
         public string BindedInput { get; set; }
 
-        public List<FunctoidActionData> Actions { get; set; }
+        public List<FunctoidActionModel> Actions { get; set; }
 
-        public FunctoidChannelData()
+        public FunctoidChannelModel()
         {
-            Actions = new List<FunctoidActionData>();
+            Actions = new List<FunctoidActionModel>();
         }
     }
 }

@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Enums\ChannelCommand.cs" />
     <Compile Include="Enums\FootTrigger.cs" />
-    <Compile Include="Enums\MidiConnectionStatus.cs" />
+    <Compile Include="Enums\MidiConnectionState.cs" />
     <Compile Include="Parser\FootswitchState.cs" />
     <Compile Include="Parser\MomentaryFootswitchState.cs" />
     <Compile Include="Services\IArduinoGateway.cs" />

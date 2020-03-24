@@ -9,8 +9,11 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
 using MoonBurst.Api.Enums;
+using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Services;
+using MoonBurst.Core;
 using MoonBurst.Core.Serializer;
+using MoonBurst.Helper;
 using MoonBurst.Model;
 using MoonBurst.Model.Messages;
 using MoonBurst.Model.Serializable;
@@ -20,12 +23,13 @@ namespace MoonBurst.ViewModel
 {
     public class HardwareConfigurationViewModel : ViewModelBase, IHardwareConfigurationViewModel
     {
-        private IMidiGateway _midiGateway;
-        private ISerialGateway _serialGateway;
-        private IArduinoGateway _arduinoConfig;
-        private IMessenger _messenger;
-        private IClientConfigurationViewModel _config;
-        private ISerializer<IHardwareConfigurationViewModel> _serializer;
+        private readonly IMidiGateway _midiGateway;
+        private readonly ISerialGateway _serialGateway;
+        private readonly IArduinoGateway _arduinoConfig;
+        private readonly IMessenger _messenger;
+        private readonly IClientConfigurationViewModel _config;
+        private readonly ISerializer<IHardwareConfigurationViewModel> _serializer;
+        private readonly IFactory<IArduinoConfigPortViewModel, IArduinoPort> _arduinoPortFactory;
 
         private bool _isMidiConnected;
         private bool _isComConnected;
@@ -84,7 +88,7 @@ namespace MoonBurst.ViewModel
         public ObservableCollection<OutputMidiDeviceData> OutputMidiDevices { get; set; }
         public ObservableCollection<InputComPortData> InputComPorts { get; set; }
         public ObservableCollection<int> SupportedBaudRates { get; set; }
-        public ObservableCollection<ArduinoConfigPortViewModel> ArduinoPorts { get; }
+        public ObservableCollection<IArduinoConfigPortViewModel> ArduinoPorts { get; }
 
         public string CurrentPath { get; set; }
 
@@ -103,7 +107,8 @@ namespace MoonBurst.ViewModel
             IArduinoGateway arduinoGateway, 
             IMessenger messenger, 
             IClientConfigurationViewModel config,
-            ISerializer<IHardwareConfigurationViewModel> serializer)
+            ISerializer<IHardwareConfigurationViewModel> serializer,
+            IFactory<IArduinoConfigPortViewModel, IArduinoPort> arduinoPortFactory)
         {
             _midiGateway = midiGateway;
             _serialGateway = serialGateway;
@@ -111,8 +116,9 @@ namespace MoonBurst.ViewModel
             _messenger = messenger;
             _config = config;
             _serializer = serializer;
+            _arduinoPortFactory = arduinoPortFactory;
 
-            ArduinoPorts = new ObservableCollection<ArduinoConfigPortViewModel>();
+            ArduinoPorts = new ObservableCollection<IArduinoConfigPortViewModel>();
             OutputMidiDevices = new ObservableCollection<OutputMidiDeviceData>();
             InputComPorts = new ObservableCollection<InputComPortData>();
             SupportedBaudRates = new ObservableCollection<int>();
@@ -131,11 +137,11 @@ namespace MoonBurst.ViewModel
             OnRefreshCOMDevices();
             OnRefreshArduinoPorts();
 
-            _messenger.Register<MidiConnectionStateChangedMessage>(this, (o) => this.IsMidiConnected = o.NewState == MidiConnectionStatus.Connected);
-            _messenger.Register<SerialConnectionStateChangedMessage>(this, OnSerialStateChange);
+            midiGateway.ConnectionStateChanged += (sender, args) => this.IsMidiConnected = args.NewState == MidiConnectionState.Connected;
+            serialGateway.ConnectionStateChanged += (sender, args) => OnSerialStateChange(args);
         }
 
-        private void OnSerialStateChange(SerialConnectionStateChangedMessage obj)
+        private void OnSerialStateChange(SerialConnectionStateChangedEventArgs obj)
         {
             this.IsComConnected = obj.NewState;
             if(!IsComConnected)
@@ -190,11 +196,11 @@ namespace MoonBurst.ViewModel
         {
             ArduinoPorts.Clear();
             foreach (var port in _arduinoConfig.Ports.OrderBy(c => c.Position))
-                ArduinoPorts.Add(new ArduinoConfigPortViewModel(port, _messenger));
+                ArduinoPorts.Add(_arduinoPortFactory.Build(port));
         }
 
 
-        public void UpdateArduinoPorts(List<ArduinoPortConfigData> data)
+        public void UpdateArduinoPorts(List<ArduinoPortConfigModel> data)
         {
             if (data == null) return;
             foreach (var port in ArduinoPorts)
@@ -211,7 +217,7 @@ namespace MoonBurst.ViewModel
         private void OnSaveAsConfig()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Moonburst config|*.mbconfig";
+            saveFileDialog1.Filter = FileAssociationsHelper.ConfigFilter;
             saveFileDialog1.Title = "Save layout";
             saveFileDialog1.ShowDialog();
 
@@ -224,7 +230,7 @@ namespace MoonBurst.ViewModel
         private void OnLoadConfig()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Moonburst config|*.mbconfig";
+            openFileDialog1.Filter = FileAssociationsHelper.ConfigFilter;
             openFileDialog1.Title = "Load layout";
             if (openFileDialog1.ShowDialog() == true)
             {

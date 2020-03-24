@@ -12,7 +12,7 @@ namespace MoonBurst.ViewModel.Interfaces
         bool IsExpanded { get; set; }
         bool IsTriggered { get; set; }
         string Name { get; set; }
-        DeviceInputViewModel SelectedInput { get; set; }
+        IDeviceInputViewModel SelectedInput { get; set; }
 
         void RefreshInputs();
         void TryBindInput(string bindedInput);

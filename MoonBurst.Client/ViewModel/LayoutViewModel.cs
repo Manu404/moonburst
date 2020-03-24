@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using MoonBurst.Core.Serializer;
+using MoonBurst.Helper;
 using MoonBurst.ViewModel.Factories;
 using MoonBurst.ViewModel.Interfaces;
 
@@ -39,7 +40,7 @@ namespace MoonBurst.ViewModel
             FunctoidChannels.CollectionChanged += (o,e) => UpdateIndexes();
             CurrentPath = string.Empty;
 
-            OnAddChannelCommand = new RelayCommand(() => AddChannel());
+            OnAddChannelCommand = new RelayCommand(AddChannel);
             OnSaveLayoutCommand = new RelayCommand(OnSaveLayout);
             OnLoadLayoutCommand = new RelayCommand(OnLoadLayout);
             OnSaveAsLayoutCommand = new RelayCommand(OnSaveAsLayout);
@@ -49,7 +50,7 @@ namespace MoonBurst.ViewModel
 
         private void UpdateIndexes()
         {
-            for (int i = 0; i < this.FunctoidChannels.Count; this.FunctoidChannels[i].Index = (i++) + 1)
+            for (int i = 0; i < FunctoidChannels.Count; FunctoidChannels[i].Index = (i++) + 1)
             {
             }
         }
@@ -64,21 +65,20 @@ namespace MoonBurst.ViewModel
 
         public void AddChannel()
         {
-            this.FunctoidChannels.Add(_channelFactory.Build());
+            FunctoidChannels.Add(_channelFactory.Build());
         }
 
         public void DeleteChannel(IFunctoidChannelViewModel channel)
         {
-            this.FunctoidChannels.Remove(channel);
+            FunctoidChannels.Remove(channel);
         }
 
         private void OnSaveAsLayout()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Moonburst layout|*.mblayout";
+            saveFileDialog1.Filter = FileAssociationsHelper.LayoutFilter;
             saveFileDialog1.Title = "Save layout";
             saveFileDialog1.ShowDialog();
-
             if (saveFileDialog1.FileName != "")
             {
                 Save(saveFileDialog1.FileName);
@@ -88,7 +88,7 @@ namespace MoonBurst.ViewModel
         private void OnLoadLayout()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Moonburst layout|*.mblayout";
+            openFileDialog1.Filter = FileAssociationsHelper.LayoutFilter;
             openFileDialog1.Title = "Load layout";
             if (openFileDialog1.ShowDialog() == true)
             {
@@ -136,7 +136,5 @@ namespace MoonBurst.ViewModel
         {
             Load(_config.LastLayoutPath);
         }
-
-
     }
 }

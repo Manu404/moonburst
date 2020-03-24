@@ -2,7 +2,7 @@
 
 namespace MoonBurst.Model.Serializable
 {
-    public class FunctoidActionData
+    public class FunctoidActionModel
     {
         public int MidiChannel { get; set; }
         public int Data1 { get; set; }

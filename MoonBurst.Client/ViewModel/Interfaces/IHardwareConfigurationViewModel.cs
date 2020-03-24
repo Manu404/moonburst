@@ -10,13 +10,13 @@ namespace MoonBurst.ViewModel.Interfaces
 {
     public interface IHardwareConfigurationViewModel : IFileSerializableType, IViewModel
     {
-        ObservableCollection<ArduinoConfigPortViewModel> ArduinoPorts { get; }
+        ObservableCollection<IArduinoConfigPortViewModel> ArduinoPorts { get; }
         InputComPortData SelectedComPort { get; set; }
         OutputMidiDeviceData SelectedOutputMidiDevice { get; set; }
         int SelectedSpeed { get; set; }
 
         void Close();
         void LoadLastConfig();
-        void UpdateArduinoPorts(List<ArduinoPortConfigData> data);
+        void UpdateArduinoPorts(List<ArduinoPortConfigModel> data);
     }
 }

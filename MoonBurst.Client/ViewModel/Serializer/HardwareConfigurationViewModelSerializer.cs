@@ -5,11 +5,11 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Serializer
 {
-    public class HardwareConfigurationViewModelSerializer : SerializerBase<IHardwareConfigurationViewModel, HardwareConfigurationData>
+    public class HardwareConfigurationViewModelSerializer : SerializerBase<IHardwareConfigurationViewModel, HardwareConfigurationModel>
     {
-        public override HardwareConfigurationData ExtractData(IHardwareConfigurationViewModel source)
+        public override HardwareConfigurationModel ExtractData(IHardwareConfigurationViewModel source)
         {
-            return new HardwareConfigurationData()
+            return new HardwareConfigurationModel()
             {
                 ComPort = source.SelectedComPort,
                 MidiOut = source.SelectedOutputMidiDevice,
@@ -18,7 +18,7 @@ namespace MoonBurst.ViewModel.Serializer
             };
         }
 
-        public override void ApplyData(HardwareConfigurationData config, IHardwareConfigurationViewModel target)
+        public override void ApplyData(HardwareConfigurationModel config, IHardwareConfigurationViewModel target)
         {
             target.SelectedComPort = config.ComPort;
             target.SelectedOutputMidiDevice = config.MidiOut;

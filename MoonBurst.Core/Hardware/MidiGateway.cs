@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MoonBurst.Api.Enums;
 using MoonBurst.Api.Services;
@@ -14,7 +15,7 @@ namespace MoonBurst.Core.Hardware
         private TeVirtualMIDI _virtualMidi;
 */
         private ChannelMessageBuilder _builder;
-        private MidiConnectionStatus _state;
+        private MidiConnectionState _state;
         private bool _isConnected;
 
         public OutputMidiDeviceData SelectedOutput { get; set; }
@@ -25,18 +26,20 @@ namespace MoonBurst.Core.Hardware
             private set
             {
                 _isConnected = value;
-                MidiConnectionStatus newState = value ? MidiConnectionStatus.Connected : MidiConnectionStatus.Disconnected;
+                MidiConnectionState newState = value ? MidiConnectionState.Connected : MidiConnectionState.Disconnected;
                 if(newState != _state)
                 {
-                    //_messenger.Send(new MidiConnectionStateChangedMessage() { NewState = newState, PreviousState = _state});
+                    ConnectionStateChanged?.Invoke(this, new MidiConnectionStateChangedEventArgs(newState, _state) );
                     _state = newState;
                 }
             }
         }
 
+        public event EventHandler<MidiConnectionStateChangedEventArgs> ConnectionStateChanged;
+
         public MidiGateway()
         {
-            _state = MidiConnectionStatus.Disconnected;
+            _state = MidiConnectionState.Disconnected;
             _builder = new ChannelMessageBuilder();
         }
 

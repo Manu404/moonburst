@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Parser;
 
 namespace MoonBurst.Api.Services
 {
@@ -13,6 +15,31 @@ namespace MoonBurst.Api.Services
         void Close();
         IEnumerable<InputComPortData> GetPorts();
         IEnumerable<int> GetRates();
+
+        event EventHandler<SerialConnectionStateChangedEventArgs> ConnectionStateChanged;
+        event EventHandler<ControllerStateEventArgs> OnTrigger;
+    }
+    
+    public class ControllerStateEventArgs : EventArgs
+    {
+        public ControllerStateEventArgs(MomentaryFootswitchState[] states, int port)
+        {
+            States = states;
+            Port = port;
+        }
+
+        public MomentaryFootswitchState[] States { get; }
+        public int Port { get; }
+    }
+    
+    public class SerialConnectionStateChangedEventArgs : EventArgs
+    {
+        public SerialConnectionStateChangedEventArgs(bool newState)
+        {
+            NewState = newState;
+        }
+
+        public bool NewState { get; }
     }
 
     public class InputComPortData

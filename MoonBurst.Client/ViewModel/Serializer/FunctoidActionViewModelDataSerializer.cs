@@ -4,11 +4,11 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Serializer
 {
-    public class FunctoidActionViewModelDataSerializer : IDataExtractor<IFunctoidActionViewModel, FunctoidActionData>
+    public class FunctoidActionViewModelDataSerializer : IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel>
     {
-        public FunctoidActionData ExtractData(IFunctoidActionViewModel source)
+        public FunctoidActionModel ExtractData(IFunctoidActionViewModel source)
         {
-            return new FunctoidActionData()
+            return new FunctoidActionModel()
             {
                 MidiChannel = source.MidiChannel,
                 Data1 = source.Data1,
@@ -20,15 +20,15 @@ namespace MoonBurst.ViewModel.Serializer
             };
         }
 
-        public void ApplyData(FunctoidActionData data, IFunctoidActionViewModel target)
+        public void ApplyData(FunctoidActionModel model, IFunctoidActionViewModel target)
         {
-            target.MidiChannel = data.MidiChannel;
-            target.Data2 = data.Data2;
-            target.Data1 = data.Data1;
-            target.Command = data.Command;
-            target.Trigger = data.Trigger;
-            target.IsEnabled = data.IsEnabled;
-            target.IsExpanded = data.IsExpanded;
+            target.MidiChannel = model.MidiChannel;
+            target.Data2 = model.Data2;
+            target.Data1 = model.Data1;
+            target.Command = model.Command;
+            target.Trigger = model.Trigger;
+            target.IsEnabled = model.IsEnabled;
+            target.IsExpanded = model.IsExpanded;
         }
     }
 }

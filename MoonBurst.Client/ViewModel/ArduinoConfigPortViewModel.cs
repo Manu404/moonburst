@@ -5,19 +5,22 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Hardware;
+using MoonBurst.Core;
+using MoonBurst.Core.Hardware.Arduino;
 using MoonBurst.Model;
 using MoonBurst.Model.Messages;
 using MoonBurst.Model.Serializable;
 
 namespace MoonBurst.ViewModel
 {
-    public class ArduinoConfigPortViewModel : ViewModelBase
+    public class ArduinoConfigPortViewModel : ViewModelBase, IArduinoConfigPortViewModel
     {
+        private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
         private IMessenger _messenger;
         private bool _isConnected;
         private bool _isEnabled;
 
-        private IDeviceDefinition ConnectedDevice
+        public IDeviceDefinition ConnectedDevice
         {
             get => Port.ConnectedDevice;
             set
@@ -55,7 +58,7 @@ namespace MoonBurst.ViewModel
         public int Position => Port.Position;
 
         public ObservableCollection<IDeviceDefinition> AvailableDevices { get; }
-        public ObservableCollection<DeviceInputViewModel> AvailableInputs { get; }
+        public ObservableCollection<IDeviceInputViewModel> AvailableInputs { get; }
 
         public string PortName => $"Port {Position + 1}" + (IsEnabled ? "" : "(muted)");
         public string ConnectedDeviceName => ConnectedDevice != null ? ConnectedDevice.Name : "Disconnected";
@@ -63,23 +66,25 @@ namespace MoonBurst.ViewModel
         public ICommand ConnectCommand { get; }
         public ICommand DisableCommand { get; }
 
-        public ArduinoConfigPortViewModel(IArduinoPort port, IMessenger messenger)
+        public ArduinoConfigPortViewModel(IArduinoPort port, IMessenger messenger, IFactory<IDeviceInputViewModel> deviceInputViewModelFactory)
         {
-            Port = port;
             IsConnected = false;
             _messenger = messenger;
+            _deviceInputViewModelFactory = deviceInputViewModelFactory;
 
             ConnectCommand = new RelayCommand<string>(Connect);
             DisableCommand = new RelayCommand(ToggleEnable);
 
             AvailableDevices = new ObservableCollection<IDeviceDefinition>();
+            
+            Port = port;
             foreach (var device in port.AvailableDevices)
                 AvailableDevices.Add(device);
 
-            AvailableInputs = new ObservableCollection<DeviceInputViewModel>();
+            AvailableInputs = new ObservableCollection<IDeviceInputViewModel>();
         }
 
-        private void ToggleEnable()
+        public void ToggleEnable()
         {
             IsEnabled = !IsEnabled;
         }
@@ -99,18 +104,17 @@ namespace MoonBurst.ViewModel
 
             foreach (var input in ConnectedDevice.GetInputs())
             {
-                AvailableInputs.Add(new DeviceInputViewModel(_messenger)
-                {
-                    Device = ConnectedDevice,
-                    Input = input,
-                    Port = Port,
-                });
+                var deviceInput = _deviceInputViewModelFactory.Build();
+                deviceInput.Device = ConnectedDevice;
+                deviceInput.Input = input;
+                deviceInput.Port = Port;
+                AvailableInputs.Add(deviceInput);
             }
         }
 
-        public ArduinoPortConfigData GetData()
+        public ArduinoPortConfigModel GetData()
         {
-            return new ArduinoPortConfigData()
+            return new ArduinoPortConfigModel()
             {
                 Position = this.Position,
                 ConnectedDevice = this.ConnectedDeviceName,

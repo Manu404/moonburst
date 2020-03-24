@@ -28,7 +28,7 @@ namespace MoonBurst.Core.Hardware
                 if (value != _isConnected)
                 {
                     _isConnected = value;
-                   // _messenger.Send(new SerialConnectionStateChangedMessage(){ NewState = value });
+                    ConnectionStateChanged?.Invoke(this, new SerialConnectionStateChangedEventArgs(value));
                 }
             }
         }
@@ -38,7 +38,7 @@ namespace MoonBurst.Core.Hardware
 
         public SerialGateway()
         {
-            _checkStatusTimer = new Timer(OnCheckStatus, this, 0, 1000);
+            _checkStatusTimer = new Timer(OnCheckConnectionState, this, 0, 1000);
         }
 
         private void InitializeParsers(IArduinoPort[] ports)
@@ -54,7 +54,7 @@ namespace MoonBurst.Core.Hardware
             }
         }
 
-        private void OnCheckStatus(object state)
+        private void OnCheckConnectionState(object state)
         {
             if (!IsConnected) return;
             if (!_serialPort.IsOpen)
@@ -129,10 +129,10 @@ namespace MoonBurst.Core.Hardware
                         for (var pos = 0; pos < _arduinoPorts.Length; pos++)
                         {
                             digitalPins = digitalPins >> 2;
-                            //int current = digitalPins & 3;
+                            int current = digitalPins & 3;
 
-                            //if (_footswitchParsers[pos] != null)
-                            //    _messenger.Send(new ControllerStateMessage { States = _footswitchParsers[pos].ParseState(current, pos), Port = pos });
+                            if (_footswitchParsers[pos] != null)
+                                OnTrigger?.Invoke(this, new ControllerStateEventArgs(_footswitchParsers[pos].ParseState(current, pos), pos) );
                         }
 
                     }
@@ -196,5 +196,8 @@ namespace MoonBurst.Core.Hardware
                 921600
             };
         }
+
+        public event EventHandler<SerialConnectionStateChangedEventArgs> ConnectionStateChanged;
+        public event EventHandler<ControllerStateEventArgs> OnTrigger;
     }
 }
