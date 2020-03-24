@@ -1,8 +1,7 @@
-﻿using MoonBurst.Core;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using MoonBurst.Core;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Interfaces
 {
     public interface IFunctoidChannelViewModel : IViewModel
     {
@@ -13,7 +12,7 @@ namespace MoonBurst.ViewModel
         bool IsExpanded { get; set; }
         bool IsTriggered { get; set; }
         string Name { get; set; }
-        DeviceInputViewModel SelectedInput { get; set; }
+        IDeviceInputViewModel SelectedInput { get; set; }
 
         void RefreshInputs();
         void TryBindInput(string bindedInput);

@@ -1,24 +1,27 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using MoonBurst.Core;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Factories;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Serializer
 {
 
-    public class FunctoidChannelViewModelDataSerializer : IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData>
+    public class FunctoidChannelViewModelDataSerializer : IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel>
     {
         IFunctoidActionViewModelFactory _actionFactory;
-        IDataExtractor<IFunctoidActionViewModel, FunctoidActionData> _actionExtractor;
+        IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> _actionExtractor;
 
-        public FunctoidChannelViewModelDataSerializer(IFunctoidActionViewModelFactory actionFactory, IDataExtractor<IFunctoidActionViewModel, FunctoidActionData> actionExtractor)
+        public FunctoidChannelViewModelDataSerializer(IFunctoidActionViewModelFactory actionFactory, IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> actionExtractor)
         {
             _actionFactory = actionFactory;
             _actionExtractor = actionExtractor;
         }
 
-        public FunctoidChannelData ExtractData(IFunctoidChannelViewModel source)
+        public FunctoidChannelModel ExtractData(IFunctoidChannelViewModel source)
         {
-            return new FunctoidChannelData()
+            return new FunctoidChannelModel()
             {
                 Index = source.Index,
                 Name = source.Name,
@@ -29,15 +32,15 @@ namespace MoonBurst.ViewModel
             };
         }
 
-        public void ApplyData(FunctoidChannelData data, IFunctoidChannelViewModel target)
+        public void ApplyData(FunctoidChannelModel model, IFunctoidChannelViewModel target)
         {
-            target.Index = data.Index;
-            target.Name = data.Name;
-            target.Actions = new ObservableCollection<IFunctoidActionViewModel>(data.Actions.ConvertAll(d => _actionFactory.Build(d)));
-            target.IsEnabled = data.IsEnabled;
-            target.IsExpanded = data.IsExpanded;
+            target.Index = model.Index;
+            target.Name = model.Name;
+            target.Actions = new ObservableCollection<IFunctoidActionViewModel>(model.Actions.ConvertAll(d => _actionFactory.Build(d)));
+            target.IsEnabled = model.IsEnabled;
+            target.IsExpanded = model.IsExpanded;
             target.RefreshInputs();
-            target.TryBindInput(data.BindedInput);
+            target.TryBindInput(model.BindedInput);
         }
     }
 }

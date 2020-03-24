@@ -18,7 +18,7 @@ namespace MoonBurst.Vst
     /// <summary>
     /// Interaction logic for TestUi.xaml
     /// </summary>
-    public partial class TestUi : UserControl
+    public partial class TestUi
     {
         public TestUi()
         {

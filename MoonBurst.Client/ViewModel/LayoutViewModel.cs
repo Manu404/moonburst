@@ -1,23 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
-using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
-using MoonBurst.Api.Services;
-using MoonBurst.Core;
-using MoonBurst.Model;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Helper;
+using MoonBurst.ViewModel.Factories;
+using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class LayoutViewModel : ViewModelBase, ILayoutViewModel
+    public class LayoutViewModel : ViewModelBase, ILayoutViewModel
     {
-        private IArduinoGateway _arduinoGateway;
-        private IMessenger _messenger;
         private IClientConfigurationViewModel _config;
         private ISerializer<ILayoutViewModel> _serializer;
         private IFunctoidChannelViewModelFactory _channelFactory;
@@ -33,14 +28,10 @@ namespace MoonBurst.ViewModel
         public ICommand OnCollaspeAllCommand { get; set; }
         public ICommand OnExpandAllCommand { get; set; }
 
-        public LayoutViewModel(IArduinoGateway arduinoGateway, 
-            IMessenger messenger, 
-            IClientConfigurationViewModel clientConfiguration,
+        public LayoutViewModel(IClientConfigurationViewModel clientConfiguration,
             ISerializer<ILayoutViewModel> serializer,
             IFunctoidChannelViewModelFactory channelFactory)
         {
-            _arduinoGateway = arduinoGateway;
-            _messenger = messenger;
             _config = clientConfiguration;
             _serializer = serializer;
             _channelFactory = channelFactory;
@@ -49,7 +40,7 @@ namespace MoonBurst.ViewModel
             FunctoidChannels.CollectionChanged += (o,e) => UpdateIndexes();
             CurrentPath = string.Empty;
 
-            OnAddChannelCommand = new RelayCommand(() => AddChannel());
+            OnAddChannelCommand = new RelayCommand(AddChannel);
             OnSaveLayoutCommand = new RelayCommand(OnSaveLayout);
             OnLoadLayoutCommand = new RelayCommand(OnLoadLayout);
             OnSaveAsLayoutCommand = new RelayCommand(OnSaveAsLayout);
@@ -59,12 +50,14 @@ namespace MoonBurst.ViewModel
 
         private void UpdateIndexes()
         {
-            for (int i = 0; i < this.FunctoidChannels.Count; this.FunctoidChannels[i].Index = (i++) + 1) ;
+            for (int i = 0; i < FunctoidChannels.Count; FunctoidChannels[i].Index = (i++) + 1)
+            {
+            }
         }
 
         private void ToggleChannelAll(bool newState)
         {
-            foreach (var functoidChannel in this.FunctoidChannels)
+            foreach (var functoidChannel in FunctoidChannels)
             {
                 functoidChannel.IsExpanded = newState;
             }
@@ -72,21 +65,20 @@ namespace MoonBurst.ViewModel
 
         public void AddChannel()
         {
-            this.FunctoidChannels.Add(_channelFactory.Build());
+            FunctoidChannels.Add(_channelFactory.Build());
         }
 
         public void DeleteChannel(IFunctoidChannelViewModel channel)
         {
-            this.FunctoidChannels.Remove(channel);
+            FunctoidChannels.Remove(channel);
         }
 
         private void OnSaveAsLayout()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Moonburst layout|*.mblayout";
+            saveFileDialog1.Filter = FileAssociationsHelper.LayoutFilter;
             saveFileDialog1.Title = "Save layout";
             saveFileDialog1.ShowDialog();
-
             if (saveFileDialog1.FileName != "")
             {
                 Save(saveFileDialog1.FileName);
@@ -96,7 +88,7 @@ namespace MoonBurst.ViewModel
         private void OnLoadLayout()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Moonburst layout|*.mblayout";
+            openFileDialog1.Filter = FileAssociationsHelper.LayoutFilter;
             openFileDialog1.Title = "Load layout";
             if (openFileDialog1.ShowDialog() == true)
             {
@@ -144,7 +136,5 @@ namespace MoonBurst.ViewModel
         {
             Load(_config.LastLayoutPath);
         }
-
-
     }
 }

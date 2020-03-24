@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoonBurst.Core.Helper
 {
     public interface IMusicalNoteHelper
     {
         List<MusicalNote> AvailableNotes { get; }
-    }
-
-    public class MusicalNote
-    {
-        public string Name { get; set; }
-        public int Value { get; set; }
     }
 
     public class MusicalNoteHelper : IMusicalNoteHelper
@@ -24,9 +15,9 @@ namespace MoonBurst.Core.Helper
         public MusicalNoteHelper()
         {
             AvailableNotes = new List<MusicalNote>();
-            for(int i = 0; i < 128; i++)
+            for(var i = 0; i < 128; i++)
             {
-                AvailableNotes.Add(new MusicalNote() { Name = FromMidiValueToNoteName(i), Value = i });
+                AvailableNotes.Add(new MusicalNote(FromMidiValueToNoteName(i), i));
             }
             AvailableNotes.Reverse();
         }
@@ -37,7 +28,7 @@ namespace MoonBurst.Core.Helper
 
             int note = value % 12;
             int octave = (value > 12 ? (value - note) / 12 : 0);
-            octave = octave - 1; // 0 = C-1, not C0         
+            octave -= 1; // 0 = C-1, not C0         
             return $"{GetNoteValueName(note)}{octave}";
         }
 

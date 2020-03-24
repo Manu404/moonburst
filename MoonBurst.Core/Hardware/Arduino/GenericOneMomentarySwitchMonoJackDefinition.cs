@@ -1,13 +1,13 @@
-﻿using MoonBurst.Api.Hardware;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MoonBurst.Api.Hardware;
 
-namespace MoonBurst.Core
+namespace MoonBurst.Core.Hardware.Arduino
 {
     public class GenericOneMomentarySwitchMonoJackDefinition : IDeviceDefinition
     {
-        public IList<IDeviceInput> GetInputs()
+        public IEnumerable<IDeviceInput> GetInputs()
         {
-            return new List<IDeviceInput>()
+            return new List<IDeviceInput>
             {
                 new MomentaryFootswitchInput(0,  "Switch")
             };

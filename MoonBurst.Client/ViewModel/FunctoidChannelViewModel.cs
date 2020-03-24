@@ -1,7 +1,6 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
+using System.Security.Policy;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -9,15 +8,20 @@ using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Services;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
+using MoonBurst.Helper.UI;
 using MoonBurst.Model.Messages;
+using MoonBurst.ViewModel.Factories;
+using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class FunctoidChannelViewModel : ViewModelBase, IFunctoidChannelViewModel
+    public class FunctoidChannelViewModel : ViewModelBase, IFunctoidChannelViewModel
     {
-        private IArduinoGateway _arduinoGateway;
-        private IMessenger _messenger;
-        private IFunctoidActionViewModelFactory _actionFactory;
+        private readonly IArduinoGateway _arduinoGateway;
+        private readonly IMessenger _messenger;
+        private readonly IFunctoidActionViewModelFactory _actionFactory;
+        private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
+        private readonly ISerialGateway _serialGateway;
         private string _lastInput;
         
         private int _index;
@@ -25,9 +29,9 @@ namespace MoonBurst.ViewModel
         private bool _isEnabled;
         private bool _isExpanded;
         private bool _isTriggered;
-        private DeviceInputViewModel _selectedInput;
+        private IDeviceInputViewModel _selectedInput;
         
-        public DeviceInputViewModel SelectedInput
+        public IDeviceInputViewModel SelectedInput
         {
             get => _selectedInput;
             set
@@ -44,9 +48,9 @@ namespace MoonBurst.ViewModel
             get => _isTriggered;
             set
             {
-                _isTriggered = true;
+                _isTriggered = value;
                 RaisePropertyChanged();
-                _isTriggered = false;
+                _isTriggered = !value;
                 RaisePropertyChanged();
             }
         }
@@ -91,7 +95,7 @@ namespace MoonBurst.ViewModel
         }
 
         public ObservableCollection<IFunctoidActionViewModel> Actions { get; set; }
-        public ObservableCollection<DeviceInputViewModel> AvailableInputs { get; set; }
+        public ObservableCollection<IDeviceInputViewModel> AvailableInputs { get; set; }
 
         public int ArduinoBitMask { get; set; }
 
@@ -104,11 +108,15 @@ namespace MoonBurst.ViewModel
 
         public FunctoidChannelViewModel(IMessenger messenger, 
             IArduinoGateway arduinoGateway, 
-            IFunctoidActionViewModelFactory actionFactory)
+            IFunctoidActionViewModelFactory actionFactory,
+            IFactory<IDeviceInputViewModel> deviceInputViewModelFactory,
+            ISerialGateway serialGateway)
         {
             _messenger = messenger;
             _actionFactory = actionFactory;
             _arduinoGateway = arduinoGateway;
+            _deviceInputViewModelFactory = deviceInputViewModelFactory;
+            _serialGateway = serialGateway;
 
             OnDeleteCommand = new RelayCommand(OnDelete);
             OnAddActionCommand = new RelayCommand(OnAddAction);
@@ -122,12 +130,13 @@ namespace MoonBurst.ViewModel
 
             _messenger.Register<DeleteFunctoidActionMessage>(this, OnDeleteAction);
             _messenger.Register<PortConfigChangedMessage>(this, OnPortConfigChanged);
-            _messenger.Register<ControllerStateMessage>(this, OnControllerStateChanged);
 
-            AvailableInputs = new ObservableCollection<DeviceInputViewModel>();
+            AvailableInputs = new ObservableCollection<IDeviceInputViewModel>();
+
+            _serialGateway.OnTrigger += OnControllerStateChanged;
         }
 
-        private void OnControllerStateChanged(ControllerStateMessage obj)
+        private void OnControllerStateChanged(object sender, ControllerStateEventArgs obj)
         {
             if (this.SelectedInput == null) return;
             if (obj.Port != this.SelectedInput.Port.Position) return;
@@ -160,12 +169,11 @@ namespace MoonBurst.ViewModel
 
                 foreach (var input in port.ConnectedDevice.GetInputs())
                 {
-                    AvailableInputs.Add(new DeviceInputViewModel(_messenger)
-                    {
-                        Device = port.ConnectedDevice,
-                        Input = input,
-                        Port = port,
-                    });
+                    var deviceInput = _deviceInputViewModelFactory.Build();
+                    deviceInput.Device = port.ConnectedDevice;
+                    deviceInput.Input = input;
+                    deviceInput.Port = port;
+                    AvailableInputs.Add(deviceInput);
                 }
             }
 

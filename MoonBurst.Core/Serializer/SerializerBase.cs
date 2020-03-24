@@ -1,17 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Xml.Serialization;
-using MoonBurst.Model;
-
-namespace MoonBurst.Core
+﻿namespace MoonBurst.Core.Serializer
 {
-    public class SerializerBase<T, Y> : ISerializer<T, Y> where T : IFileSerializableType where Y : new()
+    public class SerializerBase<T, TY> : ISerializer<T, TY> where T : IFileSerializableType where TY : new()
     {
-        public virtual string Default { get; }
+        public SerializerBase(string defaultPath)
+        {
+            Default = defaultPath;
+        }
+
+        private string Default { get; }
 
         public void Load(string path, T target)
         {
-            ApplyData(XmlFileSerializer<Y>.Load(path ?? Default), target);
+            ApplyData(XmlFileSerializer<TY>.Load(path ?? Default), target);
             target.CurrentPath = path ?? Default;
         }
 
@@ -22,7 +22,7 @@ namespace MoonBurst.Core
 
         public void Save(T source, string path)
         {
-            XmlFileSerializer<Y>.Save(path ?? Default, ExtractData(source));
+            XmlFileSerializer<TY>.Save(path ?? Default, ExtractData(source));
             source.CurrentPath = path;
         }
 
@@ -31,12 +31,12 @@ namespace MoonBurst.Core
             Save(source, Default);
         }
 
-        public virtual Y ExtractData(T source)
+        public virtual TY ExtractData(T source)
         {
-            return new Y();
+            return new TY();
         }
 
-        public virtual void ApplyData(Y source, T target)
+        public virtual void ApplyData(TY source, T target)
         {
 
         }
@@ -44,11 +44,6 @@ namespace MoonBurst.Core
         public object GetData(T source)
         {
             return ExtractData(source);
-        }
-
-        public void ApplyData(object source, T target)
-        {
-            ApplyData(source, target);
         }
     }
 }

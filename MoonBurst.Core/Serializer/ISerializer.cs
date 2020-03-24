@@ -1,8 +1,6 @@
-﻿using MoonBurst.Model;
-
-namespace MoonBurst.Core
+﻿namespace MoonBurst.Core.Serializer
 {
-    public interface ISerializer<T>
+    public interface ISerializer<in T>
     {
         void Save(T source, string path);
         void Load(string path, T target);
@@ -10,7 +8,7 @@ namespace MoonBurst.Core
         void SaveDefault(T source);
     }
 
-    public interface ISerializer<T, Y> : ISerializer<T> where Y : new()
+    public interface ISerializer<in T, TY> : ISerializer<T> where TY : new()
     {
     }
 }

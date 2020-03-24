@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+                    xmlns:viewModel="clr-namespace:MoonBurst.ViewModel">
 
     <Style x:Key="MenuMaterialLeftExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
@@ -186,7 +186,7 @@
         </Setter>
     </Style>
     
-    <DataTemplate x:Key="PortConfigurationPopupBody">
+    <DataTemplate x:Key="PortConfigurationPopupBody" DataType="viewModel:ArduinoConfigPortViewModel">
         <StackPanel>
             <ItemsControl ItemsSource="{Binding AvailableDevices}" Margin="0,10,0,0">
                 <ItemsControl.ItemTemplate>
@@ -279,7 +279,7 @@
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="PortConfigurationItemTemplate">
+    <DataTemplate x:Key="PortConfigurationItemTemplate" DataType="viewModel:ArduinoConfigPortViewModel">
         <materialDesign:Card HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                              materialDesign:ShadowAssist.ShadowDepth="Depth1" 
                              Padding="1" Margin="5">
@@ -340,7 +340,7 @@
         </materialDesign:Card>
     </DataTemplate>
 
-    <DataTemplate x:Key="PortConfigurationDrawerItemTemplate">
+    <DataTemplate x:Key="PortConfigurationDrawerItemTemplate" DataType="viewModel:ArduinoConfigPortViewModel">
         <materialDesign:Card HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                              materialDesign:ShadowAssist.ShadowDepth="Depth1" 
                              Padding="1" Margin="5">
@@ -403,7 +403,7 @@
         <Setter Property="ItemTemplate" Value="{StaticResource PortConfigurationDrawerItemTemplate}" />
     </Style>
 
-    <DataTemplate x:Key="PortConfigurationListTemplate">
+    <DataTemplate x:Key="PortConfigurationListTemplate" DataType="viewModel:MainViewModel">
         <Border BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" BorderThickness="2,0,0,0" Padding="5">
             <ItemsControl ItemsSource="{Binding HardwareConfig.ArduinoPorts}" ItemTemplate="{StaticResource PortConfigurationItemTemplate}" />
         </Border>

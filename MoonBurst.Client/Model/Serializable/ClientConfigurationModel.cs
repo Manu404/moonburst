@@ -1,6 +1,6 @@
-﻿namespace MoonBurst.Model
+﻿namespace MoonBurst.Model.Serializable
 {
-    public class ClientConfigurationData
+    public class ClientConfigurationModel
     {
         public string LastHardwareConfigurationPath { get; set; }
         public string LastLayoutPath { get; set; }

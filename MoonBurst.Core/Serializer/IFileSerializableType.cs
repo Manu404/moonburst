@@ -1,4 +1,4 @@
-namespace MoonBurst.Model
+namespace MoonBurst.Core.Serializer
 {
     public interface IFileSerializableType
     {

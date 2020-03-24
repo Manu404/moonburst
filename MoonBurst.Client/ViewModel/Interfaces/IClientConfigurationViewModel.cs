@@ -1,7 +1,7 @@
 ﻿using MoonBurst.Core;
-using MoonBurst.Model;
+using MoonBurst.Core.Serializer;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Interfaces
 {
     public interface IClientConfigurationViewModel : IViewModel, IFileSerializableType
     {

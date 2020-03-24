@@ -12,14 +12,4 @@ namespace MoonBurst.Model.Messages
             Item = item;
         }
     }
-
-    public class DeleteFunctoidActionMessage : MessageBase
-    {
-        public FunctoidActionViewModel Item { get; }
-
-        public DeleteFunctoidActionMessage(FunctoidActionViewModel item)
-        {
-            Item = item;
-        }
-    }
 }

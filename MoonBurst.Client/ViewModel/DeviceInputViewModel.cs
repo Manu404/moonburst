@@ -2,13 +2,13 @@
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Parser;
+using MoonBurst.Api.Services;
 using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel
 {
-    public class DeviceInputViewModel : ViewModelBase
+    public class DeviceInputViewModel : ViewModelBase, IDeviceInputViewModel
     {
-        private IMessenger _messenger;
         private IFootswitchState _state;
 
         public IFootswitchState State
@@ -31,13 +31,12 @@ namespace MoonBurst.ViewModel
         public string ControllerNameWithoutHeader => $"{Input.Name} ({Input.Position + 1})";
         public string FormatedName => $"{PortName}\n{DeviceName}\n{ControllerName}";
         
-        public DeviceInputViewModel(IMessenger messenger)
+        public DeviceInputViewModel(ISerialGateway gateway)
         {
-            _messenger = messenger;
-            _messenger.Register<ControllerStateMessage>(this, OnControllerStateChanged);
+            gateway.OnTrigger += OnControllerStateChanged;
         }
 
-        private void OnControllerStateChanged(ControllerStateMessage obj)
+        private void OnControllerStateChanged(object sender, ControllerStateEventArgs obj)
         {
             if (obj.Port != Port.Position) return;
             foreach(var state in obj.States)

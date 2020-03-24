@@ -2,31 +2,32 @@
 using MoonBurst.Api.Services;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Factories
 {
-    public interface IFunctoidActionViewModelFactory : IFactory<IFunctoidActionViewModel>, IFactory<IFunctoidActionViewModel, FunctoidActionData>
+    public interface IFunctoidActionViewModelFactory : IFactory<IFunctoidActionViewModel>, IFactory<IFunctoidActionViewModel, FunctoidActionModel>
     {
 
     }
 
     public class FunctoidActionViewModelFactory : IFunctoidActionViewModelFactory
     {
-        private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
         private IMusicalNoteHelper _noteHelper;
         private IDynamicsHelper _dynamicsHelper;
         private IMidiGateway _midiGateway;
-        private IDataExtractor<IFunctoidActionViewModel, FunctoidActionData> _actionExtractor;
+        private IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> _actionExtractor;
 
-        public FunctoidActionViewModelFactory(IMessenger messenger,
-            IArduinoGateway arduinoGateway,
+        public FunctoidActionViewModelFactory(
+            IMessenger messenger,
             IMusicalNoteHelper noteHelper,
             IDynamicsHelper dynamicsHelper,
-            IDataExtractor<IFunctoidActionViewModel, FunctoidActionData> actionExtractor,
+            IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> actionExtractor,
             IMidiGateway midiGateway)
         {
-            _arduinoGateway = arduinoGateway;
             _messenger = messenger;
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
@@ -34,16 +35,16 @@ namespace MoonBurst.ViewModel
             _midiGateway = midiGateway;
         }
 
-        public IFunctoidActionViewModel Build(FunctoidActionData data)
+        public IFunctoidActionViewModel Build(FunctoidActionModel model)
         {
             var vm = Build();
-            _actionExtractor.ApplyData(data, vm);
+            _actionExtractor.ApplyData(model, vm);
             return vm;
         }
 
         public IFunctoidActionViewModel Build()
         {
-            return new FunctoidActionViewModel(_messenger, _arduinoGateway, _noteHelper, _dynamicsHelper, _midiGateway);
+            return new FunctoidActionViewModel(_messenger, _noteHelper, _dynamicsHelper, _midiGateway);
         }
     }
 }

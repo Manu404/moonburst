@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace MoonBurst.Core
+namespace MoonBurst.Helper.UI
 {
     [ValueConversion(typeof(bool), typeof(bool))]
     public class InverseBooleanConverter : IValueConverter
@@ -14,7 +14,7 @@ namespace MoonBurst.Core
             if (targetType != typeof(bool))
                 return false;
 
-            return !(bool)value;
+            return value != null && !(bool)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,

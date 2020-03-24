@@ -1,15 +1,15 @@
 ﻿using System.Linq;
-using MoonBurst.Core;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Serializer
 {
-    public partial class HardwareConfigurationViewModelSerializer : SerializerBase<IHardwareConfigurationViewModel, HardwareConfigurationData>
+    public class HardwareConfigurationViewModelSerializer : SerializerBase<IHardwareConfigurationViewModel, HardwareConfigurationModel>
     {
-        public override string Default { get => "default_hardware.xml"; }
-
-        public override HardwareConfigurationData ExtractData(IHardwareConfigurationViewModel source)
+        public override HardwareConfigurationModel ExtractData(IHardwareConfigurationViewModel source)
         {
-            return new HardwareConfigurationData()
+            return new HardwareConfigurationModel()
             {
                 ComPort = source.SelectedComPort,
                 MidiOut = source.SelectedOutputMidiDevice,
@@ -18,12 +18,16 @@ namespace MoonBurst.ViewModel
             };
         }
 
-        public override void ApplyData(HardwareConfigurationData config, IHardwareConfigurationViewModel target)
+        public override void ApplyData(HardwareConfigurationModel config, IHardwareConfigurationViewModel target)
         {
             target.SelectedComPort = config.ComPort;
             target.SelectedOutputMidiDevice = config.MidiOut;
             target.SelectedSpeed = config.Speed;
             target.UpdateArduinoPorts(config.ArduinoPorts);
+        }
+
+        public HardwareConfigurationViewModelSerializer() : base("default_hardware.xml")
+        {
         }
     } 
 }

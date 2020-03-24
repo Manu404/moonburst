@@ -7,7 +7,7 @@
     <ProjectGuid>{D5B95797-BD1B-4388-8D94-F61497A414B5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>MoonBurst</RootNamespace>
-    <AssemblyName>MoonBurstClient</AssemblyName>
+    <AssemblyName>MoonBurst.Client</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.1.0.1649</AssemblyVersion>
+    <AssemblyVersion>2020.1.0.1655</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -151,39 +151,38 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\IViewModel.cs" />
-    <Compile Include="Helper\DynamicsHelper.cs" />
-    <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
     <Compile Include="Helper\UI\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\UI\ValueConverterGroup.cs" />
-    <Compile Include="Model\Serializable\ArduinoPortConfigData.cs" />
-    <Compile Include="Model\Serializable\FunctoidActionData.cs" />
-    <Compile Include="Model\Serializable\FunctoidChannelData.cs" />
+    <Compile Include="Model\Messages\DeleteFunctoidActionMessage.cs" />
+    <Compile Include="Model\Serializable\ArduinoPortConfigModel.cs" />
+    <Compile Include="Model\Serializable\FunctoidActionModel.cs" />
+    <Compile Include="Model\Serializable\FunctoidChannelModel.cs" />
     <Compile Include="ViewModel\ClientConfigurationViewModel.cs" />
     <Compile Include="ViewModel\DeviceInputViewModel.cs" />
+    <Compile Include="ViewModel\Factories\ArduinoConfigPortViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factories\DeviceInputViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\FunctoidActionViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\FunctoidChannelViewModelFactory.cs" />
-    <Compile Include="Model\Messages\ControllerStateMessage.cs" />
     <Compile Include="Helper\UI\ConfirmationHelper.cs" />
     <Compile Include="Helper\UI\EnumeratorToStringConverter.cs" />
-    <Compile Include="Model\Messages\SerialConnectionStateChangedMessage.cs" />
-    <Compile Include="Model\Messages\MidiConnectionStateChangedMessage.cs" />
-    <Compile Include="Model\Messages\TriggeredActionMessage.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
     <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
-    <Compile Include="Model\Serializable\ClientConfigurationData.cs" />
+    <Compile Include="Model\Serializable\ClientConfigurationModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IArduinoConfigPortViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IDeviceInputViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IFunctoidActionViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IFunctoidChannelViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IClientConfigurationViewModel.cs" />
     <Compile Include="ViewModel\Serializer\ClientConfigurationViewModelSerializer.cs" />
-    <Compile Include="Model\Serializable\HardwareConfigurationData.cs" />
+    <Compile Include="Model\Serializable\HardwareConfigurationModel.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidActionViewModelDataSerializer.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidChannelViewModelDataSerializer.cs" />
     <Compile Include="ViewModel\Serializer\HardwareConfigurationViewModelSerializer.cs" />
     <Compile Include="ViewModel\Interfaces\IHardwareConfigurationViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\ILayoutViewModel.cs" />
-    <Compile Include="Model\Serializable\LayoutData.cs" />
+    <Compile Include="Model\Serializable\LayoutModel.cs" />
     <Compile Include="ViewModel\Serializer\LayoutViewModelSerializer.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>

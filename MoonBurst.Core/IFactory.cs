@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.ViewModel
+﻿namespace MoonBurst.Core
 {
     public interface IFactory<T>
     {

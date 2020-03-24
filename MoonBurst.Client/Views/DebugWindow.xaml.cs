@@ -1,9 +1,9 @@
-﻿using MahApps.Metro.Controls;
-using MoonBurst.ViewModel;
+﻿using MoonBurst.ViewModel;
+using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.Views
 {
-    public partial class DebugWindow : MetroWindow
+    public partial class DebugWindow
     {
         public DebugWindow(IMainViewModel context)
         {

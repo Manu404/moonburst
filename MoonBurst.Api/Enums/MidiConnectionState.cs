@@ -1,6 +1,6 @@
 namespace MoonBurst.Api.Enums
 {
-    public enum MidiConnectionStatus
+    public enum MidiConnectionState
     {
         Disconnected,
         Connected,

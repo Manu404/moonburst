@@ -1,42 +1,51 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Services;
 using MoonBurst.Core;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Factories
 {
-    public interface IFunctoidChannelViewModelFactory : IFactory<IFunctoidChannelViewModel>, IFactory<IFunctoidChannelViewModel, FunctoidChannelData>
+    public interface IFunctoidChannelViewModelFactory : IFactory<IFunctoidChannelViewModel>, IFactory<IFunctoidChannelViewModel, FunctoidChannelModel>
     {
 
     }
 
     public class FunctoidChannelViewModelFactory : IFunctoidChannelViewModelFactory
     {
-        IArduinoGateway _arduinoGateway;
-        IMessenger _messenger;
-        IFunctoidActionViewModelFactory _factory;
-        IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData> _channel_extractor;
+        private readonly IArduinoGateway _arduinoGateway;
+        private readonly ISerialGateway _serialGateway;
+        private readonly IMessenger _messenger;
+        private readonly IFunctoidActionViewModelFactory _factory;
+        private readonly IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel> _channelExtractor;
+        private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
 
         public FunctoidChannelViewModelFactory(IArduinoGateway arduinoGateway, 
+            ISerialGateway serialGateway,
             IMessenger messenger, 
             IFunctoidActionViewModelFactory factory,
-            IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData> extractor)
+            IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel> extractor,
+            IFactory<IDeviceInputViewModel> deviceInputViewModelFactory)
         {
             _arduinoGateway = arduinoGateway;
             _messenger = messenger;
-            _channel_extractor = extractor;
+            _channelExtractor = extractor;
             _factory = factory;
+            _deviceInputViewModelFactory = deviceInputViewModelFactory;
+            _serialGateway = serialGateway;
         }
 
-        public IFunctoidChannelViewModel Build(FunctoidChannelData data)
+        public IFunctoidChannelViewModel Build(FunctoidChannelModel model)
         {
             var vm = Build();
-            _channel_extractor.ApplyData(data, vm);
+            _channelExtractor.ApplyData(model, vm);
             return vm;
         }
 
         public IFunctoidChannelViewModel Build()
         {
-            return new FunctoidChannelViewModel(_messenger, _arduinoGateway, _factory);
+            return new FunctoidChannelViewModel(_messenger, _arduinoGateway, _factory, _deviceInputViewModelFactory, _serialGateway);
         }
     }
 }

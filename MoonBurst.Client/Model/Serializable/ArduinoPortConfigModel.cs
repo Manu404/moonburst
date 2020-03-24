@@ -1,6 +1,6 @@
-﻿namespace MoonBurst.Model
+﻿namespace MoonBurst.Model.Serializable
 {
-    public class ArduinoPortConfigData
+    public class ArduinoPortConfigModel
     {
         public int Position { get; set; }
         public string ConnectedDevice { get; set; }
