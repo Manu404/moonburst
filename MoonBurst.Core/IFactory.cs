@@ -1,6 +1,4 @@
-﻿using static MoonBurst.ViewModel.FunctoidChannelViewModel;
-
-namespace MoonBurst.ViewModel
+﻿namespace MoonBurst.ViewModel
 {
     public interface IFactory<T>
     {

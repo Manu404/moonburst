@@ -1,10 +1,4 @@
 using System.Collections.Generic;
-using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Core;
-using MoonBurst.Model;
-using MoonBurst.Api;
-using MoonBurst.Model.Messages;
-using MoonBurst.ViewModel;
 using Sanford.Multimedia.Midi;
 using MoonBurst.Api.Services;
 using MoonBurst.Api.Enums;
@@ -16,7 +10,6 @@ namespace MoonBurst.Core
     {
         private OutputDevice _outDevice;
         private TeVirtualMIDI _virtualMidi;
-        private IMessenger _messenger;
         private ChannelMessageBuilder _builder;
         private MidiConnectionStatus _state;
         private bool _isConnected;
@@ -32,15 +25,14 @@ namespace MoonBurst.Core
                 MidiConnectionStatus newState = value ? MidiConnectionStatus.Connected : MidiConnectionStatus.Disconnected;
                 if(newState != _state)
                 {
-                    _messenger.Send(new MidiConnectionStateChangedMessage() { NewState = newState, PreviousState = _state});
+                    //_messenger.Send(new MidiConnectionStateChangedMessage() { NewState = newState, PreviousState = _state});
                     _state = newState;
                 }
             }
         }
 
-        public MidiGateway(IMessenger messenger)
+        public MidiGateway()
         {
-            _messenger = messenger;
             _state = MidiConnectionStatus.Disconnected;
             _builder = new ChannelMessageBuilder();
         }

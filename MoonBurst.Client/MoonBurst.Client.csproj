@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.1.0.1645</AssemblyVersion>
+    <AssemblyVersion>2020.1.0.1649</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -150,19 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\Hardware\Arduino\ArduinoGateway.cs" />
-    <Compile Include="Core\Hardware\Arduino\ArduinoPort.cs" />
-    <Compile Include="Core\Hardware\Arduino\Fs3xDeviceDefinition.cs" />
-    <Compile Include="Core\Hardware\Arduino\GenericOneMomentarySwitchMonoJackDefinition.cs" />
-    <Compile Include="Core\Hardware\Arduino\MomentaryFootswitchInput.cs" />
-    <Compile Include="Core\RunningConfiguration.cs" />
     <Compile Include="Core\IViewModel.cs" />
-    <Compile Include="Core\Serializer\IDataExtractor.cs" />
     <Compile Include="Helper\DynamicsHelper.cs" />
     <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
-    <Compile Include="Core\Serializer\ISerializer.cs" />
-    <Compile Include="Core\Serializer\SerializerBase.cs" />
     <Compile Include="Helper\UI\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\UI\ValueConverterGroup.cs" />
     <Compile Include="Model\Serializable\ArduinoPortConfigData.cs" />
@@ -172,16 +163,11 @@
     <Compile Include="ViewModel\DeviceInputViewModel.cs" />
     <Compile Include="ViewModel\Factories\FunctoidActionViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\FunctoidChannelViewModelFactory.cs" />
-    <Compile Include="Core\IFactory.cs" />
     <Compile Include="Model\Messages\ControllerStateMessage.cs" />
-    <Compile Include="Core\Hardware\Parser\Fs3XParser.cs" />
     <Compile Include="Helper\UI\ConfirmationHelper.cs" />
     <Compile Include="Helper\UI\EnumeratorToStringConverter.cs" />
-    <Compile Include="Core\Hardware\Parser\MomentaryFootswitchParser.cs" />
     <Compile Include="Model\Messages\SerialConnectionStateChangedMessage.cs" />
     <Compile Include="Model\Messages\MidiConnectionStateChangedMessage.cs" />
-    <Compile Include="Core\Hardware\MidiGateway.cs" />
-    <Compile Include="Core\Hardware\SerialGateway.cs" />
     <Compile Include="Model\Messages\TriggeredActionMessage.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
     <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
@@ -202,13 +188,11 @@
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Serializer\IFileSerializableType.cs" />
     <Compile Include="Helper\FileAssociations.cs" />
     <Compile Include="ViewModel\FunctoidActionViewModel.cs" />
     <Compile Include="ViewModel\FunctoidChannelViewModel.cs" />
     <Compile Include="ViewModel\HardwareConfigurationViewModel.cs" />
     <Compile Include="ViewModel\LayoutViewModel.cs" />
-    <Compile Include="Core\Serializer\XmlFileSerializer.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
@@ -249,7 +233,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Core\Hardware\TeVirtualMIDI.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -315,6 +298,10 @@
     <ProjectReference Include="..\MoonBurst.Api\MoonBurst.Api.csproj">
       <Project>{ac03d1c3-f830-4831-9660-147ec9a7c196}</Project>
       <Name>MoonBurst.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoonBurst.Core\MoonBurst.Core.csproj">
+      <Project>{7781e238-1b16-41e4-85cb-bd35748905d2}</Project>
+      <Name>MoonBurst.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

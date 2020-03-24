@@ -5,13 +5,7 @@ using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows;
-using System.Windows.Automation.Peers;
-using Castle.Core.Internal;
-using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core.Parser;
-using MoonBurst.Api;
-using MoonBurst.Model.Messages;
 using MoonBurst.Api.Services;
 using MoonBurst.Api.Parser;
 using MoonBurst.Api.Hardware;
@@ -22,7 +16,6 @@ namespace MoonBurst.Core
     {
         private IControllerParser[] _footswitchParsers;
         private IArduinoPort[] _arduinoPorts;
-        private IMessenger _messenger;
         private SerialPort _serialPort;
         private bool _isConnected;
         private Timer _checkStatusTimer;
@@ -35,7 +28,7 @@ namespace MoonBurst.Core
                 if (value != _isConnected)
                 {
                     _isConnected = value;
-                    _messenger.Send(new SerialConnectionStateChangedMessage(){ NewState = value });
+                   // _messenger.Send(new SerialConnectionStateChangedMessage(){ NewState = value });
                 }
             }
         }
@@ -43,9 +36,8 @@ namespace MoonBurst.Core
         public int CurrentSpeed { get; set; }
         public InputCOMPortData CurrentPort { get; set; }
 
-        public SerialGateway(IMessenger messenger)
+        public SerialGateway()
         {
-            _messenger = messenger;
             _checkStatusTimer = new Timer(OnCheckStatus, this, 0, 1000);
         }
 
@@ -142,8 +134,8 @@ namespace MoonBurst.Core
                             digitalPins = digitalPins >> 2;
                             int current = digitalPins & 3;
 
-                            if (_footswitchParsers[pos] != null)
-                                _messenger.Send(new ControllerStateMessage { States = _footswitchParsers[pos].ParseState(current, pos), Port = pos });
+                            //if (_footswitchParsers[pos] != null)
+                            //    _messenger.Send(new ControllerStateMessage { States = _footswitchParsers[pos].ParseState(current, pos), Port = pos });
                         }
 
                     }
@@ -183,7 +175,7 @@ namespace MoonBurst.Core
             }
             catch (ManagementException e)
             {
-                MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
+                //MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
             }
             return result;
         }

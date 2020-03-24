@@ -23,8 +23,7 @@ namespace MoonBurst.ViewModel
             IArduinoGateway arduinoGateway,
             IMusicalNoteHelper noteHelper,
             IDynamicsHelper dynamicsHelper,
-            IDataExtractor<IFunctoidActionViewModel, 
-            FunctoidActionData> actionExtractor,
+            IDataExtractor<IFunctoidActionViewModel, FunctoidActionData> actionExtractor,
             IMidiGateway midiGateway)
         {
             _arduinoGateway = arduinoGateway;
