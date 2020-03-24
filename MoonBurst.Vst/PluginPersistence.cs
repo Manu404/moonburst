@@ -29,7 +29,7 @@
             BinaryReader reader = new BinaryReader(stream, _encoding);
 
             _plugin.NoteMap.Clear();
-            int count = reader.ReadInt32();
+            //int count = reader.ReadInt32();
 
             //for (int n = 0; n < count; n++)
             //{

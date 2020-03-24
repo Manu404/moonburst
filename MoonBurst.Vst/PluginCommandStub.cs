@@ -7,7 +7,7 @@
     /// <summary>
     /// The public Plugin Command Stub implementation derived from the framework provided <see cref="StdPluginCommandStub"/>.
     /// </summary>
-    public class PluginCommandStub : StdPluginDeprecatedCommandStub, IVstPluginCommandStub
+    public class PluginCommandStub : StdPluginDeprecatedCommandStub
     {
         /// <summary>
         /// Called by the framework to create the plugin root class.

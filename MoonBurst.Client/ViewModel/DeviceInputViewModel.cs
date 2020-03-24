@@ -8,7 +8,6 @@ namespace MoonBurst.ViewModel
 {
     public class DeviceInputViewModel : ViewModelBase
     {
-        private IMessenger _messenger;
         private IFootswitchState _state;
 
         public IFootswitchState State
@@ -33,8 +32,7 @@ namespace MoonBurst.ViewModel
         
         public DeviceInputViewModel(IMessenger messenger)
         {
-            _messenger = messenger;
-            _messenger.Register<ControllerStateMessage>(this, OnControllerStateChanged);
+            messenger.Register<ControllerStateMessage>(this, OnControllerStateChanged);
         }
 
         private void OnControllerStateChanged(ControllerStateMessage obj)

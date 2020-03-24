@@ -151,8 +151,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\IViewModel.cs" />
-    <Compile Include="Helper\DynamicsHelper.cs" />
-    <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
     <Compile Include="Helper\UI\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\UI\ValueConverterGroup.cs" />

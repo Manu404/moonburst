@@ -1,25 +1,24 @@
 using MoonBurst.Api.Parser;
 
-namespace MoonBurst.Core.Parser
+namespace MoonBurst.Core.Hardware.Parser
 {
     public class MomentaryFootswitchParser : IFootswitchParser
     {
-        private int previous;
+        private int _previous;
 
         public IFootswitchState ParseState(int state, int index)
         {
-            int isPressed = state, wasPressed = previous;
-            previous = isPressed;
+            int isPressed = state, wasPressed = _previous;
+            _previous = isPressed;
             if (isPressed == 1)
             {
-                if(wasPressed == 1) return new MomentaryFootswitchState(FootswitchState.Pressed, index);
-                return new MomentaryFootswitchState(FootswitchState.Pressing, index);
+                return wasPressed == 1 
+                    ? new MomentaryFootswitchState(FootswitchState.Pressed, index) 
+                    : new MomentaryFootswitchState(FootswitchState.Pressing, index);
             }
-            else
-            {
-                if (wasPressed == 0) return new MomentaryFootswitchState(FootswitchState.Released, index);
-                return new MomentaryFootswitchState(FootswitchState.Releasing, index);
-            }
+            return wasPressed == 0 
+                ? new MomentaryFootswitchState(FootswitchState.Released, index) 
+                : new MomentaryFootswitchState(FootswitchState.Releasing, index);
         }
 
         IControllerInputState IControllerInputParser.ParseState(int state, int index)

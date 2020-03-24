@@ -1,101 +1,77 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+// ReSharper disable All
 
-namespace MoonBurst.Core
+namespace MoonBurst.Core.Hardware
 {
-    [Serializable()]
-    public class TeVirtualMIDIException : System.Exception
+    [Serializable]
+    public class TeVirtualMidiException : Exception
     {
-
         /* defines of specific WIN32-error-codes that the native teVirtualMIDI-driver
 		 * is using to communicate specific problems to the application */
-        private const int ERROR_PATH_NOT_FOUND = 3;
-        private const int ERROR_INVALID_HANDLE = 6;
-        private const int ERROR_TOO_MANY_CMDS = 56;
-        private const int ERROR_TOO_MANY_SESS = 69;
-        private const int ERROR_INVALID_NAME = 123;
-        private const int ERROR_MOD_NOT_FOUND = 126;
-        private const int ERROR_BAD_ARGUMENTS = 160;
-        private const int ERROR_ALREADY_EXISTS = 183;
-        private const int ERROR_OLD_WIN_VERSION = 1150;
-        private const int ERROR_REVISION_MISMATCH = 1306;
-        private const int ERROR_ALIAS_EXISTS = 1379;
+        private const int ErrorPathNotFound = 3;
+        private const int ErrorInvalidHandle = 6;
+        private const int ErrorTooManyCmds = 56;
+        private const int ErrorTooManySess = 69;
+        private const int ErrorInvalidName = 123;
+        private const int ErrorModNotFound = 126;
+        private const int ErrorBadArguments = 160;
+        private const int ErrorAlreadyExists = 183;
+        private const int ErrorOldWinVersion = 1150;
+        private const int ErrorRevisionMismatch = 1306;
+        private const int ErrorAliasExists = 1379;
 
-        public TeVirtualMIDIException() : base()
+        public TeVirtualMidiException()
         {
         }
 
-        public TeVirtualMIDIException(string message) : base(message)
+        public TeVirtualMidiException(string message) : base(message)
         {
         }
 
-        public TeVirtualMIDIException(string message, System.Exception inner) : base(message, inner)
+        public TeVirtualMidiException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected TeVirtualMIDIException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        protected TeVirtualMidiException(SerializationInfo info, StreamingContext context)
         {
         }
 
-        public int reasonCode
+        private int _reasonCode;
+        public int ReasonCode
         {
-
-            get
-            {
-
-                return this.fReasonCode;
-            }
-
-            set
-            {
-
-                this.fReasonCode = value;
-
-            }
-
+            get => _reasonCode;
+            set => _reasonCode = value;
         }
 
-        private int fReasonCode;
 
-        private static string reasonCodeToString(int reasonCode)
+        private static string ReasonCodeToString(int reasonCode)
         {
-
             switch (reasonCode)
             {
-
-                case ERROR_OLD_WIN_VERSION:
+                case ErrorOldWinVersion:
                     return "Your Windows-version is too old for dynamic MIDI-port creation.";
-
-                case ERROR_INVALID_NAME:
+                case ErrorInvalidName:
                     return "You need to specify at least 1 character as MIDI-portname!";
-
-                case ERROR_ALREADY_EXISTS:
+                case ErrorAlreadyExists:
                     return "The name for the MIDI-port you specified is already in use!";
-
-                case ERROR_ALIAS_EXISTS:
+                case ErrorAliasExists:
                     return "The name for the MIDI-port you specified is already in use!";
-
-                case ERROR_PATH_NOT_FOUND:
+                case ErrorPathNotFound:
                     return "Possibly the teVirtualMIDI-driver has not been installed!";
-
-                case ERROR_MOD_NOT_FOUND:
+                case ErrorModNotFound:
                     return "The teVirtualMIDIxx.dll could not be loaded!";
-
-                case ERROR_REVISION_MISMATCH:
+                case ErrorRevisionMismatch:
                     return "The teVirtualMIDIxx.dll and teVirtualMIDI.sys driver differ in version!";
-
-                case ERROR_TOO_MANY_SESS:
+                case ErrorTooManySess:
                     return "Maximum number of ports reached";
-
-                case ERROR_INVALID_HANDLE:
+                case ErrorInvalidHandle:
                     return "Port not enabled";
-
-                case ERROR_TOO_MANY_CMDS:
+                case ErrorTooManyCmds:
                     return "MIDI-command too large";
-
-                case ERROR_BAD_ARGUMENTS:
+                case ErrorBadArguments:
                     return "Invalid flags specified";
-
                 default:
                     return "Unspecified virtualMIDI-error: " + reasonCode;
             }
@@ -105,9 +81,9 @@ namespace MoonBurst.Core
         public static void ThrowExceptionForReasonCode(int reasonCode)
         {
 
-            TeVirtualMIDIException exception = new TeVirtualMIDIException(reasonCodeToString(reasonCode));
+            TeVirtualMidiException exception = new TeVirtualMidiException(ReasonCodeToString(reasonCode));
 
-            exception.reasonCode = reasonCode;
+            exception.ReasonCode = reasonCode;
 
             throw exception;
 
@@ -115,11 +91,11 @@ namespace MoonBurst.Core
 
     }
 
-    public class TeVirtualMIDI
+    public class TeVirtualMidi
     {
 
         /* default size of sysex-buffer */
-        private const UInt32 TE_VM_DEFAULT_SYSEX_SIZE = 65535;
+        private const UInt32 TeVmDefaultSysexSize = 65535;
 
         /* constant for loading of teVirtualMIDI-interface-DLL, either 32 or 64 bit */
         private const string DllName = "teVirtualMIDI64.dll";
@@ -127,323 +103,158 @@ namespace MoonBurst.Core
         /* private const string DllName = "teVirtualMIDI64.dll"; */
 
         /* TE_VM_LOGGING_MISC - log internal stuff (port enable, disable...) */
-        public const UInt32 TE_VM_LOGGING_MISC = 1;
+        public const UInt32 TeVmLoggingMisc = 1;
         /* TE_VM_LOGGING_RX - log data received from the driver */
-        public const UInt32 TE_VM_LOGGING_RX = 2;
+        public const UInt32 TeVmLoggingRx = 2;
         /* TE_VM_LOGGING_TX - log data sent to the driver */
-        public const UInt32 TE_VM_LOGGING_TX = 4;
+        public const UInt32 TeVmLoggingTx = 4;
 
         /* TE_VM_FLAGS_PARSE_RX - parse incoming data into single, valid MIDI-commands */
-        public const UInt32 TE_VM_FLAGS_PARSE_RX = 1;
+        public const UInt32 TeVmFlagsParseRx = 1;
         /* TE_VM_FLAGS_PARSE_TX - parse outgoing data into single, valid MIDI-commands */
-        public const UInt32 TE_VM_FLAGS_PARSE_TX = 2;
+        public const UInt32 TeVmFlagsParseTx = 2;
         /* TE_VM_FLAGS_INSTANTIATE_RX_ONLY - Only the "midi-out" part of the port is created */
-        public const UInt32 TE_VM_FLAGS_INSTANTIATE_RX_ONLY = 4;
+        public const UInt32 TeVmFlagsInstantiateRxOnly = 4;
         /* TE_VM_FLAGS_INSTANTIATE_TX_ONLY - Only the "midi-in" part of the port is created */
-        public const UInt32 TE_VM_FLAGS_INSTANTIATE_TX_ONLY = 8;
+        public const UInt32 TeVmFlagsInstantiateTxOnly = 8;
         /* TE_VM_FLAGS_INSTANTIATE_BOTH - a bidirectional port is created */
-        public const UInt32 TE_VM_FLAGS_INSTANTIATE_BOTH = 12;
-
+        public const UInt32 TeVmFlagsInstantiateBoth = 12;
 
         /* static initializer to retrieve version-info from DLL... */
-        static TeVirtualMIDI()
+        static TeVirtualMidi()
         {
-
-            fVersionString = Marshal.PtrToStringAuto(virtualMIDIGetVersion(ref fVersionMajor, ref fVersionMinor, ref fVersionRelease, ref fVersionBuild));
-            fDriverVersionString = Marshal.PtrToStringAuto(virtualMIDIGetDriverVersion(ref fDriverVersionMajor, ref fDriverVersionMinor, ref fDriverVersionRelease, ref fDriverVersionBuild));
-
-
+            _versionString = Marshal.PtrToStringAuto(virtualMIDIGetVersion(ref _versionMajor, ref _versionMinor, ref _versionRelease, ref _versionBuild));
+            _driverVersionString = Marshal.PtrToStringAuto(virtualMIDIGetDriverVersion(ref _driverVersionMajor, ref _driverVersionMinor, ref _driverVersionRelease, ref _driverVersionBuild));
         }
 
-
-        public TeVirtualMIDI(string portName, UInt32 maxSysexLength = TE_VM_DEFAULT_SYSEX_SIZE, UInt32 flags = TE_VM_FLAGS_PARSE_RX)
+        public TeVirtualMidi(string portName, UInt32 maxSysexLength = TeVmDefaultSysexSize, UInt32 flags = TeVmFlagsParseRx)
         {
+            _instance = virtualMIDICreatePortEx2(portName, IntPtr.Zero, IntPtr.Zero, maxSysexLength, flags);
 
-            fInstance = virtualMIDICreatePortEx2(portName, IntPtr.Zero, IntPtr.Zero, maxSysexLength, flags);
-
-            if (fInstance == IntPtr.Zero)
+            if (_instance == IntPtr.Zero)
             {
-
                 int lastError = Marshal.GetLastWin32Error();
-
-                TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
-
+                TeVirtualMidiException.ThrowExceptionForReasonCode(lastError);
             }
 
-            fReadBuffer = new byte[maxSysexLength];
-            fReadProcessIds = new UInt64[17];
-            fMaxSysexLength = maxSysexLength;
-
+            _readBuffer = new byte[maxSysexLength];
+            _readProcessIds = new UInt64[17];
+            _maxSysexLength = maxSysexLength;
         }
 
-        public TeVirtualMIDI(string portName, UInt32 maxSysexLength, UInt32 flags, ref Guid manufacturer, ref Guid product)
+        public TeVirtualMidi(string portName, UInt32 maxSysexLength, UInt32 flags, ref Guid manufacturer, ref Guid product)
         {
+            _instance = virtualMIDICreatePortEx3(portName, IntPtr.Zero, IntPtr.Zero, maxSysexLength, flags, ref manufacturer, ref product);
 
-            fInstance = virtualMIDICreatePortEx3(portName, IntPtr.Zero, IntPtr.Zero, maxSysexLength, flags, ref manufacturer, ref product);
-
-            if (fInstance == IntPtr.Zero)
+            if (_instance == IntPtr.Zero)
             {
-
                 int lastError = Marshal.GetLastWin32Error();
-
-                TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
-
+                TeVirtualMidiException.ThrowExceptionForReasonCode(lastError);
             }
 
-            fReadBuffer = new byte[maxSysexLength];
-            fReadProcessIds = new UInt64[17];
-            fMaxSysexLength = maxSysexLength;
-
+            _readBuffer = new byte[maxSysexLength];
+            _readProcessIds = new UInt64[17];
+            _maxSysexLength = maxSysexLength;
         }
 
-
-        ~TeVirtualMIDI()
+        ~TeVirtualMidi()
         {
-
-            if (fInstance != IntPtr.Zero)
+            if (_instance != IntPtr.Zero)
             {
-
-                virtualMIDIClosePort(fInstance);
-
-                fInstance = IntPtr.Zero;
-
+                virtualMIDIClosePort(_instance);
+                _instance = IntPtr.Zero;
             }
         }
 
 
-        public static int versionMajor
+
+        public static UInt32 Logging(UInt32 loggingMask)
         {
-
-            get
-            {
-
-                return fVersionMajor;
-
-            }
-
-        }
-
-
-        public static int versionMinor
-        {
-
-            get
-            {
-
-                return fVersionMinor;
-
-            }
-
-        }
-
-
-        public static int versionRelease
-        {
-
-            get
-            {
-
-                return fVersionRelease;
-
-            }
-
-        }
-
-
-        public static int versionBuild
-        {
-
-            get
-            {
-
-                return fVersionBuild;
-
-            }
-
-        }
-
-
-        public static String versionString
-        {
-
-            get
-            {
-
-                return fVersionString;
-
-            }
-
-        }
-
-        public static int driverVersionMajor
-        {
-
-            get
-            {
-
-                return fDriverVersionMajor;
-
-            }
-
-        }
-
-
-        public static int driverVersionMinor
-        {
-
-            get
-            {
-
-                return fDriverVersionMinor;
-
-            }
-
-        }
-
-
-        public static int driverVersionRelease
-        {
-
-            get
-            {
-
-                return fDriverVersionRelease;
-
-            }
-
-        }
-
-
-        public static int driverVersionBuild
-        {
-
-            get
-            {
-
-                return fDriverVersionBuild;
-
-            }
-
-        }
-
-
-        public static String driverVersionString
-        {
-
-            get
-            {
-
-                return fDriverVersionString;
-
-            }
-
-        }
-
-
-        public static UInt32 logging(UInt32 loggingMask)
-        {
-
             return virtualMIDILogging(loggingMask);
-
         }
 
-
-        public void shutdown()
+        public void Shutdown()
         {
-
-            if (!virtualMIDIShutdown(fInstance))
+            if (!virtualMIDIShutdown(_instance))
             {
-
                 int lastError = Marshal.GetLastWin32Error();
-
-                TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
-
+                TeVirtualMidiException.ThrowExceptionForReasonCode(lastError);
             }
-
         }
 
-
-        public void sendCommand(byte[] command)
+        public void SendCommand(byte[] command)
         {
-
             if ((command == null) || (command.Length == 0))
             {
-
                 return;
-
             }
 
-            if (!virtualMIDISendData(fInstance, command, (UInt32)command.Length))
+            if (!virtualMIDISendData(_instance, command, (UInt32)command.Length))
             {
-
                 int lastError = Marshal.GetLastWin32Error();
-                TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
-
+                TeVirtualMidiException.ThrowExceptionForReasonCode(lastError);
             }
-
         }
 
-
-        public byte[] getCommand()
+        public byte[] GetCommand()
         {
+            UInt32 length = _maxSysexLength;
 
-            UInt32 length = fMaxSysexLength;
-
-            if (!virtualMIDIGetData(fInstance, fReadBuffer, ref length))
+            if (!virtualMIDIGetData(_instance, _readBuffer, ref length))
             {
-
                 int lastError = Marshal.GetLastWin32Error();
-                TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
-
+                TeVirtualMidiException.ThrowExceptionForReasonCode(lastError);
             }
 
             byte[] outBytes = new byte[length];
-
-            Array.Copy(fReadBuffer, outBytes, length);
-
+            Array.Copy(_readBuffer, outBytes, length);
             return outBytes;
-
         }
-
-        public UInt64[] getProcessIds()
+        
+        public UInt64[] GetProcessIds()
         {
 
             UInt32 length = 17 * sizeof(ulong);
             UInt32 count;
 
-            if (!virtualMIDIGetProcesses(fInstance, fReadProcessIds, ref length))
+            if (!virtualMIDIGetProcesses(_instance, _readProcessIds, ref length))
             {
-
                 int lastError = Marshal.GetLastWin32Error();
-                TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
-
+                TeVirtualMidiException.ThrowExceptionForReasonCode(lastError);
             }
 
             count = length / sizeof(ulong);
-
             UInt64[] outIds = new UInt64[count];
-
-            Array.Copy(fReadProcessIds, outIds, count);
-
+            Array.Copy(_readProcessIds, outIds, count);
             return outIds;
-
         }
-        
-        private byte[] fReadBuffer;
-        private IntPtr fInstance;
-        private UInt32 fMaxSysexLength;
-        private UInt64[] fReadProcessIds;
-        private static ushort fVersionMajor;
-        private static ushort fVersionMinor;
-        private static ushort fVersionRelease;
-        private static ushort fVersionBuild;
-        private static String fVersionString;
 
-        private static ushort fDriverVersionMajor;
-        private static ushort fDriverVersionMinor;
-        private static ushort fDriverVersionRelease;
-        private static ushort fDriverVersionBuild;
-        private static String fDriverVersionString;
+        public static int VersionMajor => _versionMajor;
+        public static int VersionMinor => _versionMinor;
+        public static int VersionRelease => _versionRelease;
+        public static int VersionBuild => _versionBuild;
+        public static String VersionString => _versionString;
+        public static int DriverVersionMajor => _driverVersionMajor;
+        public static int DriverVersionMinor => _driverVersionMinor;
+        public static int DriverVersionRelease => _driverVersionRelease;
+        public static int DriverVersionBuild => _driverVersionBuild;
+        public static String DriverVersionString => _driverVersionString;
+        
+        private readonly byte[] _readBuffer;
+        private IntPtr _instance;
+        private readonly UInt32 _maxSysexLength;
+        private readonly UInt64[] _readProcessIds;
+        private static readonly ushort _versionMajor;
+        private static readonly ushort _versionMinor;
+        private static readonly ushort _versionRelease;
+        private static readonly ushort _versionBuild;
+        private static readonly String _versionString;
+
+        private static readonly ushort _driverVersionMajor;
+        private static readonly ushort _driverVersionMinor;
+        private static readonly ushort _driverVersionRelease;
+        private static readonly ushort _driverVersionBuild;
+        private static readonly String _driverVersionString;
         
         [DllImport(DllName, EntryPoint = "virtualMIDICreatePortEx3", SetLastError = true, CharSet = CharSet.Unicode)]
         private static extern IntPtr virtualMIDICreatePortEx3(string portName, IntPtr callback, IntPtr dwCallbackInstance, UInt32 maxSysexLength, UInt32 flags, ref Guid manufacturer, ref Guid product);

@@ -1,6 +1,8 @@
-﻿using MoonBurst.Core;
+﻿using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Serializer
 {
     public class FunctoidActionViewModelDataSerializer : IDataExtractor<IFunctoidActionViewModel, FunctoidActionData>
     {

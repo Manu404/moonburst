@@ -4,6 +4,11 @@ namespace MoonBurst.Model.Messages
 {
     public class SerialConnectionStateChangedMessage : MessageBase
     {
-        public bool NewState { get; set; }
+        public SerialConnectionStateChangedMessage(bool newState)
+        {
+            NewState = newState;
+        }
+
+        public bool NewState { get; }
     }
 }

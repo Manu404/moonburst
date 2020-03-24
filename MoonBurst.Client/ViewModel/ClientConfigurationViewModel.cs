@@ -1,10 +1,10 @@
 using GalaSoft.MvvmLight;
-using MoonBurst.Core;
-using MoonBurst.ViewModel;
+using MoonBurst.Core.Serializer;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.Model
+namespace MoonBurst.ViewModel
 {
-    public partial class ClientConfigurationViewModel : ViewModelBase, IClientConfigurationViewModel
+    public class ClientConfigurationViewModel : ViewModelBase, IClientConfigurationViewModel
     {
         private ISerializer<IClientConfigurationViewModel> _serializer;
 

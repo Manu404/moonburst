@@ -1,19 +1,19 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Services;
-using MoonBurst.Core;
 using MoonBurst.Core.Helper;
+using MoonBurst.Helper.UI;
 using MoonBurst.Model.Messages;
+using MoonBurst.ViewModel.Factories;
+using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class FunctoidChannelViewModel : ViewModelBase, IFunctoidChannelViewModel
+    public class FunctoidChannelViewModel : ViewModelBase, IFunctoidChannelViewModel
     {
         private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
@@ -44,9 +44,9 @@ namespace MoonBurst.ViewModel
             get => _isTriggered;
             set
             {
-                _isTriggered = true;
+                _isTriggered = value;
                 RaisePropertyChanged();
-                _isTriggered = false;
+                _isTriggered = !value;
                 RaisePropertyChanged();
             }
         }

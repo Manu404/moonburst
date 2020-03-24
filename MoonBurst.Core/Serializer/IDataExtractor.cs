@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Core
+﻿namespace MoonBurst.Core.Serializer
 {
     public interface IDataExtractor<T>
     {
@@ -6,9 +6,9 @@
         void ApplyData(object source, T target);
     }
 
-    public interface IDataExtractor<T, Y> where Y : new()
+    public interface IDataExtractor<T, TY> where TY : new()
     {
-        Y ExtractData(T source);
-        void ApplyData(Y source, T target);
+        TY ExtractData(T source);
+        void ApplyData(TY source, T target);
     }
 }

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace MoonBurst.Core.Helper
+namespace MoonBurst.Helper.UI
 {
     public sealed class EnumeratorToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string enumString;
             try
             {
-                enumString = Enum.GetName((value.GetType()), value);
+                string enumString = "";
+                if (value != null) enumString = Enum.GetName((value.GetType()), value);
                 return enumString;
             }
             catch

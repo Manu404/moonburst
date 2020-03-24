@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using MoonBurst.Core;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Factories;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Serializer
 {
 
     public class FunctoidChannelViewModelDataSerializer : IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData>

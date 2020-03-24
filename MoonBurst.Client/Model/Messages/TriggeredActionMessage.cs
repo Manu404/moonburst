@@ -1,5 +1,6 @@
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.ViewModel;
+using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.Model.Messages
 {

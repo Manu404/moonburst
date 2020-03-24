@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:MoonBurst.Views"
                     xmlns:moonBurst="clr-namespace:MoonBurst"
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
+                    xmlns:ui="clr-namespace:MoonBurst.Helper.UI">
 
     <Style x:Key="ActionMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
@@ -172,7 +173,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="ActionEditorHeaderItemTemplate">
+    <DataTemplate x:Key="ActionEditorHeaderItemTemplate" DataType="viewModel:FunctoidActionViewModel">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -200,12 +201,12 @@
                         </Style.Triggers>
                     </Style>
                 </ToggleButton.Style>
-                <moonBurst:ToggleButtonAssist.SwitchTrackOnBackground>
+                <ui:ToggleButtonAssist.SwitchTrackOnBackground>
                     <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
-                </moonBurst:ToggleButtonAssist.SwitchTrackOnBackground>
-                <moonBurst:ToggleButtonAssist.SwitchTrackOffBackground>
+                </ui:ToggleButtonAssist.SwitchTrackOnBackground>
+                <ui:ToggleButtonAssist.SwitchTrackOffBackground>
                     <SolidColorBrush Color="{DynamicResource RedAccent200}"></SolidColorBrush>
-                </moonBurst:ToggleButtonAssist.SwitchTrackOffBackground>
+                </ui:ToggleButtonAssist.SwitchTrackOffBackground>
             </ToggleButton>
 
             <Label Grid.Column="1" VerticalAlignment="Center" FontSize="11" ToolTip="{Binding ActionName}">
@@ -221,7 +222,7 @@
     </Style>
 
     <!-- Action Editor Body -->
-    <DataTemplate x:Key="ActionEditorBodyItemTemplate">
+    <DataTemplate x:Key="ActionEditorBodyItemTemplate" DataType="viewModel:FunctoidActionViewModel">
         <Border Margin="10,0,10,0">
             <StackPanel>
                 <StackPanel Margin="0, 10, 0, 0" Width="225">
@@ -402,7 +403,7 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="ActionListItemTemplate">
+    <DataTemplate x:Key="ActionListItemTemplate" DataType="viewModel:FunctoidActionViewModel">
         <materialDesign:Card  HorizontalAlignment="Stretch" 
                                   materialDesign:ShadowAssist.ShadowDepth="Depth1" 
                                   Padding="1"  Margin="5">

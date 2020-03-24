@@ -1,16 +1,17 @@
 ﻿using System.Linq;
-using MoonBurst.Core;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Factories;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Serializer
 {
     public class LayoutViewModelSerializer : SerializerBase<ILayoutViewModel, LayoutData>
     {
         IFunctoidChannelViewModelFactory _channelFactory;
         IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData> _extractor;
 
-        public override string Default { get => "default_layout.xml"; }
-
-        public LayoutViewModelSerializer(IFunctoidChannelViewModelFactory factory, IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData> extractor)
+        public LayoutViewModelSerializer(IFunctoidChannelViewModelFactory factory, IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelData> extractor) : base("default_layout.xml")
         {
             _channelFactory = factory;
             _extractor = extractor;

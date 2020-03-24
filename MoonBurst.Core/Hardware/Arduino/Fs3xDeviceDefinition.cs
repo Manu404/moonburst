@@ -1,17 +1,17 @@
-﻿using MoonBurst.Api.Hardware;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MoonBurst.Api.Hardware;
 
-namespace MoonBurst.Core
+namespace MoonBurst.Core.Hardware.Arduino
 {
-    public class Fs3xDeviceDefinition : IDeviceDefinition
+    public class Fs3XDeviceDefinition : IDeviceDefinition
     {
-        public IList<IDeviceInput> GetInputs()
+        public IEnumerable<IDeviceInput> GetInputs()
         {
-            return new List<IDeviceInput>()
+            return new List<IDeviceInput>
             {
                 new MomentaryFootswitchInput(0, "Mode"),
                 new MomentaryFootswitchInput(1, "Down"),
-                new MomentaryFootswitchInput(2, "Up"),
+                new MomentaryFootswitchInput(2, "Up")
             };
         }
 

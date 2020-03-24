@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Markup;
 
-namespace MoonBurst.Core
+namespace MoonBurst.Helper.UI
 {
     public class EnumToItemsSource : MarkupExtension
     {

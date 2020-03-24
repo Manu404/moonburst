@@ -5,7 +5,13 @@ namespace MoonBurst.Model.Messages
 {
     public class MidiConnectionStateChangedMessage : MessageBase
     {
-        public MidiConnectionStatus NewState { get; set; }
-        public MidiConnectionStatus PreviousState { get; set; }
+        public MidiConnectionStateChangedMessage(MidiConnectionStatus newState, MidiConnectionStatus previousState)
+        {
+            NewState = newState;
+            PreviousState = previousState;
+        }
+
+        public MidiConnectionStatus NewState { get; }
+        public MidiConnectionStatus PreviousState { get; }
     }
 }

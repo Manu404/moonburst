@@ -60,6 +60,10 @@
       <Project>{d5b95797-bd1b-4388-8d94-f61497a414b5}</Project>
       <Name>MoonBurst.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MoonBurst.Core\MoonBurst.Core.csproj">
+      <Project>{7781e238-1b16-41e4-85cb-bd35748905d2}</Project>
+      <Name>MoonBurst.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

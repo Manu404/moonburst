@@ -1,15 +1,18 @@
 using System.Collections.Generic;
-using Sanford.Multimedia.Midi;
-using MoonBurst.Api.Services;
 using MoonBurst.Api.Enums;
+using MoonBurst.Api.Services;
+using Sanford.Multimedia.Midi;
+using ChannelCommand = Sanford.Multimedia.Midi.ChannelCommand;
 
-namespace MoonBurst.Core
+namespace MoonBurst.Core.Hardware
 {
 
     public class MidiGateway : IMidiGateway, IHardwareService
     {
         private OutputDevice _outDevice;
+/*
         private TeVirtualMIDI _virtualMidi;
+*/
         private ChannelMessageBuilder _builder;
         private MidiConnectionStatus _state;
         private bool _isConnected;
@@ -39,25 +42,25 @@ namespace MoonBurst.Core
 
         public void Trigger(MidiTriggerData obj)
         {
-            if (this.IsConnected && obj != null)
+            if (IsConnected && obj != null)
             {
 
-                _builder.Command = (Sanford.Multimedia.Midi.ChannelCommand)obj.Command;
+                _builder.Command = (ChannelCommand)obj.Command;
                 _builder.MidiChannel = obj.MidiChannel - 1;
                 _builder.Data1 = obj.Data1 - 1;
                 _builder.Data2 = obj.Data2 - 1;
                 _builder.Build();
 
-                this._outDevice.Send(_builder.Result);
+                _outDevice.Send(_builder.Result);
             }
         }
 
         public void Connect()
         {
-            if (!this.IsConnected && this.SelectedOutput?.Id >= 0)
+            if (!IsConnected && SelectedOutput?.Id >= 0)
             {
-                _outDevice = new OutputDevice(this.SelectedOutput.Id);
-                this.IsConnected = true;
+                _outDevice = new OutputDevice(SelectedOutput.Id);
+                IsConnected = true;
             }
             else
             {
@@ -68,35 +71,35 @@ namespace MoonBurst.Core
         public void Close()
         {
             _outDevice?.Close();
-            this.IsConnected = false;
+            IsConnected = false;
         }
 
         public void SendTest()
         {
-            _builder.Command = Sanford.Multimedia.Midi.ChannelCommand.NoteOn;
+            _builder.Command = ChannelCommand.NoteOn;
             _builder.MidiChannel = 1;
             _builder.Data1 = 64;
             _builder.Data2 = 127;
             _builder.Build();
 
-            this._outDevice.Send(_builder.Result);
+            _outDevice.Send(_builder.Result);
         }
 
 
         public List<OutputMidiDeviceData> GetDevices()
         {
             var result = new List<OutputMidiDeviceData>();
-            if (OutputDevice.DeviceCount > 0)
+            if (OutputDeviceBase.DeviceCount > 0)
             {
-                for (int i = 0; i < OutputDevice.DeviceCount; i++)
+                for (var i = 0; i < OutputDeviceBase.DeviceCount; i++)
                 {
-                    result.Add(new OutputMidiDeviceData() { Name = OutputDevice.GetDeviceCapabilities(i).name, Id = i });
+                    result.Add(new OutputMidiDeviceData(i) { Name = OutputDeviceBase.GetDeviceCapabilities(i).name });
                 }
             }
             else
             {
                 //WriteLine("No devices found... :(");
-                result.Add(new OutputMidiDeviceData() { Name = "No device output devices available...", Id = -1 });
+                result.Add(new OutputMidiDeviceData(-1) { Name = "No device output devices available..."});
             }
 
             return result;

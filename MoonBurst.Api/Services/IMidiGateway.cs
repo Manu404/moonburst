@@ -14,6 +14,15 @@ namespace MoonBurst.Api.Services
 
     public class OutputMidiDeviceData
     {
+        public OutputMidiDeviceData()
+        {
+            
+        }
+        public OutputMidiDeviceData(int id)
+        {
+            Id = id;
+        }
+
         public string Name { get; set; }
         public int Id { get; set; }
 
@@ -21,6 +30,16 @@ namespace MoonBurst.Api.Services
         {
             if (!(obj is OutputMidiDeviceData)) return false;
             return Id == ((OutputMidiDeviceData)obj).Id;
+        }
+
+        protected bool Equals(OutputMidiDeviceData other)
+        {
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
         }
     }
 

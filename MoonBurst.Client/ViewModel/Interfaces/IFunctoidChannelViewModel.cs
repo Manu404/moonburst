@@ -1,8 +1,7 @@
-﻿using MoonBurst.Core;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using MoonBurst.Core;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Interfaces
 {
     public interface IFunctoidChannelViewModel : IViewModel
     {

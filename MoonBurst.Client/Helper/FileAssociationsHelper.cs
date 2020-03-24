@@ -1,7 +1,6 @@
-﻿using MoonBurst.ViewModel;
-using System.IO;
+﻿using System.IO;
 
-namespace MoonBurst
+namespace MoonBurst.Helper
 {
     public class FileAssociationsHelper
     {

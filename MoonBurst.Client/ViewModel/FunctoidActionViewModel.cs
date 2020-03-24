@@ -7,16 +7,15 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Enums;
 using MoonBurst.Api.Services;
-using MoonBurst.Core;
 using MoonBurst.Core.Helper;
-using MoonBurst.Model;
+using MoonBurst.Helper.UI;
 using MoonBurst.Model.Messages;
+using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class FunctoidActionViewModel : ViewModelBase, IFunctoidActionViewModel
+    public class FunctoidActionViewModel : ViewModelBase, IFunctoidActionViewModel
     {
-        private IArduinoGateway _arduinoGateway;
         private IMessenger _messenger;
         private IMusicalNoteHelper _noteHelper;
         private IDynamicsHelper _dynamicsHelper;
@@ -130,9 +129,9 @@ namespace MoonBurst.ViewModel
             get => _isTriggered;
             set
             {
-                _isTriggered = true;
+                _isTriggered = value;
                 RaisePropertyChanged();
-                _isTriggered = false;
+                _isTriggered = !value;
                 RaisePropertyChanged();
             }
         }
@@ -165,13 +164,12 @@ namespace MoonBurst.ViewModel
         public ICommand OnToggleActionCommand { get; set; }
         public ICommand OnTriggerActionCommand { get; set; }
 
-        public FunctoidActionViewModel(IMessenger messenger, IArduinoGateway arduinoGateway, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
+        public FunctoidActionViewModel(IMessenger messenger, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
             OnToggleActionCommand = new RelayCommand(OnToggle);
 
-            _arduinoGateway = arduinoGateway;
             _messenger = messenger;
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
@@ -185,10 +183,8 @@ namespace MoonBurst.ViewModel
 
         public void OnTriggerAction()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                this.IsTriggered = true;
-            }));
+            if (Application.Current.Dispatcher != null)
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => { this.IsTriggered = true; }));
 
             _midiGateway.Trigger(new MidiTriggerData()
             {

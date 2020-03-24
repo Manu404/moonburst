@@ -3,9 +3,8 @@ using System.Windows.Input;
 using MoonBurst.Api.Enums;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
-using MoonBurst.Model;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Interfaces
 {
     public interface IFunctoidActionViewModel : IViewModel
     {

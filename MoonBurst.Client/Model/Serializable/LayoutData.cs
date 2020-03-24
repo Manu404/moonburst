@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using MoonBurst.ViewModel;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.Model.Serializable
 {
     public class LayoutData
     {

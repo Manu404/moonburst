@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Model
+﻿namespace MoonBurst.Model.Serializable
 {
     public class ArduinoPortConfigData
     {

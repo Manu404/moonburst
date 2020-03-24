@@ -1,23 +1,17 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
-using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
-using MoonBurst.Api.Services;
-using MoonBurst.Core;
-using MoonBurst.Model;
+using MoonBurst.Core.Serializer;
+using MoonBurst.ViewModel.Factories;
+using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public partial class LayoutViewModel : ViewModelBase, ILayoutViewModel
+    public class LayoutViewModel : ViewModelBase, ILayoutViewModel
     {
-        private IArduinoGateway _arduinoGateway;
-        private IMessenger _messenger;
         private IClientConfigurationViewModel _config;
         private ISerializer<ILayoutViewModel> _serializer;
         private IFunctoidChannelViewModelFactory _channelFactory;
@@ -33,14 +27,10 @@ namespace MoonBurst.ViewModel
         public ICommand OnCollaspeAllCommand { get; set; }
         public ICommand OnExpandAllCommand { get; set; }
 
-        public LayoutViewModel(IArduinoGateway arduinoGateway, 
-            IMessenger messenger, 
-            IClientConfigurationViewModel clientConfiguration,
+        public LayoutViewModel(IClientConfigurationViewModel clientConfiguration,
             ISerializer<ILayoutViewModel> serializer,
             IFunctoidChannelViewModelFactory channelFactory)
         {
-            _arduinoGateway = arduinoGateway;
-            _messenger = messenger;
             _config = clientConfiguration;
             _serializer = serializer;
             _channelFactory = channelFactory;
@@ -59,12 +49,14 @@ namespace MoonBurst.ViewModel
 
         private void UpdateIndexes()
         {
-            for (int i = 0; i < this.FunctoidChannels.Count; this.FunctoidChannels[i].Index = (i++) + 1) ;
+            for (int i = 0; i < this.FunctoidChannels.Count; this.FunctoidChannels[i].Index = (i++) + 1)
+            {
+            }
         }
 
         private void ToggleChannelAll(bool newState)
         {
-            foreach (var functoidChannel in this.FunctoidChannels)
+            foreach (var functoidChannel in FunctoidChannels)
             {
                 functoidChannel.IsExpanded = newState;
             }

@@ -1,8 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Services;
 using MoonBurst.Core;
+using MoonBurst.Core.Serializer;
+using MoonBurst.Model.Serializable;
+using MoonBurst.ViewModel.Interfaces;
 
-namespace MoonBurst.ViewModel
+namespace MoonBurst.ViewModel.Factories
 {
     public interface IFunctoidChannelViewModelFactory : IFactory<IFunctoidChannelViewModel>, IFactory<IFunctoidChannelViewModel, FunctoidChannelData>
     {

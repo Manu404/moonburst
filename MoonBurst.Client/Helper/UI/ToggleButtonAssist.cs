@@ -1,7 +1,8 @@
 ﻿using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace MoonBurst
+namespace MoonBurst.Helper.UI
 {
     public static class ToggleButtonAssist
     {

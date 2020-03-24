@@ -2,17 +2,15 @@ using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Core;
-using MoonBurst.Model;
+using MoonBurst.Core.Hardware;
 using MoonBurst.Model.Messages;
+using MoonBurst.ViewModel.Interfaces;
 using MoonBurst.Views;
 
 namespace MoonBurst.ViewModel
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
-        private IMessenger _messenger;
-
         private IClientConfigurationViewModel _clientConfiguration;
         private IHardwareConfigurationViewModel _hardwareConfig;
         private ILayoutViewModel _layout;
@@ -88,28 +86,27 @@ namespace MoonBurst.ViewModel
 
         public MainViewModel(IMessenger messenger,  
             IClientConfigurationViewModel clientConfiguration,
-            IHardwareConfigurationViewModel hardware_viewModel,
-            ILayoutViewModel layout_viewModel)
+            IHardwareConfigurationViewModel hardwareViewModel,
+            ILayoutViewModel layoutViewModel)
         {
             AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Title = "MoonBurst";
             
-            _messenger = messenger;
             _clientConfiguration = clientConfiguration;
 
             ClientConfiguration = _clientConfiguration;
-            HardwareConfig = hardware_viewModel;
-            Layout = layout_viewModel;
+            HardwareConfig = hardwareViewModel;
+            Layout = layoutViewModel;
             
             InitializeConfigs();
 
             OnOpenConsoleCommand = new RelayCommand(OpenConsole);
             OnCloseCommand = new RelayCommand(OnClose);
 
-            WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMIDI.versionString);
-            WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMIDI.driverVersionString);
+            WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMidi.VersionString);
+            WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMidi.DriverVersionString);
 
-            _messenger.Register<DeleteFunctoidChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
+            messenger.Register<DeleteFunctoidChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
         }
 
         private void InitializeConfigs()

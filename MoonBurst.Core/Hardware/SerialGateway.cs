@@ -5,12 +5,12 @@ using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Threading;
-using MoonBurst.Core.Parser;
-using MoonBurst.Api.Services;
-using MoonBurst.Api.Parser;
 using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Parser;
+using MoonBurst.Api.Services;
+using MoonBurst.Core.Hardware.Parser;
 
-namespace MoonBurst.Core
+namespace MoonBurst.Core.Hardware
 {
     public class SerialGateway : ISerialGateway, IHardwareService
     {
@@ -34,7 +34,7 @@ namespace MoonBurst.Core
         }
 
         public int CurrentSpeed { get; set; }
-        public InputCOMPortData CurrentPort { get; set; }
+        public InputComPortData CurrentPort { get; set; }
 
         public SerialGateway()
         {
@@ -45,7 +45,7 @@ namespace MoonBurst.Core
         {
             _arduinoPorts = ports;
             _footswitchParsers = new IControllerParser[ports.Length];
-            for (int i = 0; i < ports.Length; i++)
+            for (var i = 0; i < ports.Length; i++)
             {
                 if (ports[i].ConnectedDevice != null)
                 {
@@ -56,28 +56,26 @@ namespace MoonBurst.Core
 
         private void OnCheckStatus(object state)
         {
-            if (this.IsConnected)
-            {
-                if (!this._serialPort.IsOpen)
-                    this.Close();
-            }
+            if (!IsConnected) return;
+            if (!_serialPort.IsOpen)
+                Close();
         }
 
         public void Connect(IArduinoPort[] ports)
         {
-            if (!this.IsConnected)
+            if (!IsConnected)
             {
                 try
                 {
-                    _serialPort = new SerialPort(this.CurrentPort.Id, CurrentSpeed, Parity.None, 8, StopBits.One);
+                    _serialPort = new SerialPort(CurrentPort.Id, CurrentSpeed, Parity.None, 8, StopBits.One);
                     _serialPort.DataReceived += SerialPortOnDataReceived;
                     _serialPort.Open();
                     InitializeParsers(ports);
-                    this.IsConnected = true;
+                    IsConnected = true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    this.IsConnected = false;
+                    IsConnected = false;
                 }
             }
             else
@@ -90,22 +88,21 @@ namespace MoonBurst.Core
                         _serialPort.Close();
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
+                    //TODO: loging
                 }
-                this.IsConnected = false;
+                IsConnected = false;
             }
         }
 
         public void Close()
         {
-            if (this.IsConnected)
-            {
-                _serialPort.DataReceived -= SerialPortOnDataReceived;
-                _serialPort.Close();
-                _serialPort.Dispose();
-                this.IsConnected = false;
-            }
+            if (!IsConnected) return;
+            _serialPort.DataReceived -= SerialPortOnDataReceived;
+            _serialPort.Close();
+            _serialPort.Dispose();
+            IsConnected = false;
         }
 
         private string accumulator = "";
@@ -125,14 +122,14 @@ namespace MoonBurst.Core
                     Match match = group.Match(line);
                     if (match.Groups.Count == 4)
                     {
-                        byte PIND = Byte.Parse(match.Groups[1].Value);
-                        byte PINB = Byte.Parse(match.Groups[2].Value);
+                        byte pind = Byte.Parse(match.Groups[1].Value);
+                        byte pinb = Byte.Parse(match.Groups[2].Value);
 
-                        int digitalPins = (PIND | (PINB << 8));
-                        for (int pos = 0; pos < _arduinoPorts.Length; pos++)
+                        int digitalPins = (pind | (pinb << 8));
+                        for (var pos = 0; pos < _arduinoPorts.Length; pos++)
                         {
                             digitalPins = digitalPins >> 2;
-                            int current = digitalPins & 3;
+                            //int current = digitalPins & 3;
 
                             //if (_footswitchParsers[pos] != null)
                             //    _messenger.Send(new ControllerStateMessage { States = _footswitchParsers[pos].ParseState(current, pos), Port = pos });
@@ -140,47 +137,47 @@ namespace MoonBurst.Core
 
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
+                    //TODO: loging
                 }
             }
         }
 
-        public List<InputCOMPortData> GetPorts()
+        public IEnumerable<InputComPortData> GetPorts()
         {
-            var result = new List<InputCOMPortData>();
+            var result = new List<InputComPortData>();
             try
             {
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SerialPort");
-                foreach (ManagementObject queryObj in searcher.Get())
+                foreach (var o in searcher.Get())
                 {
+                    var queryObj = (ManagementObject) o;
                     try
                     {
-                        result.Add(new InputCOMPortData()
+                        result.Add(new InputComPortData(queryObj["DeviceID"].ToString())
                         {
                             Name = queryObj["Name"].ToString(),
-                            Id = queryObj["DeviceID"].ToString(),
                             MaxBaudRate = Int32.Parse(queryObj["MaxBaudRate"].ToString())
                         });
                     }
                     catch
                     {
-
+                        //TODO: loging
                     }
                 }
                 if(!result.Any())
-                    result.Add(new InputCOMPortData() { Name = "No COM ports available...", Id = "", MaxBaudRate = 0});
+                    result.Add(new InputComPortData("") { Name = "No COM ports available...", MaxBaudRate = 0});
 
             }
-            catch (ManagementException e)
+            catch (ManagementException)
             {
                 //MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
             }
             return result;
         }
 
-        public List<int> GetRates()
+        public IEnumerable<int> GetRates()
         {
             return new List<int>
             {
