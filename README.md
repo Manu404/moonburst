@@ -11,7 +11,7 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 
  - Tranform your regular footswitch pedals into full midi controllers
  - Use existing midi interface to send midi or use [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) to create your own virtual interfaces
- - Host as a VST outputing midi (in dev)
+ - Host as a 32/64bit VST outputing midi (in dev)
  - Arduino hot-plug support
  - React to variety of triggers : 
    - Event
@@ -108,5 +108,6 @@ After posting the previous message and asking for review on several facebook mus
 # b33rz
 
 - [LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
-- [Tobias Erichsen](https://www.tobias-erichsen.de/) who developed loopmidi, making this whole application easier, I owe you two at least.
-- [Romain Caudron](https://www.facebook.com/RCAguitar/) (great) metal guitarist, for the borrowed ENGL, Peavy and Marshall amp footswitchs
+- [Tobias Erichsen](https://www.tobias-erichsen.de/) author of loopmidi
+- [Marc Jacobi](https://github.com/obiwanjacobi/vst.net) author of VST.net, allowing the project to be hosted as a VST
+- [Romain Caudron](https://www.facebook.com/RCAguitar/) for the borrowed footswitches
