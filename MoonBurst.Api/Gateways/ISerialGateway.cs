@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Parser;
 
-namespace MoonBurst.Api.Services
+namespace MoonBurst.Api.Gateways
 {
     public interface ISerialGateway
     {

@@ -1,8 +1,9 @@
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Parser;
 using MoonBurst.Core.Hardware.Arduino;
+using MoonBurst.Core.Hardware.Parser;
 
-namespace MoonBurst.Core.Hardware.Parser
+namespace MooBurst.Parser.Fs3X
 {
     public class Fs3XParser : IControllerParser
     {

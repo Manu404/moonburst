@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MoonBurst.Api.Enums;
 
-namespace MoonBurst.Api.Services
+namespace MoonBurst.Api.Gateways
 {
     public class MidiTriggerData
     {

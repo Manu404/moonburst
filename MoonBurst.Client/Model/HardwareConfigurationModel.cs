@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 
 namespace MoonBurst.Model
 {

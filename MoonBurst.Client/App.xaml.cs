@@ -3,7 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Parser;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Core;
 using MoonBurst.Core.Hardware.Parser;
 using MoonBurst.Core.Helper;
@@ -37,10 +37,10 @@ namespace MoonBurst
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IHardwareService)).WithServiceAllInterfaces());
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IGateway)).WithServiceAllInterfaces());
 
             container.Register(Component.For<IFootswitchParser>().ImplementedBy<MomentaryFootswitchParser>());
-            container.Register(Component.For<IControllerParser>().ImplementedBy<Fs3XParser>());
+            //container.Register(Component.For<IControllerParser>().ImplementedBy<Fs3XParser>());
             container.Register(Component.For<IMusicalNoteHelper>().ImplementedBy<MusicalNoteHelper>());
             container.Register(Component.For<IDynamicsHelper>().ImplementedBy<DynamicsHelper>());
 

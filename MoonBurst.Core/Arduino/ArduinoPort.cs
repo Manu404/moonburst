@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoonBurst.Api.Hardware;
 
-namespace MoonBurst.Core.Hardware.Arduino
+namespace MoonBurst.Core.Arduino
 {
     public class ArduinoPort : IArduinoPort
     {
@@ -13,7 +13,7 @@ namespace MoonBurst.Core.Hardware.Arduino
         {
             Position = index;
             AvailableDevices = new List<IDeviceDefinition>();
-            AvailableDevices.Add(new Fs3XDeviceDefinition());
+            //AvailableDevices.Add(new Fs3XDeviceDefinition());
         }
     }
 }

@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
 using MoonBurst.Api.Enums;
 using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;

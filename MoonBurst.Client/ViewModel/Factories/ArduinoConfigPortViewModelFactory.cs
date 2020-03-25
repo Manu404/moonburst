@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Core;
 
 namespace MoonBurst.ViewModel.Factories

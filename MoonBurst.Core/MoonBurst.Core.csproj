@@ -41,16 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hardware\Arduino\ArduinoGateway.cs" />
-    <Compile Include="Hardware\Arduino\ArduinoPort.cs" />
-    <Compile Include="Hardware\Arduino\Fs3xDeviceDefinition.cs" />
-    <Compile Include="Hardware\Arduino\GenericOneMomentarySwitchMonoJackDefinition.cs" />
-    <Compile Include="Hardware\Arduino\MomentaryFootswitchInput.cs" />
-    <Compile Include="Hardware\MidiGateway.cs" />
-    <Compile Include="Hardware\Parser\Fs3XParser.cs" />
-    <Compile Include="Hardware\Parser\MomentaryFootswitchParser.cs" />
-    <Compile Include="Hardware\SerialGateway.cs" />
-    <Compile Include="Hardware\TeVirtualMIDI.cs" />
+    <Compile Include="Arduino\ArduinoPort.cs" />
+    <Compile Include="Arduino\GenericOneMomentarySwitchMonoJackDefinition.cs" />
+    <Compile Include="Arduino\MomentaryFootswitchInput.cs" />
+    <Compile Include="Gateways\ArduinoGateway.cs" />
+    <Compile Include="Gateways\MidiGateway.cs" />
+    <Compile Include="Gateways\SerialGateway.cs" />
+    <Compile Include="Gateways\TeVirtualMIDI.cs" />
     <Compile Include="Helper\Dynamic.cs" />
     <Compile Include="Helper\DynamicsHelper.cs" />
     <Compile Include="Helper\FileAssociations.cs" />
@@ -58,11 +55,9 @@
     <Compile Include="Helper\MusicalNote.cs" />
     <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="IFactory.cs" />
+    <Compile Include="Parser\MomentaryFootswitchParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunningConfiguration.cs" />
-    <Compile Include="Serializer\IDataExtractor.cs" />
-    <Compile Include="Serializer\IFileSerializableType.cs" />
-    <Compile Include="Serializer\ISerializer.cs" />
     <Compile Include="Serializer\SerializerBase.cs" />
     <Compile Include="Serializer\XmlFileSerializer.cs" />
   </ItemGroup>

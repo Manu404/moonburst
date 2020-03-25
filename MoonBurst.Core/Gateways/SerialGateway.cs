@@ -7,12 +7,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Parser;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Core.Hardware.Parser;
 
 namespace MoonBurst.Core.Hardware
 {
-    public class SerialGateway : ISerialGateway, IHardwareService
+    public class SerialGateway : ISerialGateway, IGateway
     {
         private IControllerParser[] _footswitchParsers;
         private IArduinoPort[] _arduinoPorts;
@@ -49,7 +49,7 @@ namespace MoonBurst.Core.Hardware
             {
                 if (ports[i].ConnectedDevice != null)
                 {
-                    _footswitchParsers[i] = new Fs3XParser();
+                    //TODO: _footswitchParsers[i] = new Fs3XParser();
                 }
             }
         }

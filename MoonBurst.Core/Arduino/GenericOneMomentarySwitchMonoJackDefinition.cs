@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoonBurst.Api.Hardware;
 
-namespace MoonBurst.Core.Hardware.Arduino
+namespace MoonBurst.Core.Arduino
 {
     public class GenericOneMomentarySwitchMonoJackDefinition : IDeviceDefinition
     {

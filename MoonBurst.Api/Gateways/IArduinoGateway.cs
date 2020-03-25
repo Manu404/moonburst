@@ -1,7 +1,7 @@
 ﻿using MoonBurst.Api.Hardware;
 using System.Collections.Generic;
 
-namespace MoonBurst.Api.Services
+namespace MoonBurst.Api.Gateways
 {
     public interface IArduinoGateway
     {

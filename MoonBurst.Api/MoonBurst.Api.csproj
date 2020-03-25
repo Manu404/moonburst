@@ -42,7 +42,7 @@
     <Compile Include="Enums\MidiConnectionState.cs" />
     <Compile Include="Parser\FootswitchState.cs" />
     <Compile Include="Parser\MomentaryFootswitchState.cs" />
-    <Compile Include="Services\IArduinoGateway.cs" />
+    <Compile Include="Gateways\IArduinoGateway.cs" />
     <Compile Include="Hardware\IArduinoPort.cs" />
     <Compile Include="Hardware\IBooleanInput.cs" />
     <Compile Include="Parser\IControllerInputParser.cs" />
@@ -52,11 +52,14 @@
     <Compile Include="Hardware\IDeviceInput.cs" />
     <Compile Include="Parser\IFootswitchParser.cs" />
     <Compile Include="Parser\IFootswitchState.cs" />
-    <Compile Include="Services\IHardwareService.cs" />
-    <Compile Include="Services\IMidiGateway.cs" />
+    <Compile Include="Gateways\IGateway.cs" />
+    <Compile Include="Gateways\IMidiGateway.cs" />
     <Compile Include="Hardware\INumericInput.cs" />
-    <Compile Include="Services\ISerialGateway.cs" />
+    <Compile Include="Gateways\ISerialGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializer\IDataExtractor.cs" />
+    <Compile Include="Serializer\IFileSerializableType.cs" />
+    <Compile Include="Serializer\ISerializer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
