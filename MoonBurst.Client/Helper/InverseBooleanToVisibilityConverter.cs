@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace MoonBurst.Helper.UI
+namespace MoonBurst.Helper
 {
     [ValueConversion(typeof(bool), typeof(bool))]
     public class InverseBooleanToVisibilityConverter : IValueConverter

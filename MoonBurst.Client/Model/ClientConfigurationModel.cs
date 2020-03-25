@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Model.Serializable
+﻿namespace MoonBurst.Model
 {
     public class ClientConfigurationModel
     {

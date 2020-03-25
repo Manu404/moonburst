@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Enums;
 using MoonBurst.Api.Services;
 using MoonBurst.Core.Helper;
-using MoonBurst.Helper.UI;
+using MoonBurst.Helper;
 using MoonBurst.Model.Messages;
 using MoonBurst.ViewModel.Interfaces;
 

@@ -4,7 +4,6 @@ using MoonBurst.Api.Services;
 using MoonBurst.Core;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Model;
-using MoonBurst.Model.Serializable;
 
 namespace MoonBurst.ViewModel.Interfaces
 {

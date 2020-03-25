@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using MoonBurst.ViewModel;
 
-namespace MoonBurst.Model.Serializable
+namespace MoonBurst.Model
 {
     public class FunctoidChannelModel
     {

@@ -9,7 +9,6 @@ using MoonBurst.Core;
 using MoonBurst.Core.Hardware.Arduino;
 using MoonBurst.Model;
 using MoonBurst.Model.Messages;
-using MoonBurst.Model.Serializable;
 
 namespace MoonBurst.ViewModel
 {

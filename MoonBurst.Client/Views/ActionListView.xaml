@@ -4,7 +4,7 @@
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
-                    xmlns:ui="clr-namespace:MoonBurst.Helper.UI">
+                    xmlns:helper="clr-namespace:MoonBurst.Helper">
 
     <Style x:Key="ActionMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
@@ -201,12 +201,12 @@
                         </Style.Triggers>
                     </Style>
                 </ToggleButton.Style>
-                <ui:ToggleButtonAssist.SwitchTrackOnBackground>
+                <helper:ToggleButtonAssist.SwitchTrackOnBackground>
                     <SolidColorBrush Color="{DynamicResource GreenAccent200}"></SolidColorBrush>
-                </ui:ToggleButtonAssist.SwitchTrackOnBackground>
-                <ui:ToggleButtonAssist.SwitchTrackOffBackground>
+                </helper:ToggleButtonAssist.SwitchTrackOnBackground>
+                <helper:ToggleButtonAssist.SwitchTrackOffBackground>
                     <SolidColorBrush Color="{DynamicResource RedAccent200}"></SolidColorBrush>
-                </ui:ToggleButtonAssist.SwitchTrackOffBackground>
+                </helper:ToggleButtonAssist.SwitchTrackOffBackground>
             </ToggleButton>
 
             <Label Grid.Column="1" VerticalAlignment="Center" FontSize="11" ToolTip="{Binding ActionName}">

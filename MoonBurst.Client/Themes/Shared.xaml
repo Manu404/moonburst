@@ -4,13 +4,13 @@
                     xmlns:model="clr-namespace:MoonBurst.Api.Enums;assembly=MoonBurst.Api"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
-                    xmlns:ui="clr-namespace:MoonBurst.Helper.UI">
+                    xmlns:helper="clr-namespace:MoonBurst.Helper">
 
     <FontFamily x:Key="MetDemo">pack://application:,,,/img/#MetDemo</FontFamily>
 
-    <ui:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-    <ui:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
-    <ui:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
+    <helper:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    <helper:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
+    <helper:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
 
     <Style TargetType="{x:Type Ellipse}" x:Key="TriggerStatusEllipseControl">
         <Setter Property="Opacity" Value="0.1"/>
@@ -129,8 +129,8 @@
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}"/>
         <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
-        <Setter Property="ui:ToggleButtonAssist.SwitchTrackOnBackground" Value="{DynamicResource PrimaryHueLightBrush}"/>
-        <Setter Property="ui:ToggleButtonAssist.SwitchTrackOffBackground" Value="Black"/>
+        <Setter Property="helper:ToggleButtonAssist.SwitchTrackOnBackground" Value="{DynamicResource PrimaryHueLightBrush}"/>
+        <Setter Property="helper:ToggleButtonAssist.SwitchTrackOffBackground" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="0 1 0 0"/>
         <Setter Property="Template">
@@ -200,7 +200,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <Grid>
                             <Rectangle x:Name="Track" 
-                                       Fill= "{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.SwitchTrackOffBackground)}" 
+                                       Fill= "{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.SwitchTrackOffBackground)}" 
                                        Opacity="0.26"
                                        HorizontalAlignment="Left" 
                                        Height="15" 
@@ -248,16 +248,16 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="Thumb" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
-                            <Setter TargetName="Track" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.SwitchTrackOnBackground)}" />
+                            <Setter TargetName="Track" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.SwitchTrackOnBackground)}" />
                             <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="True" />
-                                <Condition Property="ui:ToggleButtonAssist.HasOnContent" Value="True" />
+                                <Condition Property="helper:ToggleButtonAssist.HasOnContent" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ContentPresenter" Property="Content" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.OnContent)}" />
-                            <Setter TargetName="ContentPresenter" Property="ContentTemplate" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.OnContentTemplate)}" />
+                            <Setter TargetName="ContentPresenter" Property="Content" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.OnContent)}" />
+                            <Setter TargetName="ContentPresenter" Property="ContentTemplate" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.OnContentTemplate)}" />
                         </MultiTrigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>

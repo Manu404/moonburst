@@ -17,7 +17,6 @@ using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
 using MoonBurst.Model;
 using MoonBurst.Model.Messages;
-using MoonBurst.Model.Serializable;
 using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel

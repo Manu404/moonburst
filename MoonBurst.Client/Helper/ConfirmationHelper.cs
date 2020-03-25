@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MoonBurst.Helper.UI
+namespace MoonBurst.Helper
 {
 
     class ConfirmationHelper

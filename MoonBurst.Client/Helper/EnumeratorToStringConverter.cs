@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace MoonBurst.Helper.UI
+namespace MoonBurst.Helper
 {
     public sealed class EnumeratorToStringConverter : IValueConverter
     {

@@ -1,6 +1,6 @@
 ﻿using MoonBurst.Api.Enums;
 
-namespace MoonBurst.Model.Serializable
+namespace MoonBurst.Model
 {
     public class FunctoidActionModel
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoonBurst.Api.Services;
 
-namespace MoonBurst.Model.Serializable
+namespace MoonBurst.Model
 {
     public class HardwareConfigurationModel
     {
