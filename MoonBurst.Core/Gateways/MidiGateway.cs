@@ -5,7 +5,7 @@ using MoonBurst.Api.Gateways;
 using Sanford.Multimedia.Midi;
 using ChannelCommand = Sanford.Multimedia.Midi.ChannelCommand;
 
-namespace MoonBurst.Core.Hardware
+namespace MoonBurst.Core.Gateways
 {
 
     public class MidiGateway : IMidiGateway, IGateway

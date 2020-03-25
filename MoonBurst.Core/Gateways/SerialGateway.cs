@@ -5,16 +5,15 @@ using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Threading;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Parser;
-using MoonBurst.Api.Gateways;
-using MoonBurst.Core.Hardware.Parser;
 
-namespace MoonBurst.Core.Hardware
+namespace MoonBurst.Core.Gateways
 {
     public class SerialGateway : ISerialGateway, IGateway
     {
-        private IControllerParser[] _footswitchParsers;
+        private IDeviceParser[] _footswitchParsers;
         private IArduinoPort[] _arduinoPorts;
         private SerialPort _serialPort;
         private bool _isConnected;
@@ -44,12 +43,12 @@ namespace MoonBurst.Core.Hardware
         private void InitializeParsers(IArduinoPort[] ports)
         {
             _arduinoPorts = ports;
-            _footswitchParsers = new IControllerParser[ports.Length];
+            _footswitchParsers = new IDeviceParser[ports.Length];
             for (var i = 0; i < ports.Length; i++)
             {
                 if (ports[i].ConnectedDevice != null)
                 {
-                    //TODO: _footswitchParsers[i] = new Fs3XParser();
+                    _footswitchParsers[i] = ports[i].ConnectedDevice.BuildParser();
                 }
             }
         }

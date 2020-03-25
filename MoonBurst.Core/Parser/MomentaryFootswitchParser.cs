@@ -21,7 +21,7 @@ namespace MoonBurst.Core.Hardware.Parser
                 : new MomentaryFootswitchState(FootswitchState.Releasing, index);
         }
 
-        IControllerInputState IControllerInputParser.ParseState(int state, int index)
+        IDeviceInputState IDeviceInputParser.ParseState(int state, int index)
         {
             return ParseState(state, index);
         }

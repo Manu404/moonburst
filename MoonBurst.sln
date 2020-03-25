@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Core", "MoonBurst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Api", "MoonBurst.Api\MoonBurst.Api.csproj", "{AC03D1C3-F830-4831-9660-147EC9A7C196}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooBurst.Parser.Fs3X", "MooBurst.Parser.Fs3X\MooBurst.Parser.Fs3X.csproj", "{9C64EEEC-1DFB-4512-837D-33150D62F148}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Parser.Fs3X", "MoonBurst.Parser.Fs3X\MoonBurst.Parser.Fs3X.csproj", "{9C64EEEC-1DFB-4512-837D-33150D62F148}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

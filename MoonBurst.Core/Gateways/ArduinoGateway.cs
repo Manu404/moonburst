@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Gateways;
+using MoonBurst.Api.Hardware;
 using MoonBurst.Core.Arduino;
 
-namespace MoonBurst.Core.Hardware.Arduino
+namespace MoonBurst.Core.Gateways
 {
 
     public class ArduinoGateway : IArduinoGateway, IGateway

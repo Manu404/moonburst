@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Parser;
 using MoonBurst.Core.Arduino;
-using MoonBurst.Core.Hardware.Arduino;
 
 namespace MooBurst.Parser.Fs3X
 {
@@ -19,5 +19,10 @@ namespace MooBurst.Parser.Fs3X
 
         public string Name => "FS3X Footswitch";
         public string Description => "Digitech FS3X Footswitch device";
+        
+        public IDeviceParser BuildParser()
+        {
+            return new Fs3XParser();
+        }
     }
 }

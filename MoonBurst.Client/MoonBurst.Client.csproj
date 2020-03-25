@@ -298,6 +298,10 @@
       <Project>{7781e238-1b16-41e4-85cb-bd35748905d2}</Project>
       <Name>MoonBurst.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MoonBurst.Parser.Fs3X\MoonBurst.Parser.Fs3X.csproj">
+      <Project>{9c64eeec-1dfb-4512-837d-33150d62f148}</Project>
+      <Name>MoonBurst.Parser.Fs3X</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

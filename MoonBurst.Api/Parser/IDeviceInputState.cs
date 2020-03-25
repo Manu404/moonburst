@@ -1,6 +1,6 @@
 namespace MoonBurst.Api.Parser
 {
-    public interface IControllerInputState
+    public interface IDeviceInputState
     {
         int Index { get; }
     }

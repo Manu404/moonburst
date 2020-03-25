@@ -1,11 +1,10 @@
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Parser;
-using MoonBurst.Core.Hardware.Arduino;
 using MoonBurst.Core.Hardware.Parser;
 
 namespace MooBurst.Parser.Fs3X
 {
-    public class Fs3XParser : IControllerParser
+    public class Fs3XParser : IDeviceParser
     {
         private const int SwitchCount = 3;
         private readonly MomentaryFootswitchParser[] _parser = new MomentaryFootswitchParser[SwitchCount];

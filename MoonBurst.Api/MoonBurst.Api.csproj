@@ -45,9 +45,9 @@
     <Compile Include="Gateways\IArduinoGateway.cs" />
     <Compile Include="Hardware\IArduinoPort.cs" />
     <Compile Include="Hardware\IBooleanInput.cs" />
-    <Compile Include="Parser\IControllerInputParser.cs" />
-    <Compile Include="Parser\IControllerInputState.cs" />
-    <Compile Include="Parser\IControllerParser.cs" />
+    <Compile Include="Parser\IDeviceInputParser.cs" />
+    <Compile Include="Parser\IDeviceInputState.cs" />
+    <Compile Include="Parser\IDeviceParser.cs" />
     <Compile Include="Hardware\IDeviceDefinition.cs" />
     <Compile Include="Hardware\IDeviceInput.cs" />
     <Compile Include="Parser\IFootswitchParser.cs" />
