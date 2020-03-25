@@ -38,12 +38,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Management.Instrumentation" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +53,8 @@
     <Compile Include="Hardware\TeVirtualMIDI.cs" />
     <Compile Include="Helper\Dynamic.cs" />
     <Compile Include="Helper\DynamicsHelper.cs" />
+    <Compile Include="Helper\FileAssociations.cs" />
+    <Compile Include="Helper\FileAssociationsHelper.cs" />
     <Compile Include="Helper\MusicalNote.cs" />
     <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="IFactory.cs" />

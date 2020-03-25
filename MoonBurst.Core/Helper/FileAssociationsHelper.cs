@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace MoonBurst.Helper
+namespace MoonBurst.Core.Helper
 {
     public class FileAssociationsHelper
     {

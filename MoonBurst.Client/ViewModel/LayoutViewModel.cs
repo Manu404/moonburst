@@ -4,6 +4,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
+using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
 using MoonBurst.ViewModel.Factories;

@@ -12,6 +12,7 @@ using MoonBurst.Api.Enums;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Services;
 using MoonBurst.Core;
+using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
 using MoonBurst.Model;

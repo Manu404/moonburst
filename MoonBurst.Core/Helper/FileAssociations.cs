@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
-namespace MoonBurst.Helper
+namespace MoonBurst.Core.Helper
 {
     public class FileAssociations
     {

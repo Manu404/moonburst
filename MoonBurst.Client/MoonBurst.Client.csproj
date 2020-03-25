@@ -151,24 +151,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\IViewModel.cs" />
-    <Compile Include="Helper\FileAssociationsHelper.cs" />
-    <Compile Include="Helper\UI\InverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Helper\UI\ValueConverterGroup.cs" />
+    <Compile Include="Helper\ConfirmationHelper.cs" />
+    <Compile Include="Helper\EnumeratorToStringConverter.cs" />
+    <Compile Include="Helper\InverseBooleanConverter.cs" />
+    <Compile Include="Helper\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helper\ToggleButtonAssist.cs" />
+    <Compile Include="Model\ArduinoPortConfigModel.cs" />
+    <Compile Include="Model\ClientConfigurationModel.cs" />
+    <Compile Include="Model\FunctoidActionModel.cs" />
+    <Compile Include="Model\FunctoidChannelModel.cs" />
+    <Compile Include="Model\HardwareConfigurationModel.cs" />
+    <Compile Include="Model\LayoutModel.cs" />
     <Compile Include="Model\Messages\DeleteFunctoidActionMessage.cs" />
-    <Compile Include="Model\Serializable\ArduinoPortConfigModel.cs" />
-    <Compile Include="Model\Serializable\FunctoidActionModel.cs" />
-    <Compile Include="Model\Serializable\FunctoidChannelModel.cs" />
     <Compile Include="ViewModel\ClientConfigurationViewModel.cs" />
     <Compile Include="ViewModel\DeviceInputViewModel.cs" />
     <Compile Include="ViewModel\Factories\ArduinoConfigPortViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\DeviceInputViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\FunctoidActionViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\FunctoidChannelViewModelFactory.cs" />
-    <Compile Include="Helper\UI\ConfirmationHelper.cs" />
-    <Compile Include="Helper\UI\EnumeratorToStringConverter.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
     <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
-    <Compile Include="Model\Serializable\ClientConfigurationModel.cs" />
     <Compile Include="ViewModel\Interfaces\IArduinoConfigPortViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IDeviceInputViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IFunctoidActionViewModel.cs" />
@@ -176,18 +178,15 @@
     <Compile Include="ViewModel\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IClientConfigurationViewModel.cs" />
     <Compile Include="ViewModel\Serializer\ClientConfigurationViewModelSerializer.cs" />
-    <Compile Include="Model\Serializable\HardwareConfigurationModel.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidActionViewModelDataSerializer.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidChannelViewModelDataSerializer.cs" />
     <Compile Include="ViewModel\Serializer\HardwareConfigurationViewModelSerializer.cs" />
     <Compile Include="ViewModel\Interfaces\IHardwareConfigurationViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\ILayoutViewModel.cs" />
-    <Compile Include="Model\Serializable\LayoutModel.cs" />
     <Compile Include="ViewModel\Serializer\LayoutViewModelSerializer.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helper\FileAssociations.cs" />
     <Compile Include="ViewModel\FunctoidActionViewModel.cs" />
     <Compile Include="ViewModel\FunctoidChannelViewModel.cs" />
     <Compile Include="ViewModel\HardwareConfigurationViewModel.cs" />
@@ -195,11 +194,8 @@
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helper\UI\EnumToItemsSource.cs" />
-    <Compile Include="Helper\UI\InverseBooleanConverter.cs" />
     <Compile Include="Model\Messages\DeleteFunctoidChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="Helper\UI\ToggleButtonAssist.cs" />
     <Page Include="Themes\Imports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -303,6 +299,5 @@
       <Name>MoonBurst.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
