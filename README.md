@@ -39,7 +39,7 @@ Here's some pics and buylist for the mk1 prototype. The enclosure was one lying 
 - Enclosure
 - 4 dual TRS female / [thomann (2.88€/u)](https://www.thomann.de/be/neutrik_nsj12_hh_1.htm)
 - TRS connector mounting screws / [thomann (0.98€/u)](https://www.thomann.de/be/neutrik_nrj_nut_b.htm)
-- Arduino Uno (cheaper clone mostly works) / [amazon (25€/u)](https://www.amazon.fr/Arduino-A000066-M%C3%A9moire-flash-32/dp/B008GRTSV6/)
+- Arduino Uno (or compatible clone) / [amazon (25€/u)](https://www.amazon.fr/Arduino-A000066-M%C3%A9moire-flash-32/dp/B008GRTSV6/)
 - Dupont connectors sets / [amazon (10€/set)](https://www.amazon.fr/ARCELI-Connecteur-Goupilles-Adaptateur-Assortiment/dp/B07PVVD26W/)
 - Signal wire set, 9 color, 60m / [amazon(15€)](https://www.amazon.fr/Kit-fil-fixation-10-couleurs-60-m/dp/B001IRQRRO/)
 
@@ -63,7 +63,7 @@ If you have those, it would be amazing to send us a message about your expérien
 *Full*
  - Generic Switch/Tap on mono interface
  - Generic 2 Switch/Tap on stereo interface
- - Generic Pot (expression pedal) on mono interface (this will enable support of most volume pedal on the market from known manufacturer)
+ - Generic Pot (expression pedal) on mono interface (this will enable support of most expresion pedal on the market from known manufacturer)
  
 *Half*
  - Boss FS6
