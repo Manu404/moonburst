@@ -306,7 +306,7 @@
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button Style="{StaticResource MaterialDesignIconButton}" 
                                 Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True" 
-                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
                                 ToolTip="Add trigger"
                                 Command="{Binding OnAddActionCommand}">
                             <materialDesign:PackIcon Kind="Add" Width="15" Height="15" />
@@ -314,7 +314,7 @@
 
                         <Button Style="{StaticResource MaterialDesignIconButton}" 
                                 Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True"
-                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
                                 ToolTip="Trigger functoid"
                                 Command="{Binding OnTriggerCommand}">
                             <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
@@ -322,14 +322,14 @@
 
                         <Button Style="{StaticResource MaterialDesignIconButton}" 
                                 Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True"
-                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
                                 ToolTip="Expand all trigger"
                                 Command="{Binding OnExpandActionsCommand}">
                             <materialDesign:PackIcon Kind="ArrowExpandHorizontal" Width="15" Height="15" />
                         </Button>
                         <Button Style="{StaticResource MaterialDesignIconButton}" 
                                 Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True" 
-                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
                                 ToolTip="Collapse all trigger"
                                 Command="{Binding OnCollapseActionsCommand}">
                             <materialDesign:PackIcon Kind="ArrowCollapseHorizontal" Width="15" Height="15" />
@@ -337,7 +337,7 @@
 
                         <Button Style="{StaticResource MaterialDesignIconButton}" 
                                 Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True"
-                                Foreground="{StaticResource FlatButtonBackgroundBrush}"
+                                Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
                                 ToolTip="Delete functoid"
                                 Command="{Binding OnDeleteCommand}">
                             <materialDesign:PackIcon Kind="Delete" Width="15" Height="15" />

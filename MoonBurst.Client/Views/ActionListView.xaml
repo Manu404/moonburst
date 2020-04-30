@@ -383,7 +383,7 @@
 
     <DataTemplate x:Key="ActionListItemTemplate" DataType="viewModel:FunctoidActionViewModel">
         <materialDesign:Card  HorizontalAlignment="Stretch" 
-                              Foreground="{StaticResource IdealForegroundDisabledBrush}"
+                              Foreground="{StaticResource MahApps.Brushes.IdealForeground}"
                                   materialDesign:ShadowAssist.ShadowDepth="Depth1" 
                               MaxWidth="215"
                                   Padding="1"  Margin="0,0,0,5">
