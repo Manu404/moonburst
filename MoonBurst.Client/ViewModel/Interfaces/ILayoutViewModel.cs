@@ -9,7 +9,7 @@ namespace MoonBurst.ViewModel.Interfaces
         ObservableCollection<IFunctoidChannelViewModel> FunctoidChannels { get; set; }
         
         void Close();
-        void LoadLastConfig();
+        void LoadLast();
         void DeleteChannel(IFunctoidChannelViewModel channel);
     }
 }

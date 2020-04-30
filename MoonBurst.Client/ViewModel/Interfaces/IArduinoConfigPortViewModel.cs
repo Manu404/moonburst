@@ -21,6 +21,6 @@ namespace MoonBurst.ViewModel
         void ToggleEnable();
         void Connect(string obj);
         void RefreshInputs();
-        ArduinoPortConfigModel GetData();
+        ArduinoPortConfigModel GetModel();
     }
 }

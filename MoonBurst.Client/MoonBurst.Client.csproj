@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.1661</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.1662</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -171,6 +171,7 @@
     <Compile Include="ViewModel\Factories\FunctoidChannelViewModelFactory.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
     <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
+    <Compile Include="ViewModel\ILoadSaveDialogProvider.cs" />
     <Compile Include="ViewModel\Interfaces\IArduinoConfigPortViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IDeviceInputViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IFunctoidActionViewModel.cs" />

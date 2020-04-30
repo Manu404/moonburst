@@ -20,7 +20,27 @@ using MoonBurst.Model.Messages;
 using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
-{
+{ 
+    public class LoadSaveDialogProvider : ILoadSaveDialogProvider
+    {
+        public string ShowSaveDialog(string title, string filter)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = filter;
+            saveFileDialog1.Title = title;
+            saveFileDialog1.ShowDialog();
+            return saveFileDialog1.FileName;
+        }
+
+        public string ShowLoadDialog(string title, string filter)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = filter;
+            openFileDialog1.Title = title;
+            return openFileDialog1.FileName;
+        }
+    }
+
     public class HardwareConfigurationViewModel : ViewModelBase, IHardwareConfigurationViewModel
     {
         private readonly IMidiGateway _midiGateway;
@@ -29,6 +49,7 @@ namespace MoonBurst.ViewModel
         private readonly IClientConfigurationViewModel _config;
         private readonly ISerializer<IHardwareConfigurationViewModel> _serializer;
         private readonly IFactory<IArduinoConfigPortViewModel, IArduinoPort> _arduinoPortFactory;
+        private readonly ILoadSaveDialogProvider _dialogProvider;
 
         private bool _isMidiConnected;
         private bool _isComConnected;
@@ -115,6 +136,8 @@ namespace MoonBurst.ViewModel
             _serializer = serializer;
             _arduinoPortFactory = arduinoPortFactory;
 
+            _dialogProvider = new LoadSaveDialogProvider();
+
             ArduinoPorts = new ObservableCollection<IArduinoConfigPortViewModel>();
             OutputMidiDevices = new ObservableCollection<OutputMidiDeviceData>();
             InputComPorts = new ObservableCollection<InputComPortData>();
@@ -126,9 +149,9 @@ namespace MoonBurst.ViewModel
             OnRefreshMidiCommand = new RelayCommand(OnRefreshMidiDevices, () => !this.IsMidiConnected);
             OnSendMidiTestCommand = new RelayCommand(() => _midiGateway.SendTest(), () => IsMidiConnected);
             
-            LoadConfigCommand = new RelayCommand(OnLoadConfig);
-            SaveConfigCommand = new RelayCommand(SaveLastConfig);
-            SaveAsConfigCommand = new RelayCommand(OnSaveAsConfig);
+            LoadConfigCommand = new RelayCommand(OnLoad);
+            SaveConfigCommand = new RelayCommand(SaveLast);
+            SaveAsConfigCommand = new RelayCommand(OnSaveAs);
 
             OnRefreshMidiDevices();
             OnRefreshCOMDevices();
@@ -210,29 +233,15 @@ namespace MoonBurst.ViewModel
                 }
             }
         }
-
-        private void OnSaveAsConfig()
+               
+        private void OnSaveAs()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = FileAssociationsHelper.ConfigFilter;
-            saveFileDialog1.Title = "Save layout";
-            saveFileDialog1.ShowDialog();
-
-            if (saveFileDialog1.FileName != "")
-            {
-                _serializer.Save(this, saveFileDialog1.FileName);
-            }
+            Save(_dialogProvider.ShowSaveDialog("Save config", FileAssociationsHelper.ConfigFilter));
         }
 
-        private void OnLoadConfig()
+        private void OnLoad()
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = FileAssociationsHelper.ConfigFilter;
-            openFileDialog1.Title = "Load layout";
-            if (openFileDialog1.ShowDialog() == true)
-            {
-                _serializer.Load(openFileDialog1.FileName, this);
-            }
+            Load(_dialogProvider.ShowSaveDialog("Load config", FileAssociationsHelper.ConfigFilter));
         }
 
         public void Save(string path)
@@ -241,18 +250,18 @@ namespace MoonBurst.ViewModel
             _config.LastHardwareConfigurationPath = path;
         }
 
-        public void Load(string path, IHardwareConfigurationViewModel source)
+        public void Load(string path)
         {
             _serializer.Load(path, this);
             _config.LastHardwareConfigurationPath = path;
         }
 
-        public void LoadLastConfig()
+        public void LoadLast()
         {
-            Load(_config.LastHardwareConfigurationPath, this);
+            Load(_config.LastHardwareConfigurationPath);
         }
 
-        public void SaveLastConfig()
+        public void SaveLast()
         {
             Save(_config.LastHardwareConfigurationPath);
         }

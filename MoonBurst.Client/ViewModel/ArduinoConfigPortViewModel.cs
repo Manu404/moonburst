@@ -110,7 +110,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ArduinoPortConfigModel GetData()
+        public ArduinoPortConfigModel GetModel()
         {
             return new ArduinoPortConfigModel()
             {

@@ -15,7 +15,7 @@ namespace MoonBurst.ViewModel.Interfaces
         int SelectedSpeed { get; set; }
 
         void Close();
-        void LoadLastConfig();
+        void LoadLast();
         void UpdateArduinoPorts(List<ArduinoPortConfigModel> data);
     }
 }
