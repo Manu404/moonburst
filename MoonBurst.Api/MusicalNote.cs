@@ -10,5 +10,6 @@
 
         public string Name { get; }
         public int Value { get; }
+        public string DisplayNameDetailed { get => $"{Name} ({Value})"; }
     }
 }

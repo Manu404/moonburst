@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.20</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.25</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,11 +48,9 @@
     <Compile Include="Gateways\MidiGateway.cs" />
     <Compile Include="Gateways\SerialGateway.cs" />
     <Compile Include="Gateways\TeVirtualMIDI.cs" />
-    <Compile Include="Helper\Dynamic.cs" />
     <Compile Include="Helper\DynamicsHelper.cs" />
     <Compile Include="Helper\FileAssociations.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
-    <Compile Include="Helper\MusicalNote.cs" />
     <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="Parser\MomentaryFootswitchParser.cs" />

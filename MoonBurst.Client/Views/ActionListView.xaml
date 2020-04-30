@@ -209,80 +209,100 @@
                 </helper:ToggleButtonAssist.SwitchTrackOffBackground>
             </ToggleButton>
 
-            <Label Grid.Column="1" VerticalAlignment="Center" FontSize="11" ToolTip="{Binding ActionName}">
-                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ActionName}" />
+            <Label Grid.Column="1" VerticalAlignment="Center" FontSize="11" ToolTip="{Binding DisplayNameToolTip}">
+                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding DisplayName}" />
             </Label>
         </Grid>
     </DataTemplate>
 
-     <Style TargetType="mah:NumericUpDown">
-        <Setter Property="Minimum" Value="0" />
-        <Setter Property="Maximum" Value="0" />
-        <Setter Property="TextAlignment" Value="0" />
+    <Style TargetType="{x:Type mah:NumericUpDown}">
+        <Setter Property="HideUpDownButtons" Value="True" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Interval"  Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Minimum" Value="1"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="HideUpDownButtons" Value="False" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
-
+    <Style TargetType="{x:Type UniformGrid}">
+    </Style>
     <!-- Action Editor Body -->
     <DataTemplate x:Key="ActionEditorBodyItemTemplate" DataType="viewModel:FunctoidActionViewModel">
+        
         <Border Margin="10,0,10,0">
             <StackPanel>
-                <StackPanel Margin="0, 10, 0, 0" Width="225">
-                    <StackPanel Orientation="Horizontal">
-                        <Label Style="{DynamicResource ActionEditorFieldLabel}" 
-                                   Content="Trigger" />
-                        <ComboBox materialDesign:HintAssist.Hint="Command"
-                                      ToolTip="Command" Width="150"
-                                      ItemsSource="{Binding Source={StaticResource FootTriggerValues}}"
-                                      SelectedItem="{Binding Trigger}">
+                <StackPanel Margin="0, 10, 0, 0">
+
+
+                    <!-- trigger -->
+                    <Border Style="{StaticResource ChannelActionEditorBorderStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="1"
+                                        materialDesign:HintAssist.Hint="Trigger"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        ToolTip="Trigger"
+                                        BorderThickness="0"
+                                        ItemsSource="{Binding Source={StaticResource FootTriggerValues}}"
+                                        SelectedItem="{Binding Trigger}">
+                            </ComboBox>
+                        </Grid>
+                    </Border>
+
+
+                    <!-- command -->
+                    <!-- channel -->
+                    <UniformGrid Columns="2">
+                        <ComboBox materialDesign:HintAssist.Hint="Command" Margin="0,0,5,0"
+                                    materialDesign:HintAssist.IsFloating="True"
+                                    ToolTip="Command"
+                                    BorderThickness="0" 
+                                  materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    ItemsSource="{Binding Source={StaticResource MidiChannelCommandValues}}"
+                                    SelectedItem="{Binding Command}">
                         </ComboBox>
-                    </StackPanel>
+                        <mah:NumericUpDown Maximum="16"
+                                            materialDesign:HintAssist.Hint="Midi Channel"
+                                            ToolTip="Midi Channel"
+                                            Value="{Binding MidiChannel}" />
+                    </UniformGrid>
 
-                    <ComboBox Margin="5,0,0,10"
-                                  materialDesign:HintAssist.Hint="Command"
-                                  ToolTip="Command"
-                                  ItemsSource="{Binding Source={StaticResource MidiChannelCommandValues}}"
-                                  SelectedItem="{Binding Command}">
-                    </ComboBox>
-                    
-                    <StackPanel Orientation="Horizontal">
-                        <Label Style="{DynamicResource ActionEditorFieldLabel}" 
-                                   Content="Channel" />
-                        <mah:NumericUpDown  Width="150"
-                                                Minimum="1" 
-                                                Maximum="16"
-                                                TextAlignment="Left"
-                                                HorizontalContentAlignment="Stretch"
-                                                materialDesign:HintAssist.Hint="Midi Channel"
-                                                ToolTip="Midi Channel"
-                                                Value="{Binding MidiChannel}"
-                                                Interval="1" />
-                    </StackPanel>
+                    <!-- Data1 -->
+                    <!-- Data2 -->
+                    <UniformGrid Columns="2" Visibility="{Binding IsMusicalMode, Converter={StaticResource InverseBooleanVisibilityConverter}}">
+                        <mah:NumericUpDown Maximum="128" Margin="0,0,5,0"
+                                               materialDesign:HintAssist.Hint="Data 1"
+                                               ToolTip="Data 1"
+                                               Value="{Binding Data1}" />
+                        <mah:NumericUpDown Maximum="128" 
+                                               materialDesign:HintAssist.Hint="Data 2"
+                                               ToolTip="Data 2"
+                                               Value="{Binding Data2}" />
+                    </UniformGrid>
 
-                    <StackPanel Orientation="Horizontal" Visibility="{Binding IsMusicalMode, Converter={StaticResource InverseBooleanVisibilityConverter}}">
-                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
-                                   Content="Data 1"/>
-                        <mah:NumericUpDown  Width="150" 
-                                                Minimum="1"
-                                                Maximum="128"
-                                                TextAlignment="Left"
-                                                HorizontalContentAlignment="Stretch"
-                                                materialDesign:HintAssist.Hint="Data 1"
-                                                ToolTip="Data 1"
-                                                Value="{Binding Data1}"
-                                                Interval="1" />
-                    </StackPanel>
-
-
-                    <StackPanel Orientation="Horizontal" Visibility="{Binding IsMusicalMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
-                                   Content="Pitch"/>
-                        <ComboBox
-                                materialDesign:HintAssist.Hint="Note"
-                                MinWidth="150"
-                                VerticalAlignment="Stretch"
-                                Margin="0,0,0,5"
-                                ItemsSource="{Binding AvailableNotes}"
-                                SelectedValue="{Binding Data1}"
-                                SelectedValuePath="Value">
+                    <!-- Note -->
+                    <!-- Velocity -->
+                    <UniformGrid Columns="2" Visibility="{Binding IsMusicalMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <ComboBox Margin="0,0,5,0"
+                                    materialDesign:HintAssist.Hint="Note"
+                                    materialDesign:HintAssist.IsFloating="True"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    ItemsSource="{Binding AvailableNotes}"
+                                    SelectedValue="{Binding Data1}"
+                                    SelectedValuePath="Value">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"></TextBlock>
@@ -294,92 +314,50 @@
                                 </ItemsPanelTemplate>
                             </ComboBox.ItemsPanel>
                         </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Visibility="{Binding IsMusicalMode, Converter={StaticResource InverseBooleanVisibilityConverter}}">
-                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
-                                   Content="Data 2"/>
-                        <mah:NumericUpDown  Width="150"
-                                                Minimum="1"
-                                                Maximum="128"
-                                                TextAlignment="Left"
-                                                HorizontalContentAlignment="Stretch"
-                                                materialDesign:HintAssist.Hint="Data 2"
-                                                ToolTip="Data 2"
-                                                Value="{Binding Data2}"
-                                                Interval="1" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"  Visibility="{Binding IsMusicalMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
-                                   Content="Velocity"/>
-                        <ComboBox
-                                materialDesign:HintAssist.Hint="Note"                                
-                                MinWidth="150"
-                                Margin="0,0,0,5"
-                                ItemsSource="{Binding AvailableDynamics}"
-                                SelectedValue="{Binding Data2}"
-                                SelectedValuePath="Value">
+                        
+                        <ComboBox   materialDesign:HintAssist.Hint="Velocity" 
+                                    materialDesign:HintAssist.IsFloating="True"
+                                    BorderThickness="0" 
+                                    Background="Transparent"
+                                    ItemsSource="{Binding AvailableDynamics}"
+                                    SelectedValue="{Binding Data2}"
+                                    SelectedValuePath="Value">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Height="20">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Grid.Column="0" >
-                                            <TextBlock TextOptions.TextRenderingMode="ClearType" VerticalAlignment="Center"
-                                                   TextOptions.TextFormattingMode="Display"  
-                                               FontFamily="Century" 
-                                               FontWeight="Bold" 
-                                               FontStyle="Italic"
-                                               FontStretch="Condensed"
-                                               Foreground="LightGray"
-                                               FontSize="14"
-                                               Text="{Binding Name}"></TextBlock>
+                                    <StackPanel Orientation="Horizontal" Height="25">
+                                        <Border>
+                                            <TextBlock VerticalAlignment="Center"
+                                                   FontFamily="/MoonBurst.Client;component/img/#Sonata" 
+                                                   FontSize="22"
+                                                   Padding="0,10,0,0"
+                                                   Text="{Binding Display}"></TextBlock>
                                         </Border>
-
-                                        <Border Grid.Column="1" >
-                                            <TextBlock  VerticalAlignment="Center"
-                                                TextOptions.TextRenderingMode="ClearType"  
-                                                TextOptions.TextFormattingMode="Display"   
-                                               FontWeight="UltraLight" 
-                                               FontStyle="Italic"
-                                               Foreground="LightGray"
-                                               FontSize="10"
-                                               Text="{Binding ValueDisplay}"></TextBlock>
-
+                                        <Border>
+                                            <TextBlock VerticalAlignment="Center"
+                                                   FontSize="10"
+                                                   Padding="3,0,0,10"
+                                                   Text="{Binding ValueDisplay}"></TextBlock>
                                         </Border>
-
-                                    </Grid>
+                                    </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                    </StackPanel>
+                    </UniformGrid>
+                    
+                    <!-- delay -->
+                    <Border Style="{StaticResource ChannelActionEditorBorderStyle}">
+                        <mah:NumericUpDown Maximum="128"
+                                                    materialDesign:HintAssist.Hint="Delay"
+                                                    ToolTip="Delay"
+                                                    Value="{Binding Delay}" />
+                    </Border>
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label Style="{DynamicResource ActionEditorFieldLabel}"
-                                   Content="Delay(ms)"/>
-                        <mah:NumericUpDown  Width="150"
-                                                Minimum="0"
-                                                Maximum="128"
-                                                TextAlignment="Left"
-                                                HorizontalContentAlignment="Stretch"
-                                                materialDesign:HintAssist.Hint="Data 2"
-                                                ToolTip="Data 2"
-                                                Value="{Binding Delay}"
-                                                Interval="1" />
-                    </StackPanel>
-
-
-
+                    <!-- footer action editor button -->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 8 0 8" Grid.Column="1">
                             <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     Width="20" Height="20"
@@ -405,8 +383,10 @@
 
     <DataTemplate x:Key="ActionListItemTemplate" DataType="viewModel:FunctoidActionViewModel">
         <materialDesign:Card  HorizontalAlignment="Stretch" 
+                              Foreground="{StaticResource IdealForegroundDisabledBrush}"
                                   materialDesign:ShadowAssist.ShadowDepth="Depth1" 
-                                  Padding="1"  Margin="5">
+                              MaxWidth="215"
+                                  Padding="1"  Margin="0,0,0,5">
             <Expander IsExpanded="{Binding IsExpanded}" 
                           Content="{Binding}" Header="{Binding}" 
                           HorizontalAlignment="Stretch" Name="exp"

@@ -15,7 +15,7 @@ namespace MoonBurst.Core.Helper
         {
             int[] midi = { 10, 23, 36, 49, 62, 75, 88, 101, 114, 127 };
             string[] name = { "pppp", "ppp", "pp", "p", "mp", "mf", "f", "ff", "fff", "ffff" };
-            string[] display = { "OO", "OP", "O", "P", "mP", "mF", "F", "D", "DF", "DD" };
+            string[] display = { "pppp", "ppp", "pp", "p", "P", "F", "f", "ff", "fff", "ffff" };
 
             AvailableDynamics = new List<Dynamic>();
 

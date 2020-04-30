@@ -33,9 +33,20 @@ namespace MoonBurst.ViewModel
         private bool _isMusicalMode;
         private bool _forceNumericMode;
 
-        public string ActionName
+        public string DisplayName
         {
-            get => $"On {Trigger} \n{Command}({Data1},{Data2}) Channel({MidiChannel})";
+            get => $"On {Trigger}\n{Command}({MidiChannel},{Data1},{Data2})";
+        }
+
+        public string DisplayNameToolTip
+        {
+            get => $"On {Trigger}\nMessage: {Command}\nChannel: {MidiChannel}\nData1: {Data1}\nData2: {Data2}";
+        }
+
+        private void RefreshTitle()
+        {
+            RaisePropertyChanged("DisplayName");
+            RaisePropertyChanged("DisplayNameToolTip");
         }
 
         public FootTrigger Trigger
@@ -45,7 +56,7 @@ namespace MoonBurst.ViewModel
             {
                 _trigger = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("ActionName");
+                RefreshTitle();
             }
         }
 
@@ -56,7 +67,7 @@ namespace MoonBurst.ViewModel
             {
                 _midiChannel = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("ActionName");
+                RefreshTitle();
             }
         }
 
@@ -67,7 +78,7 @@ namespace MoonBurst.ViewModel
             {
                 _data1 = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("ActionName");
+                RefreshTitle();
             }
         }
 
@@ -78,7 +89,7 @@ namespace MoonBurst.ViewModel
             {
                 _data2 = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("ActionName");
+                RefreshTitle();
             }
         }
 
@@ -90,7 +101,7 @@ namespace MoonBurst.ViewModel
                 _command = value;
                 RaisePropertyChanged();
                 IsMusicalMode = (Command == ChannelCommand.NoteOn || Command == ChannelCommand.NoteOff) && !ForceNumericMode;
-                RaisePropertyChanged("ActionName");
+                RefreshTitle();
             }
         }
 

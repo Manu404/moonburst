@@ -13,6 +13,6 @@
         public int Value { get; }
         public string Display { get; }
         
-        public string ValueDisplay => $" - ({Value})";
+        public string ValueDisplay => $"\f({Value})";
     }
 }

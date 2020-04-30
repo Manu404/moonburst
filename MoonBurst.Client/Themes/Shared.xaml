@@ -34,22 +34,33 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
+    
     <Style TargetType="Label" x:Key="ActionEditorFieldLabel" BasedOn="{StaticResource MaterialDesignLabel}">
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="FontSize" Value="13" />
-        <Setter Property="Width" Value="75"></Setter>
+        <Setter Property="Width" Value="75" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Opacity" Value="0.5" />
+        <Setter Property="Foreground"
+            Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
     </Style>
 
     <Style x:Key="InputDescriptionLabel" BasedOn="{StaticResource MaterialDesignLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="11" />
-        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{StaticResource MaterialDesignBody}" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <Style x:Key="ChannelActionEditorBorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignBody}" />
+    </Style>
+    
     <DataTemplate x:Key="InputDescriptionComboboxTemplate" DataType="viewModel:DeviceInputViewModel">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -120,7 +131,7 @@
     <SolidColorBrush x:Key="CheckmarkFill" Color="{DynamicResource 'Deep PurplePrimary500'}"/>
     <SolidColorBrush x:Key="RightArrowFill" Color="{DynamicResource 'Deep PurplePrimary500'}"/>
     <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{DynamicResource 'Deep PurplePrimary500Foreground'}"/>
-    <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource 'Deep PurplePrimary500'}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource 'Deep PurplePrimary500Foreground'}" Opacity="0.8"/>
     <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
     <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchMouseOverBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary400'}" />
     <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.ThumbIndicatorCheckedBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
@@ -286,4 +297,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>

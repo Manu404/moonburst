@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.19</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.24</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,9 +37,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dynamic.cs" />
     <Compile Include="Enums\ChannelCommand.cs" />
     <Compile Include="Enums\FootTrigger.cs" />
     <Compile Include="Enums\MidiConnectionState.cs" />
+    <Compile Include="MusicalNote.cs" />
     <Compile Include="Parser\FootswitchState.cs" />
     <Compile Include="Parser\MomentaryFootswitchState.cs" />
     <Compile Include="Gateways\IArduinoGateway.cs" />
