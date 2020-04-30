@@ -1,6 +1,6 @@
 namespace MoonBurst.Api.Parser
 {
-    public interface IFootswitchParser : IControllerInputParser
+    public interface IFootswitchParser : IDeviceInputParser
     {
         new IFootswitchState ParseState(int state, int index);
     }

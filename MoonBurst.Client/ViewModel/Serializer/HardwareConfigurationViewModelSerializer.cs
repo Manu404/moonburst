@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using MoonBurst.Core.Serializer;
-using MoonBurst.Model.Serializable;
+using MoonBurst.Model;
 using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Serializer
@@ -14,7 +14,7 @@ namespace MoonBurst.ViewModel.Serializer
                 ComPort = source.SelectedComPort,
                 MidiOut = source.SelectedOutputMidiDevice,
                 Speed = source.SelectedSpeed,
-                ArduinoPorts = source.ArduinoPorts.ToList().ConvertAll(c => c.GetData()).ToList()
+                ArduinoPorts = source.ArduinoPorts.ToList().ConvertAll(c => c.GetModel()).ToList()
             };
         }
 

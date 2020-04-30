@@ -1,9 +1,8 @@
 ﻿using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
-using MoonBurst.Model.Serializable;
 using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Factories

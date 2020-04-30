@@ -4,6 +4,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
+using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
 using MoonBurst.ViewModel.Factories;
@@ -13,9 +14,10 @@ namespace MoonBurst.ViewModel
 {
     public class LayoutViewModel : ViewModelBase, ILayoutViewModel
     {
-        private IClientConfigurationViewModel _config;
-        private ISerializer<ILayoutViewModel> _serializer;
-        private IFunctoidChannelViewModelFactory _channelFactory;
+        private readonly IClientConfigurationViewModel _config;
+        private readonly ISerializer<ILayoutViewModel> _serializer;
+        private readonly IFunctoidChannelViewModelFactory _channelFactory;
+        private readonly ILoadSaveDialogProvider _dialogProvider;
 
         public ObservableCollection<IFunctoidChannelViewModel> FunctoidChannels { get; set; }
 
@@ -35,6 +37,8 @@ namespace MoonBurst.ViewModel
             _config = clientConfiguration;
             _serializer = serializer;
             _channelFactory = channelFactory;
+
+            _dialogProvider = new LoadSaveDialogProvider();
 
             FunctoidChannels = new ObservableCollection<IFunctoidChannelViewModel>();
             FunctoidChannels.CollectionChanged += (o,e) => UpdateIndexes();
@@ -73,27 +77,19 @@ namespace MoonBurst.ViewModel
             FunctoidChannels.Remove(channel);
         }
 
+        public void Close()
+        {
+            OnSaveLayoutCommand.Execute(null);
+        }
+
         private void OnSaveAsLayout()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = FileAssociationsHelper.LayoutFilter;
-            saveFileDialog1.Title = "Save layout";
-            saveFileDialog1.ShowDialog();
-            if (saveFileDialog1.FileName != "")
-            {
-                Save(saveFileDialog1.FileName);
-            }
+            Save(_dialogProvider.ShowSaveDialog("Save layout", FileAssociationsHelper.LayoutFilter));
         }
 
         private void OnLoadLayout()
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = FileAssociationsHelper.LayoutFilter;
-            openFileDialog1.Title = "Load layout";
-            if (openFileDialog1.ShowDialog() == true)
-            {
-                Load(openFileDialog1.FileName);
-            }
+            Load(_dialogProvider.ShowSaveDialog("Load layout", FileAssociationsHelper.LayoutFilter));
         }
 
         private void OnSaveLayout()
@@ -102,11 +98,6 @@ namespace MoonBurst.ViewModel
                 OnSaveAsLayout();
             else
                 Save();
-        }
-
-        public void Close()
-        {
-            OnSaveLayoutCommand.Execute(null);
         }
 
         public void Save()
@@ -121,18 +112,18 @@ namespace MoonBurst.ViewModel
             _config.LastLayoutPath = path;
         }
 
-        public void SaveLastConfig()
-        {
-            Save(_config.LastLayoutPath);
-        }
-
         public void Load(string path)
         {
             _serializer.Load(path, this);
             _config.LastLayoutPath = path;
         }
 
-        public void LoadLastConfig()
+        public void SaveLast()
+        {
+            Save(_config.LastLayoutPath);
+        }
+
+        public void LoadLast()
         {
             Load(_config.LastLayoutPath);
         }

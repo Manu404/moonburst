@@ -277,7 +277,8 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0">
-                    <TextBox Width="250" MaxWidth="250"
+                    <TextBox 
+                        
                                 materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
                                 materialDesign:HintAssist.FloatingScale="0.50"
                                 Text="{Binding Name}"
@@ -349,7 +350,9 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ChannelListViewItemTemplate" DataType="viewModel:FunctoidChannelViewModel">
-        <materialDesign:Card  HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        <materialDesign:Card  HorizontalAlignment="Left" 
+                              Width="300"
+                              VerticalAlignment="Stretch">
             <Expander ExpandDirection="Right" 
                           IsExpanded="{Binding IsExpanded}" 
                           VerticalContentAlignment="Stretch"

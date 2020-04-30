@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Core;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Model;
-using MoonBurst.Model.Serializable;
 
 namespace MoonBurst.ViewModel.Interfaces
 {
@@ -16,7 +15,7 @@ namespace MoonBurst.ViewModel.Interfaces
         int SelectedSpeed { get; set; }
 
         void Close();
-        void LoadLastConfig();
+        void LoadLast();
         void UpdateArduinoPorts(List<ArduinoPortConfigModel> data);
     }
 }

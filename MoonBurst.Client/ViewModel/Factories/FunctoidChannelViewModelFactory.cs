@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Core;
 using MoonBurst.Core.Serializer;
-using MoonBurst.Model.Serializable;
+using MoonBurst.Model;
 using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Factories

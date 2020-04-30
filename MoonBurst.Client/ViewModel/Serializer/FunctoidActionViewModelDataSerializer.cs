@@ -1,5 +1,5 @@
 ﻿using MoonBurst.Core.Serializer;
-using MoonBurst.Model.Serializable;
+using MoonBurst.Model;
 using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Serializer

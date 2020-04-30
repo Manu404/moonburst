@@ -17,6 +17,11 @@ namespace MoonBurst.ViewModel
             _serializer = serializer;
         }
 
+        public void Close()
+        {
+            SaveDefault();
+        }
+
         public void LoadDefault()
         {
             _serializer.LoadDefault(this);
@@ -25,11 +30,6 @@ namespace MoonBurst.ViewModel
         public void SaveDefault()
         {
             _serializer.SaveDefault(this);
-        }
-
-        public void Close()
-        {
-            SaveDefault();
         }
     }
 }

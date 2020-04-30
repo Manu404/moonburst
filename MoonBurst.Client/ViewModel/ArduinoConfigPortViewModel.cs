@@ -6,10 +6,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Core;
-using MoonBurst.Core.Hardware.Arduino;
 using MoonBurst.Model;
 using MoonBurst.Model.Messages;
-using MoonBurst.Model.Serializable;
 
 namespace MoonBurst.ViewModel
 {
@@ -112,7 +110,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ArduinoPortConfigModel GetData()
+        public ArduinoPortConfigModel GetModel()
         {
             return new ArduinoPortConfigModel()
             {

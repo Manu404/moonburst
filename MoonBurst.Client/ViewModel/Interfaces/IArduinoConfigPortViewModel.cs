@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MoonBurst.Api.Hardware;
-using MoonBurst.Model.Serializable;
+using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel
 {
@@ -21,6 +21,6 @@ namespace MoonBurst.ViewModel
         void ToggleEnable();
         void Connect(string obj);
         void RefreshInputs();
-        ArduinoPortConfigModel GetData();
+        ArduinoPortConfigModel GetModel();
     }
 }

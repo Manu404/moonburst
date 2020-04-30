@@ -2,7 +2,7 @@
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Parser;
-using MoonBurst.Api.Services;
+using MoonBurst.Api.Gateways;
 using MoonBurst.Model.Messages;
 
 namespace MoonBurst.ViewModel

@@ -112,8 +112,8 @@ namespace MoonBurst.ViewModel
         private void InitializeConfigs()
         {
             ClientConfiguration.LoadDefault();
-            HardwareConfig.LoadLastConfig();
-            Layout.LoadLastConfig();
+            HardwareConfig.LoadLast();
+            Layout.LoadLast();
         }
 
         private void OnClose()

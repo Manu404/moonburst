@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.1.0.15</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.24</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,34 +34,34 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dynamic.cs" />
     <Compile Include="Enums\ChannelCommand.cs" />
     <Compile Include="Enums\FootTrigger.cs" />
     <Compile Include="Enums\MidiConnectionState.cs" />
+    <Compile Include="MusicalNote.cs" />
     <Compile Include="Parser\FootswitchState.cs" />
     <Compile Include="Parser\MomentaryFootswitchState.cs" />
-    <Compile Include="Services\IArduinoGateway.cs" />
+    <Compile Include="Gateways\IArduinoGateway.cs" />
     <Compile Include="Hardware\IArduinoPort.cs" />
     <Compile Include="Hardware\IBooleanInput.cs" />
-    <Compile Include="Parser\IControllerInputParser.cs" />
-    <Compile Include="Parser\IControllerInputState.cs" />
-    <Compile Include="Parser\IControllerParser.cs" />
+    <Compile Include="Parser\IDeviceInputParser.cs" />
+    <Compile Include="Parser\IDeviceInputState.cs" />
+    <Compile Include="Parser\IDeviceParser.cs" />
     <Compile Include="Hardware\IDeviceDefinition.cs" />
     <Compile Include="Hardware\IDeviceInput.cs" />
     <Compile Include="Parser\IFootswitchParser.cs" />
     <Compile Include="Parser\IFootswitchState.cs" />
-    <Compile Include="Services\IHardwareService.cs" />
-    <Compile Include="Services\IMidiGateway.cs" />
+    <Compile Include="Gateways\IGateway.cs" />
+    <Compile Include="Gateways\IMidiGateway.cs" />
     <Compile Include="Hardware\INumericInput.cs" />
-    <Compile Include="Services\ISerialGateway.cs" />
+    <Compile Include="Gateways\ISerialGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializer\IDataExtractor.cs" />
+    <Compile Include="Serializer\IFileSerializableType.cs" />
+    <Compile Include="Serializer\ISerializer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

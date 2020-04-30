@@ -4,13 +4,13 @@
                     xmlns:model="clr-namespace:MoonBurst.Api.Enums;assembly=MoonBurst.Api"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
-                    xmlns:ui="clr-namespace:MoonBurst.Helper.UI">
+                    xmlns:helper="clr-namespace:MoonBurst.Helper">
 
     <FontFamily x:Key="MetDemo">pack://application:,,,/img/#MetDemo</FontFamily>
 
-    <ui:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-    <ui:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
-    <ui:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
+    <helper:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    <helper:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
+    <helper:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
 
     <Style TargetType="{x:Type Ellipse}" x:Key="TriggerStatusEllipseControl">
         <Setter Property="Opacity" Value="0.1"/>
@@ -34,22 +34,33 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
+    
     <Style TargetType="Label" x:Key="ActionEditorFieldLabel" BasedOn="{StaticResource MaterialDesignLabel}">
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="FontSize" Value="13" />
-        <Setter Property="Width" Value="75"></Setter>
+        <Setter Property="Width" Value="75" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Opacity" Value="0.5" />
+        <Setter Property="Foreground"
+            Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
     </Style>
 
     <Style x:Key="InputDescriptionLabel" BasedOn="{StaticResource MaterialDesignLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="11" />
-        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{StaticResource MaterialDesignBody}" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <Style x:Key="ChannelActionEditorBorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignBody}" />
+    </Style>
+    
     <DataTemplate x:Key="InputDescriptionComboboxTemplate" DataType="viewModel:DeviceInputViewModel">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -120,7 +131,7 @@
     <SolidColorBrush x:Key="CheckmarkFill" Color="{DynamicResource 'Deep PurplePrimary500'}"/>
     <SolidColorBrush x:Key="RightArrowFill" Color="{DynamicResource 'Deep PurplePrimary500'}"/>
     <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{DynamicResource 'Deep PurplePrimary500Foreground'}"/>
-    <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource 'Deep PurplePrimary500'}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource 'Deep PurplePrimary500Foreground'}" Opacity="0.8"/>
     <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
     <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchMouseOverBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary400'}" />
     <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.ThumbIndicatorCheckedBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
@@ -129,8 +140,8 @@
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}"/>
         <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
-        <Setter Property="ui:ToggleButtonAssist.SwitchTrackOnBackground" Value="{DynamicResource PrimaryHueLightBrush}"/>
-        <Setter Property="ui:ToggleButtonAssist.SwitchTrackOffBackground" Value="Black"/>
+        <Setter Property="helper:ToggleButtonAssist.SwitchTrackOnBackground" Value="{DynamicResource PrimaryHueLightBrush}"/>
+        <Setter Property="helper:ToggleButtonAssist.SwitchTrackOffBackground" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="0 1 0 0"/>
         <Setter Property="Template">
@@ -200,7 +211,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <Grid>
                             <Rectangle x:Name="Track" 
-                                       Fill= "{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.SwitchTrackOffBackground)}" 
+                                       Fill= "{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.SwitchTrackOffBackground)}" 
                                        Opacity="0.26"
                                        HorizontalAlignment="Left" 
                                        Height="15" 
@@ -248,16 +259,16 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="Thumb" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
-                            <Setter TargetName="Track" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.SwitchTrackOnBackground)}" />
+                            <Setter TargetName="Track" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.SwitchTrackOnBackground)}" />
                             <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked" Value="True" />
-                                <Condition Property="ui:ToggleButtonAssist.HasOnContent" Value="True" />
+                                <Condition Property="helper:ToggleButtonAssist.HasOnContent" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="ContentPresenter" Property="Content" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.OnContent)}" />
-                            <Setter TargetName="ContentPresenter" Property="ContentTemplate" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ui:ToggleButtonAssist.OnContentTemplate)}" />
+                            <Setter TargetName="ContentPresenter" Property="Content" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.OnContent)}" />
+                            <Setter TargetName="ContentPresenter" Property="ContentTemplate" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helper:ToggleButtonAssist.OnContentTemplate)}" />
                         </MultiTrigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>
@@ -286,4 +297,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>
