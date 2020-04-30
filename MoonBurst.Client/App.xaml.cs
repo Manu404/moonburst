@@ -42,7 +42,6 @@ namespace MoonBurst
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
             
-            //container.Register(Component.For<IFootswitchParser>().ImplementedBy<MomentaryFootswitchParser>());
             container.Register(Component.For<IMusicalNoteHelper>().ImplementedBy<MusicalNoteHelper>());
             container.Register(Component.For<IDynamicsHelper>().ImplementedBy<DynamicsHelper>());
             

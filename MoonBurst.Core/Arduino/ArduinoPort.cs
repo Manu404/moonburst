@@ -9,11 +9,10 @@ namespace MoonBurst.Core.Arduino
         public IDeviceDefinition ConnectedDevice { get; set; }
         public IList<IDeviceDefinition> AvailableDevices { get; }
 
-        public ArduinoPort(int index)
+        public ArduinoPort(int index, IDeviceDefinition[] deviceDefinitions)
         {
             Position = index;
-            AvailableDevices = new List<IDeviceDefinition>();
-            //AvailableDevices.Add(new Fs3XDeviceDefinition());
+            AvailableDevices = new List<IDeviceDefinition>(deviceDefinitions);
         }
     }
 }
