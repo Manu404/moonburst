@@ -136,10 +136,10 @@
                                 Grid.ColumnSpan="3"
                                 Visibility="{Binding Path=(materialDesign:TextFieldAssist.DecorationVisibility), RelativeSource={RelativeSource TemplatedParent}}"
                                 CornerRadius="{Binding Path=(materialDesign:TextFieldAssist.UnderlineCornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
-                                Background="Transparent" />
+                                Background="{Binding Path=(materialDesign:TextFieldAssist.UnderlineBrush), RelativeSource={RelativeSource TemplatedParent}}" />
                         </Grid>
                         <Border x:Name="DisabledVisualElement"
-                                Background="{DynamicResource MahApps.Brushes.Control.Disabled}"
+                                Background="Transparent"
                                 BorderBrush="{DynamicResource MahApps.Brushes.Control.Disabled}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
@@ -517,6 +517,15 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="ChannelActionEditorBorderStyle" TargetType="{x:Type Border}">
+                <Setter Property="BorderThickness" Value="0,0,0,0" />
+                <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignBody}" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="IsEnabled" Value="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}" />
+            </Style>
         </DataTemplate.Resources>
         <Border Margin="10,0,10,0">
             <StackPanel VerticalAlignment="Top">
@@ -667,6 +676,31 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 8 0 8" Grid.Column="1">
+                        <Button ToolTip="Lock"
+                                Width="20" Height="20"
+                                materialDesign:RippleAssist.IsCentered="True" 
+                                Command="{Binding OnLockActionCommand}">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignIconForegroundButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLocked}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon Kind="Lock" Width="15" Height="15" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsLocked}" Value="False">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon Kind="LockOpen" Width="15" Height="15" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                         <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     Width="20" Height="20"
                                     materialDesign:RippleAssist.IsCentered="True" 
@@ -675,6 +709,7 @@
                             <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
                         </Button>
                         <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                IsEnabled="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}"
                                     ToolTip="Delete"
                                     Width="20" Height="20"
                                     materialDesign:RippleAssist.IsCentered="True" 

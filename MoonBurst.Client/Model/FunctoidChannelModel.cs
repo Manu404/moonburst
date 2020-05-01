@@ -8,6 +8,7 @@ namespace MoonBurst.Model
         public string Name { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsExpanded { get; set; }
+        public bool IsLocked { get; set; }
         public string BindedInput { get; set; }
 
         public List<FunctoidActionModel> Actions { get; set; }

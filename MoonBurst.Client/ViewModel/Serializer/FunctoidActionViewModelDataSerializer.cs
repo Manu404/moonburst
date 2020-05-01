@@ -16,7 +16,8 @@ namespace MoonBurst.ViewModel.Serializer
                 Command = source.Command,
                 Trigger = source.Trigger,
                 IsEnabled = source.IsEnabled,
-                IsExpanded = source.IsExpanded
+                IsExpanded = source.IsExpanded,
+                IsLocked = source.IsLocked
             };
         }
 
@@ -29,6 +30,8 @@ namespace MoonBurst.ViewModel.Serializer
             target.Trigger = model.Trigger;
             target.IsEnabled = model.IsEnabled;
             target.IsExpanded = model.IsExpanded;
+            target.IsLocked = model.IsLocked;
+
         }
     }
 }

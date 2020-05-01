@@ -29,8 +29,9 @@ namespace MoonBurst.ViewModel
         private bool _isEnabled;
         private bool _isExpanded;
         private bool _isTriggered;
+        private bool _isLocked;
         private IDeviceInputViewModel _selectedInput;
-        
+
         public IDeviceInputViewModel SelectedInput
         {
             get => _selectedInput;
@@ -51,6 +52,16 @@ namespace MoonBurst.ViewModel
                 _isTriggered = value;
                 RaisePropertyChanged();
                 _isTriggered = !value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsLocked
+        {
+            get => _isLocked;
+            set
+            {
+                _isLocked = value;
                 RaisePropertyChanged();
             }
         }
@@ -105,6 +116,7 @@ namespace MoonBurst.ViewModel
         public ICommand OnToggleCommand { get; set; }
         public ICommand OnExpandActionsCommand { get; set; }
         public ICommand OnCollapseActionsCommand { get; set; }
+        public ICommand OnToggleLockChannelCommand { get; set; }
 
         public FunctoidChannelViewModel(IMessenger messenger, 
             IArduinoGateway arduinoGateway, 
@@ -122,6 +134,7 @@ namespace MoonBurst.ViewModel
             OnAddActionCommand = new RelayCommand(OnAddAction);
             OnTriggerCommand = new RelayCommand(OnTrigger);
             OnToggleCommand = new RelayCommand(()  => this.IsEnabled = !this.IsEnabled);
+            OnToggleLockChannelCommand = new RelayCommand(OnToggleLock);
 
             OnExpandActionsCommand = new RelayCommand(() => ToggleAction(true));
             OnCollapseActionsCommand = new RelayCommand(() => ToggleAction(false));
@@ -134,6 +147,11 @@ namespace MoonBurst.ViewModel
             AvailableInputs = new ObservableCollection<IDeviceInputViewModel>();
 
             _serialGateway.OnTrigger += OnControllerStateChanged;
+        }
+
+        private void OnToggleLock()
+        {
+            this.IsLocked = !this.IsLocked;
         }
 
         private void OnControllerStateChanged(object sender, ControllerStateEventArgs obj)

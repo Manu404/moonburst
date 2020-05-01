@@ -39,13 +39,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="ChannelActionEditorBorderStyle" TargetType="{x:Type Border}">
-        <Setter Property="BorderThickness" Value="0,0,0,0" />
-        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignBody}" />
-        <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="Padding" Value="0" />
-    </Style>
+
     
     <DataTemplate x:Key="InputDescriptionComboboxTemplate" DataType="viewModel:DeviceInputViewModel">
         <Grid>

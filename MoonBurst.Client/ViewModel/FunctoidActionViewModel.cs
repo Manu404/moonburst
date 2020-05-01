@@ -32,6 +32,7 @@ namespace MoonBurst.ViewModel
         private bool _isTriggered;
         private bool _isMusicalMode;
         private bool _forceNumericMode;
+        private bool _isLocked;
 
         public string DisplayName
         {
@@ -125,6 +126,16 @@ namespace MoonBurst.ViewModel
             }
         }
 
+        public bool IsLocked
+        {
+            get => _isLocked;
+            set
+            {
+                _isLocked = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public bool IsExpanded
         {
             get => _isExpanded;
@@ -174,17 +185,24 @@ namespace MoonBurst.ViewModel
         public ICommand OnDeleteActionCommand { get; set; }
         public ICommand OnToggleActionCommand { get; set; }
         public ICommand OnTriggerActionCommand { get; set; }
+        public ICommand OnLockActionCommand { get; set; }
 
         public FunctoidActionViewModel(IMessenger messenger, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
             OnToggleActionCommand = new RelayCommand(OnToggle);
+            OnLockActionCommand = new RelayCommand(OnLock);
 
             _messenger = messenger;
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
             _midiGateway = midiGateway;
+        }
+
+        private void OnLock()
+        {
+            this.IsLocked = !this.IsLocked;
         }
 
         private void OnToggle()
