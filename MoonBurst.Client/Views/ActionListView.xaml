@@ -494,7 +494,6 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="TextAlignment" Value="Left"/>
                 <Setter Property="Minimum" Value="1"/>
-                <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
                 <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
                 <Style.Triggers>
@@ -507,7 +506,6 @@
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
@@ -519,12 +517,12 @@
             </Style>
 
             <Style x:Key="ChannelActionEditorBorderStyle" TargetType="{x:Type Border}">
-                <Setter Property="BorderThickness" Value="0,0,0,0" />
+                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignBody}" />
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Padding" Value="0" />
-                <Setter Property="IsEnabled" Value="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}" />
+                <Setter Property="IsEnabled" Value="{Binding IsLockedOrChannelLocked, Converter={StaticResource InverseBooleanConverter}}" />
             </Style>
         </DataTemplate.Resources>
         <Border Margin="10,0,10,0">
@@ -670,14 +668,25 @@
                 </Border>
 
                 <!-- footer action editor button -->
-                <Grid>
+                <Grid Margin="0 2 0 5">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Value="True" Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}}" >
+                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Value="False" Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}}" >
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 8 0 8" Grid.Column="1">
-                        <Button ToolTip="Lock"
-                                Width="20" Height="20"
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                        <Button Width="20" Height="20"
                                 materialDesign:RippleAssist.IsCentered="True" 
                                 Command="{Binding OnLockActionCommand}">
                             <Button.Style>
@@ -689,6 +698,7 @@
                                                     <materialDesign:PackIcon Kind="Lock" Width="15" Height="15" />
                                                 </Setter.Value>
                                             </Setter>
+                                            <Setter Property="ToolTip" Value="Unlock" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsLocked}" Value="False">
                                             <Setter Property="Content">
@@ -696,6 +706,7 @@
                                                     <materialDesign:PackIcon Kind="LockOpen" Width="15" Height="15" />
                                                 </Setter.Value>
                                             </Setter>
+                                            <Setter Property="ToolTip" Value="Lock" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -709,7 +720,7 @@
                             <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
                         </Button>
                         <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                IsEnabled="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}"
+                                IsEnabled="{Binding IsLockedOrChannelLocked, Converter={StaticResource InverseBooleanConverter}}"
                                     ToolTip="Delete"
                                     Width="20" Height="20"
                                     materialDesign:RippleAssist.IsCentered="True" 

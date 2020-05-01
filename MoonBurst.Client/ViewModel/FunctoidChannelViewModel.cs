@@ -136,8 +136,8 @@ namespace MoonBurst.ViewModel
             OnToggleCommand = new RelayCommand(()  => this.IsEnabled = !this.IsEnabled);
             OnToggleLockChannelCommand = new RelayCommand(OnToggleLock);
 
-            OnExpandActionsCommand = new RelayCommand(() => ToggleAction(true));
-            OnCollapseActionsCommand = new RelayCommand(() => ToggleAction(false));
+            OnExpandActionsCommand = new RelayCommand(() => OnExpandCollapse(true));
+            OnCollapseActionsCommand = new RelayCommand(() => OnExpandCollapse(false));
 
             Actions = new ObservableCollection<IFunctoidActionViewModel>();
 
@@ -152,6 +152,8 @@ namespace MoonBurst.ViewModel
         private void OnToggleLock()
         {
             this.IsLocked = !this.IsLocked;
+            foreach (var a in Actions)
+                a.IsChannelLocked = this.IsLocked;
         }
 
         private void OnControllerStateChanged(object sender, ControllerStateEventArgs obj)
@@ -166,7 +168,7 @@ namespace MoonBurst.ViewModel
                 }
         }
 
-        private void ToggleAction(bool isExpanded)
+        private void OnExpandCollapse(bool isExpanded)
         {
             foreach (var action in this.Actions)
                 action.IsExpanded = isExpanded;

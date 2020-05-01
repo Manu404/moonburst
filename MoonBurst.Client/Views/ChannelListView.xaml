@@ -277,9 +277,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0">
-                    <TextBox 
-                        
-                                materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+                    <TextBox materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
                                 materialDesign:HintAssist.FloatingScale="0.50"
                                 Text="{Binding Name}"
                                 FontWeight="Light"
@@ -289,6 +287,7 @@
 
 
                 <ComboBox materialDesign:HintAssist.Hint="Available Inputs..."
+                          IsEnabled="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}"
                           ToolTip="Selected Input" Grid.Row="1"
                           ItemsSource="{Binding AvailableInputs}"
                           SelectedItem="{Binding SelectedInput}"
@@ -298,15 +297,55 @@
                 <ItemsControl Style="{StaticResource ActionListItemControl}" Grid.Row="2" Margin="0,5,0,0" ItemsSource="{Binding Actions}" />
 
                 <Grid Grid.Row="3" >
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Value="True" Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}}" >
+                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Value="False" Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}}" >
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True" 
+                                Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
+                                Command="{Binding OnToggleLockChannelCommand}">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignIconButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLocked}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon Kind="Lock" Width="15" Height="15" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="ToolTip" Value="Unlock" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsLocked}" Value="False">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon Kind="LockOpen" Width="15" Height="15" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="ToolTip" Value="Lock" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
                         <Button Style="{StaticResource MaterialDesignIconButton}" 
                                 Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True" 
                                 Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
+                                IsEnabled="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}"
                                 ToolTip="Add trigger"
                                 Command="{Binding OnAddActionCommand}">
                             <materialDesign:PackIcon Kind="Add" Width="15" Height="15" />
@@ -337,6 +376,7 @@
 
                         <Button Style="{StaticResource MaterialDesignIconButton}" 
                                 Width="20" Height="20" materialDesign:RippleAssist.IsCentered="True"
+                                IsEnabled="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}"
                                 Foreground="{StaticResource MahApps.Brushes.Button.Flat.Background}"
                                 ToolTip="Delete functoid"
                                 Command="{Binding OnDeleteCommand}">
@@ -351,7 +391,7 @@
 
     <DataTemplate x:Key="ChannelListViewItemTemplate" DataType="viewModel:FunctoidChannelViewModel">
         <materialDesign:Card  HorizontalAlignment="Left" 
-                              Width="300"
+                              MaxWidth="300"
                               VerticalAlignment="Stretch">
             <Expander ExpandDirection="Right" 
                           IsExpanded="{Binding IsExpanded}" 

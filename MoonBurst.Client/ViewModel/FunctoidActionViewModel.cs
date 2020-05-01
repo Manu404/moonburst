@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -33,6 +34,7 @@ namespace MoonBurst.ViewModel
         private bool _isMusicalMode;
         private bool _forceNumericMode;
         private bool _isLocked;
+        private bool _isChannelLocked;
 
         public string DisplayName
         {
@@ -133,8 +135,22 @@ namespace MoonBurst.ViewModel
             {
                 _isLocked = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("IsLockedOrChannelLocked");
             }
         }
+
+        public bool IsChannelLocked
+        {
+            get => _isChannelLocked;
+            set
+            {
+                _isChannelLocked = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("IsLockedOrChannelLocked");
+            }
+        }
+
+        public bool IsLockedOrChannelLocked {get => IsLocked || IsChannelLocked;}
 
         public bool IsExpanded
         {
