@@ -47,7 +47,7 @@
                     <Expander Style="{StaticResource ArduinoPortExpander}" Grid.Column="2" Content="{Binding}"  />
                 </Grid>
             <StatusBar Grid.Row="2">
-                <TextBlock>Ready</TextBlock>
+                <TextBlock Text="{Binding StatusBarText}" />
             </StatusBar>
             </Grid>
         </materialDesign:DrawerHost>
