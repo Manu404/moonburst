@@ -36,6 +36,20 @@ namespace MoonBurst.ViewModel
         private bool _isLocked;
         private bool _isChannelLocked;
 
+        public string EnableStatusString
+        {
+            get => IsEnabled ? "disabled" : "enabled";
+        }
+        public string LockedStatusString
+        {
+            get => IsLocked ? "locked" : "unlocked";
+        }
+
+        public string StatusString
+        {
+            get => $"({EnableStatusString}/{LockedStatusString})";
+        }
+
         public string DisplayName
         {
             get => $"On {Trigger}\n{Command}({MidiChannel},{Data1},{Data2})";
@@ -46,10 +60,18 @@ namespace MoonBurst.ViewModel
             get => $"On {Trigger}\nMessage: {Command}\nChannel: {MidiChannel}\nData1: {Data1}\nData2: {Data2}";
         }
 
+        public string EnableTooltip { get=> IsEnabled ? "disable" : "enable"; }
+
+        public string ChannelHeaderActionToggleTooltip
+        {
+            get => $"{DisplayNameToolTip}\n\nLeft-click to manually trigger\nRight-click to {EnableTooltip}";
+        }
+
         private void RefreshTitle()
         {
             RaisePropertyChanged("DisplayName");
             RaisePropertyChanged("DisplayNameToolTip");
+            RaisePropertyChanged("ChannelHeaderActionToggleTooltip");
         }
 
         public FootTrigger Trigger
@@ -125,6 +147,7 @@ namespace MoonBurst.ViewModel
             {
                 _isEnabled = value;
                 RaisePropertyChanged();
+                RefreshTitle();
             }
         }
 
@@ -136,6 +159,7 @@ namespace MoonBurst.ViewModel
                 _isLocked = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged("IsLockedOrChannelLocked");
+                RefreshTitle();
             }
         }
 
@@ -147,6 +171,7 @@ namespace MoonBurst.ViewModel
                 _isChannelLocked = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged("IsLockedOrChannelLocked");
+                RefreshTitle();
             }
         }
 

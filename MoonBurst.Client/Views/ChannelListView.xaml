@@ -159,7 +159,7 @@
         <Grid>
             <Ellipse Style="{StaticResource TriggerStatusEllipseControl}" VerticalAlignment="Center" HorizontalAlignment="Center">
             </Ellipse>
-            <Button ToolTip="{Binding ActionName}">
+            <Button ToolTip="{Binding ChannelHeaderActionToggleTooltip}">
                 <materialDesign:PackIcon Kind="PlayOutline" Margin="5" />
                 <Button.InputBindings>
                     <MouseBinding Gesture="RightClick" Command="{Binding OnToggleActionCommand}" />
