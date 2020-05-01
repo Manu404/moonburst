@@ -92,8 +92,7 @@
                                             <CubicEase EasingMode="EaseOut"/>
                                         </VisualTransition.GeneratedEasingFunction>
                                         <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="
-">
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Content" Storyboard.TargetProperty="Visibility">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_Content" To="1" Duration="0:0:0.3"/>
@@ -404,12 +403,12 @@
     </Style>
 
     <DataTemplate x:Key="PortConfigurationListTemplate" DataType="viewModel:MainViewModel">
-        <Border BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" BorderThickness="2,0,0,0" Padding="5">
-            <ItemsControl ItemsSource="{Binding HardwareConfig.ArduinoPorts}" ItemTemplate="{StaticResource PortConfigurationItemTemplate}" />
-        </Border>
+        <ItemsControl ItemsSource="{Binding HardwareConfig.ArduinoPorts}" ItemTemplate="{StaticResource PortConfigurationItemTemplate}" />
     </DataTemplate>
 
     <Style x:Key="ArduinoPortExpander" TargetType="Expander" BasedOn="{StaticResource MenuMaterialDesignExpander}">
+        <Setter Property="BorderThickness" Value="3,0,0,0" />
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignLightSeparatorBackground}" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="ExpandDirection" Value="Left" />
         <Setter Property="IsExpanded" Value="True" />

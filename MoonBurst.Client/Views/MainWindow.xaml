@@ -42,7 +42,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ListView Style="{StaticResource ChannelListView}" Grid.Column="1" DataContext="{Binding Layout}"  ItemsSource="{Binding FunctoidChannels}" Margin="20, 20, 20, 20"/>
+                    <ListView Style="{StaticResource ChannelListView}" Grid.Column="1" DataContext="{Binding Layout}"  ItemsSource="{Binding FunctoidChannels}" Margin="5,5,0,5"/>
 
                     <Expander Style="{StaticResource ArduinoPortExpander}" Grid.Column="2" Content="{Binding}"  />
                 </Grid>

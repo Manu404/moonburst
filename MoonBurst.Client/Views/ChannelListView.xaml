@@ -289,6 +289,7 @@
                 <ComboBox materialDesign:HintAssist.Hint="Available Inputs..."
                           IsEnabled="{Binding IsLocked, Converter={StaticResource InverseBooleanConverter}}"
                           ToolTip="Selected Input" Grid.Row="1"
+                          Cursor="Hand"
                           ItemsSource="{Binding AvailableInputs}"
                           SelectedItem="{Binding SelectedInput}"
                           ItemTemplate="{StaticResource InputDescriptionComboboxTemplate}">
@@ -406,7 +407,7 @@
     </DataTemplate>
 
     <ControlTemplate x:Key="ChannelListViewTemplate">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" CanContentScroll="False">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" CanContentScroll="False">
             <ItemsPresenter/>
         </ScrollViewer>
     </ControlTemplate>
