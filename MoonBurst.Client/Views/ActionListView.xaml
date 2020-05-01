@@ -483,8 +483,6 @@
         </Grid>
     </DataTemplate>
 
-
-
     <!-- Action Editor Body -->
     <DataTemplate x:Key="ActionEditorBodyItemTemplate" DataType="viewModel:FunctoidActionViewModel">
         <DataTemplate.Resources>
@@ -504,6 +502,8 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <SolidColorBrush x:Key="MaterialDesignCheckBoxDisabled" Color="Transparent" />
 
             <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
                 <Setter Property="Cursor" Value="Hand"></Setter>
@@ -755,7 +755,19 @@
     </DataTemplate>
 
     <ControlTemplate x:Key="ActionListTemplate" TargetType="{x:Type ItemsControl}">
-        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" CanContentScroll="False">
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" CanContentScroll="False" Background="Transparent">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer" BasedOn="{StaticResource RoundedTransparentScrollViewer}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="VerticalScrollBarVisibility" Value="Visible"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
             <ItemsPresenter/>
         </ScrollViewer>
     </ControlTemplate>

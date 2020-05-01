@@ -407,7 +407,11 @@
     </DataTemplate>
 
     <ControlTemplate x:Key="ChannelListViewTemplate">
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" CanContentScroll="False">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" 
+                      VerticalScrollBarVisibility="Disabled" 
+                      Style="{StaticResource RoundedTransparentScrollViewer}"
+                      CanContentScroll="False" 
+                      Background="Transparent">
             <ItemsPresenter/>
         </ScrollViewer>
     </ControlTemplate>
