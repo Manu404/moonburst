@@ -11,5 +11,6 @@ namespace MoonBurst.Model
         public FootTrigger Trigger { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsExpanded { get; set; }
+        public bool IsLocked { get; set; }
     }
 }

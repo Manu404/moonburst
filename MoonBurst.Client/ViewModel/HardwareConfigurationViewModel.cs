@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -233,7 +234,16 @@ namespace MoonBurst.ViewModel
                 }
             }
         }
-               
+
+        public string GetStatusString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(_midiGateway.GetStatusString());
+            sb.Append(" | ");
+            sb.Append(_serialGateway.GetStatusString());
+            return sb.ToString();
+        }
+
         private void OnSaveAs()
         {
             Save(_dialogProvider.ShowSaveDialog("Save config", FileAssociationsHelper.ConfigFilter));

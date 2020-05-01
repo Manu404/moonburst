@@ -88,6 +88,14 @@ namespace MoonBurst.Core.Gateways
             _outDevice.Send(_builder.Result);
         }
 
+        public string GetStatusString()
+        {
+            if (this.IsConnected)
+                return $"Connected to: {this.SelectedOutput.Name}";
+            else
+                return "Midi: Disconnected";
+        }
+
 
         public List<OutputMidiDeviceData> GetDevices()
         {

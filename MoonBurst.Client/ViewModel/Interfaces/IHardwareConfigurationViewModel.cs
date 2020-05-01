@@ -17,5 +17,6 @@ namespace MoonBurst.ViewModel.Interfaces
         void Close();
         void LoadLast();
         void UpdateArduinoPorts(List<ArduinoPortConfigModel> data);
+        string GetStatusString();
     }
 }

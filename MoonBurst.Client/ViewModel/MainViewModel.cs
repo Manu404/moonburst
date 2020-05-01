@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Text;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -19,7 +21,8 @@ namespace MoonBurst.ViewModel
         private string _log;
         private string _appVersion;
         private string _title;
-        
+        private string _statusBarText;
+
         public ICommand OnOpenConsoleCommand { get; set; }
         public ICommand OnCloseCommand { get; set; }
         
@@ -83,6 +86,16 @@ namespace MoonBurst.ViewModel
             }
         }
 
+        public string StatusBarText
+        {
+            get => _statusBarText;
+            set
+            {
+                _statusBarText = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         public MainViewModel(IMessenger messenger,  
             IClientConfigurationViewModel clientConfiguration,
@@ -97,7 +110,8 @@ namespace MoonBurst.ViewModel
             ClientConfiguration = _clientConfiguration;
             HardwareConfig = hardwareViewModel;
             Layout = layoutViewModel;
-            
+            (HardwareConfig as ViewModelBase).PropertyChanged += OnHardwarePropertyChange;
+
             InitializeConfigs();
 
             OnOpenConsoleCommand = new RelayCommand(OpenConsole);
@@ -107,6 +121,11 @@ namespace MoonBurst.ViewModel
             WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMidi.DriverVersionString);
 
             messenger.Register<DeleteFunctoidChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
+        }
+
+        private void OnHardwarePropertyChange(object sender, PropertyChangedEventArgs e)
+        {
+            this.StatusBarText = HardwareConfig.GetStatusString();
         }
 
         private void InitializeConfigs()

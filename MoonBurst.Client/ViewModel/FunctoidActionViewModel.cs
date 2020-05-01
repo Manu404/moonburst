@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -32,6 +33,22 @@ namespace MoonBurst.ViewModel
         private bool _isTriggered;
         private bool _isMusicalMode;
         private bool _forceNumericMode;
+        private bool _isLocked;
+        private bool _isChannelLocked;
+
+        public string EnableStatusString
+        {
+            get => IsEnabled ? "disabled" : "enabled";
+        }
+        public string LockedStatusString
+        {
+            get => IsLocked ? "locked" : "unlocked";
+        }
+
+        public string StatusString
+        {
+            get => $"({EnableStatusString}/{LockedStatusString})";
+        }
 
         public string DisplayName
         {
@@ -43,10 +60,18 @@ namespace MoonBurst.ViewModel
             get => $"On {Trigger}\nMessage: {Command}\nChannel: {MidiChannel}\nData1: {Data1}\nData2: {Data2}";
         }
 
+        public string EnableTooltip { get=> IsEnabled ? "disable" : "enable"; }
+
+        public string ChannelHeaderActionToggleTooltip
+        {
+            get => $"{DisplayNameToolTip}\n\nLeft-click to manually trigger\nRight-click to {EnableTooltip}";
+        }
+
         private void RefreshTitle()
         {
             RaisePropertyChanged("DisplayName");
             RaisePropertyChanged("DisplayNameToolTip");
+            RaisePropertyChanged("ChannelHeaderActionToggleTooltip");
         }
 
         public FootTrigger Trigger
@@ -122,8 +147,35 @@ namespace MoonBurst.ViewModel
             {
                 _isEnabled = value;
                 RaisePropertyChanged();
+                RefreshTitle();
             }
         }
+
+        public bool IsLocked
+        {
+            get => _isLocked;
+            set
+            {
+                _isLocked = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("IsLockedOrChannelLocked");
+                RefreshTitle();
+            }
+        }
+
+        public bool IsChannelLocked
+        {
+            get => _isChannelLocked;
+            set
+            {
+                _isChannelLocked = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("IsLockedOrChannelLocked");
+                RefreshTitle();
+            }
+        }
+
+        public bool IsLockedOrChannelLocked {get => IsLocked || IsChannelLocked;}
 
         public bool IsExpanded
         {
@@ -174,17 +226,24 @@ namespace MoonBurst.ViewModel
         public ICommand OnDeleteActionCommand { get; set; }
         public ICommand OnToggleActionCommand { get; set; }
         public ICommand OnTriggerActionCommand { get; set; }
+        public ICommand OnLockActionCommand { get; set; }
 
         public FunctoidActionViewModel(IMessenger messenger, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
             OnToggleActionCommand = new RelayCommand(OnToggle);
+            OnLockActionCommand = new RelayCommand(OnLock);
 
             _messenger = messenger;
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
             _midiGateway = midiGateway;
+        }
+
+        private void OnLock()
+        {
+            this.IsLocked = !this.IsLocked;
         }
 
         private void OnToggle()

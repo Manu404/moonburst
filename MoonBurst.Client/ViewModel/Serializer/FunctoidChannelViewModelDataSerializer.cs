@@ -7,7 +7,6 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Serializer
 {
-
     public class FunctoidChannelViewModelDataSerializer : IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel>
     {
         IFunctoidActionViewModelFactory _actionFactory;
@@ -29,6 +28,7 @@ namespace MoonBurst.ViewModel.Serializer
                 IsEnabled = source.IsEnabled,
                 IsExpanded = source.IsExpanded,
                 BindedInput = source.SelectedInput?.FormatedName,
+                IsLocked = source.IsLocked
             };
         }
 
@@ -41,6 +41,9 @@ namespace MoonBurst.ViewModel.Serializer
             target.IsExpanded = model.IsExpanded;
             target.RefreshInputs();
             target.TryBindInput(model.BindedInput);
+            target.IsLocked = model.IsLocked;
+            foreach (var a in target.Actions)
+                a.IsChannelLocked = model.IsLocked;
         }
     }
 }

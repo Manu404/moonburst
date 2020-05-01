@@ -15,6 +15,7 @@ namespace MoonBurst.Api.Gateways
         void Close();
         IEnumerable<InputComPortData> GetPorts();
         IEnumerable<int> GetRates();
+        string GetStatusString();
 
         event EventHandler<SerialConnectionStateChangedEventArgs> ConnectionStateChanged;
         event EventHandler<ControllerStateEventArgs> OnTrigger;

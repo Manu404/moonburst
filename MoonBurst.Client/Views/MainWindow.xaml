@@ -8,14 +8,16 @@
               xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
               xmlns:views="clr-namespace:MoonBurst.Views"
+              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
               mc:Ignorable="d" WindowState="Maximized"
               ShowIconOnTitleBar="False"
+              WindowTitleBrush="{StaticResource MahApps.Brushes.Gray10}"
               Title="{Binding Title}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding Path=OnCloseCommand, Mode=OneWay}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Closing">
+            <b:InvokeCommandAction Command="{Binding Path=OnCloseCommand, Mode=OneWay}"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
     <materialDesign:DialogHost>
         <materialDesign:DrawerHost >
             <materialDesign:DrawerHost.BottomDrawerContent>
@@ -40,12 +42,12 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ListView Style="{StaticResource ChannelListView}" Grid.Column="1" DataContext="{Binding Layout}"  ItemsSource="{Binding FunctoidChannels}" Margin="20, 20, 20, 20"/>
+                    <ListView Style="{StaticResource ChannelListView}" Grid.Column="1" DataContext="{Binding Layout}"  ItemsSource="{Binding FunctoidChannels}" Margin="5,5,0,5"/>
 
                     <Expander Style="{StaticResource ArduinoPortExpander}" Grid.Column="2" Content="{Binding}"  />
                 </Grid>
             <StatusBar Grid.Row="2">
-                <TextBlock>Ready</TextBlock>
+                <TextBlock Text="{Binding StatusBarText}" />
             </StatusBar>
             </Grid>
         </materialDesign:DrawerHost>

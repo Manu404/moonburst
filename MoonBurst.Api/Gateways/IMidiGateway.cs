@@ -65,5 +65,6 @@ namespace MoonBurst.Api.Gateways
         List<OutputMidiDeviceData> GetDevices();
         void Trigger(MidiTriggerData obj);
         void SendTest();
+        string GetStatusString();
     }
 }

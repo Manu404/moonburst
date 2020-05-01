@@ -196,6 +196,14 @@ namespace MoonBurst.Core.Gateways
             };
         }
 
+        public string GetStatusString()
+        {
+            if (this.IsConnected)
+                return $"Connected to: {this.CurrentPort.Name} - {this.CurrentSpeed} baud";
+            else
+                return "Serial: Disconnected";
+        }
+
         public event EventHandler<SerialConnectionStateChangedEventArgs> ConnectionStateChanged;
         public event EventHandler<ControllerStateEventArgs> OnTrigger;
     }

@@ -19,6 +19,9 @@ namespace MoonBurst.ViewModel.Interfaces
         bool IsEnabled { get; set; }
         bool IsExpanded { get; set; }
         bool IsTriggered { get; set; }
+        bool IsLocked { get; set; }
+        bool IsChannelLocked { get; set; }
+        bool IsLockedOrChannelLocked { get; }
         int MidiChannel { get; set; }
         ICommand OnDeleteActionCommand { get; set; }
         ICommand OnToggleActionCommand { get; set; }

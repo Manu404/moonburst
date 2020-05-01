@@ -1,8 +1,11 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 using MoonBurst.Api.Parser;
 using MoonBurst.Api.Gateways;
 using MoonBurst.Api.Hardware;
@@ -24,6 +27,11 @@ namespace MoonBurst
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.DeepPurple200];
+            Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Blue200];
+            ITheme theme = Theme.Create(new MaterialDesignDarkTheme(), primaryColor, accentColor);
+            Resources.SetTheme(theme);
+
             FileAssociationsHelper.EnsureFileAssociation();
 
             AssemblyFilter filter = new AssemblyFilter(".", "MoonBurst.*");

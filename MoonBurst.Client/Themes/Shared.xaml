@@ -6,8 +6,6 @@
                     xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
                     xmlns:helper="clr-namespace:MoonBurst.Helper">
 
-    <FontFamily x:Key="MetDemo">pack://application:,,,/img/#MetDemo</FontFamily>
-
     <helper:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <helper:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
     <helper:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
@@ -34,32 +32,14 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
-    <Style TargetType="Label" x:Key="ActionEditorFieldLabel" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="Width" Value="75" />
-        <Setter Property="Height" Value="25" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="Opacity" Value="0.5" />
-        <Setter Property="Foreground"
-            Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
-    </Style>
 
-    <Style x:Key="InputDescriptionLabel" BasedOn="{StaticResource MaterialDesignLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="12" />
+    <Style x:Key="InputDescriptionTextBlock" TargetType="TextBlock">
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{StaticResource MaterialDesignBody}" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="ChannelActionEditorBorderStyle" TargetType="{x:Type Border}">
-        <Setter Property="BorderThickness" Value="0,0,0,0" />
-        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignBody}" />
-    </Style>
+
     
     <DataTemplate x:Key="InputDescriptionComboboxTemplate" DataType="viewModel:DeviceInputViewModel">
         <Grid>
@@ -69,9 +49,9 @@
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon Kind="PageLayoutFooter" Width="30" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <StackPanel Grid.Column="1">
-                <Label Style="{StaticResource InputDescriptionLabel}" Content="{Binding PortName}" />
-                <Label Style="{StaticResource InputDescriptionLabel}" Content="{Binding DeviceName}" />
-                <Label Style="{StaticResource InputDescriptionLabel}" Content="{Binding ControllerName}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Text="{Binding PortName}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Text="{Binding DeviceName}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Text="{Binding ControllerName}" />
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -84,8 +64,8 @@
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon Kind="PageLayoutFooter" Width="20" Height="20"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <StackPanel Grid.Column="1">
-                <Label Style="{StaticResource InputDescriptionLabel}" Opacity="0.5" Content="{Binding ControllerNameWithoutHeader}" />
-                <Label Style="{StaticResource InputDescriptionLabel}" Opacity="0.8" Content="{Binding State.State, Converter={StaticResource EnumToStringConverter}}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Opacity="0.5" Text="{Binding ControllerNameWithoutHeader}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Opacity="0.8" Text="{Binding State.State, Converter={StaticResource EnumToStringConverter}}" />
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -101,40 +81,6 @@
             <x:Type TypeName="model:FootTrigger"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
-
-    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource 'Deep PurplePrimary200'}"/>
-    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource  'Deep PurplePrimary200Foreground'}"/>
-    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource  'Deep PurplePrimary200'}"/>
-    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource  'Deep PurplePrimary200Foreground'}"/>
-    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource  'Deep PurplePrimary200'}"/>
-    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource 'Deep PurplePrimary200Foreground'}"/>
-
-    <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="{StaticResource 'BluePrimary200'}"/>
-    <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="{StaticResource  'BluePrimary200Foreground'}"/>
-    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="{StaticResource  'BluePrimary500'}"/>
-    <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="{StaticResource  'BluePrimary500Foreground'}"/>
-    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="{StaticResource  'BluePrimary700'}"/>
-    <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="{StaticResource 'BluePrimary700Foreground'}"/>
-
-    <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource 'BluePrimary700'}"/>
-    <SolidColorBrush x:Key="AccentBaseColorBrush" Color="{DynamicResource 'Deep PurplePrimary200'}" />
-    <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource 'Deep PurplePrimary200'}"/>
-    <SolidColorBrush x:Key="AccentColorBrush2" Color="{DynamicResource 'Deep PurplePrimary400'}"/>
-    <SolidColorBrush x:Key="AccentColorBrush3" Color="{DynamicResource 'Deep PurplePrimary300'}"/>
-    <SolidColorBrush x:Key="AccentColorBrush4" Color="{DynamicResource 'Deep PurplePrimary200'}"/>
-    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{DynamicResource 'GreyPrimary900'}"/>
-    <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="{DynamicResource 'BluePrimary900Foreground'}"/>
-    <LinearGradientBrush x:Key="ProgressBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5">
-        <GradientStop Color="{DynamicResource 'Deep PurplePrimary700'}" Offset="0"/>
-        <GradientStop Color="{DynamicResource 'Deep PurplePrimary300'}" Offset="1"/>
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="CheckmarkFill" Color="{DynamicResource 'Deep PurplePrimary500'}"/>
-    <SolidColorBrush x:Key="RightArrowFill" Color="{DynamicResource 'Deep PurplePrimary500'}"/>
-    <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{DynamicResource 'Deep PurplePrimary500Foreground'}"/>
-    <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource 'Deep PurplePrimary500Foreground'}" Opacity="0.8"/>
-    <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
-    <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.OnSwitchMouseOverBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary400'}" />
-    <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.ThumbIndicatorCheckedBrush.Win10" Color="{DynamicResource 'Deep PurplePrimary500'}" />
 
     <Style x:Key="MaterialDesignSwitchToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
