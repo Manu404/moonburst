@@ -6,6 +6,267 @@
                     xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
                     xmlns:helper="clr-namespace:MoonBurst.Helper">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ValidationErrorTemplate.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type mah:NumericUpDown}" x:Key="CustomMaterialDesignNumericUpDown">
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.TextBox.Border}" />
+        <Setter Property="BorderThickness" Value="0 0 0 1"/>
+        <Setter Property="ContextMenu" Value="{DynamicResource MahApps.TextBox.ContextMenu}" />
+        <Setter Property="mah:ControlsHelper.FocusBorderBrush" Value="{DynamicResource MahApps.Brushes.TextBox.Border.Focus}" />
+        <Setter Property="mah:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MahApps.Brushes.TextBox.Border.MouseOver}" />
+        <Setter Property="mah:TextBoxHelper.ButtonFontSize" Value="{DynamicResource MahApps.Font.Size.Button.ClearText}" />
+        <Setter Property="mah:TextBoxHelper.ButtonWidth" Value="22" />
+        <Setter Property="mah:TextBoxHelper.IsMonitoring" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="MinWidth" Value="62" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type mah:NumericUpDown}">
+                    <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <Border x:Name="Base"
+                                Background="Transparent"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <Grid Margin="{TemplateBinding BorderThickness}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="PART_LeftColumn" Width="*" />
+                                <ColumnDefinition x:Name="PART_MiddleColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="PART_RightColumn" Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBox x:Name="PART_TextBox"
+                                     Grid.Column="0"
+                                     Grid.Row="0"
+                                     MinWidth="20"
+                                     MinHeight="0"
+                                     Margin="0"
+                                     Padding="{TemplateBinding Padding}"
+                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     mah:ControlsHelper.DisabledVisualElementVisibility="Collapsed"
+                                     mah:TextBoxHelper.ButtonContent="{TemplateBinding mah:TextBoxHelper.ButtonContent}"
+                                     mah:TextBoxHelper.ButtonContentTemplate="{TemplateBinding mah:TextBoxHelper.ButtonContentTemplate}"
+                                     mah:TextBoxHelper.ButtonFontFamily="{TemplateBinding mah:TextBoxHelper.ButtonFontFamily}"
+                                     mah:TextBoxHelper.ButtonFontSize="{TemplateBinding mah:TextBoxHelper.ButtonFontSize}"
+                                     mah:TextBoxHelper.ButtonWidth="{TemplateBinding mah:TextBoxHelper.ButtonWidth}"
+                                     mah:TextBoxHelper.ButtonsAlignment="{TemplateBinding ButtonsAlignment}"
+                                     mah:TextBoxHelper.ClearTextButton="{TemplateBinding mah:TextBoxHelper.ClearTextButton}"
+                                     mah:TextBoxHelper.HasText="{TemplateBinding mah:TextBoxHelper.HasText}"
+                                     mah:TextBoxHelper.SelectAllOnFocus="{TemplateBinding mah:TextBoxHelper.SelectAllOnFocus}"
+                                     mah:TextBoxHelper.UseFloatingWatermark="{TemplateBinding mah:TextBoxHelper.UseFloatingWatermark}"
+                                     mah:TextBoxHelper.Watermark="{TemplateBinding mah:TextBoxHelper.Watermark}"
+                                     mah:TextBoxHelper.WatermarkAlignment="{TemplateBinding mah:TextBoxHelper.WatermarkAlignment}"
+                                     mah:TextBoxHelper.WatermarkTrimming="{TemplateBinding mah:TextBoxHelper.WatermarkTrimming}"
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                     Background="{x:Null}"
+                                     BorderThickness="0"
+                                     ContextMenu="{TemplateBinding ContextMenu}"
+                                     FocusVisualStyle="{x:Null}"
+                                     Focusable="{TemplateBinding Focusable}"
+                                     FontFamily="{TemplateBinding FontFamily}"
+                                     FontSize="{TemplateBinding FontSize}"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     IsTabStop="{TemplateBinding IsTabStop}"
+                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                     TabIndex="{TemplateBinding TabIndex}"
+                                     VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" />
+                            <RepeatButton x:Name="PART_NumericUp"
+                                          Grid.Column="1"
+                                          Grid.Row="0"
+                                          MaxHeight="10"
+                                          Width="{TemplateBinding UpDownButtonsWidth}"
+                                          Margin="0,15,0,0"
+                                          Delay="{TemplateBinding Delay}"
+                                          Focusable="{TemplateBinding UpDownButtonsFocusable}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsTabStop="False"
+                                          Style="{DynamicResource MaterialDesignIconButton}">
+                                <Path x:Name="PolygonUp"
+                                      Width="10"
+                                      Height="10"
+                                      Data="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z "
+                                      Fill="{DynamicResource MahApps.Brushes.Gray8}"
+                                      Stretch="Fill" />
+                            </RepeatButton>
+                            <RepeatButton x:Name="PART_NumericDown"
+                                          Grid.Column="2"
+                                          Grid.Row="0"
+                                          Width="{TemplateBinding UpDownButtonsWidth}"
+                                          Margin="0,15,0,0"
+                                          MaxHeight="10"
+                                          VerticalContentAlignment="Center"
+                                          Delay="{TemplateBinding Delay}"
+                                          Focusable="{TemplateBinding UpDownButtonsFocusable}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsTabStop="False"
+                                          Style="{DynamicResource MaterialDesignIconButton}">
+                                <Path x:Name="PolygonDown"
+                                      Width="10"
+                                      Height="3"
+                                      Data="F1 M 19,38L 57,38L 57,44L 19,44L 19,38 Z "
+                                      Fill="{DynamicResource MahApps.Brushes.Gray8}"
+                                      Stretch="Fill" />
+                            </RepeatButton>
+
+                            <materialDesign:Underline 
+                                x:Name="Underline" 
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Visibility="{Binding Path=(materialDesign:TextFieldAssist.DecorationVisibility), RelativeSource={RelativeSource TemplatedParent}}"
+                                CornerRadius="{Binding Path=(materialDesign:TextFieldAssist.UnderlineCornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                Background="Transparent" />
+                        </Grid>
+                        <Border x:Name="DisabledVisualElement"
+                                Background="{DynamicResource MahApps.Brushes.Control.Disabled}"
+                                BorderBrush="{DynamicResource MahApps.Brushes.Control.Disabled}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.DisabledVisualElementVisibility), Mode=OneWay}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ButtonsAlignment" Value="Left" />
+                                <Condition Property="SwitchUpDownButtons" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_LeftColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_MiddleColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_NumericDown" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="PART_NumericUp" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="PART_RightColumn" Property="Width" Value="*" />
+                            <Setter TargetName="PART_TextBox" Property="Grid.Column" Value="2" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ButtonsAlignment" Value="Left" />
+                                <Condition Property="SwitchUpDownButtons" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_LeftColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_MiddleColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_NumericDown" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="PART_NumericUp" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="PART_RightColumn" Property="Width" Value="*" />
+                            <Setter TargetName="PART_TextBox" Property="Grid.Column" Value="2" />
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ButtonsAlignment" Value="Opposite" />
+                                <Condition Property="SwitchUpDownButtons" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_LeftColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_MiddleColumn" Property="Width" Value="*" />
+                            <Setter TargetName="PART_NumericDown" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="PART_NumericUp" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="PART_RightColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_TextBox" Property="Grid.Column" Value="1" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ButtonsAlignment" Value="Opposite" />
+                                <Condition Property="SwitchUpDownButtons" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_LeftColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_MiddleColumn" Property="Width" Value="*" />
+                            <Setter TargetName="PART_NumericDown" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="PART_NumericUp" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="PART_RightColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_TextBox" Property="Grid.Column" Value="1" />
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ButtonsAlignment" Value="Right" />
+                                <Condition Property="SwitchUpDownButtons" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_LeftColumn" Property="Width" Value="*" />
+                            <Setter TargetName="PART_MiddleColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_NumericDown" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="PART_NumericUp" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="PART_RightColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="PART_TextBox" Property="Grid.Column" Value="0" />
+                        </MultiTrigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.6" />
+                        </Trigger>
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter Property="InterceptArrowKeys" Value="False" />
+                            <Setter Property="InterceptManualEnter" Value="False" />
+                            <Setter Property="InterceptMouseWheel" Value="False" />
+                            <Setter TargetName="PART_NumericDown" Property="IsEnabled" Value="False" />
+                            <Setter TargetName="PART_NumericUp" Property="IsEnabled" Value="False" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsReadOnly" Value="False" />
+                                <Condition Property="InterceptManualEnter" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_TextBox" Property="IsReadOnly" Value="True" />
+                        </MultiTrigger>
+                        <Trigger SourceName="PART_NumericUp" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_NumericUp" Property="Background" Value="Transparent" />
+                            <Setter TargetName="PolygonUp" Property="Fill" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_NumericUp" Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_NumericUp" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                            <Setter TargetName="PolygonUp" Property="Fill" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_NumericDown" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_NumericDown" Property="Background" Value="Transparent" />
+                            <Setter TargetName="PolygonDown" Property="Fill" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_NumericDown" Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_NumericDown" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                            <Setter TargetName="PolygonDown" Property="Fill" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Base" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.MouseOverBorderBrush)}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_TextBox" Property="IsFocused" Value="True">
+                            <Setter TargetName="Base" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.FocusBorderBrush)}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="Underline" Property="IsActive" Value="True"/>
+                        </Trigger>
+                        <Trigger Property="HideUpDownButtons" Value="True">
+                            <Setter TargetName="PART_NumericDown" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_NumericUp" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="UpDownButtonsWidth" Value="22" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource MaterialDesignValidationErrorTemplate}" />
+    </Style>
+
     <Style x:Key="ActionMaterialExpanderHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -215,12 +476,11 @@
         </Grid>
     </DataTemplate>
 
-    <Style TargetType="{x:Type mah:NumericUpDown}">
+    <Style TargetType="{x:Type mah:NumericUpDown}" BasedOn="{StaticResource CustomMaterialDesignNumericUpDown}">
         <Setter Property="HideUpDownButtons" Value="True" />
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="UpDownButtonsWidth" Value="12"/>
         <Setter Property="Interval"  Value="1"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="TextAlignment" Value="Left"/>
         <Setter Property="Minimum" Value="1"/>
@@ -233,76 +493,122 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style TargetType="{x:Type UniformGrid}">
+
+    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource MahApps.Brushes.ComboBox.Border.MouseOver}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
     <!-- Action Editor Body -->
     <DataTemplate x:Key="ActionEditorBodyItemTemplate" DataType="viewModel:FunctoidActionViewModel">
-        
         <Border Margin="10,0,10,0">
-            <StackPanel>
-                <StackPanel Margin="0, 10, 0, 0">
+            <StackPanel VerticalAlignment="Top">
 
-
-                    <!-- trigger -->
-                    <Border Style="{StaticResource ChannelActionEditorBorderStyle}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <ComboBox Grid.Column="1"
-                                        materialDesign:HintAssist.Hint="Trigger"
-                                        materialDesign:HintAssist.IsFloating="True"
-                                        ToolTip="Trigger"
-                                        BorderThickness="0"
-                                        ItemsSource="{Binding Source={StaticResource FootTriggerValues}}"
-                                        SelectedItem="{Binding Trigger}">
-                            </ComboBox>
-                        </Grid>
-                    </Border>
-
-
-                    <!-- command -->
-                    <!-- channel -->
-                    <UniformGrid Columns="2">
-                        <ComboBox materialDesign:HintAssist.Hint="Command" Margin="0,0,5,0"
-                                    materialDesign:HintAssist.IsFloating="True"
-                                    ToolTip="Command"
-                                    BorderThickness="0" 
-                                  materialDesign:ComboBoxAssist.ClassicMode="true"
-                                    ItemsSource="{Binding Source={StaticResource MidiChannelCommandValues}}"
-                                    SelectedItem="{Binding Command}">
+                <!-- command -->
+                <!-- channel -->
+                <!-- delay -->
+                <Border Style="{StaticResource ChannelActionEditorBorderStyle}">
+                    <UniformGrid Columns="3">
+                        <ComboBox materialDesign:HintAssist.Hint="Trigger"
+                                  VerticalContentAlignment="Top"
+                                  VerticalAlignment="Top"
+                                  ToolTip="Trigger"
+                                  BorderThickness="0"
+                                  Margin="0,6,5,0"
+                                  ItemsSource="{Binding Source={StaticResource FootTriggerValues}}"
+                                  SelectedItem="{Binding Trigger}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
                         </ComboBox>
-                        <mah:NumericUpDown Maximum="16"
-                                            materialDesign:HintAssist.Hint="Midi Channel"
-                                            ToolTip="Midi Channel"
-                                            Value="{Binding MidiChannel}" />
+                        <ComboBox materialDesign:HintAssist.Hint="Command" 
+                                  VerticalContentAlignment="Top"
+                                  VerticalAlignment="Top"
+                                  ToolTip="Command"
+                                  BorderThickness="0" 
+                                  Margin="0,6,5,0"
+                                  ItemsSource="{Binding Source={StaticResource MidiChannelCommandValues}}"
+                                  SelectedItem="{Binding Command}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                        <mah:NumericUpDown Maximum="128"
+                                           materialDesign:HintAssist.Hint="Delay"
+                                           VerticalContentAlignment="Top"
+                                           VerticalAlignment="Top"
+                                           ToolTip="Delay"
+                                           Value="{Binding Delay}" />
                     </UniformGrid>
+                </Border>
 
-                    <!-- Data1 -->
-                    <!-- Data2 -->
-                    <UniformGrid Columns="2" Visibility="{Binding IsMusicalMode, Converter={StaticResource InverseBooleanVisibilityConverter}}">
+                <!-- Data1 -->
+                <!-- Data2 -->
+                <Border Style="{StaticResource ChannelActionEditorBorderStyle}" Visibility="{Binding IsMusicalMode, Converter={StaticResource InverseBooleanVisibilityConverter}}">
+                    <UniformGrid Columns="3" >
+                        <mah:NumericUpDown Maximum="16" Margin="0,0,5,0"
+                                           materialDesign:HintAssist.Hint="Channel"
+                                           VerticalContentAlignment="Top"
+                                           VerticalAlignment="Top"
+                                           ToolTip="Channel"
+                                           Value="{Binding MidiChannel}" />
                         <mah:NumericUpDown Maximum="128" Margin="0,0,5,0"
-                                               materialDesign:HintAssist.Hint="Data 1"
-                                               ToolTip="Data 1"
-                                               Value="{Binding Data1}" />
-                        <mah:NumericUpDown Maximum="128" 
-                                               materialDesign:HintAssist.Hint="Data 2"
-                                               ToolTip="Data 2"
-                                               Value="{Binding Data2}" />
+                                           materialDesign:HintAssist.Hint="Data 1"
+                                           VerticalContentAlignment="Top"
+                                           VerticalAlignment="Top"
+                                           ToolTip="Data 1"
+                                           Value="{Binding Data1}" />
+                        <mah:NumericUpDown Maximum="128" Margin="0,0,0,0"
+                                                   materialDesign:HintAssist.Hint="Data 2"
+                                                   VerticalContentAlignment="Top"
+                                                   VerticalAlignment="Top"
+                                                   ToolTip="Data 2"
+                                                   Value="{Binding Data2}" />
                     </UniformGrid>
+                </Border>
 
-                    <!-- Note -->
-                    <!-- Velocity -->
-                    <UniformGrid Columns="2" Visibility="{Binding IsMusicalMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <ComboBox Margin="0,0,5,0"
-                                    materialDesign:HintAssist.Hint="Note"
-                                    materialDesign:HintAssist.IsFloating="True"
-                                    BorderThickness="0"
-                                    Background="Transparent"
-                                    ItemsSource="{Binding AvailableNotes}"
-                                    SelectedValue="{Binding Data1}"
-                                    SelectedValuePath="Value">
+                <!-- Note -->
+                <!-- Velocity -->
+                <Border Style="{StaticResource ChannelActionEditorBorderStyle}" Visibility="{Binding IsMusicalMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <UniformGrid Columns="3" >
+                        <mah:NumericUpDown Maximum="16" Margin="0,0,5,0"
+                                           materialDesign:HintAssist.Hint="Channel"
+                                           VerticalContentAlignment="Top"
+                                           VerticalAlignment="Top"
+                                           ToolTip="Channel"
+                                           Value="{Binding MidiChannel}" />
+                        <ComboBox Margin="0,6,5,0"
+                                  materialDesign:HintAssist.Hint="Note"
+                                  VerticalContentAlignment="Top"
+                                  VerticalAlignment="Top"
+                                  BorderThickness="0"
+                                  Background="Transparent"
+                                  ItemsSource="{Binding AvailableNotes}"
+                                  SelectedValue="{Binding Data1}"
+                                  SelectedValuePath="Value">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"></TextBlock>
@@ -314,9 +620,11 @@
                                 </ItemsPanelTemplate>
                             </ComboBox.ItemsPanel>
                         </ComboBox>
-                        
-                        <ComboBox   materialDesign:HintAssist.Hint="Velocity" 
-                                    materialDesign:HintAssist.IsFloating="True"
+
+                        <ComboBox   Margin="0,6,0,0"
+                                    materialDesign:HintAssist.Hint="Velocity" 
+                                    VerticalContentAlignment="Top"
+                                    VerticalAlignment="Top"
                                     BorderThickness="0" 
                                     Background="Transparent"
                                     ItemsSource="{Binding AvailableDynamics}"
@@ -324,59 +632,50 @@
                                     SelectedValuePath="Value">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Height="25">
+                                    <StackPanel Orientation="Horizontal" MaxHeight="19">
                                         <Border>
                                             <TextBlock VerticalAlignment="Center"
-                                                   FontFamily="/MoonBurst.Client;component/img/#Sonata" 
-                                                   FontSize="22"
-                                                   Padding="0,10,0,0"
-                                                   Text="{Binding Display}"></TextBlock>
+                                                       FontFamily="/MoonBurst.Client;component/img/#Sonata" 
+                                                       FontSize="22"
+                                                       Text="{Binding Display}"></TextBlock>
                                         </Border>
                                         <Border>
                                             <TextBlock VerticalAlignment="Center"
-                                                   FontSize="10"
-                                                   Padding="3,0,0,10"
-                                                   Text="{Binding ValueDisplay}"></TextBlock>
+                                                       FontSize="10"
+                                                       Padding="3,0,0,12"
+                                                       Text="{Binding ValueDisplay}"></TextBlock>
                                         </Border>
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </UniformGrid>
-                    
-                    <!-- delay -->
-                    <Border Style="{StaticResource ChannelActionEditorBorderStyle}">
-                        <mah:NumericUpDown Maximum="128"
-                                                    materialDesign:HintAssist.Hint="Delay"
-                                                    ToolTip="Delay"
-                                                    Value="{Binding Delay}" />
-                    </Border>
+                </Border>
 
-                    <!-- footer action editor button -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 8 0 8" Grid.Column="1">
-                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                <!-- footer action editor button -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 8 0 8" Grid.Column="1">
+                        <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     Width="20" Height="20"
                                     materialDesign:RippleAssist.IsCentered="True" 
                                     ToolTip="Manual Trigger"
                                     Command="{Binding OnTriggerActionCommand}">
-                                <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
-                            </Button>
-                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                            <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     ToolTip="Delete"
                                     Width="20" Height="20"
                                     materialDesign:RippleAssist.IsCentered="True" 
                                     Command="{Binding OnDeleteActionCommand}">
-                                <materialDesign:PackIcon Kind="Delete" Width="15" Height="15" />
-                            </Button>
-                        </StackPanel>
-                    </Grid>
+                            <materialDesign:PackIcon Kind="Delete" Width="15" Height="15" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
 
-                </StackPanel>
             </StackPanel>
         </Border>
     </DataTemplate>
@@ -384,9 +683,9 @@
     <DataTemplate x:Key="ActionListItemTemplate" DataType="viewModel:FunctoidActionViewModel">
         <materialDesign:Card  HorizontalAlignment="Stretch" 
                               Foreground="{StaticResource MahApps.Brushes.IdealForeground}"
-                                  materialDesign:ShadowAssist.ShadowDepth="Depth1" 
-                              MaxWidth="215"
-                                  Padding="1"  Margin="0,0,0,5">
+                              materialDesign:ShadowAssist.ShadowDepth="Depth1" 
+                              Width="215"
+                              Padding="1" Margin="0,0,0,5">
             <Expander IsExpanded="{Binding IsExpanded}" 
                           Content="{Binding}" Header="{Binding}" 
                           HorizontalAlignment="Stretch" Name="exp"
