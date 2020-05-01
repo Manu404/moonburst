@@ -6,8 +6,6 @@
                     xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
                     xmlns:helper="clr-namespace:MoonBurst.Helper">
 
-    <FontFamily x:Key="MetDemo">pack://application:,,,/img/#MetDemo</FontFamily>
-
     <helper:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <helper:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
     <helper:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
@@ -34,23 +32,8 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
-    <Style TargetType="Label" x:Key="ActionEditorFieldLabel" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="Width" Value="75" />
-        <Setter Property="Height" Value="25" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="Opacity" Value="0.5" />
-        <Setter Property="Foreground"
-            Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
-    </Style>
 
-    <Style x:Key="InputDescriptionLabel" BasedOn="{StaticResource MaterialDesignLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="12" />
+    <Style x:Key="InputDescriptionTextBlock" TargetType="TextBlock">
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{StaticResource MaterialDesignBody}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -72,9 +55,9 @@
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon Kind="PageLayoutFooter" Width="30" Height="30"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <StackPanel Grid.Column="1">
-                <Label Style="{StaticResource InputDescriptionLabel}" Content="{Binding PortName}" />
-                <Label Style="{StaticResource InputDescriptionLabel}" Content="{Binding DeviceName}" />
-                <Label Style="{StaticResource InputDescriptionLabel}" Content="{Binding ControllerName}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Text="{Binding PortName}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Text="{Binding DeviceName}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Text="{Binding ControllerName}" />
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -87,8 +70,8 @@
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon Kind="PageLayoutFooter" Width="20" Height="20"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <StackPanel Grid.Column="1">
-                <Label Style="{StaticResource InputDescriptionLabel}" Opacity="0.5" Content="{Binding ControllerNameWithoutHeader}" />
-                <Label Style="{StaticResource InputDescriptionLabel}" Opacity="0.8" Content="{Binding State.State, Converter={StaticResource EnumToStringConverter}}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Opacity="0.5" Text="{Binding ControllerNameWithoutHeader}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Opacity="0.8" Text="{Binding State.State, Converter={StaticResource EnumToStringConverter}}" />
             </StackPanel>
         </Grid>
     </DataTemplate>

@@ -37,23 +37,23 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <ToggleButton Grid.Row="0"
-                                                          HorizontalAlignment="Center"
-                                                          Foreground="{TemplateBinding Foreground}"
-                                                          IsChecked="{Binding Path=IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                          Style="{StaticResource MaterialDesignExpanderToggleButton}"
-                                                          RenderTransformOrigin="0.5,0.5">
+                                      HorizontalAlignment="Center"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      IsChecked="{Binding Path=IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      Style="{StaticResource MaterialDesignExpanderToggleButton}"
+                                      RenderTransformOrigin="0.5,0.5">
                                 <ToggleButton.RenderTransform>
                                     <RotateTransform Angle="-90"/>
                                 </ToggleButton.RenderTransform>
                             </ToggleButton>
                             <ContentPresenter Grid.Row="1"
-                                                              HorizontalAlignment="Center"
-                                                              Margin="0,16,0,0"
-                                                              Content="{TemplateBinding Content}"
-                                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                              VerticalAlignment="Stretch" />
+                                      HorizontalAlignment="Center"
+                                      Margin="0,16,0,0"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                      VerticalAlignment="Stretch" />
                         </Grid>
                     </Border>
                 </ControlTemplate>

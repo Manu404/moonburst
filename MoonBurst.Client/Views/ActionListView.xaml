@@ -441,7 +441,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ToggleButton IsChecked="{Binding IsEnabled}" ToolTip="(De)Activate">
+            <ToggleButton IsChecked="{Binding IsEnabled}" ToolTip="(De)Activate" Margin="0,3,0,0">
                 <ToggleButton.Style>
                     <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
                         <Style.Triggers>
@@ -470,46 +470,54 @@
                 </helper:ToggleButtonAssist.SwitchTrackOffBackground>
             </ToggleButton>
 
-            <Label Grid.Column="1" VerticalAlignment="Center" FontSize="11" ToolTip="{Binding DisplayNameToolTip}">
-                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding DisplayName}" />
-            </Label>
+            <TextBlock Grid.Column="1" 
+                       Margin="5,0,0,0"
+                       VerticalAlignment="Center" 
+                       FontSize="11" 
+                       ToolTip="{Binding DisplayNameToolTip}" 
+                       Text="{Binding DisplayName}"
+                       TextTrimming="CharacterEllipsis">
+            </TextBlock>
         </Grid>
     </DataTemplate>
 
-    <Style TargetType="{x:Type mah:NumericUpDown}" BasedOn="{StaticResource CustomMaterialDesignNumericUpDown}">
-        <Setter Property="HideUpDownButtons" Value="True" />
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="UpDownButtonsWidth" Value="12"/>
-        <Setter Property="Interval"  Value="1"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="TextAlignment" Value="Left"/>
-        <Setter Property="Minimum" Value="1"/>
-        <Setter Property="Grid.Column" Value="1"/>
-        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
-        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="HideUpDownButtons" Value="False" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 
-    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Grid.Column" Value="1"/>
-        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{StaticResource MahApps.Brushes.ComboBox.Border.MouseOver}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 
     <!-- Action Editor Body -->
     <DataTemplate x:Key="ActionEditorBodyItemTemplate" DataType="viewModel:FunctoidActionViewModel">
+        <DataTemplate.Resources>
+            <Style TargetType="{x:Type mah:NumericUpDown}" BasedOn="{StaticResource CustomMaterialDesignNumericUpDown}">
+                <Setter Property="HideUpDownButtons" Value="True" />
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="UpDownButtonsWidth" Value="12"/>
+                <Setter Property="Interval"  Value="1"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+                <Setter Property="Minimum" Value="1"/>
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="HideUpDownButtons" Value="False" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource MahApps.Brushes.ComboBox.Border.MouseOver}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </DataTemplate.Resources>
         <Border Margin="10,0,10,0">
             <StackPanel VerticalAlignment="Top">
 
