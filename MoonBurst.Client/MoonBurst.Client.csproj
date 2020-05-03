@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.1999</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.2001</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -159,12 +159,12 @@
     <Compile Include="Helper\ToggleButtonAssist.cs" />
     <Compile Include="Model\ArduinoPortConfigModel.cs" />
     <Compile Include="Model\ClientConfigurationModel.cs" />
-    <Compile Include="Model\FunctoidActionModel.cs" />
-    <Compile Include="Model\FunctoidChannelModel.cs" />
+    <Compile Include="Model\ChannelActionModel.cs" />
+    <Compile Include="Model\LayoutChannelModel.cs" />
     <Compile Include="Model\HardwareConfigurationModel.cs" />
     <Compile Include="Model\LayoutModel.cs" />
-    <Compile Include="Model\Messages\DeleteFunctoidActionMessage.cs" />
-    <Compile Include="ViewModel\ClientConfigurationViewModel.cs" />
+    <Compile Include="Model\Messages\DeleteChannelActionMessage.cs" />
+    <Compile Include="ViewModel\ApplicationConfigurationViewModel.cs" />
     <Compile Include="ViewModel\DeviceInputViewModel.cs" />
     <Compile Include="ViewModel\Factories\ArduinoConfigPortViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\DeviceInputViewModelFactory.cs" />
@@ -172,13 +172,13 @@
     <Compile Include="ViewModel\Factories\FunctoidChannelViewModelFactory.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
     <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
-    <Compile Include="ViewModel\ILoadSaveDialogProvider.cs" />
+    <Compile Include="ViewModel\Interfaces\ILoadSaveDialogProvider.cs" />
     <Compile Include="ViewModel\Interfaces\IArduinoConfigPortViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IDeviceInputViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IFunctoidActionViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IFunctoidChannelViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IChannelActionViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\ILayoutChannelViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\IMainViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IClientConfigurationViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IApplicationConfigurationViewModel.cs" />
     <Compile Include="ViewModel\Serializer\ClientConfigurationViewModelSerializer.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidActionViewModelDataSerializer.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidChannelViewModelDataSerializer.cs" />
@@ -189,14 +189,14 @@
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\FunctoidActionViewModel.cs" />
-    <Compile Include="ViewModel\FunctoidChannelViewModel.cs" />
+    <Compile Include="ViewModel\ChannelActionViewModel.cs" />
+    <Compile Include="ViewModel\LayoutChannelViewModel.cs" />
     <Compile Include="ViewModel\HardwareConfigurationViewModel.cs" />
     <Compile Include="ViewModel\LayoutViewModel.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Messages\DeleteFunctoidChannelMessage.cs" />
+    <Compile Include="Model\Messages\DeleteChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="Themes\Imports.xaml">
       <SubType>Designer</SubType>

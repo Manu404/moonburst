@@ -15,11 +15,11 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public class FunctoidChannelViewModel : ViewModelBase, IFunctoidChannelViewModel
+    public class LayoutChannelViewModel : ViewModelBase, ILayoutChannelViewModel
     {
         private readonly IArduinoGateway _arduinoGateway;
         private readonly IMessenger _messenger;
-        private readonly IFunctoidActionViewModelFactory _actionFactory;
+        private readonly IChannelActionViewModelFactory _actionFactory;
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
         private readonly ISerialGateway _serialGateway;
         private string _lastInput;
@@ -105,7 +105,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ObservableCollection<IFunctoidActionViewModel> Actions { get; set; }
+        public ObservableCollection<IChannelActionViewModel> Actions { get; set; }
         public ObservableCollection<IDeviceInputViewModel> AvailableInputs { get; set; }
 
         public int ArduinoBitMask { get; set; }
@@ -118,9 +118,9 @@ namespace MoonBurst.ViewModel
         public ICommand OnCollapseActionsCommand { get; set; }
         public ICommand OnToggleLockChannelCommand { get; set; }
 
-        public FunctoidChannelViewModel(IMessenger messenger, 
+        public LayoutChannelViewModel(IMessenger messenger, 
             IArduinoGateway arduinoGateway, 
-            IFunctoidActionViewModelFactory actionFactory,
+            IChannelActionViewModelFactory actionFactory,
             IFactory<IDeviceInputViewModel> deviceInputViewModelFactory,
             ISerialGateway serialGateway)
         {
@@ -139,9 +139,9 @@ namespace MoonBurst.ViewModel
             OnExpandActionsCommand = new RelayCommand(() => OnExpandCollapse(true));
             OnCollapseActionsCommand = new RelayCommand(() => OnExpandCollapse(false));
 
-            Actions = new ObservableCollection<IFunctoidActionViewModel>();
+            Actions = new ObservableCollection<IChannelActionViewModel>();
 
-            _messenger.Register<DeleteFunctoidActionMessage>(this, OnDeleteAction);
+            _messenger.Register<DeleteChannelActionMessage>(this, OnDeleteAction);
             _messenger.Register<PortConfigChangedMessage>(this, OnPortConfigChanged);
 
             AvailableInputs = new ObservableCollection<IDeviceInputViewModel>();
@@ -205,7 +205,7 @@ namespace MoonBurst.ViewModel
             this.IsTriggered = true;
         }
 
-        private void OnDeleteAction(DeleteFunctoidActionMessage obj)
+        private void OnDeleteAction(DeleteChannelActionMessage obj)
         {
             Actions.Remove(obj.Item);
         }
@@ -217,10 +217,10 @@ namespace MoonBurst.ViewModel
 
         private async void OnDelete()
         {
-            var result = await ConfirmationHelper.RequestConfirmationForDeletation();
+            var result = await ConfirmationHelper.RequestConfirmationBeforeDeletation();
             if (result is bool boolResult && boolResult)
             {
-                _messenger.Send(new DeleteFunctoidChannelMessage(this));
+                _messenger.Send(new DeleteChannelMessage(this));
             }
         }
 

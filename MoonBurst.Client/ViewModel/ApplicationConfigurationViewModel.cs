@@ -4,15 +4,15 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public class ClientConfigurationViewModel : ViewModelBase, IClientConfigurationViewModel
+    public class ApplicationConfigurationViewModel : ViewModelBase, IApplicationConfigurationViewModel
     {
-        private ISerializer<IClientConfigurationViewModel> _serializer;
+        private ISerializer<IApplicationConfigurationViewModel> _serializer;
 
         public string LastHardwareConfigurationPath { get; set; }
         public string LastLayoutPath { get; set; }
         public string CurrentPath { get; set; }
 
-        public ClientConfigurationViewModel(ISerializer<IClientConfigurationViewModel> serializer)
+        public ApplicationConfigurationViewModel(ISerializer<IApplicationConfigurationViewModel> serializer)
         {
             _serializer = serializer;
         }

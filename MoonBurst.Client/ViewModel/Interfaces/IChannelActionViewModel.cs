@@ -6,7 +6,7 @@ using MoonBurst.Core.Helper;
 
 namespace MoonBurst.ViewModel.Interfaces
 {
-    public interface IFunctoidActionViewModel : IViewModel
+    public interface IChannelActionViewModel : IViewModel
     {
         string DisplayName { get; }
         string DisplayNameToolTip { get; }

@@ -2,7 +2,7 @@
 
 namespace MoonBurst.Model
 {
-    public class FunctoidActionModel
+    public class ChannelActionModel
     {
         public int MidiChannel { get; set; }
         public int Data1 { get; set; }

@@ -47,7 +47,7 @@ namespace MoonBurst.ViewModel
         private readonly IMidiGateway _midiGateway;
         private readonly ISerialGateway _serialGateway;
         private readonly IArduinoGateway _arduinoConfig;
-        private readonly IClientConfigurationViewModel _config;
+        private readonly IApplicationConfigurationViewModel _config;
         private readonly ISerializer<IHardwareConfigurationViewModel> _serializer;
         private readonly IFactory<IArduinoConfigPortViewModel, IArduinoPort> _arduinoPortFactory;
         private readonly ILoadSaveDialogProvider _dialogProvider;
@@ -126,7 +126,7 @@ namespace MoonBurst.ViewModel
         public HardwareConfigurationViewModel(IMidiGateway midiGateway, 
             ISerialGateway serialGateway, 
             IArduinoGateway arduinoGateway, 
-            IClientConfigurationViewModel config,
+            IApplicationConfigurationViewModel config,
             ISerializer<IHardwareConfigurationViewModel> serializer,
             IFactory<IArduinoConfigPortViewModel, IArduinoPort> arduinoPortFactory)
         {

@@ -15,7 +15,7 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel
 {
-    public class FunctoidActionViewModel : ViewModelBase, IFunctoidActionViewModel
+    public class ChannelActionViewModel : ViewModelBase, IChannelActionViewModel
     {
         private IMessenger _messenger;
         private IMusicalNoteHelper _noteHelper;
@@ -228,7 +228,7 @@ namespace MoonBurst.ViewModel
         public ICommand OnTriggerActionCommand { get; set; }
         public ICommand OnLockActionCommand { get; set; }
 
-        public FunctoidActionViewModel(IMessenger messenger, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
+        public ChannelActionViewModel(IMessenger messenger, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
@@ -268,10 +268,10 @@ namespace MoonBurst.ViewModel
 
         private async void OnDelete()
         {
-            var result = await ConfirmationHelper.RequestConfirmationForDeletation();
+            var result = await ConfirmationHelper.RequestConfirmationBeforeDeletation();
             if (result is bool boolResult && boolResult)
             {
-                _messenger.Send(new DeleteFunctoidActionMessage(this));
+                _messenger.Send(new DeleteChannelActionMessage(this));
             }
         }
     }

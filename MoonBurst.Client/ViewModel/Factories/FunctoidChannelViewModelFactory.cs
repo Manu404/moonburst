@@ -7,7 +7,7 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Factories
 {
-    public interface IFunctoidChannelViewModelFactory : IFactory<IFunctoidChannelViewModel>, IFactory<IFunctoidChannelViewModel, FunctoidChannelModel>
+    public interface IFunctoidChannelViewModelFactory : IFactory<ILayoutChannelViewModel>, IFactory<ILayoutChannelViewModel, LayoutChannelModel>
     {
 
     }
@@ -17,15 +17,15 @@ namespace MoonBurst.ViewModel.Factories
         private readonly IArduinoGateway _arduinoGateway;
         private readonly ISerialGateway _serialGateway;
         private readonly IMessenger _messenger;
-        private readonly IFunctoidActionViewModelFactory _factory;
-        private readonly IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel> _channelExtractor;
+        private readonly IChannelActionViewModelFactory _factory;
+        private readonly IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel> _channelExtractor;
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
 
         public FunctoidChannelViewModelFactory(IArduinoGateway arduinoGateway, 
             ISerialGateway serialGateway,
             IMessenger messenger, 
-            IFunctoidActionViewModelFactory factory,
-            IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel> extractor,
+            IChannelActionViewModelFactory factory,
+            IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel> extractor,
             IFactory<IDeviceInputViewModel> deviceInputViewModelFactory)
         {
             _arduinoGateway = arduinoGateway;
@@ -36,16 +36,16 @@ namespace MoonBurst.ViewModel.Factories
             _serialGateway = serialGateway;
         }
 
-        public IFunctoidChannelViewModel Build(FunctoidChannelModel model)
+        public ILayoutChannelViewModel Build(LayoutChannelModel model)
         {
             var vm = Build();
             _channelExtractor.ApplyData(model, vm);
             return vm;
         }
 
-        public IFunctoidChannelViewModel Build()
+        public ILayoutChannelViewModel Build()
         {
-            return new FunctoidChannelViewModel(_messenger, _arduinoGateway, _factory, _deviceInputViewModelFactory, _serialGateway);
+            return new LayoutChannelViewModel(_messenger, _arduinoGateway, _factory, _deviceInputViewModelFactory, _serialGateway);
         }
     }
 }

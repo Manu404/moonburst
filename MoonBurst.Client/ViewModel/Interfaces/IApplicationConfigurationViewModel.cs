@@ -3,7 +3,7 @@ using MoonBurst.Core.Serializer;
 
 namespace MoonBurst.ViewModel.Interfaces
 {
-    public interface IClientConfigurationViewModel : IViewModel, IFileSerializableType
+    public interface IApplicationConfigurationViewModel : IViewModel, IFileSerializableType
     {
         string LastHardwareConfigurationPath { get; set; }
         string LastLayoutPath { get; set; }

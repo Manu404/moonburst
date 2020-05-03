@@ -155,7 +155,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="ChannelHeaderActionStatusTemplate" DataType="viewModel:FunctoidActionViewModel">
+    <DataTemplate x:Key="ChannelHeaderActionStatusTemplate" DataType="viewModel:ChannelActionViewModel">
         <Grid>
             <Ellipse Style="{StaticResource TriggerStatusEllipseControl}" VerticalAlignment="Center" HorizontalAlignment="Center">
             </Ellipse>
@@ -190,7 +190,7 @@
 
     </DataTemplate>
 
-    <DataTemplate x:Key="ChannelExpanderHeaderTemplate" DataType="viewModel:FunctoidChannelViewModel">
+    <DataTemplate x:Key="ChannelExpanderHeaderTemplate" DataType="viewModel:LayoutChannelViewModel">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -266,7 +266,7 @@
         </Grid>
     </DataTemplate>
 
-    <DataTemplate x:Key="ChannelExpanderBodyTemplate" DataType="viewModel:FunctoidChannelViewModel">
+    <DataTemplate x:Key="ChannelExpanderBodyTemplate" DataType="viewModel:LayoutChannelViewModel">
         <Border BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" BorderThickness="2,0,0,0">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
@@ -390,7 +390,7 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="ChannelListViewItemTemplate" DataType="viewModel:FunctoidChannelViewModel">
+    <DataTemplate x:Key="ChannelListViewItemTemplate" DataType="viewModel:LayoutChannelViewModel">
         <materialDesign:Card  HorizontalAlignment="Left" 
                               MaxWidth="300"
                               VerticalAlignment="Stretch">

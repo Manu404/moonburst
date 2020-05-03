@@ -436,7 +436,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="ActionEditorHeaderItemTemplate" DataType="viewModel:FunctoidActionViewModel">
+    <DataTemplate x:Key="ActionEditorHeaderItemTemplate" DataType="viewModel:ChannelActionViewModel">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -484,7 +484,7 @@
     </DataTemplate>
 
     <!-- Action Editor Body -->
-    <DataTemplate x:Key="ActionEditorBodyItemTemplate" DataType="viewModel:FunctoidActionViewModel">
+    <DataTemplate x:Key="ActionEditorBodyItemTemplate" DataType="viewModel:ChannelActionViewModel">
         <DataTemplate.Resources>
             <Style TargetType="{x:Type mah:NumericUpDown}" BasedOn="{StaticResource CustomMaterialDesignNumericUpDown}">
                 <Setter Property="HideUpDownButtons" Value="True" />
@@ -737,7 +737,7 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="ActionListItemTemplate" DataType="viewModel:FunctoidActionViewModel">
+    <DataTemplate x:Key="ActionListItemTemplate" DataType="viewModel:ChannelActionViewModel">
         <materialDesign:Card  HorizontalAlignment="Stretch" 
                               Foreground="{StaticResource MahApps.Brushes.IdealForeground}"
                               materialDesign:ShadowAssist.ShadowDepth="Depth1" 

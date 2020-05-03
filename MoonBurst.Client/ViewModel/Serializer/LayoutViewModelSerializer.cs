@@ -9,9 +9,9 @@ namespace MoonBurst.ViewModel.Serializer
     public class LayoutViewModelSerializer : SerializerBase<ILayoutViewModel, LayoutModel>
     {
         IFunctoidChannelViewModelFactory _channelFactory;
-        IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel> _extractor;
+        IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel> _extractor;
 
-        public LayoutViewModelSerializer(IFunctoidChannelViewModelFactory factory, IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel> extractor) : base("default_layout.xml")
+        public LayoutViewModelSerializer(IFunctoidChannelViewModelFactory factory, IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel> extractor) : base("default_layout.xml")
         {
             _channelFactory = factory;
             _extractor = extractor;

@@ -2,7 +2,7 @@
 
 namespace MoonBurst.Model
 {
-    public class FunctoidChannelModel
+    public class LayoutChannelModel
     {
         public int Index { get; set; }
         public string Name { get; set; }
@@ -11,11 +11,11 @@ namespace MoonBurst.Model
         public bool IsLocked { get; set; }
         public string BindedInput { get; set; }
 
-        public List<FunctoidActionModel> Actions { get; set; }
+        public List<ChannelActionModel> Actions { get; set; }
 
-        public FunctoidChannelModel()
+        public LayoutChannelModel()
         {
-            Actions = new List<FunctoidActionModel>();
+            Actions = new List<ChannelActionModel>();
         }
     }
 }

@@ -8,24 +8,24 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Factories
 {
-    public interface IFunctoidActionViewModelFactory : IFactory<IFunctoidActionViewModel>, IFactory<IFunctoidActionViewModel, FunctoidActionModel>
+    public interface IChannelActionViewModelFactory : IFactory<IChannelActionViewModel>, IFactory<IChannelActionViewModel, ChannelActionModel>
     {
 
     }
 
-    public class FunctoidActionViewModelFactory : IFunctoidActionViewModelFactory
+    public class ChannelActionViewModelFactory : IChannelActionViewModelFactory
     {
         private IMessenger _messenger;
         private IMusicalNoteHelper _noteHelper;
         private IDynamicsHelper _dynamicsHelper;
         private IMidiGateway _midiGateway;
-        private IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> _actionExtractor;
+        private IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
 
-        public FunctoidActionViewModelFactory(
+        public ChannelActionViewModelFactory(
             IMessenger messenger,
             IMusicalNoteHelper noteHelper,
             IDynamicsHelper dynamicsHelper,
-            IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> actionExtractor,
+            IDataExtractor<IChannelActionViewModel, ChannelActionModel> actionExtractor,
             IMidiGateway midiGateway)
         {
             _messenger = messenger;
@@ -35,16 +35,16 @@ namespace MoonBurst.ViewModel.Factories
             _midiGateway = midiGateway;
         }
 
-        public IFunctoidActionViewModel Build(FunctoidActionModel model)
+        public IChannelActionViewModel Build(ChannelActionModel model)
         {
             var vm = Build();
             _actionExtractor.ApplyData(model, vm);
             return vm;
         }
 
-        public IFunctoidActionViewModel Build()
+        public IChannelActionViewModel Build()
         {
-            return new FunctoidActionViewModel(_messenger, _noteHelper, _dynamicsHelper, _midiGateway);
+            return new ChannelActionViewModel(_messenger, _noteHelper, _dynamicsHelper, _midiGateway);
         }
     }
 }

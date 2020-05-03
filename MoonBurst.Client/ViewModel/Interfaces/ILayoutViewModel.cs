@@ -6,10 +6,10 @@ namespace MoonBurst.ViewModel.Interfaces
 {
     public interface ILayoutViewModel : IFileSerializableType, IViewModel
     {
-        ObservableCollection<IFunctoidChannelViewModel> FunctoidChannels { get; set; }
+        ObservableCollection<ILayoutChannelViewModel> FunctoidChannels { get; set; }
         
         void Close();
         void LoadLast();
-        void DeleteChannel(IFunctoidChannelViewModel channel);
+        void DeleteChannel(ILayoutChannelViewModel channel);
     }
 }

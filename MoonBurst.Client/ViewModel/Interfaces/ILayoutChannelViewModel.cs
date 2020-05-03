@@ -3,9 +3,9 @@ using MoonBurst.Core;
 
 namespace MoonBurst.ViewModel.Interfaces
 {
-    public interface IFunctoidChannelViewModel : IViewModel
+    public interface ILayoutChannelViewModel : IViewModel
     {
-        ObservableCollection<IFunctoidActionViewModel> Actions { get; set; }
+        ObservableCollection<IChannelActionViewModel> Actions { get; set; }
         int ArduinoBitMask { get; set; }
         int Index { get; set; }
         bool IsEnabled { get; set; }

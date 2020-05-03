@@ -7,7 +7,7 @@ namespace MoonBurst.Helper
 
     class ConfirmationHelper
     {
-        public static async Task<object> RequestConfirmationForDeletation()
+        public static async Task<object> RequestConfirmationBeforeDeletation()
         {
             TextBlock txt1 = new TextBlock();
             txt1.HorizontalAlignment = HorizontalAlignment.Center;

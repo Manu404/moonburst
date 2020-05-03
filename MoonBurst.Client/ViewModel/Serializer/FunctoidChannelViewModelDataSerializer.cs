@@ -7,20 +7,20 @@ using MoonBurst.ViewModel.Interfaces;
 
 namespace MoonBurst.ViewModel.Serializer
 {
-    public class FunctoidChannelViewModelDataSerializer : IDataExtractor<IFunctoidChannelViewModel, FunctoidChannelModel>
+    public class FunctoidChannelViewModelDataSerializer : IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel>
     {
-        IFunctoidActionViewModelFactory _actionFactory;
-        IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> _actionExtractor;
+        IChannelActionViewModelFactory _actionFactory;
+        IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
 
-        public FunctoidChannelViewModelDataSerializer(IFunctoidActionViewModelFactory actionFactory, IDataExtractor<IFunctoidActionViewModel, FunctoidActionModel> actionExtractor)
+        public FunctoidChannelViewModelDataSerializer(IChannelActionViewModelFactory actionFactory, IDataExtractor<IChannelActionViewModel, ChannelActionModel> actionExtractor)
         {
             _actionFactory = actionFactory;
             _actionExtractor = actionExtractor;
         }
 
-        public FunctoidChannelModel ExtractData(IFunctoidChannelViewModel source)
+        public LayoutChannelModel ExtractData(ILayoutChannelViewModel source)
         {
-            return new FunctoidChannelModel()
+            return new LayoutChannelModel()
             {
                 Index = source.Index,
                 Name = source.Name,
@@ -32,11 +32,11 @@ namespace MoonBurst.ViewModel.Serializer
             };
         }
 
-        public void ApplyData(FunctoidChannelModel model, IFunctoidChannelViewModel target)
+        public void ApplyData(LayoutChannelModel model, ILayoutChannelViewModel target)
         {
             target.Index = model.Index;
             target.Name = model.Name;
-            target.Actions = new ObservableCollection<IFunctoidActionViewModel>(model.Actions.ConvertAll(d => _actionFactory.Build(d)));
+            target.Actions = new ObservableCollection<IChannelActionViewModel>(model.Actions.ConvertAll(d => _actionFactory.Build(d)));
             target.IsEnabled = model.IsEnabled;
             target.IsExpanded = model.IsExpanded;
             target.RefreshInputs();
