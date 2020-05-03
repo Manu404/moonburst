@@ -14,16 +14,14 @@ namespace MooBurst.Parser.Fs3X
             for(var i = 0; i < SwitchCount; i++)
                 _parser[i] = new MomentaryFootswitchParser();
         }
-
-        public IDeviceDefinition Device => new Fs3XDeviceDefinition();
-
-        public MomentaryFootswitchState[] ParseState(int state, int index)
+        
+        public IDeviceInputState[] ParseState(int state, int index)
         {
             return new[]
             {
-                (MomentaryFootswitchState) _parser[0].ParseState((state == 1) ? 1 : 0, 0),
-                (MomentaryFootswitchState) _parser[1].ParseState((state == 2) ? 1 : 0, 1),
-                (MomentaryFootswitchState) _parser[2].ParseState((state == 0) ? 1 : 0, 2)
+                (FootswitchState) _parser[0].ParseState((state == 1) ? 1 : 0, 0),
+                (FootswitchState) _parser[1].ParseState((state == 2) ? 1 : 0, 1),
+                (FootswitchState) _parser[2].ParseState((state == 0) ? 1 : 0, 2)
             };
         }
 

@@ -4,4 +4,9 @@ namespace MoonBurst.Api.Parser
     {
         new IFootswitchState ParseState(int state, int index);
     }
+
+    public interface IMomentaryFootswitchParser : IFootswitchParser
+    {
+
+    }
 }

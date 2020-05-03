@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.37</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.42</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,9 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arduino\ArduinoPort.cs" />
-    <Compile Include="Arduino\GenericOneMomentarySwitchMonoJackDefinition.cs" />
-    <Compile Include="Arduino\MomentaryFootswitchInput.cs" />
     <Compile Include="Gateways\ArduinoGateway.cs" />
     <Compile Include="Gateways\MidiGateway.cs" />
     <Compile Include="Gateways\SerialGateway.cs" />
@@ -53,7 +50,6 @@
     <Compile Include="Helper\FileAssociationsHelper.cs" />
     <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="IFactory.cs" />
-    <Compile Include="Parser\MomentaryFootswitchParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunningConfiguration.cs" />
     <Compile Include="Serializer\SerializerBase.cs" />

@@ -163,7 +163,7 @@ namespace MoonBurst.ViewModel
             foreach (var state in obj.States)
                 if (state.Index == this.SelectedInput.Input.Position)
                 {
-                    this.Actions.Where(a => (int)a.Trigger == (int)state.State).ToList().ForEach(a => a.OnTriggerAction());
+                    this.Actions.Where(a => (int)a.Trigger == (int)state.States).ToList().ForEach(a => a.OnTriggerAction());
                     return;
                 }
         }

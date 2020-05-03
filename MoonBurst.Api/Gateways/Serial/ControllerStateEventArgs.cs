@@ -5,13 +5,13 @@ namespace MoonBurst.Api.Gateways
 {
     public class ControllerStateEventArgs : EventArgs
     {
-        public ControllerStateEventArgs(MomentaryFootswitchState[] states, int port)
+        public ControllerStateEventArgs(FootswitchState[] states, int port)
         {
             States = states;
             Port = port;
         }
 
-        public MomentaryFootswitchState[] States { get; }
+        public FootswitchState[] States { get; }
         public int Port { get; }
     }
 }

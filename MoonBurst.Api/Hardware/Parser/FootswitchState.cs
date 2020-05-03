@@ -1,18 +1,14 @@
-using System.ComponentModel;
-
 namespace MoonBurst.Api.Parser
 {
-    public enum FootswitchState
+    public class FootswitchState : IFootswitchState
     {
-        [Description("Pressing")]
-        Pressing = 0,
-        [Description("Pressed")]
-        Pressed = 1,
-        [Description("Releasing")]
-        Releasing = 2,
-        [Description("Released")]
-        Released = 3,
-        [Description("Unknown")]
-        Unknown = 4
+        public FootswitchStates States { get; }
+        public int  Index { get; }
+
+        public FootswitchState(FootswitchStates states, int index)
+        {
+            States = states;
+            Index = index;
+        }
     }
 }

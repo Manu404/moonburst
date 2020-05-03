@@ -8,9 +8,9 @@ namespace MoonBurst.Core.Arduino
     {
         public IDeviceDefinition Device { get; }
 
-        public MomentaryFootswitchState[] ParseState(int state, int index)
+        public IDeviceInputState[] ParseState(int state, int index)
         {
-            return new MomentaryFootswitchState[0];
+            return new IDeviceInputState[0];
         }
 
         public bool ValidateState(string state)

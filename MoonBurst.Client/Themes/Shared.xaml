@@ -187,7 +187,7 @@
             <materialDesign:PackIcon Kind="PageLayoutFooter" Width="20" Height="20"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <StackPanel Grid.Column="1">
                 <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Opacity="0.5" Text="{Binding ControllerNameWithoutHeader}" />
-                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Opacity="0.8" Text="{Binding State.State, Converter={StaticResource EnumToStringConverter}}" />
+                <TextBlock Style="{StaticResource InputDescriptionTextBlock}" Opacity="0.8" Text="{Binding State.States, Converter={StaticResource EnumToStringConverter}}" />
             </StackPanel>
         </Grid>
     </DataTemplate>
