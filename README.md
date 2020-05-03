@@ -6,7 +6,7 @@ Moonburst is an arduino based solution for musician that aim to provide a generi
 
 ![screenshot](https://github.com/Manu404/moonburst/blob/master/scrns/overview.png)
 
-The software is simple : you define functoid, that are binded to a footswitch, than can create multiple actions on that functoid based on footswtich triggers and/or states that will then send midi messages or trigger other functoid, etc,... To add buttons, just add new footswtichs. The idea is to be modular and open.
+The software is simple : you define channels, that are binded to a footswitch, than can create multiple actions on that channel based on footswtich triggers and/or states that will then send midi messages or trigger other channel, etc,... To add buttons, just add new footswtichs. The idea is to be modular and open.
 
 ![screenshot](https://github.com/Manu404/moonburst/blob/master/scrns/screen.png)
 
@@ -14,7 +14,6 @@ The software is simple : you define functoid, that are binded to a footswitch, t
 
  - Tranform your regular footswitch pedals into full midi controllers
  - Use existing midi interface to send midi or use [loopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) to create your own virtual interfaces
- - Host as a 32/64bit VST outputing midi (in dev)
  - Arduino hot-plug support
  - React to variety of triggers : 
    - Event
@@ -30,8 +29,17 @@ The software is simple : you define functoid, that are binded to a footswitch, t
  - Manual trigger of each action/channel
  - Real time delay per action
  - Midi Monitor
- - Piano roll for midi message builder
  - Western notation for pitch and dynamics
+ 
+ Coming:
+ - Replace Enabling/Disabling actions and channels by a Solo/Mute alternative
+ - Host as a 32/64bit VST outputing midi
+ - Piano roll for midi message builder
+ - Write documentation for arduino wiring
+ - Arduino auto-config
+ - Scene management for layouts
+ - Midi-clocked delay
+ - Implement value triggers to support expression pedal
  
 # Build MK1
 Here's some pics and buylist for the mk1 prototype. The enclosure was one lying around, the tape was to fill some holes made for a previous project. Inputs are not well aligned and not planned well (analog/digital), the mk2 will improve on those points. But this one is working as a charm and is the one used for developement.
@@ -80,19 +88,6 @@ If you have those, it would be amazing to send us a message about your expérien
  
 # Supported Systems
 Moonburst was designed for Microsoft Windows, the UI wouldn't be portable easily to linux, even tho there's plan to migrate as much as possible to .Net Core over time. The software was designed for a personal need first, so a lot of decision were made toward speed of developement regarding already known technologies.
-
-Each release is tested against a clean default windows 10 install with latest updates.
-
-# Roadmap
-*For supported controllers, check the related section.*
-
- - Write documentation for arduino wiring
- - Arduino auto-config
- - Scene management for layouts
- - Midi-clocked delay
- - Implement value triggers to support expression pedal
- 
-It would be tempting to add a lot of midi features and tools, from remaping to routing, but I want to reduce the scope of the solution as much as possible, so those concerns can be managed at your will on your side. There's a lot of free midi (http://www.vst4free.com/index.php?m=midiVST) utility that I think are better option than trying to implement them (badly ?) myself.
 
 # About the project
 
