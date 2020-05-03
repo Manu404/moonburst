@@ -1,8 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.ViewModel;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Interface;
 
-namespace MoonBurst.Model.Messages
+namespace MoonBurst.Model.Message
 {
     public class DeleteChannelActionMessage : MessageBase
     {

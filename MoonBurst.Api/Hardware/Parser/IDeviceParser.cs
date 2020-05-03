@@ -1,6 +1,4 @@
-using MoonBurst.Api.Hardware;
-
-namespace MoonBurst.Api.Parser
+namespace MoonBurst.Api.Hardware.Parser
 {
     public interface IDeviceParser
     {

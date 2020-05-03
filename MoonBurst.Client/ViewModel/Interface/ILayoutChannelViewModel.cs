@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using MoonBurst.Core;
 
-namespace MoonBurst.ViewModel.Interfaces
+namespace MoonBurst.ViewModel.Interface
 {
     public interface ILayoutChannelViewModel : IViewModel
     {

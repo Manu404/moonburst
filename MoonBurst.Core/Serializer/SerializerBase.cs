@@ -1,4 +1,6 @@
-﻿namespace MoonBurst.Core.Serializer
+﻿using MoonBurst.Api.Serializer;
+
+namespace MoonBurst.Core.Serializer
 {
     public class SerializerBase<T, TY> : ISerializer<T, TY> where T : IFileSerializableType where TY : new()
     {

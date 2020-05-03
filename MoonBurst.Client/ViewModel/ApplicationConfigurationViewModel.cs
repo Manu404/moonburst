@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
+using MoonBurst.Api.Serializer;
 using MoonBurst.Core.Serializer;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 {

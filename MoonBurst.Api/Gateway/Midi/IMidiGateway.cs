@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MoonBurst.Api.Gateways
+namespace MoonBurst.Api.Gateway.Midi
 {
     public interface IMidiGateway
     {

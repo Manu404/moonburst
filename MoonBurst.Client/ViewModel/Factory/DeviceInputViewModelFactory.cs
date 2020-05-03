@@ -1,11 +1,8 @@
-﻿using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Gateways;
+﻿using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.Core;
-using MoonBurst.Core.Helper;
-using MoonBurst.Core.Serializer;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Interface;
 
-namespace MoonBurst.ViewModel.Factories
+namespace MoonBurst.ViewModel.Factory
 {
     public interface IDeviceInputViewModelFactory : IFactory<IDeviceInputViewModel>
     {

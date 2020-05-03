@@ -1,7 +1,6 @@
-﻿using MoonBurst.ViewModel;
-using MoonBurst.ViewModel.Interfaces;
+﻿using MoonBurst.ViewModel.Interface;
 
-namespace MoonBurst.Views
+namespace MoonBurst.View
 {
     public partial class DebugWindow
     {

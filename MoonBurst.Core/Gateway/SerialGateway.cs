@@ -5,11 +5,12 @@ using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Threading;
-using MoonBurst.Api.Gateways;
-using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Parser;
+using MoonBurst.Api.Gateway;
+using MoonBurst.Api.Gateway.Arduino;
+using MoonBurst.Api.Gateway.Serial;
+using MoonBurst.Api.Hardware.Parser;
 
-namespace MoonBurst.Core.Gateways
+namespace MoonBurst.Core.Gateway
 {
     public class SerialGateway : ISerialGateway, IGateway
     {

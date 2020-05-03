@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using MoonBurst.Api.Gateways;
-using MoonBurst.Core;
-using MoonBurst.Core.Serializer;
+using MoonBurst.Api.Gateway.Midi;
+using MoonBurst.Api.Gateway.Serial;
+using MoonBurst.Api.Serializer;
 using MoonBurst.Model;
 
-namespace MoonBurst.ViewModel.Interfaces
+namespace MoonBurst.ViewModel.Interface
 {
     public interface IHardwareConfigurationViewModel : IFileSerializableType, IViewModel
     {

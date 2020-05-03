@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Parser;
-using MoonBurst.Core.Arduino;
+using MoonBurst.Api.Hardware.Default;
+using MoonBurst.Api.Hardware.Description;
+using MoonBurst.Api.Hardware.Parser;
 
 namespace MooBurst.Parser.Fs3X
 {

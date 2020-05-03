@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using MoonBurst.Core;
-using MoonBurst.Core.Serializer;
+using MoonBurst.Api.Serializer;
 
-namespace MoonBurst.ViewModel.Interfaces
+namespace MoonBurst.ViewModel.Interface
 {
     public interface ILayoutViewModel : IFileSerializableType, IViewModel
     {

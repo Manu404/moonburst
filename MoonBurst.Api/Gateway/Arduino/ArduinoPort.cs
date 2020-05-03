@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoonBurst.Api.Hardware;
 
-namespace MoonBurst.Core.Arduino
+namespace MoonBurst.Api.Gateway.Arduino
 {
     public class ArduinoPort : IArduinoPort
     {

@@ -5,13 +5,14 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Api.Gateways;
+using MoonBurst.Api.Gateway.Arduino;
+using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Helper;
-using MoonBurst.Model.Messages;
-using MoonBurst.ViewModel.Factories;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.Model.Message;
+using MoonBurst.ViewModel.Factory;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 {

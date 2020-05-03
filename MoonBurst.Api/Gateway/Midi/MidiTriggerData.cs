@@ -1,6 +1,6 @@
 ﻿using MoonBurst.Api.Enums;
 
-namespace MoonBurst.Api.Gateways
+namespace MoonBurst.Api.Gateway.Midi
 {
     public class MidiTriggerData
     {

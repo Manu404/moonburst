@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using MoonBurst.Api;
 using MoonBurst.Api.Enums;
-using MoonBurst.Core;
-using MoonBurst.Core.Helper;
 
-namespace MoonBurst.ViewModel.Interfaces
+namespace MoonBurst.ViewModel.Interface
 {
     public interface IChannelActionViewModel : IViewModel
     {

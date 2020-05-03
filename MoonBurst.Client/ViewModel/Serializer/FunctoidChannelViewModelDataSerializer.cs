@@ -1,9 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using MoonBurst.Api.Serializer;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Model;
-using MoonBurst.ViewModel.Factories;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Factory;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel.Serializer
 {

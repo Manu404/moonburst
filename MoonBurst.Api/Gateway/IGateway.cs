@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Api.Gateways
+﻿namespace MoonBurst.Api.Gateway
 {
     public interface IGateway
     {

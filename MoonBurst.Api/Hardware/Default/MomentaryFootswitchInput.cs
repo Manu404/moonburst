@@ -1,6 +1,6 @@
-﻿using MoonBurst.Api.Hardware;
+﻿using MoonBurst.Api.Hardware.Description;
 
-namespace MoonBurst.Core.Arduino
+namespace MoonBurst.Api.Hardware.Default
 {
     public class MomentaryFootswitchInput : IBooleanInput
     {

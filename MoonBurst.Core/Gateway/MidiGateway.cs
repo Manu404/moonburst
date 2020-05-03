@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using MoonBurst.Api.Enums;
-using MoonBurst.Api.Gateways;
+using MoonBurst.Api.Gateway;
+using MoonBurst.Api.Gateway.Midi;
 using Sanford.Multimedia.Midi;
 using ChannelCommand = Sanford.Multimedia.Midi.ChannelCommand;
-using MidiDevice = MoonBurst.Api.Gateways.MidiDevice;
+using MidiDevice = MoonBurst.Api.Gateway.Midi.MidiDevice;
 
-namespace MoonBurst.Core.Gateways
+namespace MoonBurst.Core.Gateway
 {
 
     public class MidiGateway : IMidiGateway, IGateway

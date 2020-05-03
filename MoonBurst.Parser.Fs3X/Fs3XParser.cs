@@ -1,6 +1,6 @@
 using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Parser;
-using MoonBurst.Core.Hardware.Parser;
+using MoonBurst.Api.Hardware.Default;
+using MoonBurst.Api.Hardware.Parser;
 
 namespace MooBurst.Parser.Fs3X
 {

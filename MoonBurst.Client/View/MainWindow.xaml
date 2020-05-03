@@ -1,4 +1,4 @@
-﻿<mah:MetroWindow  x:Class="MoonBurst.Views.MainWindow"
+﻿<mah:MetroWindow  x:Class="MoonBurst.View.MainWindow"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,8 +7,8 @@
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
               xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-              xmlns:views="clr-namespace:MoonBurst.Views"
               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+              xmlns:view="clr-namespace:MoonBurst.View"
               mc:Ignorable="d" WindowState="Maximized"
               ShowIconOnTitleBar="False"
               WindowTitleBrush="{StaticResource MahApps.Brushes.Gray10}"
@@ -33,7 +33,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <views:MenuView />
+            <view:MenuView />
 
             <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>

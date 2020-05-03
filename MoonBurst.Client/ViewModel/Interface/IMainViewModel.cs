@@ -1,6 +1,4 @@
-﻿using MoonBurst.Core;
-
-namespace MoonBurst.ViewModel.Interfaces
+﻿namespace MoonBurst.ViewModel.Interface
 {
     public interface IMainViewModel : IViewModel
     {

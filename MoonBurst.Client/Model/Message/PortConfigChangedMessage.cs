@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 
-namespace MoonBurst.Model.Messages
+namespace MoonBurst.Model.Message
 {
     public class PortConfigChangedMessage : MessageBase
     {

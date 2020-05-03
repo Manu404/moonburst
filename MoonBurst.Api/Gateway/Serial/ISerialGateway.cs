@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Gateway.Arduino;
 
-namespace MoonBurst.Api.Gateways
+namespace MoonBurst.Api.Gateway.Serial
 {
     public interface ISerialGateway
     {

@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Api.Hardware
+﻿namespace MoonBurst.Api.Hardware.Description
 {
     public interface INumericInput : IDeviceInput
     {

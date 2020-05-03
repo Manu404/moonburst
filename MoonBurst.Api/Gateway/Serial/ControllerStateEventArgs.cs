@@ -1,7 +1,7 @@
 ﻿using System;
-using MoonBurst.Api.Parser;
+using MoonBurst.Api.Hardware.Parser;
 
-namespace MoonBurst.Api.Gateways
+namespace MoonBurst.Api.Gateway.Serial
 {
     public class ControllerStateEventArgs : EventArgs
     {

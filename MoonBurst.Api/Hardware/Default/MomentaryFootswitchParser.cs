@@ -1,6 +1,6 @@
-using MoonBurst.Api.Parser;
+using MoonBurst.Api.Hardware.Parser;
 
-namespace MoonBurst.Core.Hardware.Parser
+namespace MoonBurst.Api.Hardware.Default
 {
     public class MomentaryFootswitchParser : IMomentaryFootswitchParser
     {

@@ -1,6 +1,7 @@
-﻿using MoonBurst.Core.Serializer;
+﻿using MoonBurst.Api.Serializer;
+using MoonBurst.Core.Serializer;
 using MoonBurst.Model;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel.Serializer
 {

@@ -10,15 +10,17 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
 using MoonBurst.Api.Enums;
+using MoonBurst.Api.Gateway.Arduino;
+using MoonBurst.Api.Gateway.Midi;
+using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Gateways;
+using MoonBurst.Api.Serializer;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
 using MoonBurst.Model;
-using MoonBurst.Model.Messages;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 { 

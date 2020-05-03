@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Api.Gateways
+﻿namespace MoonBurst.Api.Gateway.Serial
 {
     public class ComPort
     {

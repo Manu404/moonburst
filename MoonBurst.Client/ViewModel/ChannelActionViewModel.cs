@@ -6,12 +6,13 @@ using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api;
 using MoonBurst.Api.Enums;
-using MoonBurst.Api.Gateways;
+using MoonBurst.Api.Gateway.Midi;
 using MoonBurst.Core.Helper;
 using MoonBurst.Helper;
-using MoonBurst.Model.Messages;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.Model.Message;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 {

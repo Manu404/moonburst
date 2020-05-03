@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.ViewModel
+﻿namespace MoonBurst.ViewModel.Interface
 {
     public interface ILoadSaveDialogProvider
     {

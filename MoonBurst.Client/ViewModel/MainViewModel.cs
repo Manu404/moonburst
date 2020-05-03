@@ -5,9 +5,9 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core.Hardware;
-using MoonBurst.Model.Messages;
-using MoonBurst.ViewModel.Interfaces;
-using MoonBurst.Views;
+using MoonBurst.Model.Message;
+using MoonBurst.View;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 {

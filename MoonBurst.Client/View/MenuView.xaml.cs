@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Views
+﻿namespace MoonBurst.View
 {
     public partial class MenuView
     {
