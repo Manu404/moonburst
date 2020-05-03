@@ -130,8 +130,8 @@ namespace MoonBurst.Core.Gateways
                             digitalPins = digitalPins >> 2;
                             int current = digitalPins & 3;
 
-                            if (_footswitchParsers[pos] != null)
-                                OnTrigger?.Invoke(this, new ControllerStateEventArgs(_footswitchParsers[pos].ParseState(current, pos), pos) );
+                            //if (_footswitchParsers[pos] != null)
+                                //OnTrigger?.Invoke(this, new ControllerStateEventArgs(_footswitchParsers[pos].ParseState(current, pos), pos) );
                         }
 
                     }

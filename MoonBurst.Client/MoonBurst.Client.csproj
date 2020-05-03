@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.2008</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.2011</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -151,7 +151,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\IViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IViewModel.cs" />
     <Compile Include="Helper\ConfirmationHelper.cs" />
     <Compile Include="Helper\EnumeratorToStringConverter.cs" />
     <Compile Include="Helper\InverseBooleanConverter.cs" />
@@ -163,70 +163,70 @@
     <Compile Include="Model\LayoutChannelModel.cs" />
     <Compile Include="Model\HardwareConfigurationModel.cs" />
     <Compile Include="Model\LayoutModel.cs" />
-    <Compile Include="Model\Messages\DeleteChannelActionMessage.cs" />
+    <Compile Include="Model\Message\DeleteChannelActionMessage.cs" />
     <Compile Include="ViewModel\ApplicationConfigurationViewModel.cs" />
     <Compile Include="ViewModel\DeviceInputViewModel.cs" />
-    <Compile Include="ViewModel\Factories\ArduinoConfigPortViewModelFactory.cs" />
-    <Compile Include="ViewModel\Factories\DeviceInputViewModelFactory.cs" />
-    <Compile Include="ViewModel\Factories\FunctoidActionViewModelFactory.cs" />
-    <Compile Include="ViewModel\Factories\FunctoidChannelViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factory\ArduinoConfigPortViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factory\DeviceInputViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factory\FunctoidActionViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factory\FunctoidChannelViewModelFactory.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
-    <Compile Include="Model\Messages\PortConfigChangedMessage.cs" />
-    <Compile Include="ViewModel\Interfaces\ILoadSaveDialogProvider.cs" />
-    <Compile Include="ViewModel\Interfaces\IArduinoConfigPortViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IDeviceInputViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IChannelActionViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\ILayoutChannelViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IMainViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IApplicationConfigurationViewModel.cs" />
+    <Compile Include="Model\Message\PortConfigChangedMessage.cs" />
+    <Compile Include="ViewModel\Interface\ILoadSaveDialogProvider.cs" />
+    <Compile Include="ViewModel\Interface\IArduinoConfigPortViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IDeviceInputViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IChannelActionViewModel.cs" />
+    <Compile Include="ViewModel\Interface\ILayoutChannelViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IApplicationConfigurationViewModel.cs" />
     <Compile Include="ViewModel\Serializer\ClientConfigurationViewModelSerializer.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidActionViewModelDataSerializer.cs" />
     <Compile Include="ViewModel\Serializer\FunctoidChannelViewModelDataSerializer.cs" />
     <Compile Include="ViewModel\Serializer\HardwareConfigurationViewModelSerializer.cs" />
-    <Compile Include="ViewModel\Interfaces\IHardwareConfigurationViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\ILayoutViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IHardwareConfigurationViewModel.cs" />
+    <Compile Include="ViewModel\Interface\ILayoutViewModel.cs" />
     <Compile Include="ViewModel\Serializer\LayoutViewModelSerializer.cs" />
-    <Compile Include="Views\MenuView.xaml.cs">
+    <Compile Include="View\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ChannelActionViewModel.cs" />
     <Compile Include="ViewModel\LayoutChannelViewModel.cs" />
     <Compile Include="ViewModel\HardwareConfigurationViewModel.cs" />
     <Compile Include="ViewModel\LayoutViewModel.cs" />
-    <Compile Include="Views\DebugWindow.xaml.cs">
+    <Compile Include="View\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Messages\DeleteChannelMessage.cs" />
+    <Compile Include="Model\Message\DeleteChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Page Include="Themes\Imports.xaml">
+    <Page Include="Theme\Imports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ActionListView.xaml">
+    <Page Include="View\ActionListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ChannelListView.xaml">
+    <Page Include="View\ChannelListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MenuView.xaml">
+    <Page Include="View\MenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Shared.xaml">
+    <Page Include="Theme\Shared.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SideMenu.xaml">
+    <Page Include="View\SideMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DebugWindow.xaml">
+    <Page Include="View\DebugWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -234,7 +234,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -308,6 +308,7 @@
       <Name>MoonBurst.Parser.Fs3X</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.2-ci1368\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.2-ci1368\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

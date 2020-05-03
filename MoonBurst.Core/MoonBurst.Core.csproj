@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.42</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.44</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gateways\ArduinoGateway.cs" />
-    <Compile Include="Gateways\MidiGateway.cs" />
-    <Compile Include="Gateways\SerialGateway.cs" />
-    <Compile Include="Gateways\TeVirtualMIDI.cs" />
+    <Compile Include="Gateway\ArduinoGateway.cs" />
+    <Compile Include="Gateway\MidiGateway.cs" />
+    <Compile Include="Gateway\SerialGateway.cs" />
+    <Compile Include="Gateway\TeVirtualMIDI.cs" />
     <Compile Include="Helper\DynamicsHelper.cs" />
     <Compile Include="Helper\FileAssociations.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
