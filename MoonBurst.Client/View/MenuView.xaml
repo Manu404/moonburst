@@ -82,11 +82,12 @@
                 <Button Command="{Binding OnRefreshMidiCommand}" ToolTip="Refresh">
                     <materialDesign:PackIcon Kind="Refresh" />
                 </Button>
-                <Button Command="{Binding OnConnectMidiCommand}">
+                <Button >
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsMidiConnected}" Value="False">
+                                    <Setter Property="Command" Value="{Binding OnConnectMidiCommand}"></Setter>
                                     <Setter Property="Content">
                                         <Setter.Value>
                                             <materialDesign:PackIcon Kind="Pipe" />
@@ -97,9 +98,10 @@
                                             <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter Property="ToolTip" Value="Connect"></Setter>
+                                    <Setter Property="ToolTip" Value="OnConnectDisconnect"></Setter>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsMidiConnected}" Value="True">
+                                    <Setter Property="Command" Value="{Binding OnDisconnectMidiCommand}"></Setter>
                                     <Setter Property="Content">
                                         <Setter.Value>
                                             <materialDesign:PackIcon Kind="PipeDisconnected" />
@@ -125,18 +127,19 @@
                 </Button>
             </ToolBar>
 
-            <!-- Config Toolbar -->
+            <!-- COM Toolbar -->
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding HardwareConfig}">
                 <ComboBox ItemsSource="{Binding InputComPorts}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedComPort, Mode=TwoWay}" materialDesign:HintAssist.Hint="COM Port" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
                 <ComboBox ItemsSource="{Binding SupportedBaudRates}" SelectedValue="{Binding SelectedSpeed, Mode=TwoWay}" materialDesign:HintAssist.Hint="Speed" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
                 <Button Command="{Binding OnRefreshComCommand}" ToolTip="Refresh">
                     <materialDesign:PackIcon Kind="Refresh" />
                 </Button>
-                <Button Command="{Binding OnConnectComCommand}">
+                <Button>
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsComConnected}" Value="False">
+                                    <Setter Property="Command" Value="{Binding OnConnectComCommand}"></Setter>
                                     <Setter Property="Content">
                                         <Setter.Value>
                                             <materialDesign:PackIcon Kind="Pipe" />
@@ -147,9 +150,10 @@
                                             <SolidColorBrush Color="{StaticResource GreenAccent200}"></SolidColorBrush>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter Property="ToolTip" Value="Connect" />
+                                    <Setter Property="ToolTip" Value="OnConnectDisconnect" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsComConnected}" Value="True">
+                                    <Setter Property="Command" Value="{Binding OnDisconnectComCommand}"></Setter>
                                     <Setter Property="Content">
                                         <Setter.Value>
                                             <materialDesign:PackIcon Kind="PipeDisconnected" />

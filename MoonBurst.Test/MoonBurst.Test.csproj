@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.56</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.57</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,10 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser\FootswtichParserTestBase.cs" />
-    <Compile Include="Parser\Fx3XParserTestBase.cs" />
+    <Compile Include="Parser\Fx3XParserTests.cs" />
     <Compile Include="LatinNotationFormatterTests.cs" />
     <Compile Include="EnglishNotationFormatterTests.cs" />
-    <Compile Include="Parser\MomentaryFootswitchParserTestBase.cs" />
+    <Compile Include="Parser\MomentaryFootswitchParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

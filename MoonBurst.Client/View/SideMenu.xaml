@@ -192,7 +192,7 @@
                     <DataTemplate>
                         <Button Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource AncestorType=materialDesign:PopupBox}}" 
                                 CommandParameter="{Binding Name}"
-                                ToolTip="Connect">
+                                ToolTip="OnConnectDisconnect">
                             <Grid VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />

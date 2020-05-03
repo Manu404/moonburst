@@ -78,22 +78,6 @@ namespace MoonBurst.Core.Gateway
                     IsConnected = false;
                 }
             }
-            else
-            {
-                try
-                {
-                    if (_serialPort != null && _serialPort.IsOpen)
-                    {
-                        _serialPort.DataReceived -= SerialPortOnDataReceived;
-                        _serialPort.Close();
-                    }
-                }
-                catch (Exception)
-                {
-                    //TODO: loging
-                }
-                IsConnected = false;
-            }
         }
 
         public void Close()

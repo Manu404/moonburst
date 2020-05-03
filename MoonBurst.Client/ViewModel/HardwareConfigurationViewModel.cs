@@ -119,7 +119,9 @@ namespace MoonBurst.ViewModel
         public ICommand OnRefreshMidiCommand { get; set; }
         public ICommand OnRefreshComCommand { get; set; }
         public ICommand OnConnectMidiCommand { get; set; }
+        public ICommand OnDisconnectMidiCommand { get; set; }
         public ICommand OnConnectComCommand { get; set; }
+        public ICommand OnDisconnectComCommand { get; set; }
 
         public ICommand LoadConfigCommand { get; set; }
         public ICommand SaveConfigCommand { get; set; }
@@ -147,7 +149,9 @@ namespace MoonBurst.ViewModel
             SupportedBaudRates = new ObservableCollection<int>();
 
             OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(_arduinoConfig.Ports), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
+            OnDisconnectComCommand = new RelayCommand(() => _serialGateway.Close(), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id) && IsComConnected);
             OnConnectMidiCommand = new RelayCommand(() => _midiGateway.Connect(), () => this.SelectedOutputMidiDevice?.Id >= 0);
+            OnDisconnectMidiCommand = new RelayCommand(() => _midiGateway.Close(), () => this.SelectedOutputMidiDevice?.Id >= 0 && IsMidiConnected);
             OnRefreshComCommand = new RelayCommand(OnRefreshCOMDevices, () => !this.IsComConnected);
             OnRefreshMidiCommand = new RelayCommand(OnRefreshMidiDevices, () => !this.IsMidiConnected);
             OnSendMidiTestCommand = new RelayCommand(() => _midiGateway.SendTest(), () => IsMidiConnected);

@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace MoonBurst.Test
 {
     [TestFixture]
-    public class Fx3XParserTestBase : FootswtichParserTestBase
+    public class Fx3XParserTests : FootswtichParserTestBase
     {
         [Test]
         public void WhenPressingModeShouldCompleteSequence()
