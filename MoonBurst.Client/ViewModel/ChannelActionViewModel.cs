@@ -20,7 +20,7 @@ namespace MoonBurst.ViewModel
     public class ChannelActionViewModel : ViewModelBase, IChannelActionViewModel
     {
         private IMessenger _messenger;
-        private IMusicalNoteHelper _noteHelper;
+        private INoteHelper _noteHelper;
         private IDynamicsHelper _dynamicsHelper;
         private IMidiGateway _midiGateway;
 
@@ -222,7 +222,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public List<MusicalNote> AvailableNotes => _noteHelper.AvailableNotes;
+        public IList<MusicalNote> AvailableNotes => _noteHelper.AvailableNotes;
         public List<Dynamic> AvailableDynamics => _dynamicsHelper.AvailableDynamics;
 
         public ICommand OnDeleteActionCommand { get; set; }
@@ -230,7 +230,7 @@ namespace MoonBurst.ViewModel
         public ICommand OnTriggerActionCommand { get; set; }
         public ICommand OnLockActionCommand { get; set; }
 
-        public ChannelActionViewModel(IMessenger messenger, IMusicalNoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
+        public ChannelActionViewModel(IMessenger messenger, INoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
             OnTriggerActionCommand = new RelayCommand(OnTriggerAction);

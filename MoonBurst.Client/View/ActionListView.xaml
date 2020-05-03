@@ -626,7 +626,7 @@
                                   Background="Transparent"
                                   ItemsSource="{Binding AvailableNotes}"
                                   SelectedValue="{Binding Data1}"
-                                  SelectedValuePath="Value">
+                                  SelectedValuePath="MidiValue">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"></TextBlock>
@@ -647,7 +647,7 @@
                                     Background="Transparent"
                                     ItemsSource="{Binding AvailableDynamics}"
                                     SelectedValue="{Binding Data2}"
-                                    SelectedValuePath="Value">
+                                    SelectedValuePath="MidiValue">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" MaxHeight="19">
