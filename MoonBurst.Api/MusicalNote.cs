@@ -4,7 +4,6 @@ namespace MoonBurst.Api
 {
     public interface INoteNameFormatter
     {
-        string GetPitchName(int midiValue);
         string GetName(int midiValue);
     }
 
