@@ -56,12 +56,12 @@
     <Compile Include="Gateway\SerialGateway.cs" />
     <Compile Include="Gateway\TeVirtualMIDI.cs" />
     <Compile Include="Helper\DynamicsHelper.cs" />
-    <Compile Include="Helper\EnglishNotationFormatter.cs" />
+    <Compile Include="Helper\Note\EnglishNotationFormatter.cs" />
     <Compile Include="Helper\FileAssociations.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
-    <Compile Include="Helper\LatinNotationFormatter.cs" />
-    <Compile Include="Helper\MusicalNoteHelper.cs" />
-    <Compile Include="Helper\ScientificNotationFormatter.cs" />
+    <Compile Include="Helper\Note\LatinNotationFormatter.cs" />
+    <Compile Include="Helper\Note\MusicalNoteHelper.cs" />
+    <Compile Include="Helper\Note\ScientificNotationFormatter.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunningConfiguration.cs" />
@@ -77,8 +77,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helper\Note\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
