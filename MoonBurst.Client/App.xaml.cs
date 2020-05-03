@@ -6,6 +6,7 @@ using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using MoonBurst.Api;
 using MoonBurst.Api.Gateway;
 using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Hardware.Parser;
@@ -49,8 +50,10 @@ namespace MoonBurst
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
-            
-            container.Register(Component.For<IMusicalNoteHelper>().ImplementedBy<MusicalNoteHelper>());
+
+            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(INoteNameFormatter)).WithServiceAllInterfaces());
+            container.Register(Component.For<INoteHelper>().ImplementedBy<NoteHelper>());
+
             container.Register(Component.For<IDynamicsHelper>().ImplementedBy<DynamicsHelper>());
             
             container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IGateway)).WithServiceAllInterfaces());

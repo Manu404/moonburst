@@ -5,34 +5,34 @@ using MoonBurst.Core.Helper;
 namespace MoonBurst.Test
 {
     [TestFixture]
-    public class MusicalNoteHelperTester
+    public class EnglishNotationFormatterTests
     {
         [Test]
-        public void If0GivenShouldReturnC0()
+        public void If0GivenShouldReturnCMinus1()
         {
-            MusicalNoteHelper helper = new MusicalNoteHelper();
-            Assert.AreEqual(helper.FromMidiValueToNoteName(0), "C-1");
+            var helper = new EnglishNotationFormatter();
+            Assert.AreEqual(helper.GetPitchName(0), "C-1");
         }
 
         [Test]
         public void If128GivenShouldThrowException()
         {
-            MusicalNoteHelper helper = new MusicalNoteHelper();
-            Assert.Throws<Exception>(() => helper.FromMidiValueToNoteName(128));
+            var helper = new EnglishNotationFormatter();
+            Assert.Throws<Exception>(() => helper.GetPitchName(128));
         }
 
         [Test]
         public void IfNegativeGivenShouldThrowException()
         {
-            MusicalNoteHelper helper = new MusicalNoteHelper();
-            Assert.Throws<Exception>(() => helper.FromMidiValueToNoteName(-1));
+            var helper = new EnglishNotationFormatter();
+            Assert.Throws<Exception>(() => helper.GetPitchName(-1));
         }
 
         [Test]
-        public void If127GivenShouldReturnG8()
+        public void If127GivenShouldReturnG9()
         {
-            MusicalNoteHelper helper = new MusicalNoteHelper();
-            Assert.AreEqual(helper.FromMidiValueToNoteName(127), "G9");
+            var helper = new EnglishNotationFormatter();
+            Assert.AreEqual(helper.GetPitchName(127), "G9");
         }
     }
 }
