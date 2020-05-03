@@ -5,13 +5,13 @@ namespace MoonBurst.Api.Gateway.Serial
 {
     public class ControllerStateEventArgs : EventArgs
     {
-        public ControllerStateEventArgs(FootswitchState[] states, int port)
+        public ControllerStateEventArgs(IDeviceInputState[] states, int port)
         {
             States = states;
             Port = port;
         }
 
-        public FootswitchState[] States { get; }
+        public IDeviceInputState[] States { get; }
         public int Port { get; }
     }
 }

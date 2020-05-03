@@ -11,9 +11,9 @@ namespace MoonBurst.ViewModel
 {
     public class DeviceInputViewModel : ViewModelBase, IDeviceInputViewModel
     {
-        private IFootswitchState _state;
+        private IDeviceInputState _state;
 
-        public IFootswitchState State
+        public IDeviceInputState State
         {
             get => _state;
             set

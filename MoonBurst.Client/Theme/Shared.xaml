@@ -8,7 +8,7 @@
 
     <helper:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <helper:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
-    <helper:EnumeratorToStringConverter  x:Key="EnumToStringConverter" />
+    <helper:EnumToStringConverter  x:Key="EnumToStringConverter" />
 
  <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>

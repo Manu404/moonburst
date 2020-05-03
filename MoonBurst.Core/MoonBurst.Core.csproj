@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.45</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.49</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>

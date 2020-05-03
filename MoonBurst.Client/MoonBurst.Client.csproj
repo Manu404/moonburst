@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.2017</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.2023</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -151,6 +151,7 @@
       <HintPath>..\packages\System.Management.4.0.0\lib\System.Management.Instrumentation.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -172,7 +173,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\Interface\IViewModel.cs" />
     <Compile Include="Helper\ConfirmationHelper.cs" />
-    <Compile Include="Helper\EnumeratorToStringConverter.cs" />
+    <Compile Include="Helper\EnumToStringConverter.cs" />
     <Compile Include="Helper\InverseBooleanConverter.cs" />
     <Compile Include="Helper\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\ToggleButtonAssist.cs" />

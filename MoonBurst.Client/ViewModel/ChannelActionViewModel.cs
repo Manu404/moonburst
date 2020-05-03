@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api;
 using MoonBurst.Api.Enums;
 using MoonBurst.Api.Gateway.Midi;
+using MoonBurst.Api.Hardware.Parser;
 using MoonBurst.Core.Helper;
 using MoonBurst.Helper;
 using MoonBurst.Model.Message;

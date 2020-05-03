@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Gateway.Arduino;
 using MoonBurst.Api.Gateway.Serial;
+using MoonBurst.Api.Hardware.Parser;
 using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Helper;
@@ -164,7 +165,7 @@ namespace MoonBurst.ViewModel
             foreach (var state in obj.States)
                 if (state.Index == this.SelectedInput.Input.Position)
                 {
-                    this.Actions.Where(a => (int)a.Trigger == (int)state.States).ToList().ForEach(a => a.OnTriggerAction());
+                    this.Actions.Where(a => (int)a.Trigger == (int)((FootswitchState)state).States ).ToList().ForEach(a => a.OnTriggerAction());
                     return;
                 }
         }

@@ -7,7 +7,7 @@ namespace MoonBurst.ViewModel.Interface
 {
     public interface IDeviceInputViewModel
     {
-        IFootswitchState State { get; set; }
+        IDeviceInputState State { get; set; }
         IArduinoPort Port { get; set; }
         IDeviceDefinition Device { get; set; }
         IDeviceInput Input { get; set; }
