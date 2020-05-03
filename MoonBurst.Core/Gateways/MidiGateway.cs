@@ -4,6 +4,7 @@ using MoonBurst.Api.Enums;
 using MoonBurst.Api.Gateways;
 using Sanford.Multimedia.Midi;
 using ChannelCommand = Sanford.Multimedia.Midi.ChannelCommand;
+using MidiDevice = MoonBurst.Api.Gateways.MidiDevice;
 
 namespace MoonBurst.Core.Gateways
 {
@@ -18,7 +19,7 @@ namespace MoonBurst.Core.Gateways
         private MidiConnectionState _state;
         private bool _isConnected;
 
-        public OutputMidiDeviceData SelectedOutput { get; set; }
+        public MidiDevice SelectedOutput { get; set; }
 
         public bool IsConnected
         {
@@ -97,20 +98,20 @@ namespace MoonBurst.Core.Gateways
         }
 
 
-        public List<OutputMidiDeviceData> GetDevices()
+        public List<MidiDevice> GetDevices()
         {
-            var result = new List<OutputMidiDeviceData>();
+            var result = new List<MidiDevice>();
             if (OutputDeviceBase.DeviceCount > 0)
             {
                 for (var i = 0; i < OutputDeviceBase.DeviceCount; i++)
                 {
-                    result.Add(new OutputMidiDeviceData(i) { Name = OutputDeviceBase.GetDeviceCapabilities(i).name });
+                    result.Add(new MidiDevice(i) { Name = OutputDeviceBase.GetDeviceCapabilities(i).name });
                 }
             }
             else
             {
                 //WriteLine("No devices found... :(");
-                result.Add(new OutputMidiDeviceData(-1) { Name = "No device output devices available..."});
+                result.Add(new MidiDevice(-1) { Name = "No device output devices available..."});
             }
 
             return result;

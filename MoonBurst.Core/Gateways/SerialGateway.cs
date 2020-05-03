@@ -33,7 +33,7 @@ namespace MoonBurst.Core.Gateways
         }
 
         public int CurrentSpeed { get; set; }
-        public InputComPortData CurrentPort { get; set; }
+        public ComPort CurrentPort { get; set; }
 
         public SerialGateway()
         {
@@ -143,9 +143,9 @@ namespace MoonBurst.Core.Gateways
             }
         }
 
-        public IEnumerable<InputComPortData> GetPorts()
+        public IEnumerable<ComPort> GetPorts()
         {
-            var result = new List<InputComPortData>();
+            var result = new List<ComPort>();
             try
             {
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SerialPort");
@@ -154,7 +154,7 @@ namespace MoonBurst.Core.Gateways
                     var queryObj = (ManagementObject) o;
                     try
                     {
-                        result.Add(new InputComPortData(queryObj["DeviceID"].ToString())
+                        result.Add(new ComPort(queryObj["DeviceID"].ToString())
                         {
                             Name = queryObj["Name"].ToString(),
                             MaxBaudRate = Int32.Parse(queryObj["MaxBaudRate"].ToString())
@@ -166,7 +166,7 @@ namespace MoonBurst.Core.Gateways
                     }
                 }
                 if(!result.Any())
-                    result.Add(new InputComPortData("") { Name = "No COM ports available...", MaxBaudRate = 0});
+                    result.Add(new ComPort("") { Name = "No COM ports available...", MaxBaudRate = 0});
 
             }
             catch (ManagementException)

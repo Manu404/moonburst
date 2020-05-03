@@ -65,7 +65,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public InputComPortData SelectedComPort
+        public ComPort SelectedComPort
         {
             get => _serialGateway.CurrentPort;
             set
@@ -76,7 +76,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public OutputMidiDeviceData SelectedOutputMidiDevice
+        public MidiDevice SelectedOutputMidiDevice
         {
             get => _midiGateway.SelectedOutput;
             set
@@ -106,8 +106,8 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public ObservableCollection<OutputMidiDeviceData> OutputMidiDevices { get; set; }
-        public ObservableCollection<InputComPortData> InputComPorts { get; set; }
+        public ObservableCollection<MidiDevice> OutputMidiDevices { get; set; }
+        public ObservableCollection<ComPort> InputComPorts { get; set; }
         public ObservableCollection<int> SupportedBaudRates { get; set; }
         public ObservableCollection<IArduinoConfigPortViewModel> ArduinoPorts { get; }
 
@@ -140,8 +140,8 @@ namespace MoonBurst.ViewModel
             _dialogProvider = new LoadSaveDialogProvider();
 
             ArduinoPorts = new ObservableCollection<IArduinoConfigPortViewModel>();
-            OutputMidiDevices = new ObservableCollection<OutputMidiDeviceData>();
-            InputComPorts = new ObservableCollection<InputComPortData>();
+            OutputMidiDevices = new ObservableCollection<MidiDevice>();
+            InputComPorts = new ObservableCollection<ComPort>();
             SupportedBaudRates = new ObservableCollection<int>();
 
             OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(_arduinoConfig.Ports), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
