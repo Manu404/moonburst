@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Core.Helper
+﻿namespace MoonBurst.Api
 {
     public class MusicalNote
     {

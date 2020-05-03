@@ -4,22 +4,23 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
+using MoonBurst.Api.Serializer;
 using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
-using MoonBurst.ViewModel.Factories;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Factory;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 {
     public class LayoutViewModel : ViewModelBase, ILayoutViewModel
     {
-        private readonly IClientConfigurationViewModel _config;
+        private readonly IApplicationConfigurationViewModel _config;
         private readonly ISerializer<ILayoutViewModel> _serializer;
         private readonly IFunctoidChannelViewModelFactory _channelFactory;
         private readonly ILoadSaveDialogProvider _dialogProvider;
 
-        public ObservableCollection<IFunctoidChannelViewModel> FunctoidChannels { get; set; }
+        public ObservableCollection<ILayoutChannelViewModel> FunctoidChannels { get; set; }
 
         public string CurrentPath { get; set; }
 
@@ -30,17 +31,17 @@ namespace MoonBurst.ViewModel
         public ICommand OnCollaspeAllCommand { get; set; }
         public ICommand OnExpandAllCommand { get; set; }
 
-        public LayoutViewModel(IClientConfigurationViewModel clientConfiguration,
+        public LayoutViewModel(IApplicationConfigurationViewModel applicationConfiguration,
             ISerializer<ILayoutViewModel> serializer,
             IFunctoidChannelViewModelFactory channelFactory)
         {
-            _config = clientConfiguration;
+            _config = applicationConfiguration;
             _serializer = serializer;
             _channelFactory = channelFactory;
 
             _dialogProvider = new LoadSaveDialogProvider();
 
-            FunctoidChannels = new ObservableCollection<IFunctoidChannelViewModel>();
+            FunctoidChannels = new ObservableCollection<ILayoutChannelViewModel>();
             FunctoidChannels.CollectionChanged += (o,e) => UpdateIndexes();
             CurrentPath = string.Empty;
 
@@ -72,7 +73,7 @@ namespace MoonBurst.ViewModel
             FunctoidChannels.Add(_channelFactory.Build());
         }
 
-        public void DeleteChannel(IFunctoidChannelViewModel channel)
+        public void DeleteChannel(ILayoutChannelViewModel channel)
         {
             FunctoidChannels.Remove(channel);
         }

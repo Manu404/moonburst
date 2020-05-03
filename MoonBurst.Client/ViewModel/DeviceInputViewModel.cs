@@ -1,17 +1,19 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Gateway.Arduino;
+using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Parser;
-using MoonBurst.Api.Gateways;
-using MoonBurst.Model.Messages;
+using MoonBurst.Api.Hardware.Description;
+using MoonBurst.Api.Hardware.Parser;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 {
     public class DeviceInputViewModel : ViewModelBase, IDeviceInputViewModel
     {
-        private IFootswitchState _state;
+        private IDeviceInputState _state;
 
-        public IFootswitchState State
+        public IDeviceInputState State
         {
             get => _state;
             set

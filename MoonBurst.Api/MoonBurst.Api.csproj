@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.28</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.41</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Firmware|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Firmware\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,23 +50,33 @@
     <Compile Include="Enums\ChannelCommand.cs" />
     <Compile Include="Enums\FootTrigger.cs" />
     <Compile Include="Enums\MidiConnectionState.cs" />
+    <Compile Include="Gateway\Arduino\ArduinoPort.cs" />
+    <Compile Include="Gateway\Serial\ComPort.cs" />
+    <Compile Include="Gateway\Serial\ControllerStateEventArgs.cs" />
+    <Compile Include="Gateway\Midi\MidiConnectionStateChangedEventArgs.cs" />
+    <Compile Include="Gateway\Midi\MidiTriggerData.cs" />
+    <Compile Include="Gateway\Midi\MidiDevice.cs" />
+    <Compile Include="Gateway\Serial\SerialConnectionStateChangedEventArgs.cs" />
+    <Compile Include="Hardware\Default\GenericOneMomentarySwitchMonoJackDefinition.cs" />
+    <Compile Include="Hardware\Default\MomentaryFootswitchInput.cs" />
+    <Compile Include="Hardware\Default\MomentaryFootswitchParser.cs" />
     <Compile Include="MusicalNote.cs" />
-    <Compile Include="Parser\FootswitchState.cs" />
-    <Compile Include="Parser\MomentaryFootswitchState.cs" />
-    <Compile Include="Gateways\IArduinoGateway.cs" />
-    <Compile Include="Hardware\IArduinoPort.cs" />
-    <Compile Include="Hardware\IBooleanInput.cs" />
-    <Compile Include="Parser\IDeviceInputParser.cs" />
-    <Compile Include="Parser\IDeviceInputState.cs" />
-    <Compile Include="Parser\IDeviceParser.cs" />
+    <Compile Include="Hardware\Parser\FootswitchStates.cs" />
+    <Compile Include="Hardware\Parser\FootswitchState.cs" />
+    <Compile Include="Gateway\Arduino\IArduinoGateway.cs" />
+    <Compile Include="Gateway\Arduino\IArduinoPort.cs" />
+    <Compile Include="Hardware\Description\IBooleanInput.cs" />
+    <Compile Include="Hardware\Parser\IDeviceInputParser.cs" />
+    <Compile Include="Hardware\Parser\IDeviceInputState.cs" />
+    <Compile Include="Hardware\Parser\IDeviceParser.cs" />
     <Compile Include="Hardware\IDeviceDefinition.cs" />
-    <Compile Include="Hardware\IDeviceInput.cs" />
-    <Compile Include="Parser\IFootswitchParser.cs" />
-    <Compile Include="Parser\IFootswitchState.cs" />
-    <Compile Include="Gateways\IGateway.cs" />
-    <Compile Include="Gateways\IMidiGateway.cs" />
-    <Compile Include="Hardware\INumericInput.cs" />
-    <Compile Include="Gateways\ISerialGateway.cs" />
+    <Compile Include="Hardware\Description\IDeviceInput.cs" />
+    <Compile Include="Hardware\Parser\IFootswitchParser.cs" />
+    <Compile Include="Hardware\Parser\IFootswitchState.cs" />
+    <Compile Include="Gateway\IGateway.cs" />
+    <Compile Include="Gateway\Midi\IMidiGateway.cs" />
+    <Compile Include="Hardware\Description\INumericInput.cs" />
+    <Compile Include="Gateway\Serial\ISerialGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer\IDataExtractor.cs" />
     <Compile Include="Serializer\IFileSerializableType.cs" />

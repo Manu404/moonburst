@@ -1,12 +1,12 @@
 ﻿using MoonBurst.Core.Serializer;
 using MoonBurst.Model;
-using MoonBurst.ViewModel.Interfaces;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel.Serializer
 {
-    public class ClientConfigurationViewModelSerializer : SerializerBase<IClientConfigurationViewModel, ClientConfigurationModel>
+    public class ClientConfigurationViewModelSerializer : SerializerBase<IApplicationConfigurationViewModel, ClientConfigurationModel>
     {
-        public override ClientConfigurationModel ExtractData(IClientConfigurationViewModel source)
+        public override ClientConfigurationModel ExtractData(IApplicationConfigurationViewModel source)
         {
             return new ClientConfigurationModel()
             {
@@ -15,7 +15,7 @@ namespace MoonBurst.ViewModel.Serializer
             };
         }
 
-        public override void ApplyData(ClientConfigurationModel config, IClientConfigurationViewModel target)
+        public override void ApplyData(ClientConfigurationModel config, IApplicationConfigurationViewModel target)
         {
             target.LastHardwareConfigurationPath = config.LastHardwareConfigurationPath;
             target.LastLayoutPath = config.LastLayoutPath;

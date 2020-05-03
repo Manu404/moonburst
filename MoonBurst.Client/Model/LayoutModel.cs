@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MoonBurst.Model
 {
     public class LayoutModel
     {
-        public List<FunctoidChannelModel> Channels { get; set; }
+        public List<LayoutChannelModel> Channels { get; set; }
         public LayoutModel()
         {
-            Channels = new List<FunctoidChannelModel>();
+            Channels = new List<LayoutChannelModel>();
         }
     }
 }

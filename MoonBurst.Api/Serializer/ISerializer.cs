@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Core.Serializer
+﻿namespace MoonBurst.Api.Serializer
 {
     public interface ISerializer<in T>
     {

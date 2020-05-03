@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.25</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.42</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +34,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Firmware|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Firmware\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -57,9 +66,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MoonBurst.Client\MoonBurst.Client.csproj">
-      <Project>{d5b95797-bd1b-4388-8d94-f61497a414b5}</Project>
-      <Name>MoonBurst.Client</Name>
+    <ProjectReference Include="..\MoonBurst.Api\MoonBurst.Api.csproj">
+      <Project>{ac03d1c3-f830-4831-9660-147ec9a7c196}</Project>
+      <Name>MoonBurst.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\MoonBurst.Core\MoonBurst.Core.csproj">
       <Project>{7781e238-1b16-41e4-85cb-bd35748905d2}</Project>

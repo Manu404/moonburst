@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.33</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.49</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Firmware|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Firmware\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Sanford.Multimedia.Midi, Version=6.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sanford.Multimedia.Midi.6.6.2\lib\net20\Sanford.Multimedia.Midi.dll</HintPath>
@@ -38,22 +47,19 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arduino\ArduinoPort.cs" />
-    <Compile Include="Arduino\GenericOneMomentarySwitchMonoJackDefinition.cs" />
-    <Compile Include="Arduino\MomentaryFootswitchInput.cs" />
-    <Compile Include="Gateways\ArduinoGateway.cs" />
-    <Compile Include="Gateways\MidiGateway.cs" />
-    <Compile Include="Gateways\SerialGateway.cs" />
-    <Compile Include="Gateways\TeVirtualMIDI.cs" />
+    <Compile Include="Gateway\ArduinoGateway.cs" />
+    <Compile Include="Gateway\MidiGateway.cs" />
+    <Compile Include="Gateway\SerialGateway.cs" />
+    <Compile Include="Gateway\TeVirtualMIDI.cs" />
     <Compile Include="Helper\DynamicsHelper.cs" />
     <Compile Include="Helper\FileAssociations.cs" />
     <Compile Include="Helper\FileAssociationsHelper.cs" />
     <Compile Include="Helper\MusicalNoteHelper.cs" />
     <Compile Include="IFactory.cs" />
-    <Compile Include="Parser\MomentaryFootswitchParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunningConfiguration.cs" />
     <Compile Include="Serializer\SerializerBase.cs" />

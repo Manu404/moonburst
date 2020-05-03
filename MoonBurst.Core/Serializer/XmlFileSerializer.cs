@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace MoonBurst.Core.Serializer
@@ -10,9 +13,17 @@ namespace MoonBurst.Core.Serializer
         {
             using (var fs = new FileStream(filename, FileMode.Create))
             {
-                var serializer = new XmlSerializer(typeof(T));
-                serializer.Serialize(fs, obj);
+                Type[] extraTypes = (typeof(T)).GetProperties()
+                    .Where(p => p.PropertyType.IsInterface)
+                    .Select(p => p.GetValue(obj, null).GetType())
+                    .ToArray();
+
+                DataContractSerializer serializer = new DataContractSerializer(typeof(T), extraTypes);
+                StringWriter sw = new StringWriter();
+                XmlTextWriter xw = new XmlTextWriter(sw);
+                serializer.WriteObject(fs, obj);
                 fs.Close();
+                //return XElement.Parse(sw.ToString());
             }
         }
 
@@ -20,10 +31,12 @@ namespace MoonBurst.Core.Serializer
         {
             try
             {
-                using (var stream = new StreamReader(path))
+                using (var stream = new FileStream(path, FileMode.Open))
                 {
-                    var serializer = new XmlSerializer(typeof(T));
-                    return (T)serializer.Deserialize(stream);
+                    DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+                    StringWriter sw = new StringWriter();
+                    XmlTextWriter xw = new XmlTextWriter(sw);
+                    return (T)serializer.ReadObject(stream);
                 }
             }
             catch (Exception)

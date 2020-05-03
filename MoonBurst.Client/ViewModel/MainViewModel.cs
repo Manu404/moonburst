@@ -5,15 +5,15 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Core.Hardware;
-using MoonBurst.Model.Messages;
-using MoonBurst.ViewModel.Interfaces;
-using MoonBurst.Views;
+using MoonBurst.Model.Message;
+using MoonBurst.View;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
-        private IClientConfigurationViewModel _clientConfiguration;
+        private IApplicationConfigurationViewModel _applicationConfiguration;
         private IHardwareConfigurationViewModel _hardwareConfig;
         private ILayoutViewModel _layout;
 
@@ -36,12 +36,12 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public IClientConfigurationViewModel ClientConfiguration
+        public IApplicationConfigurationViewModel ApplicationConfiguration
         {
-            get => _clientConfiguration;
+            get => _applicationConfiguration;
             set
             {
-                _clientConfiguration = value;
+                _applicationConfiguration = value;
                 RaisePropertyChanged();
             }
         }
@@ -98,16 +98,16 @@ namespace MoonBurst.ViewModel
 
 
         public MainViewModel(IMessenger messenger,  
-            IClientConfigurationViewModel clientConfiguration,
+            IApplicationConfigurationViewModel applicationConfiguration,
             IHardwareConfigurationViewModel hardwareViewModel,
             ILayoutViewModel layoutViewModel)
         {
             AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Title = "MoonBurst";
             
-            _clientConfiguration = clientConfiguration;
+            _applicationConfiguration = applicationConfiguration;
 
-            ClientConfiguration = _clientConfiguration;
+            ApplicationConfiguration = _applicationConfiguration;
             HardwareConfig = hardwareViewModel;
             Layout = layoutViewModel;
             (HardwareConfig as ViewModelBase).PropertyChanged += OnHardwarePropertyChange;
@@ -120,7 +120,7 @@ namespace MoonBurst.ViewModel
             WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMidi.VersionString);
             WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMidi.DriverVersionString);
 
-            messenger.Register<DeleteFunctoidChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
+            messenger.Register<DeleteChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
         }
 
         private void OnHardwarePropertyChange(object sender, PropertyChangedEventArgs e)
@@ -130,7 +130,7 @@ namespace MoonBurst.ViewModel
 
         private void InitializeConfigs()
         {
-            ClientConfiguration.LoadDefault();
+            ApplicationConfiguration.LoadDefault();
             HardwareConfig.LoadLast();
             Layout.LoadLast();
         }
@@ -139,7 +139,7 @@ namespace MoonBurst.ViewModel
         {
             this.Layout.Close();
             this.HardwareConfig.Close();
-            this.ClientConfiguration.Close();
+            this.ApplicationConfiguration.Close();
         }
 
         void OpenConsole()

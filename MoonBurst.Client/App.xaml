@@ -8,12 +8,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="Themes/Imports.xaml" />
-                <ResourceDictionary Source="Themes/Shared.xaml" />
+                <ResourceDictionary Source="Theme/Imports.xaml" />
+                <ResourceDictionary Source="Theme/Shared.xaml" />
 
-                <ResourceDictionary Source="Views/ActionListView.xaml"  />
-                <ResourceDictionary Source="Views/ChannelListView.xaml"  />
-                <ResourceDictionary Source="Views/SideMenu.xaml"  />
+                <ResourceDictionary Source="View/ActionListView.xaml"  />
+                <ResourceDictionary Source="View/ChannelListView.xaml"  />
+                <ResourceDictionary Source="View/SideMenu.xaml"  />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
