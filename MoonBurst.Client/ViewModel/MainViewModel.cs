@@ -117,8 +117,8 @@ namespace MoonBurst.ViewModel
             OnOpenConsoleCommand = new RelayCommand(OpenConsole);
             OnCloseCommand = new RelayCommand(OnClose);
 
-            WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMidi.VersionString);
-            WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMidi.DriverVersionString);
+            //WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMidi.VersionString);
+            //WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMidi.DriverVersionString);
 
             messenger.Register<DeleteChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
         }

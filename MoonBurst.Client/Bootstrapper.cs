@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
@@ -10,17 +11,18 @@ using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Hardware.Parser;
 using MoonBurst.Api.Serializer;
 using MoonBurst.Core;
+using MoonBurst.View;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst
 {
-    public class EntryPoint
+    public class Bootstrapper
     {
-        [STAThread()]
-        public static void Main()
+        public IWindsorContainer GetDefault()
         {
             var container = new WindsorContainer();
             var kernel = container.Kernel;
+            container.AddFacility<TypedFactoryFacility>();
             kernel.Resolver.AddSubResolver(new CollectionResolver(kernel));
 
             // Load "core"
@@ -35,8 +37,8 @@ namespace MoonBurst
                 typeof(INoteNameFormatter),
                 typeof(IHelper),
                 typeof(IGateway),
-                typeof(IViewModel),
-                typeof(ILauncher),
+                typeof(IMainView),
+                typeof(IViewModel)
             };
 
             container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
@@ -54,7 +56,7 @@ namespace MoonBurst
             foreach (var type in typesToDiscoverFromFilter)
                 container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
 
-            container.Resolve<ILauncher>().Launch();
+            return container;
         }
     }
 }

@@ -12,17 +12,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MoonBurst.Core;
+using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.Vst
 {
     /// <summary>
     /// Interaction logic for TestUi.xaml
     /// </summary>
-    public partial class TestUi
+    public partial class TestUi : IMainViewHost
     {
+        private IMainView View;
         public TestUi()
         {
             InitializeComponent();
+        }
+
+        public TestUi(IMainViewModel vm, IFactory<IMainView> view)
+        {
+            InitializeComponent();
+            View = view.Build();
+            this.AddChild(View);
+            this.DataContext = vm;
+        }
+
+        public void Start()
+        {
+            return;
         }
     }
 }

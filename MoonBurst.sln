@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Api", "MoonBurst.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Parser.Fs3X", "MoonBurst.Parser.Fs3X\MoonBurst.Parser.Fs3X.csproj", "{9C64EEEC-1DFB-4512-837D-33150D62F148}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Client.WPF", "MoonBurst.Client.WPF\MoonBurst.Client.WPF.csproj", "{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,24 @@ Global
 		{9C64EEEC-1DFB-4512-837D-33150D62F148}.Release|x64.Build.0 = Release|Any CPU
 		{9C64EEEC-1DFB-4512-837D-33150D62F148}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C64EEEC-1DFB-4512-837D-33150D62F148}.Release|x86.Build.0 = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Debug|x64.Build.0 = Debug|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Debug|x86.Build.0 = Debug|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Firmware|Any CPU.ActiveCfg = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Firmware|Any CPU.Build.0 = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Firmware|x64.ActiveCfg = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Firmware|x64.Build.0 = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Firmware|x86.ActiveCfg = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Firmware|x86.Build.0 = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Release|x64.ActiveCfg = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Release|x64.Build.0 = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Release|x86.ActiveCfg = Release|Any CPU
+		{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

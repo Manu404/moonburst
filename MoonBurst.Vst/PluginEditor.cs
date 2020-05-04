@@ -1,4 +1,6 @@
-﻿namespace MoonBurst.Vst
+﻿using Castle.MicroKernel.Registration;
+
+namespace MoonBurst.Vst
 {
     using System;
     using System.Drawing;
@@ -12,7 +14,7 @@
     class PluginEditor : IVstPluginEditor
     {
         private Plugin _plugin;
-        private WpfControlWrapper<TestUi> _uiWrapper = new WpfControlWrapper<TestUi>(800, 600);
+        private WpfControlWrapper<TestUi> _uiWrapper = new WpfControlWrapper<TestUi>(800, 600, null);
         //private WinFormsControlWrapper<WpfHostForm> _uiWrapper = new WinFormsControlWrapper<WpfHostForm>();
 
         /// <summary>
@@ -22,6 +24,13 @@
         public PluginEditor(Plugin plugin)
         {
             _plugin = plugin;
+            var b = new Bootstrapper();
+            var c = b.GetDefault();
+            c.Register(Component.For<ILauncher>().ImplementedBy<App>());
+            var l = c.Resolve<ILauncher>();
+            l.Launch();
+            
+            //b.GetDefault().Resolve<ILauncher2>()
         }
 
         #region IVstPluginEditor Members

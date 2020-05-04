@@ -1,8 +1,10 @@
 ﻿using System.CodeDom.Compiler;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
@@ -17,11 +19,13 @@ namespace MoonBurst
     /// </summary>
     public partial class App : ILauncher
     {
-        private IMainViewModel mainViewModel;
+        public IMainViewHost Host { get; private set; }
 
-        public App(IMainViewModel mainViewModel)
+        private IMainWindowFactory _mainWindowFactory;
+
+        public App(IMainWindowFactory mainWindowFactory)
         {
-            this.mainViewModel = mainViewModel;
+            this._mainWindowFactory = mainWindowFactory;
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -30,17 +34,18 @@ namespace MoonBurst
             Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Blue200];
             ITheme theme = Theme.Create(new MaterialDesignDarkTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
-            MainWindow mw = new MainWindow(mainViewModel);
-            mw.Show();
+            Host = _mainWindowFactory.Build();
+            Host.Start();
             base.OnStartup(e);
         }
 
         public void Launch()
         {
-            SplashScreen splashScreen = new SplashScreen("img/smallsplash.png");
+            SplashScreen splashScreen = new SplashScreen(Assembly.GetAssembly(GetType()),"img/smallsplash.png");
             splashScreen.Show(true);
             this.InitializeComponent();
             Run();
         }
+
     }
 }

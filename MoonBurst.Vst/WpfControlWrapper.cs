@@ -20,7 +20,7 @@
         /// </summary>
         /// <param name="width">The width of the control.</param>
         /// <param name="height">The height of the control.</param>
-        public WpfControlWrapper(int width, int height)
+        public WpfControlWrapper(int width, int height, T instance)
         {
             _width = width;
             _height = height;
@@ -42,7 +42,9 @@
         /// <param name="hWnd">The native win32 handle to the main window of the host.</param>
         public void Open(IntPtr hWnd)
         {
-            _instance = new T();
+            if(_instance == null)
+                _instance = new T();
+
             _instance.Width = _width;
             _instance.Height = _height;
 
