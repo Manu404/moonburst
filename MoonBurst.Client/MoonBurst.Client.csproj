@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.2116</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.2119</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -126,9 +126,6 @@
     <Reference Include="MaterialDesignColors, Version=1.2.5.1368, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.5-ci1368\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesignThemes.MahApps, Version=0.1.2.1368, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.MahApps.0.1.2-ci1368\lib\net452\MaterialDesignThemes.MahApps.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=3.1.2.1368, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.3.1.2-ci1368\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
@@ -138,19 +135,10 @@
     <Reference Include="Sanford.Multimedia.Midi, Version=6.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sanford.Multimedia.Midi.6.6.0\lib\net20\Sanford.Multimedia.Midi.dll</HintPath>
     </Reference>
-    <Reference Include="SpicyTaco.AutoGrid, Version=1.2.29.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpicyTaco.AutoGrid.1.2.29\lib\net40\SpicyTaco.AutoGrid.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Management, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Management.4.0.0\lib\System.Management.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Management.Instrumentation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Management.4.0.0\lib\System.Management.Instrumentation.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
