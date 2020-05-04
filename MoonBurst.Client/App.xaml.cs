@@ -28,23 +28,22 @@ namespace MoonBurst
             this._mainWindowFactory = mainWindowFactory;
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        public void Initialize()
         {
+            SplashScreen splashScreen = new SplashScreen(Assembly.GetAssembly(GetType()),"img/smallsplash.png");
+            splashScreen.Show(true);
+            this.InitializeComponent();
             Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.DeepPurple200];
             Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Blue200];
             ITheme theme = Theme.Create(new MaterialDesignDarkTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
             Host = _mainWindowFactory.Build();
             Host.Start();
-            base.OnStartup(e);
         }
 
-        public void Launch()
+        public new void Run()
         {
-            SplashScreen splashScreen = new SplashScreen(Assembly.GetAssembly(GetType()),"img/smallsplash.png");
-            splashScreen.Show(true);
-            this.InitializeComponent();
-            Run();
+            base.Run();
         }
 
     }

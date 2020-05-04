@@ -6,7 +6,8 @@ namespace MoonBurst
 {
     public interface ILauncher
     {
-        void Launch();
+        void Initialize();
+        void Run();
         IMainViewHost Host { get; }
     }
 

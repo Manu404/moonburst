@@ -45,7 +45,7 @@ namespace MoonBurst
                 container.Register(Classes.FromAssemblyInThisApplication().BasedOn(type).WithServiceAllInterfaces());
 
             // Load plugins
-            AssemblyFilter filter = new AssemblyFilter(".", "MoonBurst.*");
+            AssemblyFilter filter = new AssemblyFilter(@"C:\git\moonburst-dev\Output\AnyCPU\Debug\Vst\", "MoonBurst.*");
             var typesToDiscoverFromFilter = new List<Type>()
             {
                 typeof(IDeviceDefinition),

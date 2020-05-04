@@ -1,4 +1,12 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System.Reflection;
+using System.Windows;
+using Castle.MicroKernel.Registration;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
+using MoonBurst.Core;
+using MoonBurst.View;
+using MoonBurst.ViewModel.Interface;
+using MoonBurst.Vst.Properties;
 
 namespace MoonBurst.Vst
 {
@@ -8,29 +16,38 @@ namespace MoonBurst.Vst
     using Jacobi.Vst.Framework;
     using Jacobi.Vst.Framework.Common;
 
-    /// <summary>
-    /// Implements the custom UI editor for the plugin.
-    /// </summary>
+    public class MainViewHostFactory : IMainWindowFactory
+    {
+        private IMainViewModel mainViewModel;
+        private IFactory<IMainView> viewFactory;
+
+        public MainViewHostFactory(IMainViewModel mainViewModel, IFactory<IMainView> viewFactory)
+        {
+            this.mainViewModel = mainViewModel;
+            this.viewFactory = viewFactory;
+        }
+        public IMainViewHost Build()
+        {
+            return new TestUi();
+        }
+    }
+
     class PluginEditor : IVstPluginEditor
     {
         private Plugin _plugin;
-        private WpfControlWrapper<TestUi> _uiWrapper = new WpfControlWrapper<TestUi>(800, 600, null);
+
+        private WpfControlWrapper<TestUi> _uiWrapper;
         //private WinFormsControlWrapper<WpfHostForm> _uiWrapper = new WinFormsControlWrapper<WpfHostForm>();
 
-        /// <summary>
-        /// Constructs a new instance.
-        /// </summary>
-        /// <param name="plugin">Must not be null.</param>
         public PluginEditor(Plugin plugin)
         {
             _plugin = plugin;
-            var b = new Bootstrapper();
-            var c = b.GetDefault();
-            c.Register(Component.For<ILauncher>().ImplementedBy<App>());
-            var l = c.Resolve<ILauncher>();
-            l.Launch();
-            
-            //b.GetDefault().Resolve<ILauncher2>()
+            var boot = new Bootstrapper().GetDefault();
+            boot.Register(Component.For<IMainWindowFactory>().ImplementedBy<MainViewHostFactory>());
+            boot.Register(Component.For<ILauncher>().ImplementedBy<App>());
+            var l = boot.Resolve<ILauncher>();
+            l.Initialize();
+            _uiWrapper = new WpfControlWrapper<TestUi>(800, 600, (TestUi)l.Host);
         }
 
         #region IVstPluginEditor Members
@@ -42,13 +59,11 @@ namespace MoonBurst.Vst
 
         public bool KeyDown(byte ascii, VstVirtualKey virtualKey, VstModifierKeys modifers)
         {
-            // no-op
             return false;
         }
 
         public bool KeyUp(byte ascii, VstVirtualKey virtualKey, VstModifierKeys modifers)
         {
-            // no-op
             return false;
         }
 
