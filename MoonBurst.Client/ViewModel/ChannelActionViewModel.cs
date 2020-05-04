@@ -222,7 +222,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public IList<MusicalNote> AvailableNotes => _noteHelper.AvailableNotes;
+        public IList<FormatedNote> AvailableNotes => _noteHelper.AvailableNotes;
         public List<Dynamic> AvailableDynamics => _dynamicsHelper.AvailableDynamics;
 
         public ICommand OnDeleteActionCommand { get; set; }

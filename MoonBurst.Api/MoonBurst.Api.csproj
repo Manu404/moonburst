@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.49</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.52</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dynamic.cs" />
+    <Compile Include="Helper\Dynamic.cs" />
     <Compile Include="Enums\ChannelCommand.cs" />
     <Compile Include="Enums\FootTrigger.cs" />
     <Compile Include="Enums\MidiConnectionState.cs" />
@@ -60,7 +60,12 @@
     <Compile Include="Hardware\Default\GenericOneMomentarySwitchMonoJackDefinition.cs" />
     <Compile Include="Hardware\Default\MomentaryFootswitchInput.cs" />
     <Compile Include="Hardware\Default\MomentaryFootswitchParser.cs" />
-    <Compile Include="MusicalNote.cs" />
+    <Compile Include="Helper\IDynamicsHelper.cs" />
+    <Compile Include="Helper\IFileAssociationsHelper.cs" />
+    <Compile Include="Helper\IHelper.cs" />
+    <Compile Include="Helper\INoteHelper.cs" />
+    <Compile Include="Helper\INoteNameFormatter.cs" />
+    <Compile Include="Helper\FormatedNote.cs" />
     <Compile Include="Hardware\Parser\FootswitchStates.cs" />
     <Compile Include="Hardware\Parser\FootswitchState.cs" />
     <Compile Include="Gateway\Arduino\IArduinoGateway.cs" />
@@ -77,6 +82,7 @@
     <Compile Include="Gateway\Midi\IMidiGateway.cs" />
     <Compile Include="Hardware\Description\INumericInput.cs" />
     <Compile Include="Gateway\Serial\ISerialGateway.cs" />
+    <Compile Include="ILauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer\IDataExtractor.cs" />
     <Compile Include="Serializer\IFileSerializableType.cs" />

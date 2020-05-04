@@ -1,17 +1,8 @@
-﻿using System.Windows;
+﻿using System.CodeDom.Compiler;
+using System.Windows;
 using System.Windows.Media;
-using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.Resolvers.SpecializedResolvers;
-using Castle.Windsor;
-using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
-using MoonBurst.Api;
-using MoonBurst.Api.Gateway;
-using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Hardware.Parser;
-using MoonBurst.Api.Serializer;
-using MoonBurst.Core;
 using MoonBurst.Core.Helper;
 using MoonBurst.Core.Serializer;
 using MoonBurst.Helper;
@@ -24,50 +15,32 @@ namespace MoonBurst
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : ILauncher
     {
+        private IMainViewModel mainViewModel;
+
+        public App(IMainViewModel mainViewModel)
+        {
+            this.mainViewModel = mainViewModel;
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.DeepPurple200];
             Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Blue200];
             ITheme theme = Theme.Create(new MaterialDesignDarkTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
-
-            FileAssociationsHelper.EnsureFileAssociation();
-
-            AssemblyFilter filter = new AssemblyFilter(".", "MoonBurst.*");
-
-            var container = new WindsorContainer();
-
-            var kernel = container.Kernel;
-            kernel.Resolver.AddSubResolver(new CollectionResolver(kernel));
-            
-            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
-
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(ISerializer<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(ISerializer<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IFactory<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
-
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(INoteNameFormatter)).WithServiceAllInterfaces());
-            container.Register(Component.For<INoteHelper>().ImplementedBy<NoteHelper>());
-
-            container.Register(Component.For<IDynamicsHelper>().ImplementedBy<DynamicsHelper>());
-            
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IGateway)).WithServiceAllInterfaces());
-            
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDeviceDefinition)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDeviceParser)).WithServiceAllInterfaces());
-            
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
-
-            base.OnStartup(e);
-
-            MainWindow mw = new MainWindow(container.Resolve<IMainViewModel>());
+            MainWindow mw = new MainWindow(mainViewModel);
             mw.Show();
+            base.OnStartup(e);
         }
 
+        public void Launch()
+        {
+            SplashScreen splashScreen = new SplashScreen("img/smallsplash.png");
+            splashScreen.Show(true);
+            this.InitializeComponent();
+            Run();
+        }
     }
 }

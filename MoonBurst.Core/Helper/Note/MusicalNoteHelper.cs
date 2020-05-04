@@ -6,14 +6,14 @@ namespace MoonBurst.Core.Helper
 {
     public class NoteHelper : INoteHelper
     {
-        public IList<MusicalNote> AvailableNotes { get; }
+        public IList<FormatedNote> AvailableNotes { get; }
 
         public NoteHelper(INoteNameFormatter[] formatters)
         {
-            AvailableNotes = new List<MusicalNote>();
+            AvailableNotes = new List<FormatedNote>();
             for(var i = 0; i < 128; i++)
             {
-                AvailableNotes.Add(new MusicalNote(formatters, i));
+                AvailableNotes.Add(new FormatedNote(formatters, i));
             }
             AvailableNotes.Reverse();
         }

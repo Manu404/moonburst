@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.2038</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.2059</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -54,7 +54,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MoonBurst.App</StartupObject>
+    <StartupObject>MoonBurst.EntryPoint</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>img\moon.ico</ApplicationIcon>
@@ -167,10 +167,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="ViewModel\Interface\IViewModel.cs" />
     <Compile Include="Helper\ConfirmationHelper.cs" />
     <Compile Include="Helper\EnumToStringConverter.cs" />

@@ -157,7 +157,7 @@ namespace MoonBurst.ViewModel
             OnSendMidiTestCommand = new RelayCommand(() => _midiGateway.SendTest(), () => IsMidiConnected);
             
             LoadConfigCommand = new RelayCommand(OnLoad);
-            SaveConfigCommand = new RelayCommand(SaveLast);
+            SaveConfigCommand = new RelayCommand(OnSaveLast);
             SaveAsConfigCommand = new RelayCommand(OnSaveAs);
 
             OnRefreshMidiDevices();
@@ -165,10 +165,10 @@ namespace MoonBurst.ViewModel
             OnRefreshArduinoPorts();
 
             midiGateway.ConnectionStateChanged += (sender, args) => this.IsMidiConnected = args.NewState == MidiConnectionState.Connected;
-            serialGateway.ConnectionStateChanged += (sender, args) => OnSerialStateChange(args);
+            serialGateway.ConnectionStateChanged += (sender, args) => OnSerialStateChanged(args);
         }
 
-        private void OnSerialStateChange(SerialConnectionStateChangedEventArgs obj)
+        private void OnSerialStateChanged(SerialConnectionStateChangedEventArgs obj)
         {
             this.IsComConnected = obj.NewState;
             if(!IsComConnected)
@@ -191,19 +191,22 @@ namespace MoonBurst.ViewModel
 
         void RefreshAvailabledSpeeds()
         {
+            SupportedBaudRates.Clear();
             if (this.SelectedComPort != null)
             {
-                SupportedBaudRates.Clear();
                 var selectedSpeed = SelectedSpeed;
+
                 _serialGateway.GetRates().Where(r => r <= this.SelectedComPort.MaxBaudRate).ToList()
                     .ForEach(SupportedBaudRates.Add);
-                SelectedSpeed = selectedSpeed;
+
+                if(this.SupportedBaudRates.Contains(selectedSpeed))
+                    SelectedSpeed = selectedSpeed;
             }
         }
 
         void OnRefreshCOMDevices()
         {
-            if (Application.Current.Dispatcher != null)
+            if (Application.Current?.Dispatcher != null)
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     var selectedCom = SelectedComPort?.Name;
@@ -277,7 +280,7 @@ namespace MoonBurst.ViewModel
             Load(_config.LastHardwareConfigurationPath);
         }
 
-        public void SaveLast()
+        public void OnSaveLast()
         {
             Save(_config.LastHardwareConfigurationPath);
         }

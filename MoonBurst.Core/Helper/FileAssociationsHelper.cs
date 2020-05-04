@@ -2,7 +2,7 @@
 
 namespace MoonBurst.Core.Helper
 {
-    public class FileAssociationsHelper
+    public class FileAssociationsHelper : IFileAssociationsHelper
     {
         public static string LayoutExtension => ".mblayout";
         public static string LayoutDescription => "MoonBurst Layout";
@@ -12,7 +12,7 @@ namespace MoonBurst.Core.Helper
         public static string ConfigDescription => "MoonBurst Config";
         public static string ConfigFilter => $"{ConfigDescription}|*{ConfigExtension}";
 
-        public static void EnsureFileAssociation()
+        public void EnsureFileAssociation()
         {
             FileAssociations.EnsureAssociationsSet(
                 new FileAssociations.FileAssociation()

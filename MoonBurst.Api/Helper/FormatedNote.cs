@@ -1,18 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace MoonBurst.Api
+﻿namespace MoonBurst.Api
 {
-    public interface INoteNameFormatter
-    {
-        string GetName(int midiValue);
-    }
-
-    public interface INoteHelper
-    {
-        IList<MusicalNote> AvailableNotes { get; }
-    }
-
-    public class MusicalNote
+    public class FormatedNote
     {
         private INoteNameFormatter[] availableFormatters;
         public int MidiValue { get; }
@@ -22,7 +10,7 @@ namespace MoonBurst.Api
         }
         public string DisplayNameDetailed { get => $"{Name} ({MidiValue})"; }
 
-        public MusicalNote(INoteNameFormatter[] availableFormatters, int i)
+        public FormatedNote(INoteNameFormatter[] availableFormatters, int i)
         {
             this.availableFormatters = availableFormatters;
             MidiValue = i;

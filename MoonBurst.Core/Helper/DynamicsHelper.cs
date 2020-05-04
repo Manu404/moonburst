@@ -3,11 +3,6 @@ using MoonBurst.Api;
 
 namespace MoonBurst.Core.Helper
 {
-    public interface IDynamicsHelper
-    {
-        List<Dynamic> AvailableDynamics { get; }
-    }
-
     public class DynamicsHelper : IDynamicsHelper
     {
         public List<Dynamic> AvailableDynamics { get; }

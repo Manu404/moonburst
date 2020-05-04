@@ -11,7 +11,7 @@ namespace MoonBurst.ViewModel.Interface
         string DisplayName { get; }
         string DisplayNameToolTip { get; }
 
-        IList<MusicalNote> AvailableNotes { get; }
+        IList<FormatedNote> AvailableNotes { get; }
         ChannelCommand Command { get; set; }
         int Data1 { get; set; }
         int Data2 { get; set; }
