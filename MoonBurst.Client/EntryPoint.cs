@@ -30,6 +30,15 @@ namespace MoonBurst
 
             var typesToDiscoverFromFilter = new List<Type>()
             {
+                typeof(IDeviceDefinition),
+                typeof(IDeviceParser)
+            };
+
+            foreach (var type in typesToDiscoverFromFilter)
+                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
+
+            var typesToDiscoverFromLoadedAssembly = new List<Type>()
+            {
                 typeof(ISerializer<,>),
                 typeof(ISerializer<>),
                 typeof(IFactory<>),
@@ -39,15 +48,13 @@ namespace MoonBurst
                 typeof(INoteNameFormatter),
                 typeof(IHelper),
                 typeof(IGateway),
-                typeof(IDeviceDefinition),
-                typeof(IDeviceParser),
                 typeof(IViewModel),
                 typeof(ILauncher),
             };
 
-            foreach(var type in typesToDiscoverFromFilter)
-                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
-
+            foreach (var type in typesToDiscoverFromLoadedAssembly)
+                container.Register(Classes.FromAssemblyInThisApplication().BasedOn(type).WithServiceAllInterfaces());
+            
             container.Resolve<ILauncher>().Launch();
         }
     }
