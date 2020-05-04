@@ -20,23 +20,10 @@ namespace MoonBurst
         public static void Main()
         {
             var container = new WindsorContainer();
-
             var kernel = container.Kernel;
             kernel.Resolver.AddSubResolver(new CollectionResolver(kernel));
 
-            AssemblyFilter filter = new AssemblyFilter(".", "MoonBurst.*");
-
-            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
-
-            var typesToDiscoverFromFilter = new List<Type>()
-            {
-                typeof(IDeviceDefinition),
-                typeof(IDeviceParser)
-            };
-
-            foreach (var type in typesToDiscoverFromFilter)
-                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
-
+            // Load "core"
             var typesToDiscoverFromLoadedAssembly = new List<Type>()
             {
                 typeof(ISerializer<,>),
@@ -52,9 +39,21 @@ namespace MoonBurst
                 typeof(ILauncher),
             };
 
+            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
             foreach (var type in typesToDiscoverFromLoadedAssembly)
                 container.Register(Classes.FromAssemblyInThisApplication().BasedOn(type).WithServiceAllInterfaces());
-            
+
+            // Load plugins
+            AssemblyFilter filter = new AssemblyFilter(".", "MoonBurst.*");
+            var typesToDiscoverFromFilter = new List<Type>()
+            {
+                typeof(IDeviceDefinition),
+                typeof(IDeviceParser)
+            };
+
+            foreach (var type in typesToDiscoverFromFilter)
+                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
+
             container.Resolve<ILauncher>().Launch();
         }
     }
