@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
@@ -27,24 +28,25 @@ namespace MoonBurst
 
             container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
 
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(ISerializer<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(ISerializer<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IFactory<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IFactory<,>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<>)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDataExtractor<,>)).WithServiceAllInterfaces());
+            var typesToDiscoverFromFilter = new List<Type>()
+            {
+                typeof(ISerializer<,>),
+                typeof(ISerializer<>),
+                typeof(IFactory<>),
+                typeof(IFactory<,>),
+                typeof(IDataExtractor<>),
+                typeof(IDataExtractor<,>),
+                typeof(INoteNameFormatter),
+                typeof(IHelper),
+                typeof(IGateway),
+                typeof(IDeviceDefinition),
+                typeof(IDeviceParser),
+                typeof(IViewModel),
+                typeof(ILauncher),
+            };
 
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(INoteNameFormatter)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IHelper)).WithServiceAllInterfaces());
-
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IGateway)).WithServiceAllInterfaces());
-
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDeviceDefinition)).WithServiceAllInterfaces());
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IDeviceParser)).WithServiceAllInterfaces());
-
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(IViewModel)).WithServiceAllInterfaces());
-
-            container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(typeof(ILauncher)).WithServiceAllInterfaces());
+            foreach(var type in typesToDiscoverFromFilter)
+                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
 
             container.Resolve<ILauncher>().Launch();
         }
