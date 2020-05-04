@@ -89,15 +89,15 @@ namespace MoonBurst.Core.Gateway
             IsConnected = false;
         }
 
-        private string accumulator = "";
-        Regex group = new Regex(@"\?([0-9]+);([0-9]+);([0-9]+)\!", RegexOptions.Compiled);
+        private string _accumulator = "";
+        readonly Regex group = new Regex(@"\?([0-9]+);([0-9]+);([0-9]+)\!", RegexOptions.Compiled);
         private void SerialPortOnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            accumulator += _serialPort.ReadExisting();
-            if (accumulator.Length < 100 || _arduinoPorts == null) return;
+            _accumulator += _serialPort.ReadExisting();
+            if (_accumulator.Length < 100 || _arduinoPorts == null) return;
 
-            var lines = accumulator.Split('\n');
-            accumulator = "";
+            var lines = _accumulator.Split('\n');
+            _accumulator = "";
 
             foreach (var line in lines)
             {

@@ -55,7 +55,7 @@ namespace MoonBurst.Helper
         /// </summary>
         public static object GetOnContent(DependencyObject element)
         {
-            return (object)element.GetValue(OnContentProperty);
+            return element.GetValue(OnContentProperty);
         }
 
         /// <summary>

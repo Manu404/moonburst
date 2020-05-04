@@ -1,4 +1,4 @@
-﻿namespace MoonBurst.Api
+﻿namespace MoonBurst.Api.Helper
 {
     public class Dynamic
     {

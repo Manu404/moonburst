@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway.Arduino;
 using MoonBurst.Api.Gateway.Serial;
-using MoonBurst.Api.Hardware;
-using MoonBurst.Core;
+using MoonBurst.Api.Hardware.Description;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel.Factory

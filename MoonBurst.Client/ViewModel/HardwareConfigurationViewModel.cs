@@ -7,18 +7,14 @@ using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Enums;
 using MoonBurst.Api.Gateway.Arduino;
 using MoonBurst.Api.Gateway.Midi;
 using MoonBurst.Api.Gateway.Serial;
-using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Serializer;
-using MoonBurst.Core;
 using MoonBurst.Core.Helper;
-using MoonBurst.Core.Serializer;
-using MoonBurst.Helper;
 using MoonBurst.Model;
 using MoonBurst.ViewModel.Interface;
 
@@ -28,18 +24,14 @@ namespace MoonBurst.ViewModel
     {
         public string ShowSaveDialog(string title, string filter)
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = filter;
-            saveFileDialog1.Title = title;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog {Filter = filter, Title = title};
             saveFileDialog1.ShowDialog();
             return saveFileDialog1.FileName;
         }
 
         public string ShowLoadDialog(string title, string filter)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = filter;
-            openFileDialog1.Title = title;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog {Filter = filter, Title = title};
             return openFileDialog1.FileName;
         }
     }

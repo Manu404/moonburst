@@ -1,6 +1,6 @@
 ﻿using MoonBurst.Api.Hardware.Description;
 
-namespace MoonBurst.Api.Hardware.Default
+namespace MoonBurst.Api.Hardware.Parser
 {
     public class MomentaryFootswitchInput : IBooleanInput
     {

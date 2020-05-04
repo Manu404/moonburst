@@ -1,5 +1,5 @@
-﻿using MoonBurst.Api.Gateway.Serial;
-using MoonBurst.Core;
+﻿using MoonBurst.Api.Client;
+using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel.Factory

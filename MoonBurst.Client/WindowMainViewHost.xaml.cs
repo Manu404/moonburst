@@ -1,4 +1,4 @@
-﻿using MoonBurst.Core;
+﻿using MoonBurst.Api.Client;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst
@@ -6,9 +6,8 @@ namespace MoonBurst
     /// <summary>
     /// Interaction logic for WindowMainViewHost.xaml
     /// </summary>
-    public partial class WindowMainViewHost : IMainViewHost
+    public sealed partial class WindowMainViewHost : IMainViewHost
     {
-        private IMainView View;
         public WindowMainViewHost()
         {
             InitializeComponent();
@@ -17,8 +16,7 @@ namespace MoonBurst
         public WindowMainViewHost(IMainViewModel vm, IFactory<IMainView> view)
         {
             InitializeComponent();
-            View = view.Build();
-            this.AddChild(View);
+            this.AddChild(view.Build());
             this.DataContext = vm;
         }
 

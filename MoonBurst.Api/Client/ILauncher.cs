@@ -1,8 +1,4 @@
-﻿using System.Security.Principal;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace MoonBurst
+﻿namespace MoonBurst.Api.Client
 {
     public interface ILauncher
     {

@@ -1,10 +1,8 @@
 using System.ComponentModel;
-using System.Text;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Core.Hardware;
 using MoonBurst.Model.Message;
 using MoonBurst.View;
 using MoonBurst.ViewModel.Interface;
@@ -110,7 +108,7 @@ namespace MoonBurst.ViewModel
             ApplicationConfiguration = _applicationConfiguration;
             HardwareConfig = hardwareViewModel;
             Layout = layoutViewModel;
-            (HardwareConfig as ViewModelBase).PropertyChanged += OnHardwarePropertyChange;
+            if (HardwareConfig is ViewModelBase) ((ViewModelBase)HardwareConfig).PropertyChanged += OnHardwarePropertyChange;
 
             InitializeConfigs();
 

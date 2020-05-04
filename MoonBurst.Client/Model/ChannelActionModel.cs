@@ -1,5 +1,4 @@
 ﻿using MoonBurst.Api.Enums;
-using MoonBurst.Api.Hardware.Parser;
 
 namespace MoonBurst.Model
 {

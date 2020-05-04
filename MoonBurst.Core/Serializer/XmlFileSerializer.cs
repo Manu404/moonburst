@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace MoonBurst.Core.Serializer
 {

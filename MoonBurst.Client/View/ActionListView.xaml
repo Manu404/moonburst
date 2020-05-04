@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:moonBurst="clr-namespace:MoonBurst"
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:viewModel="clr-namespace:MoonBurst.ViewModel"
@@ -491,7 +490,6 @@
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="UpDownButtonsWidth" Value="12"/>
                 <Setter Property="Interval"  Value="1"/>
-                <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="TextAlignment" Value="Left"/>
                 <Setter Property="Minimum" Value="1"/>
                 <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>

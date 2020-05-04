@@ -1,14 +1,11 @@
-﻿namespace MoonBurst.Api
+﻿namespace MoonBurst.Api.Helper
 {
     public class FormatedNote
     {
-        private INoteNameFormatter[] availableFormatters;
+        private readonly INoteNameFormatter[] availableFormatters;
         public int MidiValue { get; }
-        public string Name
-        {
-            get { return availableFormatters[1].GetName(MidiValue); }
-        }
-        public string DisplayNameDetailed { get => $"{Name} ({MidiValue})"; }
+        public string Name => availableFormatters[1].GetName(MidiValue);
+        public string DisplayNameDetailed => $"{Name} ({MidiValue})";
 
         public FormatedNote(INoteNameFormatter[] availableFormatters, int i)
         {

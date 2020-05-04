@@ -16,7 +16,7 @@ namespace MoonBurst.Core.Gateway
 /*
         private TeVirtualMIDI _virtualMidi;
 */
-        private ChannelMessageBuilder _builder;
+        private readonly ChannelMessageBuilder _builder;
         private MidiConnectionState _state;
         private bool _isConnected;
 

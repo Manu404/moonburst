@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Hardware.Description;
 
 namespace MoonBurst.Api.Gateway.Arduino
 {

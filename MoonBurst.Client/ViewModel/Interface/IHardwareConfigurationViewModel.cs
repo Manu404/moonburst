@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway.Midi;
 using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.Api.Serializer;

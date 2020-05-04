@@ -3,11 +3,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using Microsoft.Win32;
 using MoonBurst.Api.Serializer;
 using MoonBurst.Core.Helper;
-using MoonBurst.Core.Serializer;
-using MoonBurst.Helper;
 using MoonBurst.ViewModel.Factory;
 using MoonBurst.ViewModel.Interface;
 

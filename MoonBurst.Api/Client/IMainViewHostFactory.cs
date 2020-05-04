@@ -1,6 +1,4 @@
-﻿using MoonBurst.Core;
-
-namespace MoonBurst.View
+﻿namespace MoonBurst.Api.Client
 {
     public interface IMainViewHostFactory : IFactory<IMainViewHost>
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using MoonBurst.Api;
+using MoonBurst.Api.Helper;
 
 namespace MoonBurst.Core.Helper
 {

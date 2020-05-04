@@ -2,15 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Api;
 using MoonBurst.Api.Enums;
 using MoonBurst.Api.Gateway.Midi;
-using MoonBurst.Api.Hardware.Parser;
-using MoonBurst.Core.Helper;
+using MoonBurst.Api.Helper;
 using MoonBurst.Helper;
 using MoonBurst.Model.Message;
 using MoonBurst.ViewModel.Interface;
@@ -19,10 +16,10 @@ namespace MoonBurst.ViewModel
 {
     public class ChannelActionViewModel : ViewModelBase, IChannelActionViewModel
     {
-        private IMessenger _messenger;
-        private INoteHelper _noteHelper;
-        private IDynamicsHelper _dynamicsHelper;
-        private IMidiGateway _midiGateway;
+        private readonly IMessenger _messenger;
+        private readonly INoteHelper _noteHelper;
+        private readonly IDynamicsHelper _dynamicsHelper;
+        private readonly IMidiGateway _midiGateway;
 
         private bool _isEnabled;
         private bool _isExpanded;
@@ -38,36 +35,13 @@ namespace MoonBurst.ViewModel
         private bool _isLocked;
         private bool _isChannelLocked;
 
-        public string EnableStatusString
-        {
-            get => IsEnabled ? "disabled" : "enabled";
-        }
-        public string LockedStatusString
-        {
-            get => IsLocked ? "locked" : "unlocked";
-        }
-
-        public string StatusString
-        {
-            get => $"({EnableStatusString}/{LockedStatusString})";
-        }
-
-        public string DisplayName
-        {
-            get => $"On {Trigger}\n{Command}({MidiChannel},{Data1},{Data2})";
-        }
-
-        public string DisplayNameToolTip
-        {
-            get => $"On {Trigger}\nMessage: {Command}\nChannel: {MidiChannel}\nData1: {Data1}\nData2: {Data2}";
-        }
-
-        public string EnableTooltip { get=> IsEnabled ? "disable" : "enable"; }
-
-        public string ChannelHeaderActionToggleTooltip
-        {
-            get => $"{DisplayNameToolTip}\n\nLeft-click to manually trigger\nRight-click to {EnableTooltip}";
-        }
+        public string EnableStatusString => IsEnabled ? "disabled" : "enabled";
+        public string LockedStatusString => IsLocked ? "locked" : "unlocked";
+        public string StatusString => $"({EnableStatusString}/{LockedStatusString})";
+        public string DisplayName => $"On {Trigger}\n{Command}({MidiChannel},{Data1},{Data2})";
+        public string DisplayNameToolTip => $"On {Trigger}\nMessage: {Command}\nChannel: {MidiChannel}\nData1: {Data1}\nData2: {Data2}";
+        public string EnableTooltip => IsEnabled ? "disable" : "enable";
+        public string ChannelHeaderActionToggleTooltip => $"{DisplayNameToolTip}\n\nLeft-click to manually trigger\nRight-click to {EnableTooltip}";
 
         private void RefreshTitle()
         {
@@ -177,7 +151,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public bool IsLockedOrChannelLocked {get => IsLocked || IsChannelLocked;}
+        public bool IsLockedOrChannelLocked => IsLocked || IsChannelLocked;
 
         public bool IsExpanded
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Serializer;
 
 namespace MoonBurst.ViewModel.Interface

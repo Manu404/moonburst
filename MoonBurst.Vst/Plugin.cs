@@ -1,8 +1,9 @@
-﻿namespace MoonBurst.Vst
+﻿using MoonBurst.Api.Client;
+
+namespace MoonBurst.Vst
 {
     using Jacobi.Vst.Core;
     using Jacobi.Vst.Framework;
-    using Jacobi.Vst.Framework.Common;
     using Jacobi.Vst.Framework.Plugin;
     using System.Reflection;
 
@@ -11,7 +12,7 @@
     /// </summary>
     class Plugin : VstPluginWithInterfaceManagerBase, IVstPluginMidiSource
     {
-        private ILauncher launcher;
+        private readonly ILauncher _launcher;
 
         /// <summary>
         /// Constructs a new instance.
@@ -24,7 +25,7 @@
                 0, 
                 0x30313234)
         {
-            this.launcher = launcher;
+            this._launcher = launcher;
             launcher.Initialize();
         }
 
@@ -37,7 +38,7 @@
 
         protected override IVstPluginEditor CreateEditor(IVstPluginEditor instance)
         {
-            if (instance == null) return new PluginEditor(this, launcher.Host);
+            if (instance == null) return new PluginEditor(this, _launcher.Host);
 
             return instance;
         }

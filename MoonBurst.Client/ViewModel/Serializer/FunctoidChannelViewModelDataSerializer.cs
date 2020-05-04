@@ -9,8 +9,8 @@ namespace MoonBurst.ViewModel.Serializer
 {
     public class FunctoidChannelViewModelDataSerializer : IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel>
     {
-        IChannelActionViewModelFactory _actionFactory;
-        IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
+        readonly IChannelActionViewModelFactory _actionFactory;
+        readonly IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
 
         public FunctoidChannelViewModelDataSerializer(IChannelActionViewModelFactory actionFactory, IDataExtractor<IChannelActionViewModel, ChannelActionModel> actionExtractor)
         {

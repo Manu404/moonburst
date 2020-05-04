@@ -56,7 +56,7 @@ namespace MoonBurst.Core.Helper
         {
             using (var key = Registry.CurrentUser.CreateSubKey(keyPath))
             {
-                if (key.GetValue(null) as string != value)
+                if (key != null && key.GetValue(null) as string != value)
                 {
                     key.SetValue(null, value);
                     return true;

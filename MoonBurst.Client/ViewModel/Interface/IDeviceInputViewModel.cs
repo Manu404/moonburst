@@ -1,5 +1,4 @@
 ﻿using MoonBurst.Api.Gateway.Arduino;
-using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Hardware.Description;
 using MoonBurst.Api.Hardware.Parser;
 

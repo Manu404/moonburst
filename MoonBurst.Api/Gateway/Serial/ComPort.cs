@@ -13,7 +13,7 @@
         }
 
         public string Name { get; set; }
-        public string Id { get; set; }
+        public string Id { get; }
         public int MaxBaudRate { get; set; }
 
         public override bool Equals(object obj)

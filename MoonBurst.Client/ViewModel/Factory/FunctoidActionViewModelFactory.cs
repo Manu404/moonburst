@@ -1,9 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Api;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway.Midi;
+using MoonBurst.Api.Helper;
 using MoonBurst.Api.Serializer;
-using MoonBurst.Core;
-using MoonBurst.Core.Helper;
 using MoonBurst.Model;
 using MoonBurst.ViewModel.Interface;
 
@@ -16,11 +15,11 @@ namespace MoonBurst.ViewModel.Factory
 
     public class ChannelActionViewModelFactory : IChannelActionViewModelFactory
     {
-        private IMessenger _messenger;
-        private INoteHelper _noteHelper;
-        private IDynamicsHelper _dynamicsHelper;
-        private IMidiGateway _midiGateway;
-        private IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
+        private readonly IMessenger _messenger;
+        private readonly INoteHelper _noteHelper;
+        private readonly IDynamicsHelper _dynamicsHelper;
+        private readonly IMidiGateway _midiGateway;
+        private readonly IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
 
         public ChannelActionViewModelFactory(
             IMessenger messenger,

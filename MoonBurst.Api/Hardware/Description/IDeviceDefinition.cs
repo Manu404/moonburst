@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using MoonBurst.Api.Hardware.Description;
 using MoonBurst.Api.Hardware.Parser;
 
-namespace MoonBurst.Api.Hardware
+namespace MoonBurst.Api.Hardware.Description
 {
     public interface IDeviceDefinition
     {

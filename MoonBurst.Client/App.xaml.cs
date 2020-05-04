@@ -1,16 +1,9 @@
-﻿using System.CodeDom.Compiler;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
-using MoonBurst.Core;
-using MoonBurst.Core.Helper;
-using MoonBurst.Core.Serializer;
-using MoonBurst.Helper;
-using MoonBurst.View;
-using MoonBurst.ViewModel;
-using MoonBurst.ViewModel.Interface;
+using MoonBurst.Api.Client;
 
 namespace MoonBurst
 {
@@ -21,7 +14,7 @@ namespace MoonBurst
     {
         public IMainViewHost Host { get; private set; }
 
-        private IMainViewHostFactory _mainViewHostFactory;
+        private readonly IMainViewHostFactory _mainViewHostFactory;
 
         public App(IMainViewHostFactory mainViewHostFactory)
         {
@@ -38,11 +31,11 @@ namespace MoonBurst
             ITheme theme = Theme.Create(new MaterialDesignDarkTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
             Host = _mainViewHostFactory.Build();
-            Host.Start();
         }
 
         public new void Run()
         {
+            Host.Start();
             base.Run();
         }
 

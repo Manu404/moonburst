@@ -1,11 +1,11 @@
-﻿namespace MoonBurst.Core
+﻿namespace MoonBurst.Api.Client
 {
-    public interface IFactory<T>
+    public interface IFactory<out T>
     {
         T Build();
     }
 
-    public interface IFactory<T, Y>
+    public interface IFactory<out T, in Y>
     {
         T Build(Y data);
     }

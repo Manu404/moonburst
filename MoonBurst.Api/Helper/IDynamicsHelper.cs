@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using MoonBurst.Api;
 
-namespace MoonBurst.Core.Helper
+namespace MoonBurst.Api.Helper
 {
     public interface IDynamicsHelper : IHelper
     {

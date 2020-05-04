@@ -31,14 +31,15 @@
             _instance.Width = _width;
             _instance.Height = _height;
 
-            HwndSourceParameters hwndParams = new HwndSourceParameters("VST.NET Wpf Editor");
-            hwndParams.ParentWindow = hWnd;
-            hwndParams.Height = _height;
-            hwndParams.Width = _width;
-            hwndParams.WindowStyle = 0x10000000 | 0x40000000; // WS_VISIBLE|WS_CHILD
+            HwndSourceParameters hwndParams = new HwndSourceParameters("VST.NET Wpf Editor")
+            {
+                ParentWindow = hWnd,
+                Height = _height,
+                Width = _width,
+                WindowStyle = 0x10000000 | 0x40000000 // WS_VISIBLE|WS_CHILD
+            };
 
-            _hwndSource = new HwndSource(hwndParams);
-            _hwndSource.RootVisual = _instance;
+            _hwndSource = new HwndSource(hwndParams) {RootVisual = _instance};
         }
 
         /// <summary>

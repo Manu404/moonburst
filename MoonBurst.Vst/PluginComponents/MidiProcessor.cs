@@ -17,7 +17,7 @@
         /// <summary>
         /// Gets the midi events that should be processed in the current cycle.
         /// </summary>
-        public VstEventCollection Events { get; private set; }
+        public VstEventCollection Events { get; }
 
         /// <summary>
         /// Gets or sets a value indicating wether non-mapped midi events should be passed to the output.
@@ -27,7 +27,7 @@
         /// <summary>
         /// The raw note on note numbers.
         /// </summary>
-        public Queue<byte> NoteOnEvents { get; private set; }
+        public Queue<byte> NoteOnEvents { get; }
 
         #region IVstMidiProcessor Members
 

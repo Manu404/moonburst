@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MoonBurst.Api
+namespace MoonBurst.Api.Helper
 {
     public interface INoteHelper : IHelper
     {

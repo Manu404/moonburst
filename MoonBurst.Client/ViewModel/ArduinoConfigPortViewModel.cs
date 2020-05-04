@@ -4,9 +4,9 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway.Arduino;
-using MoonBurst.Api.Hardware;
-using MoonBurst.Core;
+using MoonBurst.Api.Hardware.Description;
 using MoonBurst.Model;
 using MoonBurst.Model.Message;
 using MoonBurst.ViewModel.Interface;
@@ -16,7 +16,7 @@ namespace MoonBurst.ViewModel
     public class ArduinoConfigPortViewModel : ViewModelBase, IArduinoConfigPortViewModel
     {
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
-        private IMessenger _messenger;
+        private readonly IMessenger _messenger;
         private bool _isConnected;
         private bool _isEnabled;
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using MoonBurst.Api;
+using MoonBurst.Api.Helper;
 
 namespace MoonBurst.Core.Helper
 {
@@ -11,11 +10,10 @@ namespace MoonBurst.Core.Helper
         public NoteHelper(INoteNameFormatter[] formatters)
         {
             AvailableNotes = new List<FormatedNote>();
-            for(var i = 0; i < 128; i++)
+            for(var i = 127; i >= 0; i--)
             {
                 AvailableNotes.Add(new FormatedNote(formatters, i));
             }
-            AvailableNotes.Reverse();
         }
     }
 

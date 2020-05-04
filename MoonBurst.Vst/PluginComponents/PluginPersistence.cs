@@ -1,6 +1,5 @@
 ﻿namespace MoonBurst.Vst
 {
-    using System;
     using System.IO;
     using System.Text;
 

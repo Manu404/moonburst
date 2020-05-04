@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MoonBurst.Api.Gateway.Arduino;
-using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Hardware.Description;
 using MoonBurst.Model;
 
 namespace MoonBurst.ViewModel.Interface

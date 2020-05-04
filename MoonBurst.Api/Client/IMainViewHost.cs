@@ -1,4 +1,4 @@
-﻿namespace MoonBurst
+﻿namespace MoonBurst.Api.Client
 {
     public interface IMainViewHost
     {

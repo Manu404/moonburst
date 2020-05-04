@@ -5,13 +5,12 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Api;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway;
-using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Hardware.Description;
 using MoonBurst.Api.Hardware.Parser;
+using MoonBurst.Api.Helper;
 using MoonBurst.Api.Serializer;
-using MoonBurst.Core;
-using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst
 {

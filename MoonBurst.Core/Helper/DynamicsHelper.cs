@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MoonBurst.Api;
+using MoonBurst.Api.Helper;
 
 namespace MoonBurst.Core.Helper
 {

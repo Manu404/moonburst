@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway.Arduino;
 using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.Api.Serializer;
-using MoonBurst.Core;
 using MoonBurst.Model;
 using MoonBurst.ViewModel.Interface;
 

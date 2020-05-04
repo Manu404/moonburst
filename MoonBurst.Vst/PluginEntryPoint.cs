@@ -1,5 +1,5 @@
 ﻿using Castle.MicroKernel.Registration;
-using MoonBurst.View;
+using MoonBurst.Api.Client;
 
 namespace MoonBurst.Vst
 {

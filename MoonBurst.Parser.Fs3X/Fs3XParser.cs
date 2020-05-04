@@ -1,5 +1,3 @@
-using MoonBurst.Api.Hardware;
-using MoonBurst.Api.Hardware.Default;
 using MoonBurst.Api.Hardware.Parser;
 
 namespace MooBurst.Parser.Fs3X
@@ -17,7 +15,7 @@ namespace MooBurst.Parser.Fs3X
         
         public IDeviceInputState[] ParseState(int state, int index)
         {
-            return new[]
+            return new IDeviceInputState[]
             {
                 _parser[0].ParseState((state == 1) ? 1 : 0, 0),
                 _parser[1].ParseState((state == 2) ? 1 : 0, 1),

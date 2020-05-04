@@ -1,13 +1,12 @@
-﻿using MoonBurst.Core;
-using MoonBurst.View;
+﻿using MoonBurst.Api.Client;
 using MoonBurst.ViewModel.Interface;
 
-namespace MoonBurst
+namespace MoonBurst.Vst
 {
     public class MainViewHostFactory : IMainViewHostFactory
     {
-        private IMainViewModel mainViewModel;
-        private IFactory<IMainView> viewFactory;
+        private readonly IMainViewModel mainViewModel;
+        private readonly IFactory<IMainView> viewFactory;
 
         public MainViewHostFactory(IMainViewModel mainViewModel, IFactory<IMainView> viewFactory)
         {
@@ -16,7 +15,7 @@ namespace MoonBurst
         }
         public IMainViewHost Build()
         {
-            return new WindowMainViewHost(mainViewModel, viewFactory);
+            return new VstMainViewHost(mainViewModel, viewFactory);
         }
     }
 }

@@ -6,8 +6,6 @@ namespace MoonBurst.Api.Hardware.Default
 {
     public class GenericOneMomentarySwitchMonoJackDefinitionParser : IDeviceParser
     {
-        public IDeviceDefinition Device { get; }
-
         public IDeviceInputState[] ParseState(int state, int index)
         {
             return new IDeviceInputState[0];

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using MoonBurst.Api;
+using MoonBurst.Api.Client;
 using MoonBurst.Api.Enums;
+using MoonBurst.Api.Helper;
 
 namespace MoonBurst.ViewModel.Interface
 {

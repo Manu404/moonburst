@@ -1,4 +1,5 @@
-﻿using MoonBurst.Api.Serializer;
+﻿using MoonBurst.Api.Client;
+using MoonBurst.Api.Serializer;
 
 namespace MoonBurst.ViewModel.Interface
 {

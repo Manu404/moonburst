@@ -1,12 +1,4 @@
-﻿using System.Reflection;
-using System.Windows;
-using Castle.MicroKernel.Registration;
-using MaterialDesignColors;
-using MaterialDesignThemes.Wpf;
-using MoonBurst.Core;
-using MoonBurst.View;
-using MoonBurst.ViewModel.Interface;
-using MoonBurst.Vst.Properties;
+﻿using MoonBurst.Api.Client;
 
 namespace MoonBurst.Vst
 {
@@ -14,28 +6,11 @@ namespace MoonBurst.Vst
     using System.Drawing;
     using Jacobi.Vst.Core;
     using Jacobi.Vst.Framework;
-    using Jacobi.Vst.Framework.Common;
-
-    public class MainViewHostFactory : IMainViewHostFactory
-    {
-        private IMainViewModel mainViewModel;
-        private IFactory<IMainView> viewFactory;
-
-        public MainViewHostFactory(IMainViewModel mainViewModel, IFactory<IMainView> viewFactory)
-        {
-            this.mainViewModel = mainViewModel;
-            this.viewFactory = viewFactory;
-        }
-        public IMainViewHost Build()
-        {
-            return new VstMainViewHost(mainViewModel, viewFactory);
-        }
-    }
 
     class PluginEditor : IVstPluginEditor
     {
         private Plugin _plugin;
-        private WpfControlWrapper<VstMainViewHost> _uiWrapper;
+        private readonly WpfControlWrapper<VstMainViewHost> _uiWrapper;
 
         public PluginEditor(Plugin plugin, IMainViewHost host)
         {
@@ -63,12 +38,11 @@ namespace MoonBurst.Vst
 
         public VstKnobMode KnobMode { get; set; }
 
-        public System.Drawing.Rectangle Bounds
+        public Rectangle Bounds
         {
             get
             {
-                Rectangle rec;
-                _uiWrapper.GetBounds(out rec);
+                _uiWrapper.GetBounds(out var rec);
                 return rec;
             }
         }

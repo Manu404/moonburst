@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoonBurst.Api.Gateway;
 using MoonBurst.Api.Gateway.Arduino;
-using MoonBurst.Api.Hardware;
+using MoonBurst.Api.Hardware.Description;
 
 namespace MoonBurst.Core.Gateway
 {
