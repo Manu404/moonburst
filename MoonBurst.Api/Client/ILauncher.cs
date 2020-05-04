@@ -10,14 +10,4 @@ namespace MoonBurst
         void Run();
         IMainViewHost Host { get; }
     }
-
-    public interface IMainViewHost
-    {
-        void Start();
-    }
-
-    public interface IMainView
-    {
-
-    }
 }

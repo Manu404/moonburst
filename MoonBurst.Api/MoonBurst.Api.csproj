@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\IMainView.cs" />
+    <Compile Include="Client\IMainViewHost.cs" />
     <Compile Include="Helper\Dynamic.cs" />
     <Compile Include="Enums\ChannelCommand.cs" />
     <Compile Include="Enums\FootTrigger.cs" />
