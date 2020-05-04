@@ -4,17 +4,17 @@ using MoonBurst.ViewModel.Interface;
 namespace MoonBurst
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WindowMainViewHost.xaml
     /// </summary>
-    public partial class MainWindow : IMainViewHost
+    public partial class WindowMainViewHost : IMainViewHost
     {
         private IMainView View;
-        public MainWindow()
+        public WindowMainViewHost()
         {
             InitializeComponent();
         }
 
-        public MainWindow(IMainViewModel vm, IFactory<IMainView> view)
+        public WindowMainViewHost(IMainViewModel vm, IFactory<IMainView> view)
         {
             InitializeComponent();
             View = view.Build();

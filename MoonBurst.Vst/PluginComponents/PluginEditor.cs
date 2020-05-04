@@ -16,7 +16,7 @@ namespace MoonBurst.Vst
     using Jacobi.Vst.Framework;
     using Jacobi.Vst.Framework.Common;
 
-    public class MainViewHostFactory : IMainWindowFactory
+    public class MainViewHostFactory : IMainViewHostFactory
     {
         private IMainViewModel mainViewModel;
         private IFactory<IMainView> viewFactory;

@@ -21,11 +21,11 @@ namespace MoonBurst
     {
         public IMainViewHost Host { get; private set; }
 
-        private IMainWindowFactory _mainWindowFactory;
+        private IMainViewHostFactory _mainViewHostFactory;
 
-        public App(IMainWindowFactory mainWindowFactory)
+        public App(IMainViewHostFactory mainViewHostFactory)
         {
-            this._mainWindowFactory = mainWindowFactory;
+            this._mainViewHostFactory = mainViewHostFactory;
         }
 
         public void Initialize()
@@ -37,7 +37,7 @@ namespace MoonBurst
             Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Blue200];
             ITheme theme = Theme.Create(new MaterialDesignDarkTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
-            Host = _mainWindowFactory.Build();
+            Host = _mainViewHostFactory.Build();
             Host.Start();
         }
 

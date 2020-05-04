@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.2141</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.2142</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -166,8 +166,8 @@
     <Compile Include="Helper\InverseBooleanConverter.cs" />
     <Compile Include="Helper\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helper\ToggleButtonAssist.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="WindowMainViewHost.xaml.cs">
+      <DependentUpon>WindowMainViewHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ArduinoPortConfigModel.cs" />
     <Compile Include="Model\ClientConfigurationModel.cs" />
@@ -213,7 +213,7 @@
     </Compile>
     <Compile Include="Model\Message\DeleteChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="WindowMainViewHost.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

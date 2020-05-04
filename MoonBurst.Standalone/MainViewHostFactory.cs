@@ -4,7 +4,7 @@ using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst
 {
-    public class MainViewHostFactory : IMainWindowFactory
+    public class MainViewHostFactory : IMainViewHostFactory
     {
         private IMainViewModel mainViewModel;
         private IFactory<IMainView> viewFactory;
@@ -16,7 +16,7 @@ namespace MoonBurst
         }
         public IMainViewHost Build()
         {
-            return new MainWindow(mainViewModel, viewFactory);
+            return new WindowMainViewHost(mainViewModel, viewFactory);
         }
     }
 }
