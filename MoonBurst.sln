@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Api", "MoonBurst.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Parser.Fs3X", "MoonBurst.Parser.Fs3X\MoonBurst.Parser.Fs3X.csproj", "{9C64EEEC-1DFB-4512-837D-33150D62F148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Standalone", "MoonBurst.Launcher\MoonBurst.Standalone.csproj", "{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Standalone", "MoonBurst.Standalone\MoonBurst.Standalone.csproj", "{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internals", "Internals", "{4794DB5B-46A1-4855-847E-6DD107E5CC1F}"
 EndProject
