@@ -6,15 +6,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MoonBurst.Client.WPF</RootNamespace>
-    <AssemblyName>MoonBurst.Client.WPF</AssemblyName>
+    <RootNamespace>MoonBurst</RootNamespace>
+    <AssemblyName>MoonBurst</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.29</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.33</AssemblyVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MoonBurst.Client.WPF.EntryPoint</StartupObject>
+    <StartupObject>MoonBurst.EntryPoint</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">

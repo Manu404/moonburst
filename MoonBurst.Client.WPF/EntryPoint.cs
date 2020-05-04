@@ -1,10 +1,8 @@
-﻿
-
-using System;
+﻿using System;
 using Castle.MicroKernel.Registration;
 using MoonBurst.View;
 
-namespace MoonBurst.Client.WPF
+namespace MoonBurst
 {
     public class EntryPoint
     {

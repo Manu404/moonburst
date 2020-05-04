@@ -1,9 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using MoonBurst.Core;
+﻿using MoonBurst.Core;
+using MoonBurst.View;
 using MoonBurst.ViewModel.Interface;
 
-namespace MoonBurst.View
+namespace MoonBurst
 {
     public class MainWindowFactory : IMainWindowFactory
     {

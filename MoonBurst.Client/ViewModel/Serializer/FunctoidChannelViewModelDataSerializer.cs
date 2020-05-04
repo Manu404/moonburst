@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using MoonBurst.Api.Serializer;
-using MoonBurst.Core.Serializer;
 using MoonBurst.Model;
 using MoonBurst.ViewModel.Factory;
 using MoonBurst.ViewModel.Interface;

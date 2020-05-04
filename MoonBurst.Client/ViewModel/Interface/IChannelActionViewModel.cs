@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using MoonBurst.Api;
 using MoonBurst.Api.Enums;
-using MoonBurst.Api.Hardware.Parser;
 
 namespace MoonBurst.ViewModel.Interface
 {

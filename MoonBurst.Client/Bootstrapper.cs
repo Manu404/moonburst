@@ -11,7 +11,6 @@ using MoonBurst.Api.Hardware;
 using MoonBurst.Api.Hardware.Parser;
 using MoonBurst.Api.Serializer;
 using MoonBurst.Core;
-using MoonBurst.View;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst

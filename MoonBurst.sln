@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Api", "MoonBurst.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Parser.Fs3X", "MoonBurst.Parser.Fs3X\MoonBurst.Parser.Fs3X.csproj", "{9C64EEEC-1DFB-4512-837D-33150D62F148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst.Client.WPF", "MoonBurst.Client.WPF\MoonBurst.Client.WPF.csproj", "{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonBurst", "MoonBurst.Client.WPF\MoonBurst.csproj", "{9CBD8A7E-35F2-4C88-ABA8-498134EEA71E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
