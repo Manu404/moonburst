@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -44,7 +46,7 @@ namespace MoonBurst
                 container.Register(Classes.FromAssemblyInThisApplication().BasedOn(type).WithServiceAllInterfaces());
 
             // Load plugins
-            AssemblyFilter filter = new AssemblyFilter(@"C:\git\moonburst-dev\Output\AnyCPU\Debug\Vst\", "MoonBurst.*");
+            AssemblyFilter filter = new AssemblyFilter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "MoonBurst.*");
             var typesToDiscoverFromFilter = new List<Type>()
             {
                 typeof(IDeviceDefinition),
