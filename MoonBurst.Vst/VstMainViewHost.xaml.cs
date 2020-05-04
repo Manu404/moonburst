@@ -18,17 +18,17 @@ using MoonBurst.ViewModel.Interface;
 namespace MoonBurst.Vst
 {
     /// <summary>
-    /// Interaction logic for TestUi.xaml
+    /// Interaction logic for VstMainViewHost.xaml
     /// </summary>
-    public partial class TestUi : IMainViewHost
+    public partial class VstMainViewHost : IMainViewHost
     {
         private IMainView View;
-        public TestUi()
+        public VstMainViewHost()
         {
             InitializeComponent();
         }
 
-        public TestUi(IMainViewModel vm, IFactory<IMainView> view)
+        public VstMainViewHost(IMainViewModel vm, IFactory<IMainView> view)
         {
             InitializeComponent();
             View = view.Build();
@@ -38,7 +38,7 @@ namespace MoonBurst.Vst
 
         public void Start()
         {
-            return;
+            
         }
     }
 }

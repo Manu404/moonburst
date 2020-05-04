@@ -28,7 +28,7 @@
         {
             BinaryReader reader = new BinaryReader(stream, _encoding);
 
-            _plugin.NoteMap.Clear();
+            //_plugin.NoteMap.Clear();
             //int count = reader.ReadInt32();
 
             //for (int n = 0; n < count; n++)
@@ -46,7 +46,7 @@
         {
             BinaryWriter writer = new BinaryWriter(stream, _encoding);
 
-            writer.Write(_plugin.NoteMap.Count);
+            //writer.Write(_plugin.NoteMap.Count);
 
             //foreach (MapNoteItem item in _plugin.NoteMap)
             //{

@@ -14,7 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.100</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.105</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -164,13 +164,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioProcessor.cs" />
-    <Compile Include="TestUi.xaml.cs">
-      <DependentUpon>TestUi.xaml</DependentUpon>
+    <Compile Include="VstMainViewHost.xaml.cs">
+      <DependentUpon>VstMainViewHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="WpfControlWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MapNoteItem.cs" />
     <Compile Include="MidiProcessor.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginCommandStub.cs" />
@@ -203,7 +202,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="TestUi.xaml">
+    <Page Include="VstMainViewHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

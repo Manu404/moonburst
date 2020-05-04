@@ -22,7 +22,6 @@ namespace MoonBurst
             this.DataContext = vm;
         }
 
-
         public void Start()
         {
             this.Show();

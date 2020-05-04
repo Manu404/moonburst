@@ -28,26 +28,20 @@ namespace MoonBurst.Vst
         }
         public IMainViewHost Build()
         {
-            return new TestUi();
+            return new VstMainViewHost(mainViewModel, viewFactory);
         }
     }
 
     class PluginEditor : IVstPluginEditor
     {
         private Plugin _plugin;
+        private WpfControlWrapper<VstMainViewHost> _uiWrapper;
 
-        private WpfControlWrapper<TestUi> _uiWrapper;
-        //private WinFormsControlWrapper<WpfHostForm> _uiWrapper = new WinFormsControlWrapper<WpfHostForm>();
-
-        public PluginEditor(Plugin plugin)
+        public PluginEditor(Plugin plugin, IMainViewHost host)
         {
             _plugin = plugin;
-            var boot = new Bootstrapper().GetDefault();
-            boot.Register(Component.For<IMainWindowFactory>().ImplementedBy<MainViewHostFactory>());
-            boot.Register(Component.For<ILauncher>().ImplementedBy<App>());
-            var l = boot.Resolve<ILauncher>();
-            l.Initialize();
-            _uiWrapper = new WpfControlWrapper<TestUi>(800, 600, (TestUi)l.Host);
+
+            _uiWrapper = new WpfControlWrapper<VstMainViewHost>(800, 600, (VstMainViewHost)host);
         }
 
         #region IVstPluginEditor Members
@@ -81,16 +75,12 @@ namespace MoonBurst.Vst
 
         public void Open(IntPtr hWnd)
         {
-            //_uiWrapper.Instance.NoteMap = _plugin.NoteMap;
-            //_uiWrapper.SafeInstance.NoteOnEvents = _plugin.GetInstance<MidiProcessor>().NoteOnEvents;
             _uiWrapper.Open(hWnd);
         }
 
         public void ProcessIdle()
         {
-           // _uiWrapper.SafeInstance.Proc();
         }
-
 
         #endregion
     }

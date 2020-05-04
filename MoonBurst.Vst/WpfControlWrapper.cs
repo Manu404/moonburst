@@ -5,36 +5,20 @@
     using System.Windows.Controls;
     using System.Windows.Interop;
 
-    /// <summary>
-    /// Helper class to attach a WPF UserControl to a Win32 native main window of the host.
-    /// </summary>
-    /// <typeparam name="T">The type of the managed WPF Control.</typeparam>
     class WpfControlWrapper<T> where T : UserControl, new()
     {
         private HwndSource _hwndSource;
         private int _width;
         private int _height;
-
-        /// <summary>
-        /// Constructs a new instance for the specified <paramref name="width"/> and <paramref name="height"/>.
-        /// </summary>
-        /// <param name="width">The width of the control.</param>
-        /// <param name="height">The height of the control.</param>
+        
         public WpfControlWrapper(int width, int height, T instance)
         {
             _width = width;
             _height = height;
+            _instance = instance;
         }
 
         private T _instance;
-        /// <summary>
-        /// Gets and instance of the specified <typeparamref name="T"/>.
-        /// </summary>
-        /// <remarks>Can return null.</remarks>
-        public T Instance
-        {
-            get { return _instance; }
-        }
 
         /// <summary>
         /// Opens and attaches the Control to the <paramref name="hWnd"/>.
@@ -42,8 +26,7 @@
         /// <param name="hWnd">The native win32 handle to the main window of the host.</param>
         public void Open(IntPtr hWnd)
         {
-            if(_instance == null)
-                _instance = new T();
+            if (_instance == null) return;
 
             _instance.Width = _width;
             _instance.Height = _height;
@@ -68,9 +51,6 @@
             rect = new Rectangle(0, 0, _width, _height);
         }
 
-        /// <summary>
-        /// Closes and destroys the Control.
-        /// </summary>
         public void Close()
         {
             if (_hwndSource != null)

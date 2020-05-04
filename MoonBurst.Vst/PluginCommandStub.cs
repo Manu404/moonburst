@@ -1,6 +1,8 @@
-﻿namespace MoonBurst.Vst
+﻿using Castle.MicroKernel.Registration;
+using MoonBurst.View;
+
+namespace MoonBurst.Vst
 {
-    using Jacobi.Vst.Core.Plugin;
     using Jacobi.Vst.Framework;
     using Jacobi.Vst.Framework.Plugin;
 
@@ -15,7 +17,11 @@
         /// <returns>Never returns null.</returns>
         protected override IVstPlugin CreatePluginInstance()
         {
-            return new Plugin();
+            var boot = new Bootstrapper().GetDefault();
+            boot.Register(Component.For<IMainWindowFactory>().ImplementedBy<MainViewHostFactory>());
+            boot.Register(Component.For<ILauncher>().ImplementedBy<App>());
+            boot.Register(Component.For<IVstPlugin>().ImplementedBy<Plugin>());
+            return boot.Resolve<IVstPlugin>();
         }
     }
 }

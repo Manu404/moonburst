@@ -1,22 +1,12 @@
 ﻿namespace MoonBurst.Vst
 {
-    using Jacobi.Vst.Core;
     using Jacobi.Vst.Framework;
-
-    using System.Collections;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// Implements the incoming Midi event handling for the plugin.
-    /// </summary>
     class MidiProcessor : IVstMidiProcessor
     {
         private Plugin _plugin;
 
-        /// <summary>
-        /// Constructs a new instance.
-        /// </summary>
-        /// <param name="plugin">Must not be null.</param>
         public MidiProcessor(Plugin plugin)
         {
             _plugin = plugin;
@@ -48,47 +38,47 @@
 
         public void Process(VstEventCollection events)
         {
-            foreach (VstEvent evnt in events)
-            {
-                if (evnt.EventType != VstEventTypes.MidiEvent) continue;
+            //foreach (VstEvent evnt in events)
+            //{
+            //    if (evnt.EventType != VstEventTypes.MidiEvent) continue;
 
-                VstMidiEvent midiEvent = (VstMidiEvent)evnt;
-                VstMidiEvent mappedEvent = null;
+            //    VstMidiEvent midiEvent = (VstMidiEvent)evnt;
+            //    VstMidiEvent mappedEvent = null;
 
-                if ( ((midiEvent.Data[0] & 0xF0) == 0x80 || (midiEvent.Data[0] & 0xF0) == 0x90))
-                {
-                    if(_plugin.NoteMap.Contains(midiEvent.Data[1]))
-                    {
-                        byte[] midiData = new byte[4];
-                        midiData[0] = midiEvent.Data[0];
-                        midiData[1] = _plugin.NoteMap[midiEvent.Data[1]].OutputNoteNumber;
-                        midiData[2] = midiEvent.Data[2];
+            //    if ( ((midiEvent.Data[0] & 0xF0) == 0x80 || (midiEvent.Data[0] & 0xF0) == 0x90))
+            //    {
+            //        if(_plugin.NoteMap.Contains(midiEvent.Data[1]))
+            //        {
+            //            byte[] midiData = new byte[4];
+            //            midiData[0] = midiEvent.Data[0];
+            //            midiData[1] = _plugin.NoteMap[midiEvent.Data[1]].OutputNoteNumber;
+            //            midiData[2] = midiEvent.Data[2];
 
-                        mappedEvent = new VstMidiEvent(midiEvent.DeltaFrames, 
-                            midiEvent.NoteLength, 
-                            midiEvent.NoteOffset, 
-                            midiData, 
-                            midiEvent.Detune, 
-                            midiEvent.NoteOffVelocity);
+            //            mappedEvent = new VstMidiEvent(midiEvent.DeltaFrames, 
+            //                midiEvent.NoteLength, 
+            //                midiEvent.NoteOffset, 
+            //                midiData, 
+            //                midiEvent.Detune, 
+            //                midiEvent.NoteOffVelocity);
 
-                        Events.Add(mappedEvent);
+            //            Events.Add(mappedEvent);
 
-                        // add raw note-on note numbers to the queue
-                        if((midiEvent.Data[0] & 0xF0) == 0x90)
-                        {
-                            lock (((ICollection)NoteOnEvents).SyncRoot)
-                            {
-                                NoteOnEvents.Enqueue(midiEvent.Data[1]);
-                            }
-                        }
-                    }
-                    else if (MidiThru)
-                    {
-                        // add original event
-                        Events.Add(evnt);
-                    }
-                }
-            }
+            //            // add raw note-on note numbers to the queue
+            //            if((midiEvent.Data[0] & 0xF0) == 0x90)
+            //            {
+            //                lock (((ICollection)NoteOnEvents).SyncRoot)
+            //                {
+            //                    NoteOnEvents.Enqueue(midiEvent.Data[1]);
+            //                }
+            //            }
+            //        }
+            //        else if (MidiThru)
+            //        {
+            //            // add original event
+            //            Events.Add(evnt);
+            //        }
+            //    }
+            //}
         }
 
         #endregion
