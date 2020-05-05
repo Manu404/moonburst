@@ -34,7 +34,6 @@ namespace MoonBurst.Vst
         protected override IVstPluginAudioProcessor CreateAudioProcessor(IVstPluginAudioProcessor instance)
         {
             if (instance == null) instance = new AudioProcessor(this);
-
             return instance;
         }
 
@@ -46,8 +45,7 @@ namespace MoonBurst.Vst
 
         protected override IVstMidiProcessor CreateMidiProcessor(IVstMidiProcessor instance)
         {
-            if (instance == null) instance = new MidiProcessor(this);
-
+            if (instance == null) instance = new MidiProcessor(this.GetInstance<IVstPluginMidiSource>());
             return instance;
         }
 

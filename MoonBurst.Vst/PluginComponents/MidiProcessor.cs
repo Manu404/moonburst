@@ -5,9 +5,9 @@
 
     class MidiProcessor : IVstMidiProcessor
     {
-        private Plugin _plugin;
+        private IVstPluginMidiSource _plugin;
 
-        public MidiProcessor(Plugin plugin)
+        public MidiProcessor(IVstPluginMidiSource plugin)
         {
             _plugin = plugin;
             Events = new VstEventCollection();

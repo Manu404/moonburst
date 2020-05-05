@@ -1,4 +1,5 @@
 ﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using MoonBurst.Api.Client;
 
 namespace MoonBurst.Vst
@@ -11,17 +12,23 @@ namespace MoonBurst.Vst
     /// </summary>
     public class PluginEntryPoint : StdPluginDeprecatedCommandStub
     {
+        private readonly IWindsorContainer _container;
+
+        public PluginEntryPoint()
+        {
+            _container = new Bootstrapper().GetDefault();
+            _container.Register(Component.For<IMainViewHostFactory>().ImplementedBy<VstMainViewHostFactory>());
+            _container.Register(Component.For<IApp>().ImplementedBy<App>());
+            _container.Register(Component.For<IVstPlugin>().ImplementedBy<Plugin>());
+        }
+
         /// <summary>
         /// Called by the framework to create the plugin root class.
         /// </summary>
         /// <returns>Never returns null.</returns>
         protected override IVstPlugin CreatePluginInstance()
         {
-            var boot = new Bootstrapper().GetDefault();
-            boot.Register(Component.For<IMainViewHostFactory>().ImplementedBy<VstMainViewHostFactory>());
-            boot.Register(Component.For<IApp>().ImplementedBy<App>());
-            boot.Register(Component.For<IVstPlugin>().ImplementedBy<Plugin>());
-            return boot.Resolve<IVstPlugin>();
+            return _container.Resolve<IVstPlugin>();
         }
     }
 }
