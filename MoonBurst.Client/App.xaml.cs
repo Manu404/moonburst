@@ -10,7 +10,7 @@ namespace MoonBurst
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : ILauncher
+    public partial class App : IApp
     {
         public IMainViewHost Host { get; private set; }
 

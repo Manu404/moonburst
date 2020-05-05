@@ -11,9 +11,9 @@ namespace MoonBurst
         {
             var boot = new Bootstrapper().GetDefault();
             boot.Register(Component.For<IMainViewHostFactory>().ImplementedBy<WindowMainViewHostFactory>());
-            boot.Register(Component.For<ILauncher>().ImplementedBy<App>());
-            boot.Resolve<ILauncher>().Initialize();
-            boot.Resolve<ILauncher>().Run();
+            boot.Register(Component.For<IApp>().ImplementedBy<App>());
+            boot.Resolve<IApp>().Initialize();
+            boot.Resolve<IApp>().Run();
         }
     }
 }

@@ -18,8 +18,8 @@ namespace MoonBurst.Vst
         protected override IVstPlugin CreatePluginInstance()
         {
             var boot = new Bootstrapper().GetDefault();
-            boot.Register(Component.For<IMainViewHostFactory>().ImplementedBy<MainViewHostFactory>());
-            boot.Register(Component.For<ILauncher>().ImplementedBy<App>());
+            boot.Register(Component.For<IMainViewHostFactory>().ImplementedBy<VstMainViewHostFactory>());
+            boot.Register(Component.For<IApp>().ImplementedBy<App>());
             boot.Register(Component.For<IVstPlugin>().ImplementedBy<Plugin>());
             return boot.Resolve<IVstPlugin>();
         }

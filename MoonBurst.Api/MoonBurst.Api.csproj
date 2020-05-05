@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.112</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.129</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +41,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,7 +87,7 @@
     <Compile Include="Hardware\Description\INumericInput.cs" />
     <Compile Include="Gateway\Serial\ISerialGateway.cs" />
     <Compile Include="Client\IFactory.cs" />
-    <Compile Include="Client\ILauncher.cs" />
+    <Compile Include="Client\IApp.cs" />
     <Compile Include="Client\IMainViewHostFactory.cs" />
     <Compile Include="Client\IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

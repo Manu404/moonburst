@@ -14,7 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.118</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.132</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -164,11 +164,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PluginComponents\AudioProcessor.cs" />
-    <Compile Include="PluginComponents\MainViewHostFactory.cs" />
+    <Compile Include="PluginComponents\PluginMidiSource.cs" />
+    <Compile Include="UI\MainViewHostFactory.cs" />
+    <Compile Include="UI\IVstMainViewHost.cs" />
     <Compile Include="UI\VstMainViewHost.xaml.cs">
       <DependentUpon>VstMainViewHost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\WpfControlWrapper.cs" />
+    <Compile Include="UI\MainViewHostControlWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PluginComponents\MidiProcessor.cs" />

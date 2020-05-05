@@ -3,12 +3,12 @@ using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.Vst
 {
-    public class MainViewHostFactory : IMainViewHostFactory
+    public class VstMainViewHostFactory : IMainViewHostFactory
     {
         private readonly IMainViewModel mainViewModel;
         private readonly IFactory<IMainView> viewFactory;
 
-        public MainViewHostFactory(IMainViewModel mainViewModel, IFactory<IMainView> viewFactory)
+        public VstMainViewHostFactory(IMainViewModel mainViewModel, IFactory<IMainView> viewFactory)
         {
             this.mainViewModel = mainViewModel;
             this.viewFactory = viewFactory;

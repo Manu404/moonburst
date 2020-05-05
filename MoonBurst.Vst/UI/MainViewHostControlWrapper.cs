@@ -1,24 +1,25 @@
-﻿namespace MoonBurst.Vst
+﻿using MoonBurst.Api.Client;
+
+namespace MoonBurst.Vst
 {
     using System;
     using System.Drawing;
     using System.Windows.Controls;
     using System.Windows.Interop;
 
-    class WpfControlWrapper<T> where T : UserControl, new()
+    class MainViewHostControlWrapper
     {
+        private readonly IMainViewHost _instance;
         private HwndSource _hwndSource;
-        private int _width;
-        private int _height;
+        private readonly int _width;
+        private readonly int _height;
         
-        public WpfControlWrapper(int width, int height, T instance)
+        public MainViewHostControlWrapper(int width, int height, IMainViewHost instance)
         {
             _width = width;
             _height = height;
             _instance = instance;
         }
-
-        private T _instance;
 
         /// <summary>
         /// Opens and attaches the Control to the <paramref name="hWnd"/>.
@@ -26,7 +27,7 @@
         /// <param name="hWnd">The native win32 handle to the main window of the host.</param>
         public void Open(IntPtr hWnd)
         {
-            if (_instance == null) return;
+            if (_instance == null ) return;
 
             _instance.Width = _width;
             _instance.Height = _height;
@@ -39,7 +40,7 @@
                 WindowStyle = 0x10000000 | 0x40000000 // WS_VISIBLE|WS_CHILD
             };
 
-            _hwndSource = new HwndSource(hwndParams) {RootVisual = _instance};
+            _hwndSource = new HwndSource(hwndParams) { RootVisual = _instance.RootControl };
         }
 
         /// <summary>
@@ -59,8 +60,6 @@
                 _hwndSource.Dispose();
                 _hwndSource = null;
             }
-
-            _instance = null;
         }
     }
 }

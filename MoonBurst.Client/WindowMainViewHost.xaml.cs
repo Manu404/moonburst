@@ -1,4 +1,6 @@
-﻿using MoonBurst.Api.Client;
+﻿using System;
+using System.Windows.Controls;
+using MoonBurst.Api.Client;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst
@@ -24,5 +26,19 @@ namespace MoonBurst
         {
             this.Show();
         }
+
+        public double Width
+        {
+            get => base.Width;
+            set => base.Width = value;
+        }
+
+        public double Height
+        {
+            get => base.Height;
+            set => base.Height = value;
+        }
+
+        public UserControl RootControl => throw new NotImplementedException();
     }
 }

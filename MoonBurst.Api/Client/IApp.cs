@@ -1,6 +1,6 @@
 ﻿namespace MoonBurst.Api.Client
 {
-    public interface ILauncher
+    public interface IApp
     {
         void Initialize();
         void Run();

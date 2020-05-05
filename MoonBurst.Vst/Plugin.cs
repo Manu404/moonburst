@@ -1,4 +1,6 @@
-﻿using MoonBurst.Api.Client;
+﻿using System;
+using System.Windows.Forms;
+using MoonBurst.Api.Client;
 
 namespace MoonBurst.Vst
 {
@@ -10,14 +12,14 @@ namespace MoonBurst.Vst
     /// <summary>
     /// The Plugin root class that implements the interface manager and the plugin midi source.
     /// </summary>
-    class Plugin : VstPluginWithInterfaceManagerBase, IVstPluginMidiSource
+    class Plugin : VstPluginWithInterfaceManagerBase 
     {
-        private readonly ILauncher _launcher;
+        private readonly IApp _app;
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public Plugin(ILauncher launcher)
+        public Plugin(IApp app)
             : base("MoonBurst", 
                 new VstProductInfo("MoonBurst " + Assembly.GetExecutingAssembly().GetName().Version, "Emmanuel Istace", 1001),
                 VstPluginCategory.Generator, 
@@ -25,61 +27,40 @@ namespace MoonBurst.Vst
                 0, 
                 0x30313234)
         {
-            this._launcher = launcher;
-            launcher.Initialize();
+            this._app = app;
+            this._app.Initialize();
         }
 
         protected override IVstPluginAudioProcessor CreateAudioProcessor(IVstPluginAudioProcessor instance)
         {
-            if (instance == null) return new AudioProcessor(this);
+            if (instance == null) instance = new AudioProcessor(this);
 
             return instance;
         }
 
         protected override IVstPluginEditor CreateEditor(IVstPluginEditor instance)
         {
-            if (instance == null) return new PluginEditor(this, _launcher.Host);
-
+            if (instance == null) instance = new PluginEditor(this, _app.Host);
             return instance;
         }
 
         protected override IVstMidiProcessor CreateMidiProcessor(IVstMidiProcessor instance)
         {
-            if (instance == null) return new MidiProcessor(this);
+            if (instance == null) instance = new MidiProcessor(this);
 
             return instance;
         }
 
         protected override IVstPluginPersistence CreatePersistence(IVstPluginPersistence instance)
         {
-            if (instance == null) return new PluginPersistence(this);
-
+            if (instance == null) instance = new PluginPersistence(this);
             return instance;
         }
 
         protected override IVstPluginMidiSource CreateMidiSource(IVstPluginMidiSource instance)
         {
-            return this;
-        }
-
-        public int ChannelCount
-        {
-            get
-            {
-                IVstMidiProcessor midiProcessor = null;
-                
-                if(Host != null)
-                {
-                    midiProcessor = Host.GetInstance<IVstMidiProcessor>();
-                }
-
-                if (midiProcessor != null)
-                {
-                    return midiProcessor.ChannelCount;
-                }
-
-                return 0;
-            }
+            if (instance == null) instance = new PluginMidiSource(this);
+            return instance;
         }
     }
 }

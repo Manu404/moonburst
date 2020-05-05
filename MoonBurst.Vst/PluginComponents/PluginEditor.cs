@@ -1,4 +1,5 @@
-﻿using MoonBurst.Api.Client;
+﻿using System.Windows.Forms;
+using MoonBurst.Api.Client;
 
 namespace MoonBurst.Vst
 {
@@ -10,13 +11,12 @@ namespace MoonBurst.Vst
     class PluginEditor : IVstPluginEditor
     {
         private Plugin _plugin;
-        private readonly WpfControlWrapper<VstMainViewHost> _uiWrapper;
+        private MainViewHostControlWrapper _uiWrapper;
 
         public PluginEditor(Plugin plugin, IMainViewHost host)
         {
             _plugin = plugin;
-
-            _uiWrapper = new WpfControlWrapper<VstMainViewHost>(800, 600, (VstMainViewHost)host);
+            _uiWrapper = new MainViewHostControlWrapper(800, 600, host);
         }
 
         #region IVstPluginEditor Members
@@ -49,7 +49,14 @@ namespace MoonBurst.Vst
 
         public void Open(IntPtr hWnd)
         {
-            _uiWrapper.Open(hWnd);
+            try
+            {
+                _uiWrapper.Open(hWnd);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public void ProcessIdle()

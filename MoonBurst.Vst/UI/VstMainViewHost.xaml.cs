@@ -1,4 +1,6 @@
-﻿using MoonBurst.Api.Client;
+﻿using System.Windows.Controls;
+using System.Windows.Media;
+using MoonBurst.Api.Client;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.Vst
@@ -6,7 +8,7 @@ namespace MoonBurst.Vst
     /// <summary>
     /// Interaction logic for VstMainViewHost.xaml
     /// </summary>
-    public sealed partial class VstMainViewHost : IMainViewHost
+    public sealed partial class VstMainViewHost : IVstMainViewHost
     {
         public VstMainViewHost()
         {
@@ -24,5 +26,19 @@ namespace MoonBurst.Vst
         {
             
         }
+
+        public double Width
+        {
+            get => base.Width;
+            set => base.Width = value;
+        }
+
+        public double Height
+        {
+            get => base.Height;
+            set => base.Height = value;
+        }
+
+        public UserControl RootControl => this;
     }
 }
