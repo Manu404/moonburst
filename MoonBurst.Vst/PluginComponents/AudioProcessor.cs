@@ -17,23 +17,17 @@
         /// Constructs a new instance.
         /// </summary>
         /// <param name="plugin">Must not be null.</param>
-        public AudioProcessor(Plugin plugin)
+        public AudioProcessor(MidiProcessor processor, IVstMidiProcessor host)
             : base(0, 0, 0)
         {
-            _plugin = plugin;
-            
-            _midiProcessor = plugin.GetInstance<MidiProcessor>();
+            _hostProcessor = host;
+            _midiProcessor = processor;
         }
 
         /// <inheritdoc />
         /// <remarks>This method is used to push midi events to the host.</remarks>
         public override void Process(VstAudioBuffer[] inChannels, VstAudioBuffer[] outChannels)
         {
-            if (_hostProcessor == null)
-            {
-                _hostProcessor = _plugin.Host.GetInstance<IVstMidiProcessor>();
-            }
-
             if (_midiProcessor != null && _hostProcessor != null &&
                 _midiProcessor.Events.Count > 0)
             {

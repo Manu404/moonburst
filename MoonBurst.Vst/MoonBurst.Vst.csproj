@@ -14,7 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.134</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.146</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -166,10 +166,6 @@
     <Compile Include="PluginComponents\AudioProcessor.cs" />
     <Compile Include="PluginComponents\PluginMidiSource.cs" />
     <Compile Include="UI\MainViewHostFactory.cs" />
-    <Compile Include="UI\IVstMainViewHost.cs" />
-    <Compile Include="UI\VstMainViewHost.xaml.cs">
-      <DependentUpon>VstMainViewHost.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\MainViewHostControlWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,12 +201,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\VstMainViewHost.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="tools\vst_scanner.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -229,7 +219,6 @@
       <Name>MoonBurst.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mv "$(TargetPath)" "$(TargetDir)$(TargetName).net.vstdll"

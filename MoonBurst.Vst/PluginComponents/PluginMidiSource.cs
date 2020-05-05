@@ -4,11 +4,11 @@ namespace MoonBurst.Vst
 {
     class PluginMidiSource : IVstPluginMidiSource
     {
-        private Plugin _plugin;
+        private readonly IVstHost _host;
 
-        public PluginMidiSource(Plugin plugin)
+        public PluginMidiSource(IVstHost host)
         {
-            _plugin = plugin;
+            _host = host;
         }
 
         public int ChannelCount
@@ -17,9 +17,9 @@ namespace MoonBurst.Vst
             {
                 IVstMidiProcessor midiProcessor = null;
                 
-                if(_plugin.Host != null)
+                if(_host != null)
                 {
-                    midiProcessor = _plugin.Host.GetInstance<IVstMidiProcessor>();
+                    midiProcessor = _host.GetInstance<IVstMidiProcessor>();
                 }
 
                 if (midiProcessor != null)

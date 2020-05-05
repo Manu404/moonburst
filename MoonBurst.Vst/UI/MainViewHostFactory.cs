@@ -15,7 +15,7 @@ namespace MoonBurst.Vst
         }
         public IMainViewHost Build()
         {
-            return new VstMainViewHost(mainViewModel, viewFactory);
+            return new UserControlMainViewHost(mainViewModel, viewFactory);
         }
     }
 }

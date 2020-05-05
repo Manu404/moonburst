@@ -10,12 +10,10 @@ namespace MoonBurst.Vst
 
     class PluginEditor : IVstPluginEditor
     {
-        private Plugin _plugin;
         private MainViewHostControlWrapper _uiWrapper;
 
-        public PluginEditor(Plugin plugin, IMainViewHost host)
+        public PluginEditor(IMainViewHost host)
         {
-            _plugin = plugin;
             _uiWrapper = new MainViewHostControlWrapper(800, 600, host);
         }
 

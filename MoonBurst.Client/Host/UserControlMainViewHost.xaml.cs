@@ -6,16 +6,16 @@ using MoonBurst.ViewModel.Interface;
 namespace MoonBurst.Vst
 {
     /// <summary>
-    /// Interaction logic for VstMainViewHost.xaml
+    /// Interaction logic for UserControlMainViewHost.xaml
     /// </summary>
-    public sealed partial class VstMainViewHost : IVstMainViewHost
+    public sealed partial class UserControlMainViewHost : IMainViewHost
     {
-        public VstMainViewHost()
+        public UserControlMainViewHost()
         {
             InitializeComponent();
         }
 
-        public VstMainViewHost(IMainViewModel vm, IFactory<IMainView> view)
+        public UserControlMainViewHost(IMainViewModel vm, IFactory<IMainView> view)
         {
             InitializeComponent();
             this.AddChild(view.Build());

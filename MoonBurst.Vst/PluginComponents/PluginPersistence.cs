@@ -8,12 +8,10 @@
 
     class PluginPersistence : IVstPluginPersistence
     {
-        private Plugin _plugin;
         private Encoding _encoding = Encoding.ASCII;
 
-        public PluginPersistence(Plugin plugin)
+        public PluginPersistence()
         {
-            _plugin = plugin;
         }
 
         #region IVstPluginPersistence Members
