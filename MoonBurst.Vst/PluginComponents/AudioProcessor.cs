@@ -1,8 +1,22 @@
-﻿namespace MoonBurst.Vst
+﻿using System;
+using MoonBurst.Api.Client;
+using Jacobi.Vst.Core;
+using Jacobi.Vst.Framework;
+using Jacobi.Vst.Framework.Plugin;
+
+namespace MoonBurst.Vst
 {
-    using Jacobi.Vst.Core;
-    using Jacobi.Vst.Framework;
-    using Jacobi.Vst.Framework.Plugin;
+    public interface IAudioProcessorFactory : IFactory<VstPluginAudioProcessorBase, Tuple<MidiProcessor, IVstMidiProcessor>>
+    {
+    }
+
+    public class AudioProcessorFactory : IAudioProcessorFactory
+    {
+        public VstPluginAudioProcessorBase Build(Tuple<MidiProcessor, IVstMidiProcessor> data)
+        {
+            return new AudioProcessor(data.Item1, data.Item2);
+        }
+    }
 
     /// <summary>
     /// A dummy audio processor only used for the timing of midi processing.

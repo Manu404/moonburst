@@ -1,12 +1,24 @@
 ﻿using System.Collections;
 using Jacobi.Vst.Core;
+using MoonBurst.Api.Client;
+using Jacobi.Vst.Framework;
+using System.Collections.Generic;
 
 namespace MoonBurst.Vst
 {
-    using Jacobi.Vst.Framework;
-    using System.Collections.Generic;
+    public interface IMidiProcessorFactory : IFactory<IVstMidiProcessor, IVstPluginMidiSource>
+    {
+    }
 
-    class MidiProcessor : IVstMidiProcessor
+    public class MidiProcessorFactory : IMidiProcessorFactory
+    {
+        public IVstMidiProcessor Build(IVstPluginMidiSource source)
+        {
+            return new MidiProcessor(source);
+        }
+    }
+
+    public class MidiProcessor : IVstMidiProcessor
     {
         private IVstPluginMidiSource _plugin;
 

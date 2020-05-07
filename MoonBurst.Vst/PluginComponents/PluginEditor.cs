@@ -1,12 +1,23 @@
 ﻿using System.Windows.Forms;
 using MoonBurst.Api.Client;
+using System;
+using System.Drawing;
+using Jacobi.Vst.Core;
+using Jacobi.Vst.Framework;
 
 namespace MoonBurst.Vst
 {
-    using System;
-    using System.Drawing;
-    using Jacobi.Vst.Core;
-    using Jacobi.Vst.Framework;
+    public interface IPluginEditorFactory : IFactory<IVstPluginEditor, IMainViewHost>
+    {
+    }
+
+    public class PluginEditorFactory : IPluginEditorFactory
+    {
+        public IVstPluginEditor Build(IMainViewHost host)
+        {
+            return new PluginEditor(host);
+        }
+    }
 
     class PluginEditor : IVstPluginEditor
     {

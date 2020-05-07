@@ -1,7 +1,20 @@
 ﻿using Jacobi.Vst.Framework;
+using MoonBurst.Api.Client;
 
 namespace MoonBurst.Vst
 {
+    public interface IPluginMidiSourceFactory : IFactory<IVstPluginMidiSource, IVstHost>
+    {
+    }
+
+    public class PluginMidiSourceFactory : IPluginMidiSourceFactory
+    {
+        public IVstPluginMidiSource Build(IVstHost host)
+        {
+            return new PluginMidiSource(host);
+        }
+    }
+
     class PluginMidiSource : IVstPluginMidiSource
     {
         private readonly IVstHost _host;

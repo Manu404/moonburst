@@ -18,6 +18,11 @@ namespace MoonBurst.Vst
         {
             _container = new Bootstrapper().GetDefault();
             _container.Register(Component.For<IMainViewHostFactory>().ImplementedBy<VstMainViewHostFactory>());
+            _container.Register(Component.For<IVstPluginPersistence>().ImplementedBy<PluginPersistence>());
+            _container.Register(Component.For<IPluginMidiSourceFactory>().ImplementedBy<PluginMidiSourceFactory>());
+            _container.Register(Component.For<IAudioProcessorFactory>().ImplementedBy<AudioProcessorFactory>());
+            _container.Register(Component.For<IMidiProcessorFactory>().ImplementedBy<MidiProcessorFactory>());
+            _container.Register(Component.For<IPluginEditorFactory>().ImplementedBy<PluginEditorFactory>());
             _container.Register(Component.For<IApp>().ImplementedBy<App>());
             _container.Register(Component.For<IVstPlugin>().ImplementedBy<Plugin>());
         }
