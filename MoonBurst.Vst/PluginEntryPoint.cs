@@ -18,7 +18,7 @@ namespace MoonBurst.Vst
         static PluginEntryPoint()
         {
             if (_container != null) return;
-            _container = Bootstrapper.GetDefaultContainer().LoadDefaultFrom(Classes.FromThisAssembly());
+            _container = Bootstrapper.GetDefaultContainer().RegisterDefaultTypesFrom(Classes.FromThisAssembly());
             _container.Register(Component.For<IVstPluginPersistence>().ImplementedBy<PluginPersistence>());
         }
         

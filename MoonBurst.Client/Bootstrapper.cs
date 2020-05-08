@@ -27,32 +27,9 @@ namespace MoonBurst
             return container;
         }
 
-        public static IWindsorContainer LoadStatic(this IWindsorContainer container)
+        public static IEnumerable<Type> GetDefaultTypes()
         {
-            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
-            return container;
-        }
-
-        public static IWindsorContainer LoadPlugins(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly)
-        {
-            // Load plugins
-            AssemblyFilter filter = new AssemblyFilter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "MoonBurst.*");
-            var typesToDiscoverFromFilter = new List<Type>()
-            {
-                typeof(IDeviceDefinition),
-                typeof(IDeviceParser)
-            };
-
-            foreach (var type in typesToDiscoverFromFilter)
-                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
-
-            return container;
-        }
-
-        public static IWindsorContainer LoadDefaultFrom(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly)
-        {
-            // Load default types
-            var typesToDiscoverFromLoadedAssembly = new List<Type>()
+            return new List<Type>
             {
                 typeof(ISerializer<,>),
                 typeof(ISerializer<>),
@@ -66,19 +43,47 @@ namespace MoonBurst
                 typeof(IMainView),
                 typeof(IViewModel)
             };
+        }
 
-            foreach (var type in typesToDiscoverFromLoadedAssembly)
-                container.Register(sourceAssembly.BasedOn(type).WithServiceAllInterfaces());
+        public static IEnumerable<Type> GetPluginTypes()
+        {
+            return new List<Type>
+            {
+                typeof(IDeviceDefinition),
+                typeof(IDeviceParser)
+            };
+        }
 
+        public static IWindsorContainer RegisterStatic(this IWindsorContainer container)
+        {
+            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
             return container;
+        }
+
+        public static IWindsorContainer RegisterTypesFrom(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly, IEnumerable<Type> typesToRegister)
+        {
+            foreach (var type in typesToRegister)
+                container.Register(sourceAssembly.BasedOn(type).WithServiceAllInterfaces());
+            return container;
+        }
+
+        public static IWindsorContainer RegisterPlugins(this IWindsorContainer container, string mask = "MoonBurst.*")
+        {
+            AssemblyFilter filter = new AssemblyFilter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), mask);
+            return container.RegisterTypesFrom(Classes.FromAssemblyInDirectory(filter), GetPluginTypes());
+        }
+
+        public static IWindsorContainer RegisterDefaultTypesFrom(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly)
+        {
+            return container.RegisterTypesFrom(sourceAssembly, GetDefaultTypes());
         }
 
         public static IWindsorContainer GetDefaultContainer()
         {
             return CreateDefaultContainer()
-                .LoadDefaultFrom(Classes.FromAssemblyInThisApplication())
-                .LoadStatic()
-                .LoadPlugins(Classes.FromAssemblyInThisApplication());
+                .RegisterDefaultTypesFrom(Classes.FromAssemblyInThisApplication())
+                .RegisterStatic()
+                .RegisterPlugins();
         }
     }
 }
