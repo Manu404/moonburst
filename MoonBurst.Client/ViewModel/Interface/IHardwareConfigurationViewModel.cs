@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway.Midi;
@@ -19,5 +20,7 @@ namespace MoonBurst.ViewModel.Interface
         void LoadLast();
         void UpdateArduinoPorts(List<ArduinoPortConfigModel> data);
         string GetStatusString();
+
+        event EventHandler ConfigurationChanged;
     }
 }

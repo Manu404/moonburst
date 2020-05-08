@@ -158,6 +158,7 @@ namespace MoonBurst.ViewModel
 
             midiGateway.ConnectionStateChanged += (sender, args) => this.IsMidiConnected = args.NewState == MidiConnectionState.Connected;
             serialGateway.ConnectionStateChanged += (sender, args) => OnSerialStateChanged(args);
+            PropertyChanged += (sender, args) => this.ConfigurationChanged?.Invoke(this, args);
         }
 
         private void OnSerialStateChanged(SerialConnectionStateChangedEventArgs obj)
@@ -244,6 +245,8 @@ namespace MoonBurst.ViewModel
             sb.Append(_serialGateway.GetStatusString());
             return sb.ToString();
         }
+
+        public event EventHandler ConfigurationChanged;
 
         private void OnSaveAs()
         {

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
@@ -93,30 +94,26 @@ namespace MoonBurst.ViewModel
         }
 
 
-        public MainViewModel(IApplicationConfigurationViewModel applicationConfiguration,
+        public MainViewModel(
+            IApplicationConfigurationViewModel applicationConfiguration,
             IHardwareConfigurationViewModel hardwareViewModel,
             ILayoutViewModel layoutViewModel)
         {
             AppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Title = "MoonBurst";
             
-            _applicationConfiguration = applicationConfiguration;
-
-            ApplicationConfiguration = _applicationConfiguration;
+            ApplicationConfiguration = applicationConfiguration;
             HardwareConfig = hardwareViewModel;
             Layout = layoutViewModel;
-            if (HardwareConfig is ViewModelBase) ((ViewModelBase)HardwareConfig).PropertyChanged += OnHardwarePropertyChange;
+            HardwareConfig.ConfigurationChanged += HardwareConfigOnConfigurationChanged;
 
             InitializeConfigs();
 
             OnOpenConsoleCommand = new RelayCommand(OpenConsole);
             OnCloseCommand = new RelayCommand(OnClose);
-
-            //WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMidi.VersionString);
-            //WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMidi.DriverVersionString);
         }
 
-        private void OnHardwarePropertyChange(object sender, PropertyChangedEventArgs e)
+        private void HardwareConfigOnConfigurationChanged(object sender, EventArgs e)
         {
             this.StatusBarText = HardwareConfig.GetStatusString();
         }
