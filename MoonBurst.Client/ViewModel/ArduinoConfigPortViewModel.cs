@@ -8,7 +8,6 @@ using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway.Arduino;
 using MoonBurst.Api.Hardware.Description;
 using MoonBurst.Model;
-using MoonBurst.Model.Message;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel

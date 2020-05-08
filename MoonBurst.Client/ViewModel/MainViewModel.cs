@@ -2,8 +2,6 @@ using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Messaging;
-using MoonBurst.Model.Message;
 using MoonBurst.View;
 using MoonBurst.ViewModel.Interface;
 

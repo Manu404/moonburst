@@ -9,7 +9,6 @@ using MoonBurst.Api.Enums;
 using MoonBurst.Api.Gateway.Midi;
 using MoonBurst.Api.Helper;
 using MoonBurst.Helper;
-using MoonBurst.Model.Message;
 using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel

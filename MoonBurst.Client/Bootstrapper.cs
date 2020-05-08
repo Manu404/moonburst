@@ -56,7 +56,7 @@ namespace MoonBurst
 
         public static IWindsorContainer RegisterStatic(this IWindsorContainer container)
         {
-            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
+            //container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
             return container;
         }
 

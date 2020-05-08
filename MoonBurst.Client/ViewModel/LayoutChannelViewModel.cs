@@ -10,7 +10,6 @@ using MoonBurst.Api.Gateway.Arduino;
 using MoonBurst.Api.Gateway.Serial;
 using MoonBurst.Api.Hardware.Parser;
 using MoonBurst.Helper;
-using MoonBurst.Model.Message;
 using MoonBurst.ViewModel.Factory;
 using MoonBurst.ViewModel.Interface;
 

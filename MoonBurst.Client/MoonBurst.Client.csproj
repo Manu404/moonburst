@@ -178,7 +178,6 @@
     <Compile Include="Model\LayoutChannelModel.cs" />
     <Compile Include="Model\HardwareConfigurationModel.cs" />
     <Compile Include="Model\LayoutModel.cs" />
-    <Compile Include="Model\Message\DeleteChannelActionMessage.cs" />
     <Compile Include="ViewModel\ApplicationConfigurationViewModel.cs" />
     <Compile Include="ViewModel\DeviceInputViewModel.cs" />
     <Compile Include="ViewModel\Factory\ArduinoConfigPortViewModelFactory.cs" />
@@ -186,7 +185,6 @@
     <Compile Include="ViewModel\Factory\FunctoidActionViewModelFactory.cs" />
     <Compile Include="ViewModel\Factory\FunctoidChannelViewModelFactory.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
-    <Compile Include="Model\Message\PortConfigChangedMessage.cs" />
     <Compile Include="ViewModel\Interface\ILoadSaveDialogProvider.cs" />
     <Compile Include="ViewModel\Interface\IArduinoConfigPortViewModel.cs" />
     <Compile Include="ViewModel\Interface\IDeviceInputViewModel.cs" />
@@ -214,7 +212,6 @@
     <Compile Include="View\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Message\DeleteChannelMessage.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="Host\UserControlMainViewHost.xaml">
       <Generator>MSBuild:Compile</Generator>
