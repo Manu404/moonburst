@@ -10,21 +10,21 @@ namespace MoonBurst.Vst
     {
     }
 
-    public class MidiProcessorFactory : IMidiProcessorFactory
+    public class VstMidiProcessorFactory : IMidiProcessorFactory
     {
-        private static IVstMidiProcessor _instance;
+        private IVstMidiProcessor _instance;
         public IVstMidiProcessor Build(IVstPluginMidiSource source)
         {
-            if(_instance == null) _instance = new MidiProcessor(source);
+            if(_instance == null) _instance = new VstMidiProcessor(source);
             return _instance;
         }
     }
 
-    public class MidiProcessor : IVstMidiProcessor
+    public class VstMidiProcessor : IVstMidiProcessor
     {
         private IVstPluginMidiSource _plugin;
 
-        public MidiProcessor(IVstPluginMidiSource plugin)
+        public VstMidiProcessor(IVstPluginMidiSource plugin)
         {
             _plugin = plugin;
             Events = new VstEventCollection();
@@ -49,9 +49,7 @@ namespace MoonBurst.Vst
             foreach (VstEvent evnt in events)
             {
                 if (evnt.EventType != VstEventTypes.MidiEvent) continue;
-
                 VstMidiEvent midiEvent = (VstMidiEvent)evnt;
-                VstMidiEvent mappedEvent = null;
 
                 if (((midiEvent.Data[0] & 0xF0) == 0x80 || (midiEvent.Data[0] & 0xF0) == 0x90))
                 {

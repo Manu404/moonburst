@@ -11,23 +11,23 @@ namespace MoonBurst.Vst
     {
     }
 
-    public class PluginEditorFactory : IPluginEditorFactory
+    public class VstPluginEditorFactory : IPluginEditorFactory
     {
-        private static IVstPluginEditor _instance;
-        public IVstPluginEditor Build(IMainViewHost host)
+        private IVstPluginEditor _instance;
+        public IVstPluginEditor Build(IMainViewHost mainViewHost)
         {
-            if(_instance == null) _instance = new PluginEditor(host);
+            if(_instance == null) _instance = new VstPluginEditor(mainViewHost);
             return _instance;
         }
     }
 
-    class PluginEditor : IVstPluginEditor
+    class VstPluginEditor : IVstPluginEditor
     {
-        private MainViewHostControlWrapper _uiWrapper;
+        private readonly MainViewHostControlWrapper _uiWrapper;
 
-        public PluginEditor(IMainViewHost host)
+        public VstPluginEditor(IMainViewHost mainViewHost)
         {
-            _uiWrapper = new MainViewHostControlWrapper(800, 600, host);
+            _uiWrapper = new MainViewHostControlWrapper(800, 600, mainViewHost);
         }
 
         #region IVstPluginEditor Members

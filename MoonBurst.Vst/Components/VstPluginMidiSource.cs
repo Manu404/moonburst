@@ -7,22 +7,21 @@ namespace MoonBurst.Vst
     {
     }
 
-    public class PluginMidiSourceFactory : IPluginMidiSourceFactory
+    public class VstPluginMidiSourceFactory : IPluginMidiSourceFactory
     {
-        private static IVstPluginMidiSource _instance;
-
+        private IVstPluginMidiSource _instance;
         public IVstPluginMidiSource Build(IVstHost host)
         {
-            if(_instance == null) _instance = new PluginMidiSource(host);
+            if(_instance == null) _instance = new VstPluginMidiSource(host);
             return _instance;
         }
     }
 
-    class PluginMidiSource : IVstPluginMidiSource
+    class VstPluginMidiSource : IVstPluginMidiSource
     {
         private readonly IVstHost _host;
 
-        public PluginMidiSource(IVstHost host)
+        public VstPluginMidiSource(IVstHost host)
         {
             _host = host;
         }

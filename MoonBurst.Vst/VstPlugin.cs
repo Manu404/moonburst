@@ -8,12 +8,12 @@ using System.Reflection;
 
 namespace MoonBurst.Vst
 {
-    class Plugin : VstPluginBase
+    class VstPlugin : VstPluginBase
     {
         private readonly IApp _app;
-        private readonly PluginInterfaceManager _interfaceManager;
+        private readonly VstPluginInterfaceManager _interfaceManager;
 
-        public Plugin(IMoonburstWpfAppFactory moonburstWpfAppFactory,
+        public VstPlugin(IMoonburstWpfAppFactory moonburstWpfAppFactory,
             IPluginInterfaceManagerFactory interfaceManagerFactory)
             : base("MoonBurst", 
                 new VstProductInfo("MoonBurst " + Assembly.GetExecutingAssembly().GetName().Version, "Emmanuel Istace", 1001),

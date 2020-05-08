@@ -5,7 +5,10 @@ using MoonBurst.Api.Client;
 
 namespace MoonBurst.Vst
 {
-    public class PluginInterfaceManager : PluginInterfaceManagerBase
+    /// <summary>
+    /// This class serve as a bridge between the VST.Net internal IoC container and moonburst
+    /// </summary>
+    public class VstPluginInterfaceManager : PluginInterfaceManagerBase
     {
         private readonly IApp _app;
         private readonly IVstHost _host;
@@ -15,7 +18,7 @@ namespace MoonBurst.Vst
         private readonly IPluginEditorFactory _pluginEditorFactory;
         private readonly IAudioProcessorFactory _audioProcessorFactory;
 
-        public PluginInterfaceManager(IApp app, 
+        public VstPluginInterfaceManager(IApp app, 
             IVstHost host,
             IVstPluginPersistence persistence,
             IPluginMidiSourceFactory midiSourceFactory,
@@ -36,7 +39,7 @@ namespace MoonBurst.Vst
         protected override IVstPluginAudioProcessor CreateAudioProcessor(IVstPluginAudioProcessor instance)
         {
             if (this._host == null) return instance;
-            if (instance == null) instance = _audioProcessorFactory.Build(new Tuple<MidiProcessor, IVstMidiProcessor>(GetInstance<MidiProcessor>(), _host.GetInstance<IVstMidiProcessor>()));
+            if (instance == null) instance = _audioProcessorFactory.Build(new Tuple<VstMidiProcessor, IVstMidiProcessor>(GetInstance<VstMidiProcessor>(), _host.GetInstance<IVstMidiProcessor>()));
             return instance;
         }
 
@@ -63,6 +66,39 @@ namespace MoonBurst.Vst
             if (this._host == null) return instance;
             if (instance == null) instance = _midiSourceFactory.Build(_host);
             return instance;
+        }
+    }
+
+    public interface IPluginInterfaceManagerFactory : IFactory<VstPluginInterfaceManager, Tuple<IApp, IVstHost>>
+    {
+
+    }
+
+    public class VstPluginInterfaceManagerFactory : IPluginInterfaceManagerFactory
+    {
+        private readonly IVstPluginPersistence _persistence;
+        private readonly IPluginMidiSourceFactory _midiSourceFactory;
+        private readonly IMidiProcessorFactory _midiProcessorFactory;
+        private readonly IPluginEditorFactory _pluginEditorFactory;
+        private readonly IAudioProcessorFactory _audioProcessorFactory;
+
+        public VstPluginInterfaceManagerFactory(
+            IVstPluginPersistence persistence,
+            IPluginMidiSourceFactory midiSourceFactory,
+            IAudioProcessorFactory audioProcessorFactory,
+            IPluginEditorFactory pluginEditorFactory,
+            IMidiProcessorFactory midiProcessorFactory)
+        {
+            this._persistence = persistence;
+            this._midiSourceFactory = midiSourceFactory;
+            this._audioProcessorFactory = audioProcessorFactory;
+            this._pluginEditorFactory = pluginEditorFactory;
+            this._midiProcessorFactory = midiProcessorFactory;
+        }
+
+        public VstPluginInterfaceManager Build(Tuple<IApp, IVstHost> data)
+        {
+            return new VstPluginInterfaceManager(data.Item1, data.Item2, _persistence, _midiSourceFactory, _audioProcessorFactory, _pluginEditorFactory, _midiProcessorFactory);
         }
     }
 }

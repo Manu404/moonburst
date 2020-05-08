@@ -6,11 +6,11 @@
     using Jacobi.Vst.Core;
     using Jacobi.Vst.Framework;
 
-    class PluginPersistence : IVstPluginPersistence
+    class VstPluginPersistence : IVstPluginPersistence
     {
         private Encoding _encoding = Encoding.ASCII;
 
-        public PluginPersistence()
+        public VstPluginPersistence()
         {
         }
 
