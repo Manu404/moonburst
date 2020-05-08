@@ -284,9 +284,7 @@
     <Resource Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Resource>
-    <Content Include="img\sonata.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="img\sonata.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

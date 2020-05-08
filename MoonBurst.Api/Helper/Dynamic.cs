@@ -2,17 +2,17 @@
 {
     public class Dynamic
     {
-        public Dynamic(string name, int value, string display)
+        public Dynamic(string name, int midiValue, string display)
         {
             Name = name;
-            Value = value;
+            MidiValue = midiValue;
             Display = display;
         }
         
         public string Name { get; }
-        public int Value { get; }
+        public int MidiValue { get; }
         public string Display { get; }
         
-        public string ValueDisplay => $"\f({Value})";
+        public string ValueDisplay => $"\f({MidiValue})";
     }
 }

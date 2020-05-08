@@ -651,7 +651,7 @@
                                     <StackPanel Orientation="Horizontal" MaxHeight="19">
                                         <Border>
                                             <TextBlock VerticalAlignment="Center"
-                                                       FontFamily="/MoonBurst.Client;component/img/#Sonata" 
+                                                       FontFamily="{StaticResource Sonata}" 
                                                        FontSize="22"
                                                        Text="{Binding Display}"></TextBlock>
                                         </Border>

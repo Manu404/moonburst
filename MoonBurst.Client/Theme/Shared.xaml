@@ -9,8 +9,10 @@
     <helper:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <helper:InverseBooleanToVisibilityConverter x:Key="InverseBooleanVisibilityConverter" />
     <helper:EnumToStringConverter  x:Key="EnumToStringConverter" />
+    <FontFamily x:Key="Sonata">/MoonBurst.Client;component/img/#Sonata</FontFamily>
 
- <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+
+    <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="IsTabStop" Value="false"/>
         <Setter Property="Template">
