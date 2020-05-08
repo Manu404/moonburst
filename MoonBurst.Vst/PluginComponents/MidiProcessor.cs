@@ -12,9 +12,11 @@ namespace MoonBurst.Vst
 
     public class MidiProcessorFactory : IMidiProcessorFactory
     {
+        private static IVstMidiProcessor _instance;
         public IVstMidiProcessor Build(IVstPluginMidiSource source)
         {
-            return new MidiProcessor(source);
+            if(_instance == null) _instance = new MidiProcessor(source);
+            return _instance;
         }
     }
 

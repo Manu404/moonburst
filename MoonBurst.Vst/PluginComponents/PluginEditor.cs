@@ -13,9 +13,11 @@ namespace MoonBurst.Vst
 
     public class PluginEditorFactory : IPluginEditorFactory
     {
+        private static IVstPluginEditor _instance;
         public IVstPluginEditor Build(IMainViewHost host)
         {
-            return new PluginEditor(host);
+            if(_instance == null) _instance = new PluginEditor(host);
+            return _instance;
         }
     }
 

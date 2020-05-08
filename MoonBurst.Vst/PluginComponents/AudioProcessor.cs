@@ -12,9 +12,11 @@ namespace MoonBurst.Vst
 
     public class AudioProcessorFactory : IAudioProcessorFactory
     {
+        private static AudioProcessor _instance;
         public VstPluginAudioProcessorBase Build(Tuple<MidiProcessor, IVstMidiProcessor> data)
         {
-            return new AudioProcessor(data.Item1, data.Item2);
+            if(_instance == null)_instance = new AudioProcessor(data.Item1, data.Item2);
+            return _instance;
         }
     }
 

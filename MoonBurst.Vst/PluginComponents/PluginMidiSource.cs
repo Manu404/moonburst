@@ -9,9 +9,12 @@ namespace MoonBurst.Vst
 
     public class PluginMidiSourceFactory : IPluginMidiSourceFactory
     {
+        private static IVstPluginMidiSource _instance;
+
         public IVstPluginMidiSource Build(IVstHost host)
         {
-            return new PluginMidiSource(host);
+            if(_instance == null) _instance = new PluginMidiSource(host);
+            return _instance;
         }
     }
 

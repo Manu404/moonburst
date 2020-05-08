@@ -1,4 +1,5 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System.Windows;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using MoonBurst.Api.Client;
 
@@ -12,10 +13,11 @@ namespace MoonBurst.Vst
     /// </summary>
     public class PluginEntryPoint : StdPluginDeprecatedCommandStub
     {
-        private readonly IWindsorContainer _container;
+        private static readonly IWindsorContainer _container;
 
-        public PluginEntryPoint()
+        static PluginEntryPoint()
         {
+            if (_container != null) return;
             _container = new Bootstrapper().GetDefault();
             _container.Register(Component.For<IMainViewHostFactory>().ImplementedBy<VstMainViewHostFactory>());
             _container.Register(Component.For<IVstPluginPersistence>().ImplementedBy<PluginPersistence>());
@@ -23,17 +25,17 @@ namespace MoonBurst.Vst
             _container.Register(Component.For<IAudioProcessorFactory>().ImplementedBy<AudioProcessorFactory>());
             _container.Register(Component.For<IMidiProcessorFactory>().ImplementedBy<MidiProcessorFactory>());
             _container.Register(Component.For<IPluginEditorFactory>().ImplementedBy<PluginEditorFactory>());
-            _container.Register(Component.For<IApp>().ImplementedBy<App>());
-            _container.Register(Component.For<IVstPlugin>().ImplementedBy<Plugin>());
+            _container.Register(Component.For<IPluginInterfaceManagerFactory>().ImplementedBy<PluginInterfaceManagerFactory>());
+            _container.Register(Component.For<IPluginFactory>().ImplementedBy<PluginFactory>());
         }
-
+        
         /// <summary>
         /// Called by the framework to create the plugin root class.
         /// </summary>
         /// <returns>Never returns null.</returns>
         protected override IVstPlugin CreatePluginInstance()
         {
-            return _container.Resolve<IVstPlugin>();
+            return _container.Resolve<IPluginFactory>().Build(); ;
         }
     }
 }
