@@ -523,7 +523,7 @@
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Padding" Value="0" />
-                <Setter Property="IsEnabled" Value="{Binding IsLockedOrChannelLocked, Converter={StaticResource InverseBooleanConverter}}" />
+                <Setter Property="IsEnabled" Value="{Binding IsLockedOrParentChannelLocked, Converter={StaticResource InverseBooleanConverter}}" />
             </Style>
         </DataTemplate.Resources>
         <Border Margin="10,0,10,0">
@@ -721,7 +721,7 @@
                             <materialDesign:PackIcon Kind="Fire" Width="15" Height="15" />
                         </Button>
                         <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                IsEnabled="{Binding IsLockedOrChannelLocked, Converter={StaticResource InverseBooleanConverter}}"
+                                IsEnabled="{Binding IsLockedOrParentChannelLocked, Converter={StaticResource InverseBooleanConverter}}"
                                     ToolTip="Delete"
                                     Width="20" Height="20"
                                     materialDesign:RippleAssist.IsCentered="True" 

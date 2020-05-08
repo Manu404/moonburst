@@ -43,7 +43,7 @@ namespace MoonBurst.ViewModel.Serializer
             target.TryBindInput(model.BindedInput);
             target.IsLocked = model.IsLocked;
             foreach (var a in target.Actions)
-                a.IsChannelLocked = model.IsLocked;
+                a.IsParentChannelLocked = model.IsLocked;
         }
     }
 }

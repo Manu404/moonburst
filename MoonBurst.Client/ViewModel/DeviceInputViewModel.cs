@@ -9,17 +9,7 @@ namespace MoonBurst.ViewModel
 {
     public class DeviceInputViewModel : ViewModelBase, IDeviceInputViewModel
     {
-        private IDeviceInputState _state;
-
-        public IDeviceInputState State
-        {
-            get => _state;
-            set
-            {
-                _state = value;
-                RaisePropertyChanged();
-            }
-        }
+        public IDeviceInputState State { get; set; }
 
         public IArduinoPort Port { get; set; }
         public IDeviceDefinition Device { get; set; }

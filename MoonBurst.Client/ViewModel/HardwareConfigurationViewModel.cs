@@ -45,20 +45,7 @@ namespace MoonBurst.ViewModel
         private readonly ISerializer<IHardwareConfigurationViewModel> _serializer;
         private readonly IFactory<IArduinoConfigPortViewModel, IArduinoPort> _arduinoPortFactory;
         private readonly ILoadSaveDialogProvider _dialogProvider;
-
-        private bool _isMidiConnected;
-        private bool _isComConnected;
         
-        public int SelectedSpeed
-        {
-            get => _serialGateway.CurrentSpeed;
-            set
-            {
-                _serialGateway.CurrentSpeed = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public ComPort SelectedComPort
         {
             get => _serialGateway.CurrentPort;
@@ -70,35 +57,10 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public MidiDevice SelectedOutputMidiDevice
-        {
-            get => _midiGateway.SelectedOutput;
-            set
-            {
-                _midiGateway.SelectedOutput = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsMidiConnected
-        {
-            get => _isMidiConnected;
-            set
-            {
-                _isMidiConnected = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsComConnected
-        {
-            get => _isComConnected;
-            set
-            {
-                _isComConnected = value;
-                RaisePropertyChanged();
-            }
-        }
+        public int SelectedSpeed { get; set; }
+        public MidiDevice SelectedOutputMidiDevice { get; set; }
+        public bool IsMidiConnected { get; set; }
+        public bool IsComConnected { get; set; }
 
         public ObservableCollection<MidiDevice> OutputMidiDevices { get; set; }
         public ObservableCollection<ComPort> InputComPorts { get; set; }

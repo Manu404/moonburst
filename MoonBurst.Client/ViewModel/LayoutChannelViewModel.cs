@@ -23,12 +23,7 @@ namespace MoonBurst.ViewModel
         private readonly ISerialGateway _serialGateway;
         private string _lastInput;
         
-        private int _index;
-        private string _name;
-        private bool _isEnabled;
-        private bool _isExpanded;
         private bool _isTriggered;
-        private bool _isLocked;
         private IDeviceInputViewModel _selectedInput;
 
         public IDeviceInputViewModel SelectedInput
@@ -55,54 +50,11 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public bool IsLocked
-        {
-            get => _isLocked;
-            set
-            {
-                _isLocked = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public int Index
-        {
-            get => _index;
-            set
-            {
-                _index = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsEnabled
-        {
-            get => _isEnabled;
-            set
-            {
-                _isEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set
-            {
-                _isExpanded = value;
-                RaisePropertyChanged();
-            }
-        }
+        public bool IsLocked { get; set; }
+        public int Index { get; set; }
+        public string Name { get; set; }
+        public bool IsEnabled { get; set; }
+        public bool IsExpanded { get; set; }
 
         public ObservableCollection<IChannelActionViewModel> Actions { get; set; }
         public ObservableCollection<IDeviceInputViewModel> AvailableInputs { get; set; }
@@ -170,7 +122,7 @@ namespace MoonBurst.ViewModel
         {
             this.IsLocked = !this.IsLocked;
             foreach (var a in Actions)
-                a.IsChannelLocked = this.IsLocked;
+                a.IsParentChannelLocked = this.IsLocked;
         }
 
         private void OnControllerStateChanged(object sender, ControllerStateEventArgs obj)

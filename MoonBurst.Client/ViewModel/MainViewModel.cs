@@ -10,58 +10,19 @@ namespace MoonBurst.ViewModel
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
-        private IApplicationConfigurationViewModel _applicationConfiguration;
-        private IHardwareConfigurationViewModel _hardwareConfig;
-        private ILayoutViewModel _layout;
-
         private DebugWindow _debugWindow;
-        private string _log;
-        private string _appVersion;
         private string _title;
-        private string _statusBarText;
 
         public ICommand OnOpenConsoleCommand { get; set; }
         public ICommand OnCloseCommand { get; set; }
         
-        public IHardwareConfigurationViewModel HardwareConfig
-        {
-            get => _hardwareConfig;
-            set
-            {
-                _hardwareConfig = value;
-                RaisePropertyChanged();
-            }
-        }
+        public IHardwareConfigurationViewModel HardwareConfig { get; set; }
+        public IApplicationConfigurationViewModel ApplicationConfiguration { get; set; }
+        public ILayoutViewModel Layout { get; set; }
 
-        public IApplicationConfigurationViewModel ApplicationConfiguration
-        {
-            get => _applicationConfiguration;
-            set
-            {
-                _applicationConfiguration = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public ILayoutViewModel Layout
-        {
-            get => _layout;
-            set
-            {
-                _layout = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string AppVersion
-        {
-            get => _appVersion;
-            set
-            {
-                _appVersion = value;
-                RaisePropertyChanged();
-            }
-        }
+        public string AppVersion { get; set; }
+        public string Log { get; set; }
+        public string StatusBarText { get; set; }
 
         public string Title
         {
@@ -72,28 +33,7 @@ namespace MoonBurst.ViewModel
                 RaisePropertyChanged();
             }
         }
-
-        public string Log
-        {
-            get => _log;
-            set
-            {
-                _log = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string StatusBarText
-        {
-            get => _statusBarText;
-            set
-            {
-                _statusBarText = value;
-                RaisePropertyChanged();
-            }
-        }
-
-
+        
         public MainViewModel(
             IApplicationConfigurationViewModel applicationConfiguration,
             IHardwareConfigurationViewModel hardwareViewModel,
@@ -115,7 +55,7 @@ namespace MoonBurst.ViewModel
 
         private void HardwareConfigOnConfigurationChanged(object sender, EventArgs e)
         {
-            this.StatusBarText = HardwareConfig.GetStatusString();
+            StatusBarText = HardwareConfig.GetStatusString();
         }
 
         private void InitializeConfigs()
@@ -127,9 +67,9 @@ namespace MoonBurst.ViewModel
 
         private void OnClose()
         {
-            this.Layout.Close();
-            this.HardwareConfig.Close();
-            this.ApplicationConfiguration.Close();
+            Layout.Close();
+            HardwareConfig.Close();
+            ApplicationConfiguration.Close();
         }
 
         void OpenConsole()

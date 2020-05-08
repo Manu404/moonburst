@@ -19,19 +19,11 @@ namespace MoonBurst.ViewModel
         private readonly IDynamicsHelper _dynamicsHelper;
         private readonly IMidiGateway _midiGateway;
 
-        private bool _isEnabled;
-        private bool _isExpanded;
-        private FootTrigger _trigger;
         private ChannelCommand _command;
-        private int _data2;
-        private int _data1;
-        private int _midiChannel;
-        private int _delay;
         private bool _isTriggered;
-        private bool _isMusicalMode;
         private bool _forceNumericMode;
         private bool _isLocked;
-        private bool _isChannelLocked;
+        private bool _isParentChannelLocked;
 
         public string EnableStatusString => IsEnabled ? "disabled" : "enabled";
         public string LockedStatusString => IsLocked ? "locked" : "unlocked";
@@ -48,50 +40,10 @@ namespace MoonBurst.ViewModel
             RaisePropertyChanged("ChannelHeaderActionToggleTooltip");
         }
 
-        public FootTrigger Trigger
-        {
-            get => _trigger;
-            set
-            {
-                _trigger = value;
-                RaisePropertyChanged();
-                RefreshTitle();
-            }
-        }
-
-        public int MidiChannel
-        {
-            get => _midiChannel;
-            set
-            {
-                _midiChannel = value;
-                RaisePropertyChanged();
-                RefreshTitle();
-            }
-        }
-
-        public int Data1
-        {
-            get => _data1;
-            set
-            {
-                _data1 = value;
-                RaisePropertyChanged();
-                RefreshTitle();
-            }
-        }
-
-        public int Data2
-        {
-            get => _data2;
-            set
-            {
-                _data2 = value;
-                RaisePropertyChanged();
-                RefreshTitle();
-            }
-        }
-
+        public FootTrigger Trigger { get; set; }
+        public int MidiChannel { get; set; }
+        public int Data1 { get; set; }
+        public int Data2 { get; set; }
         public ChannelCommand Command
         {
             get => _command;
@@ -100,30 +52,11 @@ namespace MoonBurst.ViewModel
                 _command = value;
                 RaisePropertyChanged();
                 IsMusicalMode = (Command == ChannelCommand.NoteOn || Command == ChannelCommand.NoteOff) && !ForceNumericMode;
-                RefreshTitle();
             }
         }
+        public int Delay { get; set; }
 
-        public int Delay
-        {
-            get => _delay;
-            set
-            {
-                _delay = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool IsEnabled
-        {
-            get => _isEnabled;
-            set
-            {
-                _isEnabled = value;
-                RaisePropertyChanged();
-                RefreshTitle();
-            }
-        }
+        public bool IsEnabled { get; set; }
 
         public bool IsLocked
         {
@@ -132,34 +65,24 @@ namespace MoonBurst.ViewModel
             {
                 _isLocked = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("IsLockedOrChannelLocked");
-                RefreshTitle();
+                RaisePropertyChanged("IsLockedOrParentChannelLocked");
             }
         }
 
-        public bool IsChannelLocked
+        public bool IsParentChannelLocked
         {
-            get => _isChannelLocked;
+            get => _isParentChannelLocked;
             set
             {
-                _isChannelLocked = value;
+                _isParentChannelLocked = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("IsLockedOrChannelLocked");
-                RefreshTitle();
+                RaisePropertyChanged("IsLockedOrParentChannelLocked");
             }
         }
 
-        public bool IsLockedOrChannelLocked => IsLocked || IsChannelLocked;
+        public bool IsLockedOrParentChannelLocked => IsLocked || IsParentChannelLocked;
 
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set
-            {
-                _isExpanded = value;
-                RaisePropertyChanged();
-            }
-        }
+        public bool IsExpanded { get; set; }
 
         public bool IsTriggered
         {
@@ -173,15 +96,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public bool IsMusicalMode
-        {
-            get => _isMusicalMode;
-            set
-            {
-                _isMusicalMode = value;
-                RaisePropertyChanged();
-            }
-        }
+        public bool IsMusicalMode { get; set; }
 
         public bool ForceNumericMode
         {
@@ -214,6 +129,8 @@ namespace MoonBurst.ViewModel
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
             _midiGateway = midiGateway;
+
+            this.PropertyChanged += (sender, args) => RefreshTitle();
         }
 
         private void OnLock()
@@ -240,7 +157,6 @@ namespace MoonBurst.ViewModel
                 Delay = this.Delay
             });
         }
-
 
         private async void OnDelete()
         {

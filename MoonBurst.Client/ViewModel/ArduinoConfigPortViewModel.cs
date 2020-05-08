@@ -15,7 +15,6 @@ namespace MoonBurst.ViewModel
     public class ArduinoConfigPortViewModel : ViewModelBase, IArduinoConfigPortViewModel
     {
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
-        private bool _isConnected;
         private bool _isEnabled;
 
         public IDeviceDefinition ConnectedDevice
@@ -41,16 +40,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public bool IsConnected
-        {
-            get => _isConnected;
-            set
-            {
-                _isConnected = value;
-                RaisePropertyChanged();
-            }
-        }
-        
+        public bool IsConnected { get; set; }
         public IArduinoPort Port { get; }
 
         public int Position => Port.Position;
