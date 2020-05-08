@@ -130,23 +130,28 @@ namespace MoonBurst.ViewModel
             _dynamicsHelper = dynamicsHelper;
             _midiGateway = midiGateway;
 
-            this.PropertyChanged += (sender, args) => RefreshTitle();
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName.Contains("DisplayName") ||
+                    args.PropertyName.Contains("ChannelHeaderActionToggleTooltip")) return; // avoid self trigger
+                RefreshTitle();
+            };
         }
 
         private void OnLock()
         {
-            this.IsLocked = !this.IsLocked;
+            IsLocked = !IsLocked;
         }
 
         private void OnToggle()
         {
-            this.IsEnabled = !this.IsEnabled;
+            IsEnabled = !IsEnabled;
         }
 
         public void TriggerAction()
         {
             if (Application.Current.Dispatcher != null)
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => { this.IsTriggered = true; }));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => { IsTriggered = true; }));
 
             _midiGateway.Trigger(new MidiTriggerData()
             {

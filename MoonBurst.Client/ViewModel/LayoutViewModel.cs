@@ -52,7 +52,7 @@ namespace MoonBurst.ViewModel
 
         private void UpdateIndexes()
         {
-            for (int i = 0; i < FunctoidChannels.Count; FunctoidChannels[i].Index = (i++) + 1) ;
+            for (int i = 0; i < FunctoidChannels.Count; FunctoidChannels[i].Index = (i++) + 1);
         }
 
         private void RegisterEvents()

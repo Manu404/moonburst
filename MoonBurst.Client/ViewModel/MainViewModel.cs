@@ -77,7 +77,7 @@ namespace MoonBurst.ViewModel
             if (_debugWindow == null)
             {
                 _debugWindow = new DebugWindow(this);
-                _debugWindow.Closed += (sender, args) => this._debugWindow = null;
+                _debugWindow.Closed += (sender, args) => _debugWindow = null;
             }
 
             _debugWindow.Show();

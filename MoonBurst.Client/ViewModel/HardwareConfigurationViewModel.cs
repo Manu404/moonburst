@@ -125,9 +125,9 @@ namespace MoonBurst.ViewModel
 
         private void OnSerialStateChanged(SerialConnectionStateChangedEventArgs obj)
         {
-            this.IsComConnected = obj.NewState;
+            IsComConnected = obj.NewState;
             if(!IsComConnected)
-                this.OnRefreshCOMDevices();
+                OnRefreshCOMDevices();
         }
 
         public void Close()
@@ -147,14 +147,14 @@ namespace MoonBurst.ViewModel
         void RefreshAvailabledSpeeds()
         {
             SupportedBaudRates.Clear();
-            if (this.SelectedComPort != null)
+            if (SelectedComPort != null)
             {
                 var selectedSpeed = SelectedSpeed;
 
-                _serialGateway.GetRates().Where(r => r <= this.SelectedComPort.MaxBaudRate).ToList()
+                _serialGateway.GetRates().Where(r => r <= SelectedComPort.MaxBaudRate).ToList()
                     .ForEach(SupportedBaudRates.Add);
 
-                if(this.SupportedBaudRates.Contains(selectedSpeed))
+                if(SupportedBaudRates.Contains(selectedSpeed))
                     SelectedSpeed = selectedSpeed;
             }
         }

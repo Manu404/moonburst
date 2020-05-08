@@ -10,5 +10,10 @@ namespace MoonBurst.Model
         public MidiDevice MidiOut { get; set; }
         public List<ArduinoPortConfigModel> ArduinoPorts { get; set; }
         public int Speed { get; set; }
+
+        public HardwareConfigurationModel()
+        {
+            ArduinoPorts = new List<ArduinoPortConfigModel>();
+        }
     }
 }

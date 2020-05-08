@@ -127,19 +127,19 @@ namespace MoonBurst.ViewModel
 
         private void OnControllerStateChanged(object sender, ControllerStateEventArgs obj)
         {
-            if (this.SelectedInput == null) return;
-            if (obj.Port != this.SelectedInput.Port.Position) return;
+            if (SelectedInput == null) return;
+            if (obj.Port != SelectedInput.Port.Position) return;
             foreach (var state in obj.States)
-                if (state.Index == this.SelectedInput.Input.Position)
+                if (state.Index == SelectedInput.Input.Position)
                 {
-                    this.Actions.Where(a => (int)a.Trigger == (int)((FootswitchState)state).States ).ToList().ForEach(a => a.TriggerAction());
+                    Actions.Where(a => (int)a.Trigger == (int)((FootswitchState)state).States ).ToList().ForEach(a => a.TriggerAction());
                     return;
                 }
         }
 
         private void OnExpandCollapse(bool isExpanded)
         {
-            foreach (var action in this.Actions)
+            foreach (var action in Actions)
                 action.IsExpanded = isExpanded;
         }
         
@@ -166,7 +166,7 @@ namespace MoonBurst.ViewModel
 
         private void OnTrigger()
         {
-            this.IsTriggered = true;
+            IsTriggered = true;
         }
         
         private void OnAddAction()
@@ -187,7 +187,7 @@ namespace MoonBurst.ViewModel
 
         public void TryBindInput(string bindedInput)
         {
-            this.SelectedInput = AvailableInputs.FirstOrDefault(d => d.FormatedName == bindedInput);
+            SelectedInput = AvailableInputs.FirstOrDefault(d => d.FormatedName == bindedInput);
         }
 
         public event EventHandler DeleteRequested;
