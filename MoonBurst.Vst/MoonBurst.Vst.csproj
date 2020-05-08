@@ -163,17 +163,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PluginComponents\AudioProcessor.cs" />
-    <Compile Include="PluginComponents\PluginMidiSource.cs" />
+    <Compile Include="Components\AudioProcessor.cs" />
+    <Compile Include="Components\PluginMidiSource.cs" />
+    <Compile Include="Components\PluginFactory.cs" />
+    <Compile Include="Components\PluginInterfaceManager.cs" />
+    <Compile Include="Components\PluginInterfaceManagerFactory.cs" />
     <Compile Include="UI\MainViewHostFactory.cs" />
     <Compile Include="UI\MainViewHostControlWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PluginComponents\MidiProcessor.cs" />
+    <Compile Include="Components\MidiProcessor.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginEntryPoint.cs" />
-    <Compile Include="PluginComponents\PluginEditor.cs" />
-    <Compile Include="PluginComponents\PluginPersistence.cs" />
+    <Compile Include="Components\PluginEditor.cs" />
+    <Compile Include="Components\PluginPersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
