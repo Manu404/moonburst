@@ -10,20 +10,20 @@ namespace MoonBurst.Vst
 
     public class PluginFactory : IPluginFactory
     {
-        private readonly IAppFactory _appFactory;
+        private readonly IMoonburstWpfAppFactory _moonburstWpfAppFactory;
         private readonly IPluginInterfaceManagerFactory _pluginInterfaceFactory;
         private static IVstPlugin _instance;
 
-        public PluginFactory(IAppFactory appFactory,
+        public PluginFactory(IMoonburstWpfAppFactory moonburstWpfAppFactory,
             IPluginInterfaceManagerFactory pluginInterfaceFactory)
         {
-            this._appFactory = appFactory;
+            this._moonburstWpfAppFactory = moonburstWpfAppFactory;
             _pluginInterfaceFactory = pluginInterfaceFactory;
         }
 
         public IVstPlugin Build()
         {
-            if(_instance == null) _instance = new Plugin(_appFactory, _pluginInterfaceFactory);
+            if(_instance == null) _instance = new Plugin(_moonburstWpfAppFactory, _pluginInterfaceFactory);
             return _instance;
         }
     }

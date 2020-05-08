@@ -16,16 +16,42 @@ using MoonBurst.Api.Serializer;
 
 namespace MoonBurst
 {
-    public class Bootstrapper
+    public static class Bootstrapper
     {
-        public IWindsorContainer GetDefault()
+        public static IWindsorContainer CreateDefaultContainer()
         {
             var container = new WindsorContainer();
             var kernel = container.Kernel;
-            container.AddFacility<TypedFactoryFacility>();
-            kernel.Resolver.AddSubResolver(new CollectionResolver(kernel));
+            container.AddFacility<TypedFactoryFacility>(); // generate factory
+            kernel.Resolver.AddSubResolver(new CollectionResolver(kernel)); // recursive resolution
+            return container;
+        }
 
-            // Load "core"
+        public static IWindsorContainer LoadStatic(this IWindsorContainer container)
+        {
+            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
+            return container;
+        }
+
+        public static IWindsorContainer LoadPlugins(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly)
+        {
+            // Load plugins
+            AssemblyFilter filter = new AssemblyFilter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "MoonBurst.*");
+            var typesToDiscoverFromFilter = new List<Type>()
+            {
+                typeof(IDeviceDefinition),
+                typeof(IDeviceParser)
+            };
+
+            foreach (var type in typesToDiscoverFromFilter)
+                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
+
+            return container;
+        }
+
+        public static IWindsorContainer LoadDefaultFrom(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly)
+        {
+            // Load default types
             var typesToDiscoverFromLoadedAssembly = new List<Type>()
             {
                 typeof(ISerializer<,>),
@@ -41,22 +67,18 @@ namespace MoonBurst
                 typeof(IViewModel)
             };
 
-            container.Register(Component.For<IMessenger>().ImplementedBy<Messenger>());
             foreach (var type in typesToDiscoverFromLoadedAssembly)
-                container.Register(Classes.FromAssemblyInThisApplication().BasedOn(type).WithServiceAllInterfaces());
-
-            // Load plugins
-            AssemblyFilter filter = new AssemblyFilter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "MoonBurst.*");
-            var typesToDiscoverFromFilter = new List<Type>()
-            {
-                typeof(IDeviceDefinition),
-                typeof(IDeviceParser)
-            };
-
-            foreach (var type in typesToDiscoverFromFilter)
-                container.Register(Classes.FromAssemblyInDirectory(filter).BasedOn(type).WithServiceAllInterfaces());
+                container.Register(sourceAssembly.BasedOn(type).WithServiceAllInterfaces());
 
             return container;
+        }
+
+        public static IWindsorContainer GetDefaultContainer()
+        {
+            return CreateDefaultContainer()
+                .LoadDefaultFrom(Classes.FromAssemblyInThisApplication())
+                .LoadStatic()
+                .LoadPlugins(Classes.FromAssemblyInThisApplication());
         }
     }
 }

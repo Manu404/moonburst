@@ -13,7 +13,7 @@ namespace MoonBurst.Vst
         private readonly IApp _app;
         private readonly PluginInterfaceManager _interfaceManager;
 
-        public Plugin(IAppFactory appFactory,
+        public Plugin(IMoonburstWpfAppFactory moonburstWpfAppFactory,
             IPluginInterfaceManagerFactory interfaceManagerFactory)
             : base("MoonBurst", 
                 new VstProductInfo("MoonBurst " + Assembly.GetExecutingAssembly().GetName().Version, "Emmanuel Istace", 1001),
@@ -22,7 +22,7 @@ namespace MoonBurst.Vst
                 0, 
                 0x30313234)
         {
-            this._app = appFactory.Build();
+            this._app = moonburstWpfAppFactory.Build();
             this._app.Initialize();
             _interfaceManager = interfaceManagerFactory.Build(new Tuple<IApp, IVstHost>(_app, this.Host));
         }

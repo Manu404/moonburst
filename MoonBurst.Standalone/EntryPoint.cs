@@ -9,9 +9,9 @@ namespace MoonBurst
         [STAThread()]
         public static void Main()
         {
-            var boot = new Bootstrapper().GetDefault();
+            var boot = Bootstrapper.GetDefaultContainer();
             boot.Register(Component.For<IMainViewHostFactory>().ImplementedBy<WindowMainViewHostFactory>());
-            var app = boot.Resolve<IAppFactory>().Build();
+            var app = boot.Resolve<IMoonburstWpfAppFactory>().Build();
             app.Initialize();
             app.Run();
         }

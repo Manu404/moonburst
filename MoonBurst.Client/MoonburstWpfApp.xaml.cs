@@ -8,37 +8,34 @@ using MoonBurst.Api.Client;
 
 namespace MoonBurst
 {
-    public interface IAppFactory : IFactory<IApp>
+    public interface IMoonburstWpfAppFactory : IFactory<IApp>
     {
 
     }
-    public class AppFactory : IAppFactory
+    public class MoonburstWpfAppFactory : IMoonburstWpfAppFactory
     {
         private static IApp _instance;
         private readonly IMainViewHostFactory _mainViewHostFactory;
 
-        public AppFactory(IMainViewHostFactory mainViewHostFactory)
+        public MoonburstWpfAppFactory(IMainViewHostFactory mainViewHostFactory)
         {
             _mainViewHostFactory = mainViewHostFactory;
         }
         public IApp Build()
         {
-            if (Application.Current == null && _instance == null) _instance = new App(_mainViewHostFactory);
+            if (Application.Current == null && _instance == null) _instance = new MoonburstWpfApp(_mainViewHostFactory);
             return _instance;
         }
     }
 
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : IApp
+    public partial class MoonburstWpfApp : IApp
     {
         private bool isInitialized = false;
         public IMainViewHost Host { get; private set; }
 
         private readonly IMainViewHostFactory _mainViewHostFactory;
 
-        public App(IMainViewHostFactory mainViewHostFactory)
+        public MoonburstWpfApp(IMainViewHostFactory mainViewHostFactory)
         {
             this._mainViewHostFactory = mainViewHostFactory;
         }
@@ -61,6 +58,5 @@ namespace MoonBurst
         {
             base.Run(Host as Window);
         }
-
     }
 }
