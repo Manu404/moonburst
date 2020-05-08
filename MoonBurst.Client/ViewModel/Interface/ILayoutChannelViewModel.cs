@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using MoonBurst.Api.Client;
 
 namespace MoonBurst.ViewModel.Interface
@@ -17,5 +18,7 @@ namespace MoonBurst.ViewModel.Interface
 
         void RefreshInputs();
         void TryBindInput(string bindedInput);
+
+        event EventHandler DeleteRequested;
     }
 }

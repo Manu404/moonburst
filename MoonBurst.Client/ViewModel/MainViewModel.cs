@@ -95,8 +95,7 @@ namespace MoonBurst.ViewModel
         }
 
 
-        public MainViewModel(IMessenger messenger,  
-            IApplicationConfigurationViewModel applicationConfiguration,
+        public MainViewModel(IApplicationConfigurationViewModel applicationConfiguration,
             IHardwareConfigurationViewModel hardwareViewModel,
             ILayoutViewModel layoutViewModel)
         {
@@ -117,8 +116,6 @@ namespace MoonBurst.ViewModel
 
             //WriteLine("using TeVirtualMIDI dll-version:    " + TeVirtualMidi.VersionString);
             //WriteLine("using TeVirtualMIDI driver-version: " + TeVirtualMidi.DriverVersionString);
-
-            messenger.Register<DeleteChannelMessage>(this, (d) => this.Layout.DeleteChannel(d.Item));
         }
 
         private void OnHardwarePropertyChange(object sender, PropertyChangedEventArgs e)

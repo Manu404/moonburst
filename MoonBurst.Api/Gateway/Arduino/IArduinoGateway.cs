@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MoonBurst.Api.Hardware.Description;
 
 namespace MoonBurst.Api.Gateway.Arduino
@@ -7,5 +8,6 @@ namespace MoonBurst.Api.Gateway.Arduino
     {
         IArduinoPort[] Ports { get; }
         List<IDeviceDefinition> GetConnectedDevices();
+        event EventHandler ConnectedDevicesChanged;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MoonBurst.Api.Hardware.Description;
 
 namespace MoonBurst.Api.Gateway.Arduino
@@ -8,5 +9,6 @@ namespace MoonBurst.Api.Gateway.Arduino
         int Position { get; }
         IDeviceDefinition ConnectedDevice { get; set; }
         IList<IDeviceDefinition> AvailableDevices { get; }
+        event EventHandler ConnectedDeviceChanged;
     }
 }

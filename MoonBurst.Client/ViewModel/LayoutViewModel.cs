@@ -25,7 +25,7 @@ namespace MoonBurst.ViewModel
         public ICommand OnSaveLayoutCommand { get; set; }
         public ICommand OnSaveAsLayoutCommand { get; set; }
         public ICommand OnLoadLayoutCommand { get; set; }
-        public ICommand OnCollaspeAllCommand { get; set; }
+        public ICommand OnCollapseAllCommand { get; set; }
         public ICommand OnExpandAllCommand { get; set; }
 
         public LayoutViewModel(IApplicationConfigurationViewModel applicationConfiguration,
@@ -46,33 +46,45 @@ namespace MoonBurst.ViewModel
             OnSaveLayoutCommand = new RelayCommand(OnSaveLayout);
             OnLoadLayoutCommand = new RelayCommand(OnLoadLayout);
             OnSaveAsLayoutCommand = new RelayCommand(OnSaveAsLayout);
-            OnCollaspeAllCommand = new RelayCommand(() => ToggleChannelAll(false));
+            OnCollapseAllCommand = new RelayCommand(() => ToggleChannelAll(false));
             OnExpandAllCommand = new RelayCommand(() => ToggleChannelAll(true));
         }
 
         private void UpdateIndexes()
         {
-            for (int i = 0; i < FunctoidChannels.Count; FunctoidChannels[i].Index = (i++) + 1)
+            for (int i = 0; i < FunctoidChannels.Count; FunctoidChannels[i].Index = (i++) + 1) ;
+        }
+
+        private void RegisterEvents()
+        {
+            foreach (var channel in FunctoidChannels)
             {
+                channel.DeleteRequested += OnDeleteRequested;
+            }
+        }
+
+        private void OnDeleteRequested(object sender, EventArgs e)
+        {
+            if (sender is ILayoutChannelViewModel channel)
+            {
+                channel.DeleteRequested -= OnDeleteRequested;
+                FunctoidChannels.Remove(channel);
             }
         }
 
         private void ToggleChannelAll(bool newState)
         {
-            foreach (var functoidChannel in FunctoidChannels)
+            foreach (var channel in FunctoidChannels)
             {
-                functoidChannel.IsExpanded = newState;
+                channel.IsExpanded = newState;
             }
         }
 
         public void AddChannel()
         {
-            FunctoidChannels.Add(_channelFactory.Build());
-        }
-
-        public void DeleteChannel(ILayoutChannelViewModel channel)
-        {
-            FunctoidChannels.Remove(channel);
+            var newChannel = _channelFactory.Build();
+            newChannel.DeleteRequested += OnDeleteRequested;
+            FunctoidChannels.Add(newChannel);
         }
 
         public void Close()
@@ -114,6 +126,7 @@ namespace MoonBurst.ViewModel
         {
             _serializer.Load(path, this);
             _config.LastLayoutPath = path;
+            RegisterEvents();
         }
 
         public void SaveLast()

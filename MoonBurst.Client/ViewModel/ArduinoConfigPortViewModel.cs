@@ -16,7 +16,6 @@ namespace MoonBurst.ViewModel
     public class ArduinoConfigPortViewModel : ViewModelBase, IArduinoConfigPortViewModel
     {
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
-        private readonly IMessenger _messenger;
         private bool _isConnected;
         private bool _isEnabled;
 
@@ -66,10 +65,9 @@ namespace MoonBurst.ViewModel
         public ICommand ConnectCommand { get; }
         public ICommand DisableCommand { get; }
 
-        public ArduinoConfigPortViewModel(IArduinoPort port, IMessenger messenger, IFactory<IDeviceInputViewModel> deviceInputViewModelFactory)
+        public ArduinoConfigPortViewModel(IArduinoPort port, IFactory<IDeviceInputViewModel> deviceInputViewModelFactory)
         {
             IsConnected = false;
-            _messenger = messenger;
             _deviceInputViewModelFactory = deviceInputViewModelFactory;
 
             ConnectCommand = new RelayCommand<string>(Connect);
@@ -94,7 +92,6 @@ namespace MoonBurst.ViewModel
             this.IsConnected = true;
             ConnectedDevice = this.AvailableDevices.FirstOrDefault(s => s.Name == obj);
             RefreshInputs();
-            _messenger.Send(new PortConfigChangedMessage());
         }
 
         public void RefreshInputs()

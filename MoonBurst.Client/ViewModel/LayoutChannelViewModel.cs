@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -18,7 +19,6 @@ namespace MoonBurst.ViewModel
     public class LayoutChannelViewModel : ViewModelBase, ILayoutChannelViewModel
     {
         private readonly IArduinoGateway _arduinoGateway;
-        private readonly IMessenger _messenger;
         private readonly IChannelActionViewModelFactory _actionFactory;
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
         private readonly ISerialGateway _serialGateway;
@@ -118,13 +118,11 @@ namespace MoonBurst.ViewModel
         public ICommand OnCollapseActionsCommand { get; set; }
         public ICommand OnToggleLockChannelCommand { get; set; }
 
-        public LayoutChannelViewModel(IMessenger messenger, 
-            IArduinoGateway arduinoGateway, 
+        public LayoutChannelViewModel(IArduinoGateway arduinoGateway, 
             IChannelActionViewModelFactory actionFactory,
             IFactory<IDeviceInputViewModel> deviceInputViewModelFactory,
             ISerialGateway serialGateway)
         {
-            _messenger = messenger;
             _actionFactory = actionFactory;
             _arduinoGateway = arduinoGateway;
             _deviceInputViewModelFactory = deviceInputViewModelFactory;
@@ -135,18 +133,38 @@ namespace MoonBurst.ViewModel
             OnTriggerCommand = new RelayCommand(OnTrigger);
             OnToggleCommand = new RelayCommand(()  => this.IsEnabled = !this.IsEnabled);
             OnToggleLockChannelCommand = new RelayCommand(OnToggleLock);
-
             OnExpandActionsCommand = new RelayCommand(() => OnExpandCollapse(true));
             OnCollapseActionsCommand = new RelayCommand(() => OnExpandCollapse(false));
 
             Actions = new ObservableCollection<IChannelActionViewModel>();
-
-            _messenger.Register<DeleteChannelActionMessage>(this, OnDeleteAction);
-            _messenger.Register<PortConfigChangedMessage>(this, OnPortConfigChanged);
-
             AvailableInputs = new ObservableCollection<IDeviceInputViewModel>();
 
+            RegisterEvents();
+        }
+
+        private void RegisterEvents()
+        {
             _serialGateway.OnTrigger += OnControllerStateChanged;
+            _arduinoGateway.ConnectedDevicesChanged += ArduinoGatewayOnConnectedDevicesesChanged;
+
+            foreach (var action in Actions)
+            {
+                action.DeleteRequested += OnDeleteRequested;
+            }
+        }
+
+        private void OnDeleteRequested(object sender, EventArgs e)
+        {
+            if (sender is IChannelActionViewModel action)
+            {
+                action.DeleteRequested -= OnDeleteRequested;
+                Actions.Remove(action);
+            }
+        }
+
+        private void ArduinoGatewayOnConnectedDevicesesChanged(object sender, EventArgs e)
+        {
+            RefreshInputs();
         }
 
         private void OnToggleLock()
@@ -163,7 +181,7 @@ namespace MoonBurst.ViewModel
             foreach (var state in obj.States)
                 if (state.Index == this.SelectedInput.Input.Position)
                 {
-                    this.Actions.Where(a => (int)a.Trigger == (int)((FootswitchState)state).States ).ToList().ForEach(a => a.OnTriggerAction());
+                    this.Actions.Where(a => (int)a.Trigger == (int)((FootswitchState)state).States ).ToList().ForEach(a => a.TriggerAction());
                     return;
                 }
         }
@@ -173,12 +191,7 @@ namespace MoonBurst.ViewModel
             foreach (var action in this.Actions)
                 action.IsExpanded = isExpanded;
         }
-
-        private void OnPortConfigChanged(PortConfigChangedMessage obj)
-        {
-            RefreshInputs();
-        }
-
+        
         public void RefreshInputs()
         {
             AvailableInputs.Clear();
@@ -204,15 +217,12 @@ namespace MoonBurst.ViewModel
         {
             this.IsTriggered = true;
         }
-
-        private void OnDeleteAction(DeleteChannelActionMessage obj)
-        {
-            Actions.Remove(obj.Item);
-        }
-
+        
         private void OnAddAction()
         {
-            Actions.Add(_actionFactory.Build());
+            var action = _actionFactory.Build();
+            action.DeleteRequested += OnDeleteRequested;
+            Actions.Add(action);
         }
 
         private async void OnDelete()
@@ -220,7 +230,7 @@ namespace MoonBurst.ViewModel
             var result = await ConfirmationHelper.RequestConfirmationBeforeDeletation();
             if (result is bool boolResult && boolResult)
             {
-                _messenger.Send(new DeleteChannelMessage(this));
+                DeleteRequested?.Invoke(this, new EventArgs());
             }
         }
 
@@ -228,5 +238,7 @@ namespace MoonBurst.ViewModel
         {
             this.SelectedInput = AvailableInputs.FirstOrDefault(d => d.FormatedName == bindedInput);
         }
+
+        public event EventHandler DeleteRequested;
     }
 }

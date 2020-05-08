@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MoonBurst.Api.Gateway;
@@ -15,7 +16,9 @@ namespace MoonBurst.Core.Gateway
         public List<IDeviceDefinition> GetConnectedDevices()
         {
             return Ports.Select(p => p.ConnectedDevice).ToList();
-        } 
+        }
+
+        public event EventHandler ConnectedDevicesChanged;
 
         public ArduinoGateway(IDeviceDefinition[] deviceDefinitions)
         {
@@ -30,7 +33,14 @@ namespace MoonBurst.Core.Gateway
             for (int i = 0; i < Ports.Length; i++)
             {
                 Ports[i] = new ArduinoPort(i, DeviceDefinitions);
+                Ports[i].ConnectedDeviceChanged += OnConnectedDeviceChanged;
             }
+        }
+
+        private void OnConnectedDeviceChanged(object sender, EventArgs e)
+        {
+            // forward event from ports
+            ConnectedDevicesChanged?.Invoke(this, e);
         }
     }
 }

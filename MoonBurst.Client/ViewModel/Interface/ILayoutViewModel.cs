@@ -10,6 +10,5 @@ namespace MoonBurst.ViewModel.Interface
         
         void Close();
         void LoadLast();
-        void DeleteChannel(ILayoutChannelViewModel channel);
     }
 }

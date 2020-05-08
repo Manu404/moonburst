@@ -16,7 +16,6 @@ namespace MoonBurst.ViewModel
 {
     public class ChannelActionViewModel : ViewModelBase, IChannelActionViewModel
     {
-        private readonly IMessenger _messenger;
         private readonly INoteHelper _noteHelper;
         private readonly IDynamicsHelper _dynamicsHelper;
         private readonly IMidiGateway _midiGateway;
@@ -204,14 +203,15 @@ namespace MoonBurst.ViewModel
         public ICommand OnTriggerActionCommand { get; set; }
         public ICommand OnLockActionCommand { get; set; }
 
-        public ChannelActionViewModel(IMessenger messenger, INoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
+        public event EventHandler DeleteRequested;
+
+        public ChannelActionViewModel(INoteHelper noteHelper, IDynamicsHelper dynamicsHelper, IMidiGateway midiGateway)
         {
             OnDeleteActionCommand = new RelayCommand(OnDelete);
-            OnTriggerActionCommand = new RelayCommand(OnTriggerAction);
+            OnTriggerActionCommand = new RelayCommand(TriggerAction);
             OnToggleActionCommand = new RelayCommand(OnToggle);
             OnLockActionCommand = new RelayCommand(OnLock);
 
-            _messenger = messenger;
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
             _midiGateway = midiGateway;
@@ -227,7 +227,7 @@ namespace MoonBurst.ViewModel
             this.IsEnabled = !this.IsEnabled;
         }
 
-        public void OnTriggerAction()
+        public void TriggerAction()
         {
             if (Application.Current.Dispatcher != null)
                 Application.Current.Dispatcher.BeginInvoke(new Action(() => { this.IsTriggered = true; }));
@@ -242,12 +242,13 @@ namespace MoonBurst.ViewModel
             });
         }
 
+
         private async void OnDelete()
         {
             var result = await ConfirmationHelper.RequestConfirmationBeforeDeletation();
             if (result is bool boolResult && boolResult)
             {
-                _messenger.Send(new DeleteChannelActionMessage(this));
+                DeleteRequested?.Invoke(this, new EventArgs());
             }
         }
     }

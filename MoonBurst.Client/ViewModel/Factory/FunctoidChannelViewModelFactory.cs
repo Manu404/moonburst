@@ -17,20 +17,17 @@ namespace MoonBurst.ViewModel.Factory
     {
         private readonly IArduinoGateway _arduinoGateway;
         private readonly ISerialGateway _serialGateway;
-        private readonly IMessenger _messenger;
         private readonly IChannelActionViewModelFactory _factory;
         private readonly IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel> _channelExtractor;
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
 
         public FunctoidChannelViewModelFactory(IArduinoGateway arduinoGateway, 
             ISerialGateway serialGateway,
-            IMessenger messenger, 
             IChannelActionViewModelFactory factory,
             IDataExtractor<ILayoutChannelViewModel, LayoutChannelModel> extractor,
             IFactory<IDeviceInputViewModel> deviceInputViewModelFactory)
         {
             _arduinoGateway = arduinoGateway;
-            _messenger = messenger;
             _channelExtractor = extractor;
             _factory = factory;
             _deviceInputViewModelFactory = deviceInputViewModelFactory;
@@ -46,7 +43,7 @@ namespace MoonBurst.ViewModel.Factory
 
         public ILayoutChannelViewModel Build()
         {
-            return new LayoutChannelViewModel(_messenger, _arduinoGateway, _factory, _deviceInputViewModelFactory, _serialGateway);
+            return new LayoutChannelViewModel(_arduinoGateway, _factory, _deviceInputViewModelFactory, _serialGateway);
         }
     }
 }

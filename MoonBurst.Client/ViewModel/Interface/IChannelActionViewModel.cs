@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using MoonBurst.Api.Client;
 using MoonBurst.Api.Enums;
@@ -28,6 +29,8 @@ namespace MoonBurst.ViewModel.Interface
         ICommand OnTriggerActionCommand { get; set; }
         FootTrigger Trigger { get; set; }
 
-        void OnTriggerAction();
+        void TriggerAction();
+
+        event EventHandler DeleteRequested;
     }
 }

@@ -15,20 +15,17 @@ namespace MoonBurst.ViewModel.Factory
 
     public class ChannelActionViewModelFactory : IChannelActionViewModelFactory
     {
-        private readonly IMessenger _messenger;
         private readonly INoteHelper _noteHelper;
         private readonly IDynamicsHelper _dynamicsHelper;
         private readonly IMidiGateway _midiGateway;
         private readonly IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
 
         public ChannelActionViewModelFactory(
-            IMessenger messenger,
             INoteHelper noteHelper,
             IDynamicsHelper dynamicsHelper,
             IDataExtractor<IChannelActionViewModel, ChannelActionModel> actionExtractor,
             IMidiGateway midiGateway)
         {
-            _messenger = messenger;
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
             _actionExtractor = actionExtractor;
@@ -44,7 +41,7 @@ namespace MoonBurst.ViewModel.Factory
 
         public IChannelActionViewModel Build()
         {
-            return new ChannelActionViewModel(_messenger, _noteHelper, _dynamicsHelper, _midiGateway);
+            return new ChannelActionViewModel(_noteHelper, _dynamicsHelper, _midiGateway);
         }
     }
 }
