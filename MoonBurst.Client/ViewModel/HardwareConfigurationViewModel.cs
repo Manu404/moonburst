@@ -240,7 +240,7 @@ namespace MoonBurst.ViewModel
 
         private void OnLoad()
         {
-            Load(_dialogProvider.ShowSaveDialog("Load config", FileAssociationsHelper.ConfigFilter));
+            Load(_dialogProvider.ShowLoadDialog("Load config", FileAssociationsHelper.ConfigFilter));
         }
 
         public void Save(string path)

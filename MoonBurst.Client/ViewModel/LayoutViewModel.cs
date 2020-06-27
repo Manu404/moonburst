@@ -99,7 +99,7 @@ namespace MoonBurst.ViewModel
 
         private void OnLoadLayout()
         {
-            Load(_dialogProvider.ShowSaveDialog("Load layout", FileAssociationsHelper.LayoutFilter));
+            Load(_dialogProvider.ShowLoadDialog("Load layout", FileAssociationsHelper.LayoutFilter));
         }
 
         private void OnSaveLayout()
