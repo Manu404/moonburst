@@ -15,7 +15,7 @@ namespace MoonBurst.ViewModel
         private readonly IApplicationConfigurationViewModel _config;
         private readonly ISerializer<ILayoutViewModel> _serializer;
         private readonly IFunctoidChannelViewModelFactory _channelFactory;
-        private readonly ILoadSaveDialogProvider _dialogProvider;
+        private readonly IFileDialogProvider _dialogProvider;
 
         public ObservableCollection<ILayoutChannelViewModel> FunctoidChannels { get; set; }
 
@@ -36,7 +36,7 @@ namespace MoonBurst.ViewModel
             _serializer = serializer;
             _channelFactory = channelFactory;
 
-            _dialogProvider = new LoadSaveDialogProvider();
+            _dialogProvider = new FileDialogProvider();
 
             FunctoidChannels = new ObservableCollection<ILayoutChannelViewModel>();
             FunctoidChannels.CollectionChanged += (o,e) => UpdateIndexes();

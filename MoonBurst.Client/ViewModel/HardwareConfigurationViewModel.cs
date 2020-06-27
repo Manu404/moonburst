@@ -20,7 +20,7 @@ using MoonBurst.ViewModel.Interface;
 
 namespace MoonBurst.ViewModel
 { 
-    public class LoadSaveDialogProvider : ILoadSaveDialogProvider
+    public class FileDialogProvider : IFileDialogProvider
     {
         public string ShowSaveDialog(string title, string filter)
         {
@@ -32,6 +32,7 @@ namespace MoonBurst.ViewModel
         public string ShowLoadDialog(string title, string filter)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog {Filter = filter, Title = title};
+            openFileDialog1.ShowDialog();
             return openFileDialog1.FileName;
         }
     }
@@ -45,7 +46,7 @@ namespace MoonBurst.ViewModel
         private readonly IApplicationConfigurationViewModel _config;
         private readonly ISerializer<IHardwareConfigurationViewModel> _serializer;
         private readonly IFactory<IArduinoConfigPortViewModel, IArduinoPort> _arduinoPortFactory;
-        private readonly ILoadSaveDialogProvider _dialogProvider;
+        private readonly IFileDialogProvider _dialogProvider;
 
         public bool IsComConnected { get; set; }
         public ComPort SelectedComPort
@@ -114,7 +115,7 @@ namespace MoonBurst.ViewModel
             _serializer = serializer;
             _arduinoPortFactory = arduinoPortFactory;
 
-            _dialogProvider = new LoadSaveDialogProvider();
+            _dialogProvider = new FileDialogProvider();
 
             ArduinoPorts = new ObservableCollection<IArduinoConfigPortViewModel>();
             OutputMidiDevices = new ObservableCollection<MidiDevice>();

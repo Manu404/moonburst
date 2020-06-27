@@ -1,6 +1,6 @@
 ﻿namespace MoonBurst.ViewModel.Interface
 {
-    public interface ILoadSaveDialogProvider
+    public interface IFileDialogProvider
     {
         string ShowLoadDialog(string title, string filter);
         string ShowSaveDialog(string title, string filter);
