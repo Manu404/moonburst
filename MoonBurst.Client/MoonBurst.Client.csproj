@@ -17,7 +17,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>2020.2.0.2264</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.2275</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -160,6 +160,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Helper\Piano\PianoControlWPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Helper\Piano\PianoKeyWPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MoonburstWpfApp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -169,6 +177,12 @@
     <Compile Include="Helper\EnumToStringConverter.cs" />
     <Compile Include="Helper\InverseBooleanConverter.cs" />
     <Compile Include="Helper\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helper\Piano\PianoControlWPF.xaml.cs">
+      <DependentUpon>PianoControlWPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\Piano\PianoKeyWPF.xaml.cs">
+      <DependentUpon>PianoKeyWPF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\ToggleButtonAssist.cs" />
     <Compile Include="Host\UserControlMainViewHost.xaml.cs">
       <DependentUpon>UserControlMainViewHost.xaml</DependentUpon>

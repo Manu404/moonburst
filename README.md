@@ -108,4 +108,4 @@ After posting the previous message and asking for review on several facebook mus
 - [LoopersDelight](https://www.facebook.com/groups/LoopersDelight/) group members for their interest that led me to release this.
 - [Tobias Erichsen](https://www.tobias-erichsen.de/) author of loopmidi
 - [Marc Jacobi](https://github.com/obiwanjacobi/vst.net) author of VST.net, allowing the project to be hosted as a VST
-- [Romain Caudron](https://www.facebook.com/RCAguitar/) for the borrowed footswitches
+- [Leslie Sanford](https://www.codeproject.com/Articles/6165/A-Piano-Key-Control-in-C) author of the wpf piano control

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MoonBurst.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:piano="clr-namespace:MoonBurst.Helper.Piano"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <materialDesign:DialogHost>
@@ -31,12 +32,12 @@
                 <Setter Property="Control.Foreground" Value="{DynamicResource MaterialDesignBody}" />
             </Style>
         </materialDesign:DialogHost.Resources>
-        <materialDesign:DrawerHost >
-            <materialDesign:DrawerHost.BottomDrawerContent>
+        <materialDesign:DrawerHost>
+            <materialDesign:DrawerHost.RightDrawerContent>
                 <Border BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" BorderThickness="0,2,0,0" Padding="5">
                     <ItemsControl ItemsSource="{Binding HardwareConfig.ArduinoPorts}" Style="{StaticResource PortConfigurationDrawerListTemplate}" />
                 </Border>
-            </materialDesign:DrawerHost.BottomDrawerContent>
+            </materialDesign:DrawerHost.RightDrawerContent>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -54,8 +55,19 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ListView Style="{StaticResource ChannelListView}" Grid.Column="1" DataContext="{Binding Layout}"  ItemsSource="{Binding FunctoidChannels}" Margin="5,5,0,5"/>
+                    <Grid Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
+                        <ListView Style="{StaticResource ChannelListView}" DataContext="{Binding Layout}"  ItemsSource="{Binding FunctoidChannels}" Margin="5,5,0,5"/>
+
+                        <Border Grid.Row="1" BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" BorderThickness="0,2,0,0" Padding="5">
+                            <piano:PianoControlWPF  ></piano:PianoControlWPF>
+                        </Border>
+                    </Grid>
+                    
                     <Expander Style="{StaticResource ArduinoPortExpander}" Grid.Column="2" Content="{Binding}"  />
                 </Grid>
                 <StatusBar Grid.Row="2">
