@@ -12,8 +12,7 @@ namespace MoonBurst.Vst
         private IVstPluginMidiSource _instance;
         public IVstPluginMidiSource Build(IVstHost host)
         {
-            if(_instance == null) _instance = new VstPluginMidiSource(host);
-            return _instance;
+            return _instance ?? (_instance = new VstPluginMidiSource(host));
         }
     }
 

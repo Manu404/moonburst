@@ -33,7 +33,7 @@ namespace MoonBurst.Core.Gateway
             }
         }
 
-        public int CurrentSpeed { get; set; }
+        public ComPortSpeed CurrentSpeed { get; set; }
         public ComPort CurrentPort { get; set; }
 
         public SerialGateway()
@@ -67,7 +67,7 @@ namespace MoonBurst.Core.Gateway
             {
                 try
                 {
-                    _serialPort = new SerialPort(CurrentPort.Id, CurrentSpeed, Parity.None, 8, StopBits.One);
+                    _serialPort = new SerialPort(CurrentPort.Id, CurrentSpeed.BaudRate, Parity.None, 8, StopBits.One);
                     _serialPort.DataReceived += SerialPortOnDataReceived;
                     _serialPort.Open();
                     InitializeParsers(ports);
@@ -161,9 +161,9 @@ namespace MoonBurst.Core.Gateway
             return result;
         }
 
-        public IEnumerable<int> GetRates()
+        public IEnumerable<ComPortSpeed> GetSupportedSpeeds()
         {
-            return new List<int>
+            var ints = new List<int>
             {
                 300,
                 600,
@@ -179,6 +179,11 @@ namespace MoonBurst.Core.Gateway
                 460800,
                 921600
             };
+
+            var speeds = new List<ComPortSpeed>();
+            foreach(var i in ints)
+                speeds.Add(new ComPortSpeed(i));
+            return speeds;
         }
 
         public string GetStatusString()

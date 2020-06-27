@@ -38,6 +38,7 @@ namespace MoonBurst.ViewModel
 
     public class HardwareConfigurationViewModel : ViewModelBase, IHardwareConfigurationViewModel
     {
+        private int lastSpeed { get; set; }
         private readonly IMidiGateway _midiGateway;
         private readonly ISerialGateway _serialGateway;
         private readonly IArduinoGateway _arduinoConfig;
@@ -45,7 +46,8 @@ namespace MoonBurst.ViewModel
         private readonly ISerializer<IHardwareConfigurationViewModel> _serializer;
         private readonly IFactory<IArduinoConfigPortViewModel, IArduinoPort> _arduinoPortFactory;
         private readonly ILoadSaveDialogProvider _dialogProvider;
-        
+
+        public bool IsComConnected { get; set; }
         public ComPort SelectedComPort
         {
             get => _serialGateway.CurrentPort;
@@ -57,14 +59,31 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public int SelectedSpeed { get; set; }
-        public MidiDevice SelectedOutputMidiDevice { get; set; }
+        public ComPortSpeed SelectedSpeed
+        {
+            get => _serialGateway.CurrentSpeed;
+            set
+            {
+                _serialGateway.CurrentSpeed = value;
+                if (value?.BaudRate != 0) lastSpeed = value.BaudRate;
+                RaisePropertyChanged();
+            }
+        }
+
         public bool IsMidiConnected { get; set; }
-        public bool IsComConnected { get; set; }
+        public MidiDevice SelectedOutputMidiDevice
+        {
+            get => _midiGateway.SelectedOutput;
+            set
+            {
+                _midiGateway.SelectedOutput = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public ObservableCollection<MidiDevice> OutputMidiDevices { get; set; }
         public ObservableCollection<ComPort> InputComPorts { get; set; }
-        public ObservableCollection<int> SupportedBaudRates { get; set; }
+        public ObservableCollection<ComPortSpeed> SupportedBaudRates { get; set; }
         public ObservableCollection<IArduinoConfigPortViewModel> ArduinoPorts { get; }
 
         public string CurrentPath { get; set; }
@@ -100,7 +119,7 @@ namespace MoonBurst.ViewModel
             ArduinoPorts = new ObservableCollection<IArduinoConfigPortViewModel>();
             OutputMidiDevices = new ObservableCollection<MidiDevice>();
             InputComPorts = new ObservableCollection<ComPort>();
-            SupportedBaudRates = new ObservableCollection<int>();
+            SupportedBaudRates = new ObservableCollection<ComPortSpeed>();
 
             OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(_arduinoConfig.Ports), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
             OnDisconnectComCommand = new RelayCommand(() => _serialGateway.Close(), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id) && IsComConnected);
@@ -147,16 +166,15 @@ namespace MoonBurst.ViewModel
         void RefreshAvailabledSpeeds()
         {
             SupportedBaudRates.Clear();
+
             if (SelectedComPort != null)
             {
-                var selectedSpeed = SelectedSpeed;
-
-                _serialGateway.GetRates().Where(r => r <= SelectedComPort.MaxBaudRate).ToList()
+                _serialGateway.GetSupportedSpeeds().Where(r => r.BaudRate <= SelectedComPort.MaxBaudRate).ToList()
                     .ForEach(SupportedBaudRates.Add);
-
-                if(SupportedBaudRates.Contains(selectedSpeed))
-                    SelectedSpeed = selectedSpeed;
             }
+
+            if (SupportedBaudRates.Any(s => s.BaudRate == lastSpeed))
+                SelectedSpeed = SupportedBaudRates.First(s => s.BaudRate == lastSpeed);
         }
 
         void OnRefreshCOMDevices()
@@ -164,17 +182,22 @@ namespace MoonBurst.ViewModel
             if (Application.Current?.Dispatcher != null)
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    var selectedCom = SelectedComPort?.Name;
-                    InputComPorts.Clear();
-                    _serialGateway.GetPorts().ToList().ForEach(InputComPorts.Add);
-
-                    if (!String.IsNullOrEmpty(selectedCom) && InputComPorts.Any(o => o.Name == selectedCom))
-                        SelectedComPort = InputComPorts.FirstOrDefault(o => o.Name == selectedCom);
-                    else
-                        SelectedComPort = null;
-
-                    RaisePropertyChanged();
+                    UpdateCOMDevices(SelectedComPort?.Name);
                 });
+            else UpdateCOMDevices(SelectedComPort?.Name);
+        }
+
+        public void UpdateCOMDevices(string selectedCom)
+        {
+            InputComPorts.Clear();
+            _serialGateway.GetPorts().ToList().ForEach(InputComPorts.Add);
+
+            if (!String.IsNullOrEmpty(selectedCom) && InputComPorts.Any(o => o.Name == selectedCom))
+                SelectedComPort = InputComPorts.FirstOrDefault(o => o?.Name == selectedCom);
+            else
+                SelectedComPort = null;
+
+            RaisePropertyChanged();
         }
 
         void OnRefreshArduinoPorts()

@@ -7,13 +7,13 @@ namespace MoonBurst.Api.Gateway.Serial
     public interface ISerialGateway
     {
         bool IsConnected { get; }
-        int CurrentSpeed { get; set; }
+        ComPortSpeed CurrentSpeed { get; set; }
         ComPort CurrentPort { get; set; }
 
         void Connect(IArduinoPort[] ports);
         void Close();
         IEnumerable<ComPort> GetPorts();
-        IEnumerable<int> GetRates();
+        IEnumerable<ComPortSpeed> GetSupportedSpeeds();
         string GetStatusString();
 
         event EventHandler<SerialConnectionStateChangedEventArgs> ConnectionStateChanged;

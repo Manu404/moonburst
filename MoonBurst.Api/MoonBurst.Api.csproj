@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <AssemblyVersion>2020.2.0.161</AssemblyVersion>
+    <AssemblyVersion>2020.2.0.169</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Client\IMainView.cs" />
     <Compile Include="Client\IMainViewHost.cs" />
+    <Compile Include="Gateway\Serial\ComPortSpeed.cs" />
     <Compile Include="Helper\Dynamic.cs" />
     <Compile Include="Enums\ChannelCommand.cs" />
     <Compile Include="Enums\FootTrigger.cs" />

@@ -20,19 +20,26 @@ namespace MoonBurst.Vst
         }
     }
 
+    public interface IVstMidiProcessor
+    {
+
+    }
+
     public class VstMidiProcessor : IVstMidiProcessor
     {
-        private IVstPluginMidiSource _plugin;
+        private IVstPluginMidiSource _midiSource;
+        private IVstMidiProcessor _hostProcessor;
 
-        public VstMidiProcessor(IVstPluginMidiSource plugin)
+        public VstMidiProcessor(IVstPluginMidiSource midiSource, IVstMidiProcessor hostProcessor)
         {
-            _plugin = plugin;
+            _midiSource = midiSource;
+            _hostProcessor = hostProcessor;
             Events = new VstEventCollection();
             NoteOnEvents = new Queue<byte>();
         }
 
         /// <summary>
-        /// Gets the midi events that should be processed in the current cycle.
+        /// Midi events that should be processed in the current cycle.
         /// </summary>
         public VstEventCollection Events { get; }
 
@@ -41,7 +48,7 @@ namespace MoonBurst.Vst
         
         public int ChannelCount
         {
-            get { return _plugin.ChannelCount; }
+            get { return _midiSource.ChannelCount; }
         }
 
         public void Process(VstEventCollection events)

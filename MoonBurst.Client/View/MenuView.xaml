@@ -130,7 +130,7 @@
             <!-- COM Toolbar -->
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" DataContext="{Binding HardwareConfig}">
                 <ComboBox ItemsSource="{Binding InputComPorts}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedComPort, Mode=TwoWay}" materialDesign:HintAssist.Hint="COM Port" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
-                <ComboBox ItemsSource="{Binding SupportedBaudRates}" SelectedValue="{Binding SelectedSpeed, Mode=TwoWay}" materialDesign:HintAssist.Hint="Speed" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
+                <ComboBox ItemsSource="{Binding SupportedBaudRates}" SelectedItem="{Binding SelectedSpeed, Mode=TwoWay}" DisplayMemberPath="BaudRate" materialDesign:HintAssist.Hint="Speed" IsEnabled="{Binding IsComConnected, Converter={StaticResource InverseBooleanConverter}}" ></ComboBox>
                 <Button Command="{Binding OnRefreshComCommand}" ToolTip="Refresh">
                     <materialDesign:PackIcon Kind="Refresh" />
                 </Button>

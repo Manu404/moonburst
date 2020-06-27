@@ -7,7 +7,6 @@ namespace MoonBurst.ViewModel.Interface
     public interface ILayoutChannelViewModel : IViewModel
     {
         ObservableCollection<IChannelActionViewModel> Actions { get; set; }
-        int ArduinoBitMask { get; set; }
         int Index { get; set; }
         bool IsEnabled { get; set; }
         bool IsExpanded { get; set; }

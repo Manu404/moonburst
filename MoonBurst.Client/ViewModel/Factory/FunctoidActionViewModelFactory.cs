@@ -18,24 +18,24 @@ namespace MoonBurst.ViewModel.Factory
         private readonly INoteHelper _noteHelper;
         private readonly IDynamicsHelper _dynamicsHelper;
         private readonly IMidiGateway _midiGateway;
-        private readonly IDataExtractor<IChannelActionViewModel, ChannelActionModel> _actionExtractor;
+        private readonly IDataExtractor<IChannelActionViewModel, ChannelActionModel> _channelActionExtractor;
 
         public ChannelActionViewModelFactory(
             INoteHelper noteHelper,
             IDynamicsHelper dynamicsHelper,
-            IDataExtractor<IChannelActionViewModel, ChannelActionModel> actionExtractor,
+            IDataExtractor<IChannelActionViewModel, ChannelActionModel> channelActionExtractor,
             IMidiGateway midiGateway)
         {
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
-            _actionExtractor = actionExtractor;
+            _channelActionExtractor = channelActionExtractor;
             _midiGateway = midiGateway;
         }
 
         public IChannelActionViewModel Build(ChannelActionModel model)
         {
             var vm = Build();
-            _actionExtractor.ApplyData(model, vm);
+            _channelActionExtractor.ApplyData(model, vm);
             return vm;
         }
 

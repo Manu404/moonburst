@@ -31,6 +31,7 @@ namespace MoonBurst
     public partial class MoonburstWpfApp : IApp
     {
         private bool isInitialized = false;
+        private Application _app;
         public IMainViewHost Host { get; private set; }
 
         private readonly IMainViewHostFactory _mainViewHostFactory;
@@ -51,6 +52,7 @@ namespace MoonBurst
             ITheme theme = Theme.Create(new MaterialDesignDarkTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
             Host = _mainViewHostFactory.Build();
+            _app = null == Application.Current ? new System.Windows.Application() : Application.Current;
             isInitialized = true;
         }
 

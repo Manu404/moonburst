@@ -14,11 +14,12 @@ namespace MoonBurst.ViewModel.Interface
         ObservableCollection<IArduinoConfigPortViewModel> ArduinoPorts { get; }
         ComPort SelectedComPort { get; set; }
         MidiDevice SelectedOutputMidiDevice { get; set; }
-        int SelectedSpeed { get; set; }
+        ComPortSpeed SelectedSpeed { get; set; }
 
         void Close();
         void LoadLast();
         void UpdateArduinoPorts(List<ArduinoPortConfigModel> data);
+        void UpdateCOMDevices(string selectedCom);
         string GetStatusString();
 
         event EventHandler ConfigurationChanged;

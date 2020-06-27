@@ -21,11 +21,11 @@ namespace MoonBurst.ViewModel
         private readonly IChannelActionViewModelFactory _actionFactory;
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
         private readonly ISerialGateway _serialGateway;
+
+        private IDeviceInputViewModel _selectedInput;
+        private bool _isTriggered;
         private string _lastInput;
         
-        private bool _isTriggered;
-        private IDeviceInputViewModel _selectedInput;
-
         public IDeviceInputViewModel SelectedInput
         {
             get => _selectedInput;
@@ -38,6 +38,9 @@ namespace MoonBurst.ViewModel
             }
         }
 
+        public int Index { get; set; }
+        public string Name { get; set; }
+
         public bool IsTriggered
         {
             get => _isTriggered;
@@ -49,17 +52,14 @@ namespace MoonBurst.ViewModel
                 RaisePropertyChanged();
             }
         }
-
         public bool IsLocked { get; set; }
-        public int Index { get; set; }
-        public string Name { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsExpanded { get; set; }
 
+        public event EventHandler DeleteRequested;
+
         public ObservableCollection<IChannelActionViewModel> Actions { get; set; }
         public ObservableCollection<IDeviceInputViewModel> AvailableInputs { get; set; }
-
-        public int ArduinoBitMask { get; set; }
 
         public ICommand OnDeleteCommand { get; set; }
         public ICommand OnAddActionCommand { get; set; }
@@ -96,7 +96,7 @@ namespace MoonBurst.ViewModel
         private void RegisterEvents()
         {
             _serialGateway.OnTrigger += OnControllerStateChanged;
-            _arduinoGateway.ConnectedDevicesChanged += ArduinoGatewayOnConnectedDevicesesChanged;
+            _arduinoGateway.ConnectedDevicesChanged += OnConnectedDevicesChanged;
 
             foreach (var action in Actions)
             {
@@ -113,7 +113,7 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        private void ArduinoGatewayOnConnectedDevicesesChanged(object sender, EventArgs e)
+        private void OnConnectedDevicesChanged(object sender, EventArgs e)
         {
             RefreshInputs();
         }
@@ -190,6 +190,5 @@ namespace MoonBurst.ViewModel
             SelectedInput = AvailableInputs.FirstOrDefault(d => d.FormatedName == bindedInput);
         }
 
-        public event EventHandler DeleteRequested;
     }
 }

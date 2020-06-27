@@ -76,7 +76,7 @@ namespace MoonBurst.ViewModel
             {
                 _isParentChannelLocked = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("IsLockedOrParentChannelLocked");
+                RaisePropertyChanged(nameof(IsLockedOrParentChannelLocked));
             }
         }
 

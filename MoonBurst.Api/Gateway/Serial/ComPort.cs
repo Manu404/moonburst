@@ -19,12 +19,13 @@
         public override bool Equals(object obj)
         {
             if (!(obj is ComPort)) return false;
+            if (Id == null) return false; 
             return Id.Equals(((ComPort)obj).Id);
         }
 
         protected bool Equals(ComPort other)
         {
-            return Id == other.Id;
+            return (Id != null && other?.Id != null) && Id == other?.Id;
         }
 
         public override int GetHashCode()

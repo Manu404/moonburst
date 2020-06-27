@@ -15,18 +15,11 @@ namespace MoonBurst.ViewModel.Factory
     
     public class ArduinoConfigPortViewModelFactory : IArduinoConfigPortViewModelFactory
     {
-        private readonly ISerialGateway _gateway;
         private readonly IFactory<IDeviceInputViewModel> _deviceInputViewModelFactory;
-        private readonly IEnumerable<IDeviceDefinition> _deviceDeviceDefinitions;
 
-        public ArduinoConfigPortViewModelFactory(
-            ISerialGateway gateway, 
-            IFactory<IDeviceInputViewModel> deviceInputViewModelFactory,
-            IEnumerable<IDeviceDefinition> deviceDefinitions)
+        public ArduinoConfigPortViewModelFactory(IFactory<IDeviceInputViewModel> deviceInputViewModelFactory)
         {
-            _gateway = gateway;
             _deviceInputViewModelFactory = deviceInputViewModelFactory;
-            _deviceDeviceDefinitions = deviceDefinitions;
         }
 
         public IArduinoConfigPortViewModel Build(IArduinoPort data)

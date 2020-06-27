@@ -64,8 +64,7 @@ namespace MoonBurst.Vst
         protected override IVstPluginMidiSource CreateMidiSource(IVstPluginMidiSource instance)
         {
             if (this._host == null) return instance;
-            if (instance == null) instance = _midiSourceFactory.Build(_host);
-            return instance;
+            return instance ?? (instance = _midiSourceFactory.Build(_host));
         }
     }
 

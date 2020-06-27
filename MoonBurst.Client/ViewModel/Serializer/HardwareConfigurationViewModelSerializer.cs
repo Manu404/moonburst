@@ -20,10 +20,10 @@ namespace MoonBurst.ViewModel.Serializer
 
         public override void ApplyData(HardwareConfigurationModel config, IHardwareConfigurationViewModel target)
         {
-            target.SelectedComPort = config.ComPort;
             target.SelectedOutputMidiDevice = config.MidiOut;
             target.SelectedSpeed = config.Speed;
             target.UpdateArduinoPorts(config.ArduinoPorts);
+            target.UpdateCOMDevices(config.ComPort?.Name);
         }
 
         public HardwareConfigurationViewModelSerializer() : base("default_hardware.xml")
