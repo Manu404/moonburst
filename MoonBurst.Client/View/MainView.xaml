@@ -8,6 +8,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <materialDesign:DialogHost>
+        <materialDesign:DialogHost.Resources>
+            <Style TargetType="materialDesign:Card" BasedOn="{StaticResource {x:Type materialDesign:Card}}">
+                <Style.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </Style.Resources>
+                <Setter Property="Background" Value="{DynamicResource MaterialDesignCardBackground}" />
+            </Style>
+            <Style TargetType="{x:Type StackPanel}">
+                <Style.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </Style.Resources>
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                <Setter Property="Control.Foreground" Value="{DynamicResource MaterialDesignBody}" />
+            </Style>
+        </materialDesign:DialogHost.Resources>
         <materialDesign:DrawerHost >
             <materialDesign:DrawerHost.BottomDrawerContent>
                 <Border BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" BorderThickness="0,2,0,0" Padding="5">

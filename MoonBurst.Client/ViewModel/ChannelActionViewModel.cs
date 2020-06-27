@@ -110,7 +110,7 @@ namespace MoonBurst.ViewModel
         }
 
         public IList<FormatedNote> AvailableNotes => _noteHelper.AvailableNotes;
-        public List<Dynamic> AvailableDynamics => _dynamicsHelper.AvailableDynamics;
+        public IList<Dynamic> AvailableDynamics => _dynamicsHelper.AvailableDynamics;
 
         public ICommand OnDeleteActionCommand { get; set; }
         public ICommand OnToggleActionCommand { get; set; }
