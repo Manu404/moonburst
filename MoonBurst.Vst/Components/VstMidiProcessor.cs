@@ -22,13 +22,20 @@ namespace MoonBurst.Vst
 
     public interface IVstMidiProcessor
     {
+        int ChannelCount { get; set; }
 
+        void Process(VstEventCollection events);
     }
 
     public class VstMidiProcessor : IVstMidiProcessor
     {
         private IVstPluginMidiSource _midiSource;
         private IVstMidiProcessor _hostProcessor;
+
+        // for compile - pending
+        public VstMidiProcessor(IVstPluginMidiSource midiSource)
+        {
+        }
 
         public VstMidiProcessor(IVstPluginMidiSource midiSource, IVstMidiProcessor hostProcessor)
         {
@@ -50,6 +57,8 @@ namespace MoonBurst.Vst
         {
             get { return _midiSource.ChannelCount; }
         }
+
+        int IVstMidiProcessor.ChannelCount { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         public void Process(VstEventCollection events)
         {

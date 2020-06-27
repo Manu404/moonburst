@@ -49,11 +49,12 @@ namespace MoonBurst.Vst
             return instance;
         }
 
-        protected override IVstMidiProcessor CreateMidiProcessor(IVstMidiProcessor instance)
-        {
-            if (instance == null) instance = _midiProcessorFactory.Build(GetInstance<IVstPluginMidiSource>());
-            return instance;
-        }
+
+        //protected override IVstMidiProcessor CreateMidiProcessor(IVstMidiProcessor instance)
+        //{
+        //    if (instance == null) instance = _midiProcessorFactory.Build(GetInstance<IVstPluginMidiSource>());
+        //    return instance;
+        //}
 
         protected override IVstPluginPersistence CreatePersistence(IVstPluginPersistence instance)
         {
