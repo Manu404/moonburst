@@ -11,8 +11,13 @@
         <!-- Toolbar -->
         <ToolBarTray>
             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                <Menu Style="{DynamicResource MaterialDesignMenu}"> 
+                <Menu Style="{DynamicResource MaterialDesignMenu}">
                     <MenuItem Header="_File" Style="{DynamicResource MaterialDesignMenuItem}" Background="{StaticResource MaterialDesignToolBarBackground}">
+                        <MenuItem Header="_New Layout..." Command="{Binding Layout.OnNewLayoutCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="FolderOpenOutline" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                         <MenuItem Header="_Open Layout..." Command="{Binding Layout.OnLoadLayoutCommand}" Style="{DynamicResource MaterialDesignMenuItem}">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="FolderOpenOutline" />

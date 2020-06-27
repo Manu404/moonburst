@@ -22,18 +22,28 @@ namespace MoonBurst.ViewModel
 { 
     public class FileDialogProvider : IFileDialogProvider
     {
-        public string ShowSaveDialog(string title, string filter)
+        public void ShowSaveDialog(string title, string filter, Action<string> save)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog {Filter = filter, Title = title};
-            saveFileDialog1.ShowDialog();
-            return saveFileDialog1.FileName;
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                if (saveFileDialog1.FileName != string.Empty)
+                {
+                    save(saveFileDialog1.FileName);
+                }
+            }
         }
 
-        public string ShowLoadDialog(string title, string filter)
+        public void ShowLoadDialog(string title, string filter, Action<string> load)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog {Filter = filter, Title = title};
-            openFileDialog1.ShowDialog();
-            return openFileDialog1.FileName;
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                if (openFileDialog1.FileName != string.Empty)
+                {
+                    load(openFileDialog1.FileName);
+                }
+            }
         }
     }
 
@@ -236,12 +246,12 @@ namespace MoonBurst.ViewModel
 
         private void OnSaveAs()
         {
-            Save(_dialogProvider.ShowSaveDialog("Save config", FileAssociationsHelper.ConfigFilter));
+            _dialogProvider.ShowSaveDialog("Save config", FileAssociationsHelper.ConfigFilter, Save);
         }
 
         private void OnLoad()
         {
-            Load(_dialogProvider.ShowLoadDialog("Load config", FileAssociationsHelper.ConfigFilter));
+            _dialogProvider.ShowLoadDialog("Load config", FileAssociationsHelper.ConfigFilter, Load);
         }
 
         public void Save(string path)

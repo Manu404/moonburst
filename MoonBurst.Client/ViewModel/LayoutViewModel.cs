@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MoonBurst.Api.Serializer;
 using MoonBurst.Core.Helper;
+using MoonBurst.Helper;
 using MoonBurst.ViewModel.Factory;
 using MoonBurst.ViewModel.Interface;
 
@@ -22,6 +23,7 @@ namespace MoonBurst.ViewModel
         public string CurrentPath { get; set; }
 
         public ICommand OnAddChannelCommand { get; set; }
+        public ICommand OnNewLayoutCommand { get; set; }
         public ICommand OnSaveLayoutCommand { get; set; }
         public ICommand OnSaveAsLayoutCommand { get; set; }
         public ICommand OnLoadLayoutCommand { get; set; }
@@ -42,12 +44,23 @@ namespace MoonBurst.ViewModel
             FunctoidChannels.CollectionChanged += (o,e) => UpdateIndexes();
             CurrentPath = string.Empty;
 
+            OnNewLayoutCommand = new RelayCommand(CreateNewLayoutAsync);
             OnAddChannelCommand = new RelayCommand(AddChannel);
             OnSaveLayoutCommand = new RelayCommand(OnSaveLayout);
             OnLoadLayoutCommand = new RelayCommand(OnLoadLayout);
             OnSaveAsLayoutCommand = new RelayCommand(OnSaveAsLayout);
             OnCollapseAllCommand = new RelayCommand(() => ToggleChannelAll(false));
             OnExpandAllCommand = new RelayCommand(() => ToggleChannelAll(true));
+        }
+
+        private async void CreateNewLayoutAsync()
+        {
+            var result = await ConfirmationHelper.RequestConfirmationBeforeCreateNew();
+            if (result is bool boolResult && boolResult)
+            {
+                CurrentPath = string.Empty;
+                FunctoidChannels.Clear();
+            }
         }
 
         private void UpdateIndexes()
@@ -94,12 +107,12 @@ namespace MoonBurst.ViewModel
 
         private void OnSaveAsLayout()
         {
-            Save(_dialogProvider.ShowSaveDialog("Save layout", FileAssociationsHelper.LayoutFilter));
+            _dialogProvider.ShowSaveDialog("Save layout", FileAssociationsHelper.LayoutFilter, Save);
         }
 
         private void OnLoadLayout()
         {
-            Load(_dialogProvider.ShowLoadDialog("Load layout", FileAssociationsHelper.LayoutFilter));
+            _dialogProvider.ShowLoadDialog("Load layout", FileAssociationsHelper.LayoutFilter, Load);
         }
 
         private void OnSaveLayout()
