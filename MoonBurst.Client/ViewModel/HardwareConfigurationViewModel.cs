@@ -76,7 +76,7 @@ namespace MoonBurst.ViewModel
             set
             {
                 _serialGateway.CurrentSpeed = value;
-                if (value?.BaudRate != 0) lastSpeed = value.BaudRate;
+                if (value != null && value.BaudRate != 0) lastSpeed = value.BaudRate;
                 RaisePropertyChanged();
             }
         }
