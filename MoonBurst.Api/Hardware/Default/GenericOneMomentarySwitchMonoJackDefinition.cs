@@ -4,7 +4,8 @@ using MoonBurst.Api.Hardware.Parser;
 
 namespace MoonBurst.Api.Hardware.Default
 {
-    public class GenericOneMomentarySwitchMonoJackDefinitionParser : IDeviceParser
+
+    public class GenericOneMomentarySwitchMonoJack_Parser : IDeviceParser
     {
         public IDeviceInputState[] ParseState(int state, int index)
         {
@@ -17,7 +18,7 @@ namespace MoonBurst.Api.Hardware.Default
         }
     }
 
-    public class GenericOneMomentarySwitchMonoJackDefinition : IDeviceDefinition
+    public class GenericOneMomentarySwitchMonoJack_Definition : IDeviceDefinition
     {
         public IEnumerable<IDeviceInput> GetInputs()
         {
@@ -32,7 +33,7 @@ namespace MoonBurst.Api.Hardware.Default
 
         public IDeviceParser BuildParser()
         {
-            return new GenericOneMomentarySwitchMonoJackDefinitionParser();
+            return new GenericOneMomentarySwitchMonoJack_Parser();
         }
     }
 }

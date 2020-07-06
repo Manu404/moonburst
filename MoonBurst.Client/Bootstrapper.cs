@@ -69,8 +69,13 @@ namespace MoonBurst
 
         public static IWindsorContainer RegisterPlugins(this IWindsorContainer container, string mask = "MoonBurst.*")
         {
-            AssemblyFilter filter = new AssemblyFilter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), mask);
+            AssemblyFilter filter = new AssemblyFilter(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Parsers"), mask);
             return container.RegisterTypesFrom(Classes.FromAssemblyInDirectory(filter), GetPluginTypes());
+        }
+        
+        public static IWindsorContainer RegisterDefaultParsers(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly)
+        {
+            return container.RegisterTypesFrom(sourceAssembly, GetPluginTypes());
         }
 
         public static IWindsorContainer RegisterDefaultTypesFrom(this IWindsorContainer container, FromAssemblyDescriptor sourceAssembly)
@@ -82,6 +87,7 @@ namespace MoonBurst
         {
             return CreateDefaultContainer()
                 .RegisterDefaultTypesFrom(Classes.FromAssemblyInThisApplication())
+                .RegisterDefaultParsers(Classes.FromAssemblyInThisApplication())
                 .RegisterStatic()
                 .RegisterPlugins();
         }
