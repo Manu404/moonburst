@@ -1,6 +1,6 @@
 const int digitalPortCount = 6;
 const int analogPortCount = 2;
-const int serialSpeed = 9600;
+const int serialSpeed = 19200;
 
 void initPort(int padding, int id) {
 	pinMode(padding + (id * 2), INPUT_PULLUP);

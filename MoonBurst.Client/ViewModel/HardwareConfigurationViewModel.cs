@@ -266,9 +266,9 @@ namespace MoonBurst.ViewModel
             _config.LastHardwareConfigurationPath = path;
         }
 
-        public void LoadLast()
+        public void LoadLastOrOptions()
         {
-            Load(_config.LastHardwareConfigurationPath);
+            Load(_config.LastOrOptionHardwareConfigurationPath);
         }
 
         public void OnSaveLast()

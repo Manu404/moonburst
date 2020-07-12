@@ -6,7 +6,6 @@ using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
-using GalaSoft.MvvmLight.Messaging;
 using MoonBurst.Api.Client;
 using MoonBurst.Api.Gateway;
 using MoonBurst.Api.Hardware.Description;

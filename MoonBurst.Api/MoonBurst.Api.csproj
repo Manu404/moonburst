@@ -93,10 +93,12 @@
     <Compile Include="Client\IApp.cs" />
     <Compile Include="Client\IMainViewHostFactory.cs" />
     <Compile Include="Client\IViewModel.cs" />
+    <Compile Include="IStartupOptionParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer\IDataExtractor.cs" />
     <Compile Include="Serializer\IFileSerializableType.cs" />
     <Compile Include="Serializer\ISerializer.cs" />
+    <Compile Include="StartupOptions.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

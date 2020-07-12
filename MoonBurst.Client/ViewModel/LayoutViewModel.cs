@@ -147,9 +147,9 @@ namespace MoonBurst.ViewModel
             Save(_config.LastLayoutPath);
         }
 
-        public void LoadLast()
+        public void LoadLastOrOptions()
         {
-            Load(_config.LastLayoutPath);
+            Load(_config.LastOrOptionLayoutPath);
         }
     }
 }

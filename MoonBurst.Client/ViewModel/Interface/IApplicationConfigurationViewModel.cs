@@ -7,6 +7,8 @@ namespace MoonBurst.ViewModel.Interface
     {
         string LastHardwareConfigurationPath { get; set; }
         string LastLayoutPath { get; set; }
+        string LastOrOptionHardwareConfigurationPath { get; }
+        string LastOrOptionLayoutPath { get; }
 
         void LoadDefault();
         void SaveDefault();

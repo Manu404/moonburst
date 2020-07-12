@@ -9,6 +9,6 @@ namespace MoonBurst.ViewModel.Interface
         ObservableCollection<ILayoutChannelViewModel> FunctoidChannels { get; set; }
         
         void Close();
-        void LoadLast();
+        void LoadLastOrOptions();
     }
 }

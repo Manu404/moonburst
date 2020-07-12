@@ -17,7 +17,7 @@ namespace MoonBurst.ViewModel.Interface
         ComPortSpeed SelectedSpeed { get; set; }
 
         void Close();
-        void LoadLast();
+        void LoadLastOrOptions();
         void UpdateArduinoPorts(List<ArduinoPortConfigModel> data);
         void UpdateCOMDevices(string selectedCom);
         string GetStatusString();
