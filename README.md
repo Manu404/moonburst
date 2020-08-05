@@ -1,5 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/2ohdsl0j6kgifhov/branch/master?svg=true&passingText=master&pendingText=master)](https://ci.appveyor.com/project/Manu404/moonburst-master/branch/master)
-[![Build status](https://ci.appveyor.com/api/projects/status/o56n37ei0k8yhwua/branch/dev?svg=true&passingText=de&pendingText=dev)](https://ci.appveyor.com/project/Manu404/moonburst-dev/branch/dev)
+[![Build status](https://ci.appveyor.com/api/projects/status/2ohdsl0j6kgifhov/branch/master?svg=true&passingText=master&pendingText=master&failingText=master)](https://ci.appveyor.com/project/Manu404/moonburst-master/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/o56n37ei0k8yhwua/branch/dev?svg=true&passingText=dev&pendingText=dev&failingText=dev)](https://ci.appveyor.com/project/Manu404/moonburst-dev/branch/dev)
 
 
 # What is MoonBurst ?
