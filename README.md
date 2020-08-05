@@ -1,5 +1,7 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/2ohdsl0j6kgifhov/branch/master?svg=true&passingText=master&failingText=master&pendingText=master)](https://ci.appveyor.com/project/Manu404/moonburst/branch/master)
-[![Build status](https://ci.appveyor.com/api/projects/status/2ohdsl0j6kgifhov/branch/dev?svg=true&passingText=dev&failingText=dev&pendingText=dev)](https://ci.appveyor.com/project/Manu404/moonburst/branch/dev)
+[![Build status](https://ci.appveyor.com/api/projects/status/2ohdsl0j6kgifhov/branch/master?svg=true&passingText=master&pendingText=master&failingText=master)](https://ci.appveyor.com/project/Manu404/moonburst-master/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/o56n37ei0k8yhwua/branch/dev?svg=true&passingText=dev&pendingText=dev&failingText=dev)](https://ci.appveyor.com/project/Manu404/moonburst-dev/branch/dev)
+
+
 # What is MoonBurst ?
 
 Moonburst is an arduino based solution for musician that aim to provide a generic midi open source interface that accept as many "generic" controller as possible, keeping the cost factor really low, yet versatile and open. Some solutions already exists, but not as I envision mine, or at high costs and sometimes long learning curve.
