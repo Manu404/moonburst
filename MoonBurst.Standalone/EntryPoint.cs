@@ -12,8 +12,10 @@ namespace MoonBurst
         {
             var instanceHelper = new InstanceHelper();
             if (!instanceHelper.IsSingleInstance())
-               if(instanceHelper.SetExstingProcessForegroundWindow())
-                    Environment.Exit(0);            
+            {
+                instanceHelper.SetExstingProcessForegroundWindow();
+                Environment.Exit(0);
+            }
 
             var boot = Bootstrapper.GetDefaultContainer();
             boot.Register(Component.For<IMainViewHostFactory>().ImplementedBy<WindowMainViewHostFactory>());
