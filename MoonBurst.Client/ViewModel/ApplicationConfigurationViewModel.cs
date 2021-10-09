@@ -29,6 +29,14 @@ namespace MoonBurst.ViewModel
             }
         }
 
+        public bool Autoconnect
+        {
+            get
+            {
+                return _options.Get().Autoconnect;
+            }
+        }
+
         public ApplicationConfigurationViewModel(ISerializer<IApplicationConfigurationViewModel> serializer, IStartupOptionParser options)
         {
             _serializer = serializer;

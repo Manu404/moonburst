@@ -4,5 +4,6 @@
     {
         public string Layout { get; set; }
         public string Config { get; set; }
+        public bool Autoconnect { get; set; }
     }
 }

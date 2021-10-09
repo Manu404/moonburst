@@ -132,9 +132,9 @@ namespace MoonBurst.ViewModel
             InputComPorts = new ObservableCollection<ComPort>();
             SupportedBaudRates = new ObservableCollection<ComPortSpeed>();
 
-            OnConnectComCommand = new RelayCommand(() => _serialGateway.Connect(_arduinoConfig.Ports), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
+            OnConnectComCommand = new RelayCommand(() => ConnectCom(), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id));
             OnDisconnectComCommand = new RelayCommand(() => _serialGateway.Close(), () => !String.IsNullOrEmpty(this.SelectedComPort?.Id) && IsComConnected);
-            OnConnectMidiCommand = new RelayCommand(() => _midiGateway.Connect(), () => this.SelectedOutputMidiDevice?.Id >= 0);
+            OnConnectMidiCommand = new RelayCommand(() => ConnectMidi(), () => this.SelectedOutputMidiDevice?.Id >= 0);
             OnDisconnectMidiCommand = new RelayCommand(() => _midiGateway.Close(), () => this.SelectedOutputMidiDevice?.Id >= 0 && IsMidiConnected);
             OnRefreshComCommand = new RelayCommand(OnRefreshCOMDevices, () => !this.IsComConnected);
             OnRefreshMidiCommand = new RelayCommand(OnRefreshMidiDevices, () => !this.IsMidiConnected);
@@ -151,6 +151,17 @@ namespace MoonBurst.ViewModel
             midiGateway.ConnectionStateChanged += (sender, args) => this.IsMidiConnected = args.NewState == MidiConnectionState.Connected;
             serialGateway.ConnectionStateChanged += (sender, args) => OnSerialStateChanged(args);
             PropertyChanged += (sender, args) => this.ConfigurationChanged?.Invoke(this, args);
+
+        }
+
+        private void ConnectCom()
+        {
+            _serialGateway.Connect(_arduinoConfig.Ports);
+        }
+
+        private void ConnectMidi()
+        {
+            _midiGateway.Connect();
         }
 
         private void OnSerialStateChanged(SerialConnectionStateChangedEventArgs obj)
@@ -269,6 +280,12 @@ namespace MoonBurst.ViewModel
         public void LoadLastOrOptions()
         {
             Load(_config.LastOrOptionHardwareConfigurationPath);
+
+            if (_config.Autoconnect)
+            {
+                ConnectCom();
+                ConnectMidi();
+            }
         }
 
         public void OnSaveLast()

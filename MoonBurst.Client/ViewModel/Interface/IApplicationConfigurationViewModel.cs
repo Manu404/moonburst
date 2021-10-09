@@ -10,6 +10,8 @@ namespace MoonBurst.ViewModel.Interface
         string LastOrOptionHardwareConfigurationPath { get; }
         string LastOrOptionLayoutPath { get; }
 
+        bool Autoconnect { get; }
+
         void LoadDefault();
         void SaveDefault();
         void Close();

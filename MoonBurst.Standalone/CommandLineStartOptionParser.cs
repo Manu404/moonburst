@@ -6,14 +6,19 @@ namespace MoonBurst
     public class CommandLineStartOptionParser : IStartupOptionParser
     {
         private readonly string[] _args;
+        private StartupOptions options = new StartupOptions();
+        private bool isParsed = false;
 
         public class Options
         {
-            [Option('l', "layout", Required = false, HelpText = "Layout to load.")]
+            [Option('l', "layout", Required = false, HelpText = "Layout to load")]
             public string Layout { get; set; }
 
-            [Option('c', "config", Required = false, HelpText = "Config to use.")]
+            [Option('c', "config", Required = false, HelpText = "Configuration to use")]
             public string Config { get; set; }
+
+            [Option('a', "autoconnect", Required = false, HelpText = "Connect automatically to last com and midi devices used with the current config.")]
+            public bool Autoconnect { get; set; }
 
             [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
             public bool Verbose { get; set; }
@@ -24,9 +29,8 @@ namespace MoonBurst
             this._args = args;
         }
 
-        public StartupOptions Get()
+        private void Parse()
         {
-            var options = new StartupOptions();
             Parser.Default.ParseArguments<Options>(_args)
                 .WithParsed<Options>(o =>
                 {
@@ -38,7 +42,15 @@ namespace MoonBurst
                     {
                         options.Layout = o.Layout;
                     }
+                    options.Autoconnect = o.Autoconnect;
                 });
+            isParsed = true;
+        }
+
+        public StartupOptions Get()
+        {
+            if (!isParsed)
+                Parse();
             return options;
         }
     }

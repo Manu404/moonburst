@@ -21,6 +21,7 @@ namespace MoonBurst.ViewModel.Serializer
         public override void ApplyData(HardwareConfigurationModel config, IHardwareConfigurationViewModel target)
         {
             target.SelectedOutputMidiDevice = config.MidiOut;
+            target.SelectedComPort = config.ComPort;
             target.SelectedSpeed = config.Speed;
             target.UpdateArduinoPorts(config.ArduinoPorts);
             target.UpdateCOMDevices(config.ComPort?.Name);
