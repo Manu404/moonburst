@@ -24,6 +24,7 @@ namespace MoonBurst.ViewModel
         private bool _forceNumericMode;
         private bool _isLocked;
         private bool _isParentChannelLocked;
+        private IList<FormatedNote> availableNotes;
 
         public string EnableStatusString => IsEnabled ? "disabled" : "enabled";
         public string LockedStatusString => IsLocked ? "locked" : "unlocked";
@@ -65,7 +66,7 @@ namespace MoonBurst.ViewModel
             {
                 _isLocked = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("IsLockedOrParentChannelLocked");
+                RaisePropertyChanged(nameof(IsLockedOrParentChannelLocked));
             }
         }
 
@@ -109,13 +110,14 @@ namespace MoonBurst.ViewModel
             }
         }
 
-        public IList<FormatedNote> AvailableNotes => _noteHelper.AvailableNotes;
+        public IList<FormatedNote> AvailableNotes { get => _noteHelper.AvailableNotes; set => RaisePropertyChanged(); }
         public IList<Dynamic> AvailableDynamics => _dynamicsHelper.AvailableDynamics;
 
         public ICommand OnDeleteActionCommand { get; set; }
         public ICommand OnToggleActionCommand { get; set; }
         public ICommand OnTriggerActionCommand { get; set; }
         public ICommand OnLockActionCommand { get; set; }
+        public ICommand OnNextNoteFormatterCommand { get; set; }
 
         public event EventHandler DeleteRequested;
 
@@ -125,6 +127,7 @@ namespace MoonBurst.ViewModel
             OnTriggerActionCommand = new RelayCommand(TriggerAction);
             OnToggleActionCommand = new RelayCommand(OnToggle);
             OnLockActionCommand = new RelayCommand(OnLock);
+            OnNextNoteFormatterCommand = new RelayCommand(OnNextNoteFormatter);
 
             _noteHelper = noteHelper;
             _dynamicsHelper = dynamicsHelper;
@@ -136,6 +139,14 @@ namespace MoonBurst.ViewModel
                     args.PropertyName.Contains("ChannelHeaderActionToggleTooltip")) return; // avoid self trigger
                 RefreshTitle();
             };
+        }
+
+        private void OnNextNoteFormatter()
+        {
+            foreach (var note in this._noteHelper.AvailableNotes)
+                note.NextFormatter();
+
+            AvailableNotes = null;
         }
 
         private void OnLock()
