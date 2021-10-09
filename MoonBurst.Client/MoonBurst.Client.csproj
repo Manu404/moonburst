@@ -164,6 +164,7 @@
     <Compile Include="ViewModel\Factory\FunctoidActionViewModelFactory.cs" />
     <Compile Include="ViewModel\Factory\FunctoidChannelViewModelFactory.cs" />
     <Compile Include="ViewModel\ArduinoConfigPortViewModel.cs" />
+    <Compile Include="Helper\FileDialogProvider.cs" />
     <Compile Include="ViewModel\Interface\ILoadSaveDialogProvider.cs" />
     <Compile Include="ViewModel\Interface\IArduinoConfigPortViewModel.cs" />
     <Compile Include="ViewModel\Interface\IDeviceInputViewModel.cs" />
